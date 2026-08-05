@@ -157,20 +157,20 @@ function getPlayNotesLineX(state: State) {
 }
 
 const colorMap = {
-  primary: '121,74,227',
-  hover: '185,154,244',
-  disabled: '100,100,100',
-  black: '0,0,0',
+  primary: '0,243,255',
+  hover: '255,0,187',
+  disabled: '50,50,65',
+  black: '140,150,200',
 }
 
 const coloredNotesMap: { [step: string]: string } = {
-  A: '99,102,241',
+  A: '255,0,187',
   B: '168,85,247',
-  C: '251,113,133',
-  D: '251,146,60',
-  E: '250,204,21',
-  F: '74,222,128',
-  G: '56,189,248',
+  C: '255,50,100',
+  D: '255,150,0',
+  E: '255,230,0',
+  F: '0,255,119',
+  G: '0,243,255',
 }
 
 function getGameColorPrefix(
@@ -262,8 +262,8 @@ function renderSheetNote(state: State, note: SongNote): void {
     ? getGameColorPrefix(state, note, canvasX, state.coloredNotes, key[0])
     : getLearnSongColorPrefix(state, note, canvasX, state.coloredNotes, key[0])
 
-  const trailLength = length - STAFF_SPACE
-  const trailHeight = 10
+  const trailLength = Math.max(0, length - STAFF_SPACE)
+  const trailHeight = 12
   const noteGradient = ctx.createLinearGradient(
     playNotesLineX - STAFF_SPACE * 2,
     0,
@@ -272,9 +272,16 @@ function renderSheetNote(state: State, note: SongNote): void {
   )
   fadeColorToWhite(prefix, noteGradient)
 
+  ctx.shadowColor = `rgba(${prefix}, 0.6)`
+  ctx.shadowBlur = 12
+
   ctx.fillStyle = noteGradient
   ctx.strokeStyle = noteGradient
-  ctx.fillRect(canvasX + STAFF_SPACE / 2, canvasY - trailHeight / 2, trailLength, trailHeight)
+  
+  ctx.beginPath()
+  ctx.roundRect(canvasX + STAFF_SPACE / 2, canvasY - trailHeight / 2, trailLength, trailHeight, trailHeight / 2)
+  ctx.fill()
+  
   ctx.globalCompositeOperation = 'source-over'
 
   // Return after drawing the tail for the notes that have already crossed.
@@ -366,8 +373,8 @@ function getTransposedMidi(state: State, note: SongNote) {
 
 function fadeColorToWhite(color: string, gradient: any) {
   gradient.addColorStop(0, `rgba(${color},0)`)
-  gradient.addColorStop(0.5, `rgba(${color},0.1)`)
-  gradient.addColorStop(0.8, `rgba(${color},0.3`)
+  gradient.addColorStop(0.5, `rgba(${color},0.2)`)
+  gradient.addColorStop(0.8, `rgba(${color},0.6)`)
   gradient.addColorStop(1, `rgba(${color},1)`)
 }
 

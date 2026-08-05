@@ -5,17 +5,20 @@ import { PropsWithChildren } from 'react'
 import { Button, MenuItem, MenuTrigger, Menu as RacMenu, Separator } from 'react-aria-components'
 import { Link, useLocation, useNavigate } from 'react-router'
 import { Popover } from './Popover'
+import { useTranslation } from 'react-i18next'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
-type NavItem = { route: string; label: string }
+type NavItem = { route: string; labelKey: string }
 const navItems: NavItem[] = [
-  { route: '/songs', label: 'Learn a song' },
-  { route: '/freeplay', label: 'Free play' },
+  { route: '/songs', labelKey: 'home.learn_song' },
+  { route: '/freeplay', labelKey: 'home.free_play' },
   // TODO: launch phrases.
-  // { route: '/training/phrases', label: 'Training' },
-  { route: '/about', label: 'About' },
+  // { route: '/training/phrases', labelKey: 'home.training' },
+  { route: '/about', labelKey: 'home.about' },
 ]
 
 export default function AppBar() {
+  const { t } = useTranslation()
   return (
     <div
       className="relative flex h-[50px] min-h-[50px] flex-col justify-center bg-violet-600 shadow-sm"
@@ -40,13 +43,14 @@ export default function AppBar() {
             return (
               <NavItem
                 to={nav.route}
-                key={nav.label}
-                label={nav.label}
+                key={nav.route}
+                label={t(nav.labelKey)}
                 activeClassName="bg-violet-700/90 text-white"
               />
             )
           })}
           <div className="ml-auto flex items-center gap-3 pr-8 lg:pr-0">
+            <LanguageSwitcher />
             <NavIconButton
               to={'https://www.youtube.com/channel/UCGf2AlCRD3ZCc8ahkqBMtqA'}
               label="YouTube"

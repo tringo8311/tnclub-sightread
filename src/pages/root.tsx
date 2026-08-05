@@ -1,6 +1,7 @@
 import { GA_TRACKING_ID } from '@/features/analytics'
 import styles from '@/styles/global.css?inline'
 import { Outlet, Scripts, ScrollRestoration } from 'react-router'
+import '@/i18n/config'
 import { Providers } from './providers'
 
 export function Layout({ children }: { children: React.ReactNode }) {

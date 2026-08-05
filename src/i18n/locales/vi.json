@@ -1,0 +1,74 @@
+{
+  "translation": {
+    "home": {
+      "learn_song": "Học bài hát",
+      "free_play": "Chơi tự do",
+      "about": "Giới thiệu",
+      "hero": {
+        "title": "Hành Trình Âm Nhạc Bắt Đầu Từ Đây",
+        "subtitle": "Cắm phím đàn vào và học ngay trên trình duyệt của bạn"
+      },
+      "why": {
+        "title": "Vì sao chọn Sightread?",
+        "subtitle": "Một vài lý do để bạn trải nghiệm.",
+        "feature1_title": "Nhạc Của Riêng Bạn",
+        "feature1_desc": "Hỗ trợ mọi file MIDI. Hệ thống sẽ tự động nhận diện bản nhạc dành cho từng tay.",
+        "feature2_title": "Học Theo Nhịp Độ Của Bạn",
+        "feature2_desc": "Kiểm soát nhịp độ và Chế Độ Chờ giúp bạn chơi chậm lại và tập trung vào độ chính xác.",
+        "feature3_title": "Nhiều Chế Độ Hiển Thị",
+        "feature3_desc": "Nốt Nhạc Rơi hoặc Chế Độ Sheet Hero. Dễ dàng chuyển đổi góc nhìn cho phù hợp với cách bạn học."
+      }
+    },
+    "settings": {
+      "title": "Cài đặt",
+      "playback": "Phát lại",
+      "display": "Hiển thị",
+      "tracks": "Bản nhạc",
+      "reset": "Khôi phục mặc định",
+      "speed": "Tốc độ",
+      "loop_section": "Lặp lại đoạn",
+      "repeat_selected_bars": "Lặp lại nhịp đã chọn",
+      "wait_mode": "Chế độ chờ",
+      "pause_until_correct": "Tạm dừng cho đến khi đánh đúng",
+      "metronome": "Máy đếm nhịp",
+      "keep_time": "Giữ nhịp khi chơi",
+      "hands": "Tay đàn",
+      "select_active_hands": "Chọn tay cần chơi",
+      "countdown": "Đếm ngược",
+      "begin_with_countdown": "Bắt đầu với đếm ngược",
+      "transpose": "Dịch tông",
+      "shift_semitones": "Dịch cung",
+      "visualizer": "Trình hiển thị",
+      "colored_notes": "Tô màu nốt nhạc",
+      "identify_easier": "Nhận diện nốt dễ hơn",
+      "key_signature": "Khóa nhạc",
+      "affects_sharps": "Ảnh hưởng hiển thị thăng/giáng",
+      "note_labels": "Ký hiệu nốt"
+    },
+    "songs": {
+      "page_title": "Chọn bài hát",
+      "subtitle": "Chọn một bài hát, tùy chỉnh thiết lập, và bắt đầu luyện tập",
+      "search_placeholder": "Tìm kiếm tên bài",
+      "folders": "Thư mục"
+    },
+    "freeplay": {
+      "stop_recording": "Dừng thu âm",
+      "start_recording": "Bắt đầu thu âm thanh",
+      "back": "Quay lại",
+      "choose_midi": "Chọn thiết bị MIDI",
+      "error_loading_instruments": "Lỗi khi tải nhạc cụ",
+      "record": "Thu âm"
+    },
+    "about": {
+      "title": "Giới thiệu",
+      "what": "Tổng quan",
+      "getting_started": "Bắt đầu",
+      "music_selection": "Chọn nhạc",
+      "browser_compatibility": "Tương thích trình duyệt",
+      "roadmap": "Lộ trình",
+      "feedback": "Phản hồi",
+      "product_recommendations": "Gợi ý sản phẩm",
+      "attributions": "Ghi nhận"
+    }
+  }
+}

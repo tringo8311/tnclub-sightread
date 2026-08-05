@@ -33,6 +33,7 @@ import {
 import { PropsWithChildren, useMemo, useState } from 'react'
 import { Switch as AriaSwitch, TooltipTrigger } from 'react-aria-components'
 import { getSpeedPresetOptions, SPEED_PRESETS } from './speedPresets'
+import { useTranslation } from 'react-i18next'
 
 type SidebarProps = {
   onChange: (settings: SongConfig) => void
@@ -52,6 +53,7 @@ const TRANSPOSE_OPTIONS = Array.from({ length: 25 }, (_, index) => index - 12).m
 const miniPlayer = new Player(getDefaultStore())
 
 export default function SettingsPanel(props: SidebarProps) {
+  const { t } = useTranslation()
   const { left, right, visualization, waiting, noteLabels, coloredNotes, keySignature, transpose } =
     props.config
   const { onClose, onLoopToggled, isLooping } = props
@@ -243,7 +245,7 @@ export default function SettingsPanel(props: SidebarProps) {
   return (
     <div className="flex h-full w-full flex-col text-white">
       <div className="flex items-center justify-between border-b border-[#2b2a33] px-4 py-3">
-        <h2 className="text-base font-semibold tracking-tight">Settings</h2>
+        <h2 className="text-base font-semibold tracking-tight">{t('settings.title')}</h2>
         <button
           type="button"
           className="flex size-8 items-center justify-center rounded-full text-gray-400 transition hover:bg-white/10 hover:text-white"
@@ -253,10 +255,10 @@ export default function SettingsPanel(props: SidebarProps) {
         </button>
       </div>
       <div className="flex-1 overflow-y-auto pt-0">
-        <Section title="Playback" icon={<AudioWaveform className="h-4 w-4 text-violet-300" />}>
+        <Section title={t('settings.playback')} icon={<AudioWaveform className="h-4 w-4 text-violet-300" />}>
           <SettingRow
             icon={<Gauge className="h-4 w-4" />}
-            title="Speed"
+            title={t('settings.speed')}
             subtitle={`BPM ${Math.round(bpm)}`}
           >
             <div className="flex items-center gap-2">
@@ -277,16 +279,16 @@ export default function SettingsPanel(props: SidebarProps) {
 
           <SettingRow
             icon={<Repeat className="h-4 w-4" />}
-            title="Loop Section"
-            subtitle="Repeat selected bars"
+            title={t('settings.loop_section')}
+            subtitle={t('settings.repeat_selected_bars')}
           >
             <SidebarSwitch isSelected={isLooping} onChange={onLoopToggled} />
           </SettingRow>
 
           <SettingRow
             icon={<Hourglass className="h-4 w-4" />}
-            title="Wait Mode"
-            subtitle="Pause until correct note"
+            title={t('settings.wait_mode')}
+            subtitle={t('settings.pause_until_correct')}
           >
             <SidebarSwitch isSelected={waiting} onChange={handleWaiting} />
           </SettingRow>
@@ -294,8 +296,8 @@ export default function SettingsPanel(props: SidebarProps) {
           <div className="space-y-4">
             <SettingRow
               icon={<MetronomeIcon className="h-4 w-4" />}
-              title="Metronome"
-              subtitle="Keep time while playing"
+              title={t('settings.metronome')}
+              subtitle={t('settings.keep_time')}
             >
               <SidebarSwitch isSelected={metronomeEnabled} onChange={toggleMetronome} />
             </SettingRow>
@@ -365,8 +367,8 @@ export default function SettingsPanel(props: SidebarProps) {
 
           <SettingRow
             icon={<Hand className="h-4 w-4" />}
-            title="Hands"
-            subtitle="Select active hands"
+            title={t('settings.hands')}
+            subtitle={t('settings.select_active_hands')}
           >
             <SegmentedToggle
               className="w-[160px]"
@@ -382,8 +384,8 @@ export default function SettingsPanel(props: SidebarProps) {
 
           <SettingRow
             icon={<Timer className="h-4 w-4" />}
-            title="Countdown"
-            subtitle="Begin with a countdown"
+            title={t('settings.countdown')}
+            subtitle={t('settings.begin_with_countdown')}
           >
             <SidebarSwitch
               isSelected={countdownEnabled}
@@ -398,8 +400,8 @@ export default function SettingsPanel(props: SidebarProps) {
 
           <SettingRow
             icon={<Key className="h-4 w-4" />}
-            title="Transpose"
-            subtitle="Shift semitones"
+            title={t('settings.transpose')}
+            subtitle={t('settings.shift_semitones')}
           >
             <Select
               aria-label="Transpose"
@@ -416,8 +418,8 @@ export default function SettingsPanel(props: SidebarProps) {
           </SettingRow>
         </Section>
 
-        <Section title="Display" icon={<SlidersHorizontal className="h-4 w-4 text-violet-300" />}>
-          <SettingRow icon={<Monitor className="h-4 w-4" />} title="Visualizer">
+        <Section title={t('settings.display')} icon={<SlidersHorizontal className="h-4 w-4 text-violet-300" />}>
+          <SettingRow icon={<Monitor className="h-4 w-4" />} title={t('settings.visualizer')}>
             <Select
               aria-label="Visualizer"
               className="w-32"
@@ -434,10 +436,10 @@ export default function SettingsPanel(props: SidebarProps) {
           </SettingRow>
           {visualization === 'sheet' && (
             <div className="ml-2 flex flex-col gap-3 border-l border-[#2b2a33] pl-9">
-              <SettingRow title="Colored notes" subtitle="Identify notes easier">
+              <SettingRow title={t('settings.colored_notes')} subtitle={t('settings.identify_easier')}>
                 <SidebarSwitch isSelected={coloredNotes} onChange={handleColoredNotes} />
               </SettingRow>
-              <SettingRow title="Key signature" subtitle="Affects sharps/flats display">
+              <SettingRow title={t('settings.key_signature')} subtitle={t('settings.affects_sharps')}>
                 <Select
                   aria-label="Key signature"
                   className="w-16"
@@ -454,7 +456,7 @@ export default function SettingsPanel(props: SidebarProps) {
               </SettingRow>
             </div>
           )}
-          <SettingRow icon={<Type className="h-4 w-4" />} title="Note labels">
+          <SettingRow icon={<Type className="h-4 w-4" />} title={t('settings.note_labels')}>
             <Select
               aria-label="Note labels"
               className="w-32"
@@ -473,7 +475,7 @@ export default function SettingsPanel(props: SidebarProps) {
         </Section>
 
         <Section
-          title="Tracks"
+          title={t('settings.tracks')}
           icon={<ListMusic className="h-4 w-4 text-violet-300" />}
           badge={
             <span className="rounded-full border border-[#322e3b] bg-[#262030] px-2 py-0.5 text-[10px] text-gray-500">
@@ -581,7 +583,7 @@ export default function SettingsPanel(props: SidebarProps) {
           className="flex w-full items-center justify-center gap-2 rounded-md bg-[#2d2638] px-3 py-2 text-xs font-semibold text-gray-200 transition hover:bg-[#3a3347]"
           onClick={resetToDefaults}
         >
-          Reset to Defaults
+          {t('settings.reset')}
         </button>
       </div>
     </div>

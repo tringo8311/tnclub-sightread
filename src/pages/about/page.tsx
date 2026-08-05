@@ -5,6 +5,7 @@ import manifest from './../../manifest.json'
 import type { SongMetadata } from './../../types'
 import { Article, CaptionedImage } from './components'
 import { slugify } from './utils'
+import { useTranslation } from 'react-i18next'
 
 function SidebarLink({ children }: PropsWithChildren<{ children: string }>) {
   return (
@@ -15,40 +16,41 @@ function SidebarLink({ children }: PropsWithChildren<{ children: string }>) {
 }
 
 export default function AboutPage() {
+  const { t } = useTranslation()
   return (
     <div className="relative">
-      <title>About</title>
+      <title>{t('about.title')}</title>
       <AppBar />
       <div className="md:bg-purple-lightest">
         <div className="mx-auto flex max-w-(--breakpoint-lg)">
           <div className="sticky top-0 hidden max-h-screen p-8 md:block">
             <section className="mx-auto flex flex-col">
-              <h2 className="text-3xl">About</h2>
+              <h2 className="text-3xl">{t('about.title')}</h2>
               <Sizer height={32} />
               <ul className="flex flex-col gap-5 text-xl whitespace-nowrap">
                 <li>
-                  <SidebarLink>What</SidebarLink>
+                  <SidebarLink>{t('about.what')}</SidebarLink>
                 </li>
                 <li>
-                  <SidebarLink>Getting started</SidebarLink>
+                  <SidebarLink>{t('about.getting_started')}</SidebarLink>
                 </li>
                 <li>
-                  <SidebarLink>Music selection</SidebarLink>
+                  <SidebarLink>{t('about.music_selection')}</SidebarLink>
                 </li>
                 <li>
-                  <SidebarLink>Browser compatibility</SidebarLink>
+                  <SidebarLink>{t('about.browser_compatibility')}</SidebarLink>
                 </li>
                 <li>
-                  <SidebarLink>Roadmap</SidebarLink>
+                  <SidebarLink>{t('about.roadmap')}</SidebarLink>
                 </li>
                 <li>
-                  <SidebarLink>Feedback</SidebarLink>
+                  <SidebarLink>{t('about.feedback')}</SidebarLink>
                 </li>
                 <li>
-                  <SidebarLink>Product recommendations</SidebarLink>
+                  <SidebarLink>{t('about.product_recommendations')}</SidebarLink>
                 </li>
                 <li>
-                  <SidebarLink>Attributions</SidebarLink>
+                  <SidebarLink>{t('about.attributions')}</SidebarLink>
                 </li>
               </ul>
             </section>
@@ -73,9 +75,10 @@ export default function AboutPage() {
 }
 
 function WhatSection() {
+  const { t } = useTranslation()
   return (
     <Article
-      header="What"
+      header={t('about.what')}
       first="Sightread is a free and open-source webapp for learning to play Piano."
     >
       <p>
@@ -113,8 +116,9 @@ function WhatSection() {
 }
 
 function GettingStarted() {
+  const { t } = useTranslation()
   return (
-    <Article header="Getting started" first="Plug in a keyboard. Start slow. Gradually speed up.">
+    <Article header={t('about.getting_started')} first="Plug in a keyboard. Start slow. Gradually speed up.">
       <p>
         When initially learning a song, we recommend learning left and right hands separately. You
         should also take advantage of the BPM modifier to slow down a song by at least 50%. It is
@@ -137,9 +141,10 @@ function GettingStarted() {
 }
 
 function MusicSelectionSection() {
+  const { t } = useTranslation()
   return (
     <Article
-      header="Music selection"
+      header={t('about.music_selection')}
       first="The Sightread catalog has two components: builtin and local file uploads."
     >
       <p>Sightread includes music from the public domain.</p>
@@ -149,9 +154,10 @@ function MusicSelectionSection() {
 }
 
 function BrowserCompatibilitySection() {
+  const { t } = useTranslation()
   return (
     <Article
-      header="Browser compatibility"
+      header={t('about.browser_compatibility')}
       first="Sightread is fully compatible with the latest versions of Chrome and Firefox."
     >
       <p>
@@ -165,8 +171,9 @@ function BrowserCompatibilitySection() {
 }
 
 function RoadmapSection() {
+  const { t } = useTranslation()
   return (
-    <Article header="Roadmap">
+    <Article header={t('about.roadmap')}>
       <p>
         We have so many exciting ideas. Things we plan to implement in future releases:
       </p>
@@ -183,8 +190,9 @@ function RoadmapSection() {
 }
 
 function FeedbackSection() {
+  const { t } = useTranslation()
   return (
-    <Article header="Feedback">
+    <Article header={t('about.feedback')}>
       <p>
         Found a bug or have a feature request? Please file an issue on{' '}
         <AboutLink to="https://github.com/sightread/sightread/issues">GitHub</AboutLink> or send an{' '}
@@ -195,9 +203,10 @@ function FeedbackSection() {
 }
 
 function ProductRecommendations() {
+  const { t } = useTranslation()
   return (
     <Article
-      header="Product recommendations"
+      header={t('about.product_recommendations')}
       first="Looking for a Sightread-compatible keyboard? We've got you covered."
     >
       <p>
@@ -232,6 +241,7 @@ function ProductRecommendations() {
 }
 
 function AttributionsSection() {
+  const { t } = useTranslation()
   const sortedSongs = (manifest as SongMetadata[])
     .slice()
     .sort((a, b) => a.title.localeCompare(b.title))
@@ -250,7 +260,7 @@ function AttributionsSection() {
   }
 
   return (
-    <Article header="Attributions">
+    <Article header={t('about.attributions')}>
       <p>
         Some of the sheet music and arrangements featured on this site are based on scores shared
         through <AboutLink to="https://musescore.com">MuseScore</AboutLink> under Creative Commons

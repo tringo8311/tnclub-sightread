@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import React, { MouseEvent } from 'react'
 import { TooltipTrigger } from 'react-aria-components'
 import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
 
 type TopBarProps = {
   isError: boolean
@@ -27,12 +28,13 @@ export default function TopBar({
   onClickMidi,
   onClickRecord,
 }: TopBarProps) {
-  const recordTooltip = isRecordingAudio ? 'Stop recording' : 'Start recording audio'
+  const { t } = useTranslation()
+  const recordTooltip = isRecordingAudio ? t('freeplay.stop_recording') : t('freeplay.start_recording')
 
   return (
     <div className="relative z-10 h-14 w-screen border-b border-[#20222a] bg-[#15161b] px-4">
       <div className="flex h-full items-center gap-4 text-white">
-        <ButtonWithTooltip tooltip="Back">
+        <ButtonWithTooltip tooltip={t('freeplay.back')}>
           <Link to="/">
             <ArrowLeft size={24} />
           </Link>
@@ -44,7 +46,7 @@ export default function TopBar({
           onClick={onClickRecord}
         />
         <PillActionButton
-          tooltip="Choose a MIDI device"
+          tooltip={t('freeplay.choose_midi')}
           onClick={onClickMidi}
           icon={<KeyboardMusic />}
         >
@@ -53,7 +55,7 @@ export default function TopBar({
         <PickInstrument
           className="w-auto min-w-[160px]"
           isLoading={isLoading}
-          errorMessage={isError ? 'Error loading instruments' : undefined}
+          errorMessage={isError ? t('freeplay.error_loading_instruments') : undefined}
           value={value}
           onChange={onChange}
         />
@@ -70,6 +72,7 @@ type RecordPillButtonProps = {
 }
 
 function RecordPillButton({ isRecording, tooltip, onClick, className }: RecordPillButtonProps) {
+  const { t } = useTranslation()
   return (
     <TooltipTrigger>
       <button
@@ -89,7 +92,7 @@ function RecordPillButton({ isRecording, tooltip, onClick, className }: RecordPi
         ) : (
           <StartRecord size={14} className="text-red-500" />
         )}
-        <span>Record</span>
+        <span>{t('freeplay.record')}</span>
       </button>
       <Tooltip>{tooltip}</Tooltip>
     </TooltipTrigger>

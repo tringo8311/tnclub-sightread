@@ -13,9 +13,11 @@ import { Table } from './components'
 import ManageFoldersForm from './components/AddFolderForm'
 import { SearchBox } from './components/Table/SearchBox'
 import { TableSkeleton } from './components/Table/Table'
+import { useTranslation } from 'react-i18next'
 
 // TODO: after an upload, scroll to the newly uploaded song / make it focused.
 export default function SelectSongPage() {
+  const { t } = useTranslation()
   let songs: SongMetadata[] = useSongManifest()
   const isInitialized = useAtomValue(isInitializedAtom)
   const [isUploadFormOpen, setUploadForm] = useState<boolean>(false)
@@ -40,7 +42,7 @@ export default function SelectSongPage() {
 
   return (
     <>
-      <title>Select a song</title>
+      <title>{t('songs.page_title')}</title>
       <SongPreviewModal
         show={!!selectedSongId}
         songMeta={selectedSongMeta}
@@ -56,15 +58,15 @@ export default function SelectSongPage() {
           <AppBar />
         </div>
         <div className="mx-auto flex min-h-0 w-full max-w-(--breakpoint-lg) flex-1 flex-col p-6">
-          <h2 className="text-2xl font-semibold text-gray-900">Learn a song</h2>
+          <h2 className="text-2xl font-semibold text-gray-900">{t('home.learn_song')}</h2>
           <Sizer height={4} />
           <h3 className="text-sm text-gray-600">
-            Select a song, choose your settings, and begin learning
+            {t('songs.subtitle')}
           </h3>
           <Sizer height={16} />
           <div className="flex items-center gap-4">
             <div className="flex-1">
-              <SearchBox placeholder={'Search Titles'} onSearch={setSearch} autoFocus={true} />
+              <SearchBox placeholder={t('songs.search_placeholder')} onSearch={setSearch} autoFocus={true} />
             </div>
             <button
               className={clsx(
@@ -75,7 +77,7 @@ export default function SelectSongPage() {
               onClick={handleAddNew}
             >
               <FolderOpen width={16} height={16} />
-              Folders
+              {t('songs.folders')}
               <ChevronDown width={16} height={16} />
             </button>
           </div>

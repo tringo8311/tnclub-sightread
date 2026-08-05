@@ -1,0 +1,74 @@
+{
+  "translation": {
+    "home": {
+      "learn_song": "Learn a song",
+      "free_play": "Free play",
+      "about": "About",
+      "hero": {
+        "title": "Your Piano Journey Begins Here",
+        "subtitle": "Plug in your keyboard and learn, right in your browser"
+      },
+      "why": {
+        "title": "Why Sightread",
+        "subtitle": "A few reasons to give it a try.",
+        "feature1_title": "Your Own Music",
+        "feature1_desc": "Works with any MIDI file. We'll automatically detect which track is for which hand.",
+        "feature2_title": "Learn at Your Own Pace",
+        "feature2_desc": "Tempo controls and Wait Mode let you slow down and focus on accuracy.",
+        "feature3_title": "Multiple Modes",
+        "feature3_desc": "Falling Notes or Sheet Hero. Switch views to match how you learn."
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "playback": "Playback",
+      "display": "Display",
+      "tracks": "Tracks",
+      "reset": "Reset to Defaults",
+      "speed": "Speed",
+      "loop_section": "Loop Section",
+      "repeat_selected_bars": "Repeat selected bars",
+      "wait_mode": "Wait Mode",
+      "pause_until_correct": "Pause until correct note",
+      "metronome": "Metronome",
+      "keep_time": "Keep time while playing",
+      "hands": "Hands",
+      "select_active_hands": "Select active hands",
+      "countdown": "Countdown",
+      "begin_with_countdown": "Begin with a countdown",
+      "transpose": "Transpose",
+      "shift_semitones": "Shift semitones",
+      "visualizer": "Visualizer",
+      "colored_notes": "Colored notes",
+      "identify_easier": "Identify notes easier",
+      "key_signature": "Key signature",
+      "affects_sharps": "Affects sharps/flats display",
+      "note_labels": "Note labels"
+    },
+    "songs": {
+      "page_title": "Select a song",
+      "subtitle": "Select a song, choose your settings, and begin learning",
+      "search_placeholder": "Search Titles",
+      "folders": "Folders"
+    },
+    "freeplay": {
+      "stop_recording": "Stop recording",
+      "start_recording": "Start recording audio",
+      "back": "Back",
+      "choose_midi": "Choose a MIDI device",
+      "error_loading_instruments": "Error loading instruments",
+      "record": "Record"
+    },
+    "about": {
+      "title": "About",
+      "what": "What",
+      "getting_started": "Getting started",
+      "music_selection": "Music selection",
+      "browser_compatibility": "Browser compatibility",
+      "roadmap": "Roadmap",
+      "feedback": "Feedback",
+      "product_recommendations": "Product recommendations",
+      "attributions": "Attributions"
+    }
+  }
+}

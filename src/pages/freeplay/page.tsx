@@ -9,8 +9,10 @@ import { useCallback, useEffect, useState } from 'react'
 import RecordingModal from './components/RecordingModal'
 import TopBar from './components/TopBar'
 import FreePlayer from './utils/free-player'
+import { useTranslation } from 'react-i18next'
 
 export default function FreePlay() {
+  const { t } = useTranslation()
   const [instrumentName, setInstrumentName] = useState<InstrumentName>('acoustic_grand_piano')
   const synthState = useSynth(instrumentName)
   const freePlayer = useLazyStableRef(() => new FreePlayer())
@@ -50,7 +52,7 @@ export default function FreePlay() {
 
   return (
     <>
-      <title>Free Play</title>
+      <title>{t('home.free_play')}</title>
       <div
         className="flex h-screen w-screen flex-col outline-none"
         {...midiState.getListenerProps()}
