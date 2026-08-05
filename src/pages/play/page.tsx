@@ -2,7 +2,11 @@ import Toast from '@/components/Toast'
 import { useSong } from '@/features/data'
 import { useSongMetadata } from '@/features/data/library'
 import midiState from '@/features/midi'
-import { requiresPermissionAtom, scanFolders } from '@/features/persist/persistence'
+import {
+  activeProfileIdAtom,
+  requiresPermissionAtom,
+  scanFolders,
+} from '@/features/persist/persistence'
 import { usePlayer } from '@/features/player'
 import {
   getDefaultSongSettings,
@@ -23,7 +27,8 @@ import { MidiStateEvent, SongSource } from '@/types'
 import { round } from '@/utils'
 import * as RadixToast from '@radix-ui/react-toast'
 import clsx from 'clsx'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
 import { AlertCircle, ArrowLeft, RefreshCw } from 'lucide-react'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
@@ -103,9 +108,12 @@ function SongNotFound({ songTitle, onGoBack }: { songTitle?: string; onGoBack: (
   )
 }
 
+const isSettingsOpenAtom = atomWithStorage('sightread_is_settings_open', false)
+
 export default function PlaySongPage() {
   const [searchParams, _setSearchParams] = useSearchParams()
   const navigate = useNavigate()
+  const activeProfileId = useAtomValue(activeProfileIdAtom)
   let { source, id, recording }: { source: SongSource; id: string; recording?: string } =
     Object.fromEntries(searchParams) as any
 
@@ -119,7 +127,7 @@ export default function PlaySongPage() {
   const player = usePlayer()
   const [isMidiModalOpen, setMidiModal] = useState(false)
   const [statsVisible, setStatsVisible] = useState(false)
-  const [isSettingsOpen, setSettingsOpen] = useState(false)
+  const [isSettingsOpen, setSettingsOpen] = useAtom(isSettingsOpenAtom)
   const playerState = usePlayerState()
   const countdownTotal = useAtomValue(player.countdownTotal)
   const countdownRemaining = useAtomValue(player.countdownRemaining)
@@ -211,7 +219,7 @@ export default function PlaySongPage() {
     const config = getSongSettings(id, song)
     setSongConfig(config)
     player.setSong(song, config)
-  }, [song, setSongConfig, id, player])
+  }, [song, setSongConfig, id, player, activeProfileId])
 
   function showToast(msg: string) {
     const newKey = Date.now().toString()

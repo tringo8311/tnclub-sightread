@@ -1,4 +1,5 @@
 import type { Song, SongConfig, SongMetadata } from '@/types'
+import { atomWithStorage } from 'jotai/utils'
 import * as idb from 'idb-keyval'
 import * as jotai from 'jotai'
 import { parseMidi } from '../parsers'
@@ -24,6 +25,20 @@ export const localDirsAtom = jotai.atom<LocalDir[]>([])
 export const requiresPermissionAtom = jotai.atom<boolean>(false)
 export const localSongsAtom = jotai.atom<Map<string, SongMetadata[]>>(new Map())
 export const isInitializedAtom = jotai.atom<boolean>(false)
+
+export type Profile = { id: string; name: string }
+export const profilesAtom = atomWithStorage<Profile[]>('sightread_profiles', [{ id: 'default', name: 'Default Profile' }])
+export const activeProfileIdAtom = atomWithStorage<string>('sightread_active_profile', 'default')
+
+export function getActiveProfileId(): string {
+  if (typeof window === 'undefined') return 'default'
+  try {
+    const val = localStorage.getItem('sightread_active_profile')
+    return val ? JSON.parse(val) : 'default'
+  } catch {
+    return 'default'
+  }
+}
 
 const store = jotai.getDefaultStore()
 
@@ -209,9 +224,25 @@ export function hasUploadedSong(id: string): Song | null {
 }
 
 export function getPersistedSongSettings(file: string) {
-  return Storage.get<SongConfig>(`${file}/settings`)
+  const profileId = getActiveProfileId()
+  const profileSpecificConfig = Storage.get<SongConfig>(`${profileId}/${file}/settings`)
+  if (profileSpecificConfig) {
+    return profileSpecificConfig
+  }
+  
+  // Fallback migration for legacy settings
+  if (profileId === 'default') {
+    const legacyConfig = Storage.get<SongConfig>(`${file}/settings`)
+    if (legacyConfig) {
+      // Save it to the new location to migrate
+      Storage.set(`${profileId}/${file}/settings`, legacyConfig)
+      return legacyConfig
+    }
+  }
+  return null
 }
 
 export function setPersistedSongSettings(file: string, config: SongConfig) {
-  return Storage.set(`${file}/settings`, config)
+  const profileId = getActiveProfileId()
+  return Storage.set(`${profileId}/${file}/settings`, config)
 }

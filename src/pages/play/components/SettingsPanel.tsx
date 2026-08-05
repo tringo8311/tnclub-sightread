@@ -29,9 +29,13 @@ import {
   Volume2,
   VolumeX,
   X,
+  User,
 } from 'lucide-react'
 import { PropsWithChildren, useMemo, useState } from 'react'
 import { Switch as AriaSwitch, TooltipTrigger } from 'react-aria-components'
+import { useAtom } from 'jotai'
+import { usePersistedState } from '@/features/persist'
+import { profilesAtom, activeProfileIdAtom } from '@/features/persist/persistence'
 import { getSpeedPresetOptions, SPEED_PRESETS } from './speedPresets'
 import { useTranslation } from 'react-i18next'
 
@@ -54,6 +58,8 @@ const miniPlayer = new Player(getDefaultStore())
 
 export default function SettingsPanel(props: SidebarProps) {
   const { t } = useTranslation()
+  const [profiles, setProfiles] = useAtom(profilesAtom)
+  const [activeProfileId, setActiveProfileId] = useAtom(activeProfileIdAtom)
   const { left, right, visualization, waiting, noteLabels, coloredNotes, keySignature, transpose } =
     props.config
   const { onClose, onLoopToggled, isLooping } = props
@@ -255,7 +261,33 @@ export default function SettingsPanel(props: SidebarProps) {
         </button>
       </div>
       <div className="flex-1 overflow-y-auto pt-0">
-        <Section title={t('settings.playback')} icon={<AudioWaveform className="h-4 w-4 text-violet-300" />}>
+        <Section id="profiles" title={t('settings.profiles')} icon={<User className="h-4 w-4 text-violet-300" />}>
+          <div className="px-4 py-2">
+            <Select
+              aria-label="Profile"
+              className="w-full"
+              size="md"
+              selectedKey={activeProfileId}
+              onSelectionChange={(key) => {
+                if (key === 'new_profile') {
+                  const name = prompt(t('settings.profile_name_prompt'))
+                  if (name) {
+                    const id = crypto.randomUUID()
+                    setProfiles([...profiles, { id, name }])
+                    setActiveProfileId(id)
+                  }
+                } else {
+                  setActiveProfileId(key as string)
+                }
+              }}
+              items={[...profiles, { id: 'new_profile', name: t('settings.add_new_profile') }]}
+            >
+              {(item) => <SelectItem>{item.name}</SelectItem>}
+            </Select>
+          </div>
+        </Section>
+
+        <Section id="playback" title={t('settings.playback')} icon={<AudioWaveform className="h-4 w-4 text-violet-300" />}>
           <SettingRow
             icon={<Gauge className="h-4 w-4" />}
             title={t('settings.speed')}
@@ -418,7 +450,7 @@ export default function SettingsPanel(props: SidebarProps) {
           </SettingRow>
         </Section>
 
-        <Section title={t('settings.display')} icon={<SlidersHorizontal className="h-4 w-4 text-violet-300" />}>
+        <Section id="display" title={t('settings.display')} icon={<Monitor className="h-4 w-4 text-violet-300" />}>
           <SettingRow icon={<Monitor className="h-4 w-4" />} title={t('settings.visualizer')}>
             <Select
               aria-label="Visualizer"
@@ -475,6 +507,7 @@ export default function SettingsPanel(props: SidebarProps) {
         </Section>
 
         <Section
+          id="tracks"
           title={t('settings.tracks')}
           icon={<ListMusic className="h-4 w-4 text-violet-300" />}
           badge={
@@ -591,17 +624,21 @@ export default function SettingsPanel(props: SidebarProps) {
 }
 
 type SectionProps = PropsWithChildren<{
+  id: string
   title: string
   icon: React.ReactNode
   defaultOpen?: boolean
   badge?: React.ReactNode
 }>
 
-function Section({ children, title, icon, defaultOpen = false, badge }: SectionProps) {
+function Section({ children, id, title, icon, defaultOpen = false, badge }: SectionProps) {
+  const [isOpen, setIsOpen] = usePersistedState<boolean>(`sightread_section_${id}_open`, defaultOpen)
+
   return (
     <details
       className="group overflow-hidden border-t border-[#2b2a33] first:border-t-0"
-      open={defaultOpen}
+      open={isOpen}
+      onToggle={(e) => setIsOpen(e.currentTarget.open)}
     >
       <summary className="flex cursor-pointer items-center justify-between px-5 py-3 transition hover:bg-white/5">
         <div className="flex items-center gap-3">

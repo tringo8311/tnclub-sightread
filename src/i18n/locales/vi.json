@@ -43,7 +43,10 @@
       "identify_easier": "Nhận diện nốt dễ hơn",
       "key_signature": "Khóa nhạc",
       "affects_sharps": "Ảnh hưởng hiển thị thăng/giáng",
-      "note_labels": "Ký hiệu nốt"
+      "note_labels": "Ký hiệu nốt",
+      "profiles": "Hồ sơ cá nhân",
+      "add_new_profile": "Tạo hồ sơ mới...",
+      "profile_name_prompt": "Nhập tên hồ sơ mới:"
     },
     "songs": {
       "page_title": "Chọn bài hát",

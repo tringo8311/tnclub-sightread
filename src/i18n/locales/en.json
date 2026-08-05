@@ -43,7 +43,10 @@
       "identify_easier": "Identify notes easier",
       "key_signature": "Key signature",
       "affects_sharps": "Affects sharps/flats display",
-      "note_labels": "Note labels"
+      "note_labels": "Note labels",
+      "profiles": "Profiles",
+      "add_new_profile": "Add new profile...",
+      "profile_name_prompt": "Enter new profile name:"
     },
     "songs": {
       "page_title": "Select a song",
