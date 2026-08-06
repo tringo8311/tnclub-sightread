@@ -263,8 +263,7 @@ export function renderFallingNote(note: SongNote, state: State): void {
   roundRect(ctx, posX, posY, width, length)
 
   if (noteLabels !== 'none') {
-    ctx.fillStyle = 'white'
-    ctx.strokeStyle = 'black'
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'
     ctx.textBaseline = 'bottom'
     const key = getKey(transposed, state.keySignature)
     const noteText = noteLabels === 'alphabetical' ? key : getFixedDoNoteFromKey(key)

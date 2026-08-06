@@ -18,6 +18,7 @@ function SongPreview({ songId, source }: SongPreviewProps) {
     const defaults = getDefaultSongSettings(song)
     return {
       ...defaults,
+      noteLabels: defaults.noteLabels === 'none' ? 'alphabetical' : defaults.noteLabels,
       countdownEnabled: false,
       metronome: { ...defaults.metronome, enabled: false, volume: 0 },
     }

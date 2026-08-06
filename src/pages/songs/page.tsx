@@ -14,7 +14,7 @@ import ManageFoldersForm from './components/AddFolderForm'
 import { SearchBox } from './components/Table/SearchBox'
 import { TableSkeleton } from './components/Table/Table'
 import { useTranslation } from 'react-i18next'
-import { List, LayoutGrid } from 'lucide-react'
+import { List, LayoutGrid, Star } from 'lucide-react'
 import CardView from './components/CardView'
 
 // TODO: after an upload, scroll to the newly uploaded song / make it focused.
@@ -27,6 +27,7 @@ export default function SelectSongPage() {
   const selectedSongMeta = songs.find((s) => s.id === selectedSongId)
   const [search, setSearch] = useState('')
   const [levelFilter, setLevelFilter] = useState('All')
+  const [favoritesOnly, setFavoritesOnly] = useState(false)
   const [layout, setLayout] = useState<'table' | 'card'>('table')
 
   useEventListener<KeyboardEvent>('keydown', (event) => {
@@ -99,6 +100,15 @@ export default function SelectSongPage() {
             
             <div className="hidden sm:flex bg-white border border-gray-200 rounded-md p-1 shadow-sm gap-1 ml-2">
               <button 
+                onClick={() => setFavoritesOnly(!favoritesOnly)} 
+                className={clsx("p-1.5 rounded flex items-center gap-1.5 transition-colors", favoritesOnly ? "bg-amber-50 text-amber-600" : "text-gray-400 hover:text-gray-600 hover:bg-gray-50")}
+                title="Toggle Favorites"
+              >
+                <Star size={16} className={favoritesOnly ? "fill-amber-500 text-amber-500" : ""} />
+                <span className="text-sm font-medium pr-1 hidden lg:inline">Favorites</span>
+              </button>
+              <div className="w-px bg-gray-200 mx-1"></div>
+              <button 
                 onClick={() => setLayout('table')} 
                 className={clsx("p-1.5 rounded", layout === 'table' ? "bg-gray-100 text-gray-900" : "text-gray-400 hover:text-gray-600 hover:bg-gray-50")}
                 title="Table View"
@@ -117,9 +127,9 @@ export default function SelectSongPage() {
           <Sizer height={20} />
           {isInitialized ? (
             layout === 'table' ? (
-              <Table rows={songs} search={search} levelFilter={levelFilter} onSelectRow={setSelectedSongId} />
+              <Table rows={songs} search={search} levelFilter={levelFilter} favoritesOnly={favoritesOnly} onSelectRow={setSelectedSongId} />
             ) : (
-              <CardView rows={songs} search={search} levelFilter={levelFilter} onSelectRow={setSelectedSongId} />
+              <CardView rows={songs} search={search} levelFilter={levelFilter} favoritesOnly={favoritesOnly} onSelectRow={setSelectedSongId} />
             )
           ) : (
             <TableSkeleton />

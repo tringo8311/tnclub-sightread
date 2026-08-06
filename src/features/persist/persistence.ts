@@ -30,6 +30,7 @@ export type Profile = { id: string; name: string }
 export const profilesAtom = atomWithStorage<Profile[]>('sightread_profiles', [{ id: 'default', name: 'Default Profile' }], undefined, { getOnInit: true })
 export const activeProfileIdAtom = atomWithStorage<string>('sightread_active_profile', 'default', undefined, { getOnInit: true })
 export const songProgressAtom = atomWithStorage<Record<string, number>>('sightread_song_progress', {}, undefined, { getOnInit: true })
+export const favoritesAtom = atomWithStorage<Record<string, boolean>>('sightread_favorites', {}, undefined, { getOnInit: true })
 
 export function getActiveProfileId(): string {
   if (typeof window === 'undefined') return 'default'

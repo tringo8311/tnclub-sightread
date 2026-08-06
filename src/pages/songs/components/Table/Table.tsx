@@ -4,15 +4,17 @@ import { formatTime } from '@/utils'
 import clsx from 'clsx'
 import * as React from 'react'
 import { useMemo, useState } from 'react'
-import { useAtomValue } from 'jotai'
-import { activeProfileIdAtom, songProgressAtom } from '@/features/persist/persistence'
+import { useAtom, useAtomValue } from 'jotai'
+import { activeProfileIdAtom, songProgressAtom, favoritesAtom } from '@/features/persist/persistence'
 import { useCollator, useFilter } from 'react-aria'
 import { Cell, Column, Table as RacTable, Row, TableBody, TableHeader } from 'react-aria-components'
+import { Star } from 'lucide-react'
 
 type SongsTableProps = {
   rows: SongMetadata[]
   search: string
   levelFilter: string
+  favoritesOnly: boolean
   onSelectRow: (id: string) => void
 }
 
@@ -21,7 +23,7 @@ type SortState = {
   direction: 'ascending' | 'descending'
 }
 
-export default function Table({ rows, search, levelFilter, onSelectRow }: SongsTableProps) {
+export default function Table({ rows, search, levelFilter, favoritesOnly, onSelectRow }: SongsTableProps) {
   const { contains } = useFilter({ sensitivity: 'base' })
   const collator = useCollator({ numeric: true, sensitivity: 'base' })
   const activeProfileId = useAtomValue(activeProfileIdAtom)
@@ -31,14 +33,23 @@ export default function Table({ rows, search, levelFilter, onSelectRow }: SongsT
     column: 'duration',
     direction: 'ascending',
   })
+  const [favorites, setFavorites] = useAtom(favoritesAtom)
+
+  const toggleFavorite = (e: React.MouseEvent, songId: string) => {
+    e.stopPropagation()
+    const key = `${activeProfileId}_${songId}`
+    setFavorites(prev => ({ ...prev, [key]: !prev[key] }))
+  }
 
   const filtered = useMemo(() => {
     return rows.filter((row) => {
       const matchSearch = !search || contains(row.title, search)
       const matchLevel = levelFilter === 'All' || row.level === levelFilter
-      return matchSearch && matchLevel
+      const isFavorite = favorites[`${activeProfileId}_${row.id}`]
+      const matchFavorites = !favoritesOnly || isFavorite
+      return matchSearch && matchLevel && matchFavorites
     })
-  }, [contains, rows, search, levelFilter])
+  }, [contains, rows, search, levelFilter, favoritesOnly, favorites, activeProfileId])
 
   const sorted = useMemo(() => {
     const next = [...filtered]
@@ -55,6 +66,8 @@ export default function Table({ rows, search, levelFilter, onSelectRow }: SongsT
         const progA = songProgress[`${activeProfileId}_${a.id}`] || 0
         const progB = songProgress[`${activeProfileId}_${b.id}`] || 0
         cmp = progA - progB
+      } else if (column === 'category') {
+        cmp = collator.compare(a.category || '', b.category || '')
       } else {
         cmp = collator.compare(a.title, b.title)
       }
@@ -96,10 +109,16 @@ export default function Table({ rows, search, levelFilter, onSelectRow }: SongsT
               STT
             </Column>
             <Column
+              id="favorite"
+              className="w-12 border-b border-gray-200 px-4 py-2 text-center text-sm font-semibold tracking-wider text-gray-500 uppercase"
+            >
+              <Star size={14} className="mx-auto text-gray-400" />
+            </Column>
+            <Column
               id="title"
               isRowHeader
               allowsSorting
-              className="border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
+              className="border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase w-1/3"
             >
               {({ sortDirection }) => (
                 <div className="relative flex items-center">
@@ -110,6 +129,20 @@ export default function Table({ rows, search, levelFilter, onSelectRow }: SongsT
                         className={clsx('h-4 w-4', sortDirection === 'descending' && 'rotate-180')}
                       />
                     )}
+                  </span>
+                </div>
+              )}
+            </Column>
+            <Column
+              id="author"
+              allowsSorting
+              className="w-48 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
+            >
+              {({ sortDirection }) => (
+                <div className="relative flex items-center">
+                  <span className="truncate pr-[var(--sort-icon-gap)]">Author</span>
+                  <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
+                    {sortDirection && <ChevronDown className={clsx('h-4 w-4', sortDirection === 'descending' && 'rotate-180')} />}
                   </span>
                 </div>
               )}
@@ -192,8 +225,19 @@ export default function Table({ rows, search, levelFilter, onSelectRow }: SongsT
                 <Cell className="border-b border-gray-200 px-4 py-2 text-gray-400 w-16">
                   {idx}
                 </Cell>
-                <Cell className="border-b border-gray-200 px-4 py-2">
+                <Cell className="border-b border-gray-200 px-2 py-2 text-center w-12" style={{ paddingLeft: '0.75rem', paddingRight: '0.75rem' }}>
+                  <button 
+                    onClick={(e) => toggleFavorite(e, item.id)}
+                    className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <Star size={16} className={clsx(favorites[`${activeProfileId}_${item.id}`] ? "fill-amber-400 text-amber-400" : "text-gray-300")} />
+                  </button>
+                </Cell>
+                <Cell className="border-b border-gray-200 px-4 py-2 w-1/3">
                   <span className="block truncate whitespace-nowrap">{item.title}</span>
+                </Cell>
+                <Cell className="border-b border-gray-200 px-4 py-2 w-48">
+                  <span className="block truncate whitespace-nowrap text-gray-500">{item.author || '-'}</span>
                 </Cell>
                 <Cell className="border-b border-gray-200 px-4 py-2 w-32">
                   <span className="block truncate whitespace-nowrap text-gray-500">{item.category || '-'}</span>
@@ -237,8 +281,14 @@ export function TableSkeleton() {
             <div className="table-cell w-16 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
               STT
             </div>
-            <div className="table-cell border-b border-gray-200 px-4 py-2 text-sm font-semibold tracking-wider text-gray-500 uppercase">
+            <div className="table-cell w-12 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
+              
+            </div>
+            <div className="table-cell border-b border-gray-200 px-4 py-2 text-sm font-semibold tracking-wider text-gray-500 uppercase w-1/3">
               Title
+            </div>
+            <div className="table-cell w-48 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
+              Author
             </div>
             <div className="table-cell w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
               Category
@@ -261,7 +311,13 @@ export function TableSkeleton() {
                 <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-16">
                   <div className="shimmer h-4 w-4 rounded bg-gray-200" />
                 </div>
-                <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle">
+                <div className="table-cell border-b border-gray-200 px-2 py-2 align-middle w-12">
+                  <div className="shimmer h-4 w-4 rounded bg-gray-200 mx-auto" />
+                </div>
+                <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-1/3">
+                  <div className="shimmer h-4 w-[65%] rounded bg-gray-200" />
+                </div>
+                <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-48">
                   <div className="shimmer h-4 w-[65%] rounded bg-gray-200" />
                 </div>
                 <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-32">

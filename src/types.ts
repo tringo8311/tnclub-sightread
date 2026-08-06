@@ -26,6 +26,7 @@ export type SongMetadata = {
   fileSize?: number
   level?: string
   category?: string
+  author?: string
 }
 
 export interface Size {
