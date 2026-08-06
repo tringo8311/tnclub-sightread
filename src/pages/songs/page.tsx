@@ -14,6 +14,8 @@ import ManageFoldersForm from './components/AddFolderForm'
 import { SearchBox } from './components/Table/SearchBox'
 import { TableSkeleton } from './components/Table/Table'
 import { useTranslation } from 'react-i18next'
+import { List, LayoutGrid } from 'lucide-react'
+import CardView from './components/CardView'
 
 // TODO: after an upload, scroll to the newly uploaded song / make it focused.
 export default function SelectSongPage() {
@@ -25,6 +27,7 @@ export default function SelectSongPage() {
   const selectedSongMeta = songs.find((s) => s.id === selectedSongId)
   const [search, setSearch] = useState('')
   const [levelFilter, setLevelFilter] = useState('All')
+  const [layout, setLayout] = useState<'table' | 'card'>('table')
 
   useEventListener<KeyboardEvent>('keydown', (event) => {
     if (event.key === 'Escape') {
@@ -93,10 +96,31 @@ export default function SelectSongPage() {
               {t('songs.folders')}
               <ChevronDown width={16} height={16} />
             </button>
+            
+            <div className="hidden sm:flex bg-white border border-gray-200 rounded-md p-1 shadow-sm gap-1 ml-2">
+              <button 
+                onClick={() => setLayout('table')} 
+                className={clsx("p-1.5 rounded", layout === 'table' ? "bg-gray-100 text-gray-900" : "text-gray-400 hover:text-gray-600 hover:bg-gray-50")}
+                title="Table View"
+              >
+                <List size={16} />
+              </button>
+              <button 
+                onClick={() => setLayout('card')} 
+                className={clsx("p-1.5 rounded", layout === 'card' ? "bg-gray-100 text-gray-900" : "text-gray-400 hover:text-gray-600 hover:bg-gray-50")}
+                title="Card View"
+              >
+                <LayoutGrid size={16} />
+              </button>
+            </div>
           </div>
           <Sizer height={20} />
           {isInitialized ? (
-            <Table rows={songs} search={search} levelFilter={levelFilter} onSelectRow={setSelectedSongId} />
+            layout === 'table' ? (
+              <Table rows={songs} search={search} levelFilter={levelFilter} onSelectRow={setSelectedSongId} />
+            ) : (
+              <CardView rows={songs} search={search} levelFilter={levelFilter} onSelectRow={setSelectedSongId} />
+            )
           ) : (
             <TableSkeleton />
           )}

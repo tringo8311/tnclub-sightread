@@ -91,9 +91,41 @@ function CanvasRenderer({
     <div
       className="absolute h-full w-full touch-none"
       ref={measureRef}
-      onPointerMove={(e) => enableTouchscroll && touchscroll.handleMove(player, e.nativeEvent)}
-      onPointerDown={(e) => enableTouchscroll && touchscroll.handleDown(player, e.nativeEvent)}
-      onPointerUp={(e) => enableTouchscroll && touchscroll.handleUp(player, e.nativeEvent)}
+      onPointerMove={(e) => {
+        if (config.visualization === 'sheet-a4') {
+          // Manual drag for A4 paper
+          if (e.buttons > 0) {
+            import('./sheet-a4').then(m => m.handleManualScroll(-e.movementY))
+          }
+        } else if (enableTouchscroll) {
+          touchscroll.handleMove(player, e.nativeEvent)
+        }
+      }}
+      onPointerDown={(e) => {
+        if (config.visualization === 'sheet-a4') {
+          const target = e.target as HTMLDivElement
+          target.setPointerCapture(e.pointerId)
+        } else if (enableTouchscroll) {
+          touchscroll.handleDown(player, e.nativeEvent)
+        }
+      }}
+      onPointerUp={(e) => {
+        if (config.visualization === 'sheet-a4') {
+          const target = e.target as HTMLDivElement
+          target.releasePointerCapture(e.pointerId)
+        } else if (enableTouchscroll) {
+          touchscroll.handleUp(player, e.nativeEvent)
+        }
+      }}
+      onWheel={(e) => {
+        if (config.visualization === 'sheet-a4') {
+          import('./sheet-a4').then(m => m.handleManualScroll(e.deltaY))
+        } else if (enableTouchscroll) {
+          const seekAmount = (e.deltaY / 100)
+          const newTime = Math.max(0, Math.min(player.getDuration(), player.getTime() + seekAmount))
+          player.seek(newTime)
+        }
+      }}
     >
       <Canvas ref={canvasRef as LegacyRef<HTMLCanvasElement>} render={renderCanvas} />
     </div>

@@ -461,12 +461,13 @@ export default function SettingsPanel(props: SidebarProps) {
               items={[
                 { id: 'falling-notes', name: 'Falling notes' },
                 { id: 'sheet', name: 'Sheet hero (beta)' },
+                { id: 'sheet-a4', name: 'Sheet A4 (Paper)' },
               ]}
             >
               {(item) => <SelectItem>{item.name}</SelectItem>}
             </Select>
           </SettingRow>
-          {visualization === 'sheet' && (
+          {(visualization === 'sheet' || visualization === 'sheet-a4') && (
             <div className="ml-2 flex flex-col gap-3 border-l border-[#2b2a33] pl-9">
               <SettingRow title={t('settings.colored_notes')} subtitle={t('settings.identify_easier')}>
                 <SidebarSwitch isSelected={coloredNotes} onChange={handleColoredNotes} />

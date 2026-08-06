@@ -464,19 +464,34 @@ export default function PlaySongPage() {
         )}
         <div
           className={clsx(
-            'relative h-full min-h-0 min-w-0',
-            songConfig.visualization === 'sheet' ? 'bg-white' : 'bg-[#0f1014]',
+            'relative h-full min-h-0 min-w-0 flex justify-center items-center',
+            songConfig.visualization === 'sheet' ? 'bg-white' : 
+            songConfig.visualization === 'sheet-a4' ? 'bg-[#0f1014] overflow-hidden' : 'bg-[#0f1014]',
           )}
         >
-          <SongVisualizer
-            song={song}
-            config={songConfig}
-            hand={hand}
-            handSettings={getHandSettings(songConfig)}
-            selectedRange={selectedRange}
-            getTime={() => player.getTime()}
-            enableTouchscroll={songConfig.visualization === 'falling-notes'}
-          />
+          {songConfig.visualization === 'sheet-a4' ? (
+            <div className="relative h-[95%] w-full max-w-[900px] overflow-hidden rounded-md bg-[#FAF9F6] shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+              <SongVisualizer
+                song={song}
+                config={songConfig}
+                hand={hand}
+                handSettings={getHandSettings(songConfig)}
+                selectedRange={selectedRange}
+                getTime={() => player.getTime()}
+                enableTouchscroll={true}
+              />
+            </div>
+          ) : (
+            <SongVisualizer
+              song={song}
+              config={songConfig}
+              hand={hand}
+              handSettings={getHandSettings(songConfig)}
+              selectedRange={selectedRange}
+              getTime={() => player.getTime()}
+              enableTouchscroll={songConfig.visualization === 'falling-notes'}
+            />
+          )}
           {playerState.countingDown && countdownTotal > 0 && (
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <CountdownOverlay total={countdownTotal} remaining={countdownRemaining} />

@@ -9,7 +9,7 @@ export type GivenState = {
   time: number
   noteLabels: NOTE_LABELS
   coloredNotes: boolean
-  visualization: 'falling-notes' | 'sheet'
+  visualization: 'falling-notes' | 'sheet' | 'sheet-a4'
   transpose: number
   windowWidth: number
   height: number
@@ -29,9 +29,13 @@ export type GivenState = {
   player: Player
 }
 
+import { renderSheetA4Vis } from './sheet-a4'
+
 export function render(state: Readonly<GivenState>) {
   if (state.visualization === 'falling-notes') {
     renderFallingVis(state)
+  } else if (state.visualization === 'sheet-a4') {
+    renderSheetA4Vis(state)
   } else {
     renderSheetVis(state)
   }
