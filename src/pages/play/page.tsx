@@ -1,5 +1,6 @@
 import Toast from '@/components/Toast'
 import { useSong } from '@/features/data'
+import { useMicrophonePitch } from '@/features/audio/useMicrophonePitch'
 import { useSongMetadata } from '@/features/data/library'
 import midiState from '@/features/midi'
 import {
@@ -34,7 +35,7 @@ import { atomWithStorage } from 'jotai/utils'
 import { AlertCircle, ArrowLeft, RefreshCw } from 'lucide-react'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
-import { SettingsPanel, TopBar } from './components'
+import { SettingsPanel, TopBar, MicTestModal } from './components'
 import CountdownOverlay from './components/CountdownOverlay'
 import { MidiModal } from './components/MidiModal'
 import { StatsPopup } from './components/StatsPopup'
@@ -126,8 +127,12 @@ export default function PlaySongPage() {
 
   const player = usePlayer()
   const [isMidiModalOpen, setMidiModal] = useState(false)
+  const [isMicActive, setIsMicActive] = useState(false)
+  const [isMicTestModalOpen, setMicTestModalOpen] = useState(false)
   const [statsVisible, setStatsVisible] = useState(false)
   const [isSettingsOpen, setSettingsOpen] = usePersistedState<boolean>(`sightread_${activeProfileId}_is_settings_open`, false)
+  
+  useMicrophonePitch(isMicActive)
   const playerState = usePlayerState()
   const countdownTotal = useAtomValue(player.countdownTotal)
   const countdownRemaining = useAtomValue(player.countdownRemaining)
@@ -456,6 +461,11 @@ export default function PlaySongPage() {
               e.stopPropagation()
               setMidiModal(!isMidiModalOpen)
             }}
+            isMicActive={isMicActive}
+            onClickMic={(e) => {
+              e.stopPropagation()
+              setIsMicActive(!isMicActive)
+            }}
             isSettingsOpen={isSettingsOpen}
             onToggleSettings={() => setSettingsOpen((prev) => !prev)}
             onClickStats={() => setStatsVisible(!statsVisible)}
@@ -506,6 +516,7 @@ export default function PlaySongPage() {
                 onLoopToggled={handleLoopingToggle}
                 isLooping={isLooping}
                 onClose={() => setSettingsOpen(false)}
+                onOpenMicTest={() => setMicTestModalOpen(true)}
               />
             </div>
           ) : null}
@@ -545,6 +556,12 @@ export default function PlaySongPage() {
       {!isRecording && (
         <>
           <MidiModal isOpen={isMidiModalOpen} onClose={() => setMidiModal(false)} />
+          <MicTestModal 
+            isOpen={isMicTestModalOpen} 
+            onClose={() => setMicTestModalOpen(false)} 
+            isMicActive={isMicActive}
+            onToggleMic={() => setIsMicActive(!isMicActive)}
+          />
           {statsVisible && <StatsPopup />}
           <Toast
             open={!!toastMsg}

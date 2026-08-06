@@ -46,6 +46,7 @@
     "isbot": "5",
     "jotai": "2.16.1",
     "lucide-react": "0.562.0",
+    "pitchfinder": "^2.3.4",
     "react": "19.2.3",
     "react-aria-components": "1.12.1",
     "react-dom": "19.2.3",

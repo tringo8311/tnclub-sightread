@@ -1,6 +1,10 @@
 import { Tooltip } from '@/components'
 import { ArrowLeft, BarChart2, KeyboardMusic, Settings } from '@/icons'
+import { Mic } from 'lucide-react'
 import clsx from 'clsx'
+import { useAtomValue } from 'jotai'
+import { detectedMicNoteAtom } from '@/features/audio/useMicrophonePitch'
+import { getNoteName } from '@/features/theory'
 import React, { MouseEvent, PropsWithChildren } from 'react'
 import { Button, TooltipTrigger } from 'react-aria-components'
 
@@ -11,6 +15,8 @@ type TopBarProps = {
   onClickMidi: (e: MouseEvent<any>) => void
   onClickStats: (e: MouseEvent<any>) => void
   statsVisible: boolean
+  isMicActive: boolean
+  onClickMic: (e: MouseEvent<any>) => void
   isSettingsOpen: boolean
   onToggleSettings: () => void
 }
@@ -22,9 +28,13 @@ export default function TopBar({
   onClickMidi,
   statsVisible,
   onClickStats,
+  isMicActive,
+  onClickMic,
   isSettingsOpen,
   onToggleSettings,
 }: TopBarProps) {
+  const detectedMidi = useAtomValue(detectedMicNoteAtom)
+
   return (
     <div className="relative z-10 h-14 w-screen border-b border-[#20222a] bg-[#15161b] px-4">
       <div className="flex h-full items-center justify-between">
@@ -59,6 +69,20 @@ export default function TopBar({
           <ButtonWithTooltip tooltip="Choose a MIDI device" onClick={onClickMidi}>
             <KeyboardMusic size={24} />
           </ButtonWithTooltip>
+          <div className="flex items-center gap-2 rounded-md bg-[#252836] p-1 pr-2">
+            <ButtonWithTooltip 
+              tooltip={isMicActive ? 'Turn off Microphone' : 'Use Microphone'} 
+              isActive={isMicActive}
+              onClick={onClickMic}
+            >
+              <Mic size={24} />
+            </ButtonWithTooltip>
+            {isMicActive && (
+              <div className="flex min-w-[32px] items-center justify-center text-sm font-bold text-white">
+                {detectedMidi !== null ? getNoteName(detectedMidi) : '--'}
+              </div>
+            )}
+          </div>
           <ButtonWithTooltip
             tooltip="Settings"
             isActive={isSettingsOpen}

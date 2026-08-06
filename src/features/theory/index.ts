@@ -9,3 +9,10 @@ export function isBlack(note: number) {
 export function isWhite(note: number) {
   return !isBlack(note)
 }
+
+const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+export function getNoteName(midi: number) {
+  const octave = Math.floor(midi / 12) - 1
+  const name = NOTE_NAMES[midi % 12]
+  return `${name}${octave}`
+}
