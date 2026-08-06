@@ -24,6 +24,8 @@ export type SongMetadata = {
   handle?: FileSystemFileHandle
   lastModified?: number
   fileSize?: number
+  level?: string
+  category?: string
 }
 
 export interface Size {

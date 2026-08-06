@@ -7,14 +7,16 @@ import { Link, useLocation, useNavigate } from 'react-router'
 import { Popover } from './Popover'
 import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import { ProfileSwitcher } from './ProfileSwitcher'
 
 type NavItem = { route: string; labelKey: string }
 const navItems: NavItem[] = [
+  { route: '/about', labelKey: 'home.about' },
+  { route: '/theory', labelKey: 'home.theory' },
   { route: '/songs', labelKey: 'home.learn_song' },
   { route: '/freeplay', labelKey: 'home.free_play' },
   // TODO: launch phrases.
   // { route: '/training/phrases', labelKey: 'home.training' },
-  { route: '/about', labelKey: 'home.about' },
 ]
 
 export default function AppBar() {
@@ -36,9 +38,9 @@ export default function AppBar() {
         <Link to={'/'} className="hover:text-purple-hover flex items-baseline text-white">
           <Logo height={24} width={24} className="relative top-[3px]" />
           <Sizer width={8} />
-          <span className="text-2xl font-extralight"> SIGHTREAD</span>
+          <span className="text-2xl font-extralight"> TNCLUB SIGHTREAD</span>
         </Link>
-        <div className="hidden grow justify-evenly gap-6 pl-16 align-baseline whitespace-nowrap md:flex">
+        <div className="hidden grow justify-evenly gap-6 pl-6 align-baseline whitespace-nowrap md:flex">
           {navItems.map((nav) => {
             return (
               <NavItem
@@ -49,22 +51,8 @@ export default function AppBar() {
               />
             )
           })}
-          <div className="ml-auto flex items-center gap-3 pr-8 lg:pr-0">
-            <LanguageSwitcher />
-            <NavIconButton
-              to={'https://www.youtube.com/channel/UCGf2AlCRD3ZCc8ahkqBMtqA'}
-              label="YouTube"
-              title="YouTube"
-            >
-              <Youtube size={20} />
-            </NavIconButton>
-            <NavIconButton
-              to={'https://github.com/sightread/sightread'}
-              label="GitHub"
-              title="GitHub"
-            >
-              <GitHub size={20} />
-            </NavIconButton>
+          <div className="flex items-center gap-3 pr-8 lg:pr-0">
+            <ProfileSwitcher />
           </div>
         </div>
       </div>

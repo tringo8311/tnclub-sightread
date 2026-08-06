@@ -24,6 +24,7 @@ export default function SelectSongPage() {
   const [selectedSongId, setSelectedSongId] = useState<any>('')
   const selectedSongMeta = songs.find((s) => s.id === selectedSongId)
   const [search, setSearch] = useState('')
+  const [levelFilter, setLevelFilter] = useState('All')
 
   useEventListener<KeyboardEvent>('keydown', (event) => {
     if (event.key === 'Escape') {
@@ -68,6 +69,18 @@ export default function SelectSongPage() {
             <div className="flex-1">
               <SearchBox placeholder={t('songs.search_placeholder')} onSearch={setSearch} autoFocus={true} />
             </div>
+            
+            <select
+              className="cursor-pointer rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 outline-hidden"
+              value={levelFilter}
+              onChange={(e) => setLevelFilter(e.target.value)}
+            >
+              <option value="All">All Levels</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+
             <button
               className={clsx(
                 'cursor-pointer flex-nowrap whitespace-nowrap',
@@ -83,7 +96,7 @@ export default function SelectSongPage() {
           </div>
           <Sizer height={20} />
           {isInitialized ? (
-            <Table rows={songs} search={search} onSelectRow={setSelectedSongId} />
+            <Table rows={songs} search={search} levelFilter={levelFilter} onSelectRow={setSelectedSongId} />
           ) : (
             <TableSkeleton />
           )}

@@ -632,7 +632,8 @@ type SectionProps = PropsWithChildren<{
 }>
 
 function Section({ children, id, title, icon, defaultOpen = false, badge }: SectionProps) {
-  const [isOpen, setIsOpen] = usePersistedState<boolean>(`sightread_section_${id}_open`, defaultOpen)
+  const activeProfileId = useAtomValue(activeProfileIdAtom)
+  const [isOpen, setIsOpen] = usePersistedState<boolean>(`sightread_${activeProfileId}_section_${id}_open`, defaultOpen)
 
   return (
     <details

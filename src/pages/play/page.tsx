@@ -6,7 +6,9 @@ import {
   activeProfileIdAtom,
   requiresPermissionAtom,
   scanFolders,
+  songProgressAtom,
 } from '@/features/persist/persistence'
+import { usePersistedState } from '@/features/persist'
 import { usePlayer } from '@/features/player'
 import {
   getDefaultSongSettings,
@@ -30,7 +32,7 @@ import clsx from 'clsx'
 import { useAtom, useAtomValue } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { AlertCircle, ArrowLeft, RefreshCw } from 'lucide-react'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
 import { SettingsPanel, TopBar } from './components'
 import CountdownOverlay from './components/CountdownOverlay'
@@ -108,8 +110,6 @@ function SongNotFound({ songTitle, onGoBack }: { songTitle?: string; onGoBack: (
   )
 }
 
-const isSettingsOpenAtom = atomWithStorage('sightread_is_settings_open', false)
-
 export default function PlaySongPage() {
   const [searchParams, _setSearchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -127,13 +127,47 @@ export default function PlaySongPage() {
   const player = usePlayer()
   const [isMidiModalOpen, setMidiModal] = useState(false)
   const [statsVisible, setStatsVisible] = useState(false)
-  const [isSettingsOpen, setSettingsOpen] = useAtom(isSettingsOpenAtom)
+  const [isSettingsOpen, setSettingsOpen] = usePersistedState<boolean>(`sightread_${activeProfileId}_is_settings_open`, false)
   const playerState = usePlayerState()
   const countdownTotal = useAtomValue(player.countdownTotal)
   const countdownRemaining = useAtomValue(player.countdownRemaining)
   const synth = useLazyStableRef(() => getSynthStub('acoustic_grand_piano'))
   let { data: song, error, isLoading, mutate } = useSong(id, source)
   let songMeta = useSongMetadata(id, source)
+  
+  const accuracy = useAtomValue(player.score.accuracy)
+  const [songProgress, setSongProgress] = useAtom(songProgressAtom)
+
+  const saveProgress = useCallback(() => {
+    if (song && songMeta?.id) {
+      setSongProgress((prev) => {
+        const current = prev[`${activeProfileId}_${songMeta.id}`] || 0
+        const currentProgress = Math.min(100, Math.round((player.getTime() / song.duration) * 100))
+        
+        if (currentProgress > current) {
+          const newState = {
+            ...prev,
+            [`${activeProfileId}_${songMeta.id}`]: currentProgress,
+          }
+          // Force localStorage sync to prevent Jotai batching issues during unmounts
+          try {
+            localStorage.setItem('sightread_song_progress', JSON.stringify(newState))
+          } catch (e) {
+            console.error(e)
+          }
+          return newState
+        }
+        return prev
+      })
+    }
+  }, [song, songMeta?.id, activeProfileId, player, setSongProgress])
+
+  useEffect(() => {
+    if (!playerState.playing) {
+      saveProgress()
+    }
+  }, [playerState.playing, saveProgress])
+
   const range = useAtomValue(player.getRange())
   const selectedRange = useMemo(
     () => (range ? { start: range[0], end: range[1] } : undefined),
@@ -211,7 +245,10 @@ export default function PlaySongPage() {
     }
   }, [loopConfig, player])
 
-  useOnUnmount(() => player.stop())
+  useOnUnmount(() => {
+    saveProgress()
+    player.stop()
+  })
 
   useEffect(() => {
     if (!song) return
@@ -411,8 +448,9 @@ export default function PlaySongPage() {
           <TopBar
             title={songMeta?.title}
             onClickBack={() => {
+              saveProgress()
               player.stop()
-              navigate('/')
+              navigate('/songs')
             }}
             onClickMidi={(e) => {
               e.stopPropagation()

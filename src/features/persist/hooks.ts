@@ -9,6 +9,13 @@ export function usePersistedState<T>(key: string, init: T): [T, (state: T) => vo
     }
     return Storage.get<T | null>(key) ?? init
   })
+  
+  useEffect(() => {
+    if (isBrowser()) {
+      setState(Storage.get<T | null>(key) ?? init)
+    }
+  }, [key])
+
   const setPersistedState = useCallback(
     (s: T) => {
       setState(s)

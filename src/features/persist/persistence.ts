@@ -27,8 +27,9 @@ export const localSongsAtom = jotai.atom<Map<string, SongMetadata[]>>(new Map())
 export const isInitializedAtom = jotai.atom<boolean>(false)
 
 export type Profile = { id: string; name: string }
-export const profilesAtom = atomWithStorage<Profile[]>('sightread_profiles', [{ id: 'default', name: 'Default Profile' }])
-export const activeProfileIdAtom = atomWithStorage<string>('sightread_active_profile', 'default')
+export const profilesAtom = atomWithStorage<Profile[]>('sightread_profiles', [{ id: 'default', name: 'Default Profile' }], undefined, { getOnInit: true })
+export const activeProfileIdAtom = atomWithStorage<string>('sightread_active_profile', 'default', undefined, { getOnInit: true })
+export const songProgressAtom = atomWithStorage<Record<string, number>>('sightread_song_progress', {}, undefined, { getOnInit: true })
 
 export function getActiveProfileId(): string {
   if (typeof window === 'undefined') return 'default'
