@@ -90,8 +90,14 @@ export function useMicrophonePitch(isActive: boolean) {
           if (rms > 0.002) {
             const result = detectPitch(dataArray)
             if (result && result.probability > 0.8 && result.freq > 20 && result.freq < 5000) {
-              currentFreq = result.freq
-              currentMidi = Math.round(69 + 12 * Math.log2(result.freq / 440))
+              // Lọc nhiễu ù điện 50Hz/100Hz (Mains Hum) thường bị nhận nhầm thành nốt G2 (98Hz).
+              // Chỉ bỏ qua nếu tần số quanh 100Hz VÀ âm lượng cực kỳ bé (đặc trưng của nhiễu tĩnh).
+              const isMainsHum = result.freq >= 97 && result.freq <= 103 && rms < 0.005
+              
+              if (!isMainsHum) {
+                currentFreq = result.freq
+                currentMidi = Math.round(69 + 12 * Math.log2(result.freq / 440))
+              }
             }
           }
 
