@@ -47,8 +47,8 @@ export function MicTestModal(props: MicTestModalProps) {
     <Modal
       show={isOpen}
       onClose={onClose}
-      className="w-[min(100vw,400px)] rounded-2xl bg-[#231e29] text-white/90 shadow-[0_24px_80px_rgba(0,0,0,0.55)] [&>button]:hidden"
-      modalClassName="bg-transparent border-none shadow-none"
+      className="w-[min(90vw,600px)] rounded-2xl bg-[#231e29] text-white/90 shadow-[0_24px_80px_rgba(0,0,0,0.55)] [&>button]:hidden text-center mx-auto"
+      modalClassName="max-w-none bg-transparent border-none shadow-none flex items-center justify-center"
       overlayClassName="bg-black/45 backdrop-blur-[2px]"
     >
       <div className="relative flex flex-col text-base">
@@ -136,11 +136,16 @@ export function MicTestModal(props: MicTestModalProps) {
             
           </div>
           
-          <div className="flex items-start gap-3 rounded-lg bg-orange-500/10 p-3 text-xs text-orange-200">
-            <AlertCircle className="mt-0.5 size-4 shrink-0 text-orange-400" />
-            <p>
-              Sing or play an instrument clearly. The note should appear above. Use headphones if the backing track is loud to avoid false notes!
-            </p>
+          <div className="flex items-start gap-3 rounded-xl bg-amber-500/10 border border-amber-500/20 p-3.5 text-xs text-amber-200/90 shadow-sm">
+            <AlertCircle className="mt-0.5 size-4 shrink-0 text-amber-400" />
+            <div className="space-y-1">
+              <p className="font-semibold text-amber-300">
+                💡 Khuyên dùng cho Người mới bắt đầu (Beginner)
+              </p>
+              <p className="leading-relaxed">
+                Nhận diện Microphone chỉ là giải pháp tạm thời dành cho Đàn Piano cơ (Acoustic) hoặc khi chưa có dây nối. Để đạt độ chính xác 100% không độ trễ, hãy kết nối đàn qua <strong>USB MIDI</strong> hoặc <strong>Bluetooth MIDI</strong>!
+              </p>
+            </div>
           </div>
         </div>
 

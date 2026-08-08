@@ -461,14 +461,8 @@ export default function PlaySongPage() {
               e.stopPropagation()
               setMidiModal(!isMidiModalOpen)
             }}
-            isMicActive={isMicActive}
-            onClickMic={(e) => {
-              e.stopPropagation()
-              setIsMicActive(!isMicActive)
-            }}
             isSettingsOpen={isSettingsOpen}
             onToggleSettings={() => setSettingsOpen(!isSettingsOpen)}
-            onOpenMicTest={() => setMicTestModalOpen(true)}
             onClickStats={() => setStatsVisible(!statsVisible)}
             statsVisible={statsVisible}
           />
@@ -549,6 +543,9 @@ export default function PlaySongPage() {
               onToggleWaiting={handleWaitingToggle}
               isMetronomeOn={metronome.enabled}
               onToggleMetronome={handleMetronomeToggle}
+              isMicActive={isMicActive}
+              onToggleMic={() => setIsMicActive(!isMicActive)}
+              onOpenMicTest={() => setMicTestModalOpen(true)}
             />
           </div>
         )}

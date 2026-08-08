@@ -2,6 +2,9 @@ import { Popover, Slider, Tooltip } from '@/components'
 import { useSongScrubTimes } from '@/features/controls'
 import { usePlayer } from '@/features/player'
 import { Check, Gauge, Hourglass, Metronome, Pause, Play, Repeat, SkipBack, Volume2 } from '@/icons'
+import { Mic, ChevronUp } from 'lucide-react'
+import { detectedMicNoteAtom } from '@/features/audio/useMicrophonePitch'
+import { getNoteName } from '@/features/theory'
 import { round } from '@/utils'
 import clsx from 'clsx'
 import { useAtomValue } from 'jotai'
@@ -20,6 +23,9 @@ type TransportBarProps = {
   onToggleWaiting: () => void
   isMetronomeOn: boolean
   onToggleMetronome: () => void
+  isMicActive: boolean
+  onToggleMic: () => void
+  onOpenMicTest: () => void
 }
 
 export default function TransportBar({
@@ -33,11 +39,15 @@ export default function TransportBar({
   onToggleWaiting,
   isMetronomeOn,
   onToggleMetronome,
+  isMicActive,
+  onToggleMic,
+  onOpenMicTest,
 }: TransportBarProps) {
   const player = usePlayer()
   const { currentTime, duration } = useSongScrubTimes()
   const bpmModifier = useAtomValue(player.getBpmModifier())
   const volume = useAtomValue(player.volume)
+  const detectedMidi = useAtomValue(detectedMicNoteAtom)
   const measure = player.getMeasureForTime(player.getTime())?.number ?? 1
   const isBpmModified = Math.abs(bpmModifier - 1) > 0.001
 
@@ -165,6 +175,38 @@ export default function TransportBar({
           content="Loop"
           onPress={onToggleLoop}
         />
+        <div className="h-6 w-px bg-[#2a2b32]" />
+        <div className="flex items-center gap-1 rounded bg-[#1e2028] p-0.5 border border-transparent hover:border-[#2a2b32] transition-colors">
+          <TooltipTrigger>
+            <Button
+              className={clsx(
+                'flex items-center gap-1.5 rounded px-2 py-1 text-xs font-medium transition',
+                isMicActive
+                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+              )}
+              onPress={onToggleMic}
+            >
+              <Mic className="h-3.5 w-3.5" />
+              <span>Mic</span>
+            </Button>
+            <Tooltip>{isMicActive ? 'Turn off Microphone' : 'Use Microphone'}</Tooltip>
+          </TooltipTrigger>
+          {isMicActive && (
+            <span className="min-w-6 text-center text-xs font-bold text-amber-300 font-mono px-1">
+              {detectedMidi !== null ? getNoteName(detectedMidi) : '--'}
+            </span>
+          )}
+          <TooltipTrigger>
+            <Button
+              className="flex items-center justify-center rounded p-1 text-gray-400 hover:bg-white/10 hover:text-white"
+              onPress={onOpenMicTest}
+            >
+              <ChevronUp className="h-3.5 w-3.5" />
+            </Button>
+            <Tooltip>Microphone Settings</Tooltip>
+          </TooltipTrigger>
+        </div>
       </div>
     </div>
   )
