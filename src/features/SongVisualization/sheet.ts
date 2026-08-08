@@ -290,7 +290,7 @@ function renderSheetNote(state: State, note: SongNote): void {
     return
   }
 
-  drawMusicNote(ctx, canvasX, canvasY, noteGradient)
+  drawMusicNote(ctx, canvasX, canvasY, noteGradient, note.duration)
   const accidental = key.length == 2 && key[1]
   if (accidental) {
     const symbol = accidental === '#' ? glyphs.accidentalSharp : glyphs.accidentalFlat

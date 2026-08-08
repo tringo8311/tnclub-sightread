@@ -467,7 +467,8 @@ export default function PlaySongPage() {
               setIsMicActive(!isMicActive)
             }}
             isSettingsOpen={isSettingsOpen}
-            onToggleSettings={() => setSettingsOpen((prev) => !prev)}
+            onToggleSettings={() => setSettingsOpen(!isSettingsOpen)}
+            onOpenMicTest={() => setMicTestModalOpen(true)}
             onClickStats={() => setStatsVisible(!statsVisible)}
             statsVisible={statsVisible}
           />
@@ -516,7 +517,6 @@ export default function PlaySongPage() {
                 onLoopToggled={handleLoopingToggle}
                 isLooping={isLooping}
                 onClose={() => setSettingsOpen(false)}
-                onOpenMicTest={() => setMicTestModalOpen(true)}
               />
             </div>
           ) : null}

@@ -81,7 +81,7 @@ function RecordPillButton({ isRecording, tooltip, onClick, className }: RecordPi
           className,
           'flex h-8 items-center gap-2 rounded px-3 text-sm font-medium transition',
           isRecording
-            ? 'border border-violet-500/30 bg-violet-500/10 text-violet-200 hover:bg-violet-500/20'
+            ? 'border border-primary/30 bg-primary/10 text-primary-foreground hover:bg-primary/20'
             : 'border border-transparent bg-[#1e2028] text-gray-300 hover:bg-[#232633]',
         )}
         onClick={onClick}

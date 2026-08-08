@@ -83,7 +83,7 @@ export default function Table({ rows, search, levelFilter, favoritesOnly, onSele
 
   return (
     <div
-      className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+      className="glass-card flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl"
       style={{
         ['--sort-icon-gap' as any]: '1.5rem',
         fontVariantNumeric: 'tabular-nums',
@@ -101,24 +101,24 @@ export default function Table({ rows, search, levelFilter, favoritesOnly, onSele
             })
           }
         >
-          <TableHeader className="table w-full table-fixed bg-gray-50">
+          <TableHeader className="table w-full table-fixed bg-foreground/5 backdrop-blur-md">
             <Column
               id="stt"
-              className="w-16 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
+              className="w-16 border-b border-foreground/10 px-4 py-2 text-left text-sm font-semibold tracking-wider text-foreground/60 uppercase"
             >
               STT
             </Column>
             <Column
               id="favorite"
-              className="w-12 border-b border-gray-200 px-4 py-2 text-center text-sm font-semibold tracking-wider text-gray-500 uppercase"
+              className="w-12 border-b border-foreground/10 px-4 py-2 text-center text-sm font-semibold tracking-wider text-foreground/60 uppercase"
             >
-              <Star size={14} className="mx-auto text-gray-400" />
+              <Star size={14} className="mx-auto text-foreground/40" />
             </Column>
             <Column
               id="title"
               isRowHeader
               allowsSorting
-              className="border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase w-1/3"
+              className="border-b border-foreground/10 px-4 py-2 text-left text-sm font-semibold tracking-wider text-foreground/60 uppercase w-1/3"
             >
               {({ sortDirection }) => (
                 <div className="relative flex items-center">
@@ -136,7 +136,7 @@ export default function Table({ rows, search, levelFilter, favoritesOnly, onSele
             <Column
               id="author"
               allowsSorting
-              className="w-48 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
+              className="border-b border-foreground/10 px-4 py-2 text-left text-sm font-semibold tracking-wider text-foreground/60 uppercase w-48"
             >
               {({ sortDirection }) => (
                 <div className="relative flex items-center">
@@ -219,42 +219,42 @@ export default function Table({ rows, search, levelFilter, favoritesOnly, onSele
               return (
               <Row
                 id={item.id}
-                className="table w-full table-fixed cursor-pointer text-gray-900 hover:bg-violet-50"
+                className="table w-full table-fixed cursor-pointer text-foreground hover:bg-foreground/5 transition-colors"
                 onAction={() => onSelectRow(item.id)}
               >
-                <Cell className="border-b border-gray-200 px-4 py-2 text-gray-400 w-16">
+                <Cell className="border-b border-foreground/10 px-4 py-2 text-foreground/40 w-16">
                   {idx}
                 </Cell>
-                <Cell className="border-b border-gray-200 px-2 py-2 text-center w-12" style={{ paddingLeft: '0.75rem', paddingRight: '0.75rem' }}>
+                <Cell className="border-b border-foreground/10 px-2 py-2 text-center w-12" style={{ paddingLeft: '0.75rem', paddingRight: '0.75rem' }}>
                   <button 
                     onClick={(e) => toggleFavorite(e, item.id)}
-                    className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                    className="p-1 rounded-full hover:bg-foreground/10 transition-colors"
                   >
-                    <Star size={16} className={clsx(favorites[`${activeProfileId}_${item.id}`] ? "fill-amber-400 text-amber-400" : "text-gray-300")} />
+                    <Star size={16} className={clsx(favorites[`${activeProfileId}_${item.id}`] ? "fill-[var(--color-pink-neon)] text-[var(--color-pink-neon)]" : "text-foreground/20")} />
                   </button>
                 </Cell>
-                <Cell className="border-b border-gray-200 px-4 py-2 w-1/3">
+                <Cell className="border-b border-foreground/10 px-4 py-2 w-1/3">
                   <span className="block truncate whitespace-nowrap">{item.title}</span>
                 </Cell>
-                <Cell className="border-b border-gray-200 px-4 py-2 w-48">
-                  <span className="block truncate whitespace-nowrap text-gray-500">{item.author || '-'}</span>
+                <Cell className="border-b border-foreground/10 px-4 py-2 w-48">
+                  <span className="block truncate whitespace-nowrap text-foreground/60">{item.author || '-'}</span>
                 </Cell>
-                <Cell className="border-b border-gray-200 px-4 py-2 w-32">
-                  <span className="block truncate whitespace-nowrap text-gray-500">{item.category || '-'}</span>
+                <Cell className="border-b border-foreground/10 px-4 py-2 w-32">
+                  <span className="block truncate whitespace-nowrap text-foreground/60">{item.category || '-'}</span>
                 </Cell>
-                <Cell className="border-b border-gray-200 px-4 py-2 w-32">
-                  <span className="block truncate whitespace-nowrap text-gray-500">{item.level || '-'}</span>
+                <Cell className="border-b border-foreground/10 px-4 py-2 w-32">
+                  <span className="block truncate whitespace-nowrap text-foreground/60">{item.level || '-'}</span>
                 </Cell>
                 <Cell
-                  className="border-b border-gray-200 px-4 py-2 text-right w-28"
+                  className="border-b border-foreground/10 px-4 py-2 text-right w-28"
                   style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
                 >
-                  <span className={clsx("font-semibold", progress === 100 ? "text-green-600" : progress > 0 ? "text-violet-600" : "text-gray-400")}>
+                  <span className={clsx("font-semibold", progress === 100 ? "text-[var(--color-green-neon)] glow-text-green" : progress > 0 ? "text-[var(--color-cyan-neon)] glow-text-cyan" : "text-foreground/40")}>
                     {progress}%
                   </span>
                 </Cell>
                 <Cell
-                  className="border-b border-gray-200 px-4 py-2 text-right text-gray-500 w-32"
+                  className="border-b border-foreground/10 px-4 py-2 text-right text-foreground/60 w-32"
                   style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
                 >
                   {formatTime(Number(item.duration))}
@@ -264,7 +264,7 @@ export default function Table({ rows, search, levelFilter, favoritesOnly, onSele
           </TableBody>
         </RacTable>
       </div>
-      <div className="flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-2 text-xs text-gray-500">
+      <div className="flex items-center justify-between border-t border-foreground/10 bg-foreground/5 px-4 py-2 text-xs text-foreground/40">
         <span>Showing {sorted.length} songs</span>
       </div>
     </div>
@@ -274,32 +274,32 @@ export default function Table({ rows, search, levelFilter, favoritesOnly, onSele
 export function TableSkeleton() {
   const rows = Array.from({ length: 8 })
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+    <div className="glass-card flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
       <div className="flex min-h-0 flex-1 flex-col">
-        <div className="table w-full table-fixed bg-gray-50">
+        <div className="table w-full table-fixed bg-foreground/5">
           <div className="table-row">
-            <div className="table-cell w-16 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
+            <div className="table-cell w-16 border-b border-foreground/10 px-4 py-2 text-left text-sm font-semibold tracking-wider text-foreground/60 uppercase">
               STT
             </div>
-            <div className="table-cell w-12 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
+            <div className="table-cell w-12 border-b border-foreground/10 px-4 py-2 text-left text-sm font-semibold tracking-wider text-foreground/60 uppercase">
               
             </div>
-            <div className="table-cell border-b border-gray-200 px-4 py-2 text-sm font-semibold tracking-wider text-gray-500 uppercase w-1/3">
+            <div className="table-cell border-b border-foreground/10 px-4 py-2 text-sm font-semibold tracking-wider text-foreground/60 uppercase w-1/3">
               Title
             </div>
-            <div className="table-cell w-48 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
+            <div className="table-cell w-48 border-b border-foreground/10 px-4 py-2 text-left text-sm font-semibold tracking-wider text-foreground/60 uppercase">
               Author
             </div>
-            <div className="table-cell w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
+            <div className="table-cell w-32 border-b border-foreground/10 px-4 py-2 text-left text-sm font-semibold tracking-wider text-foreground/60 uppercase">
               Category
             </div>
-            <div className="table-cell w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase">
+            <div className="table-cell w-32 border-b border-foreground/10 px-4 py-2 text-left text-sm font-semibold tracking-wider text-foreground/60 uppercase">
               Level
             </div>
-            <div className="table-cell w-28 border-b border-gray-200 px-4 py-2 text-right text-sm font-semibold tracking-wider text-gray-500 uppercase">
+            <div className="table-cell w-28 border-b border-foreground/10 px-4 py-2 text-right text-sm font-semibold tracking-wider text-foreground/60 uppercase">
               Progress
             </div>
-            <div className="table-cell w-32 border-b border-gray-200 px-4 py-2 text-right text-sm font-semibold tracking-wider text-gray-500 uppercase">
+            <div className="table-cell w-32 border-b border-foreground/10 px-4 py-2 text-right text-sm font-semibold tracking-wider text-foreground/60 uppercase">
               Length
             </div>
           </div>
@@ -308,37 +308,37 @@ export function TableSkeleton() {
           {rows.map((_, index) => (
             <div key={index} className="table w-full table-fixed">
               <div className="table-row" style={{ height: '36.5px' }}>
-                <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-16">
-                  <div className="shimmer h-4 w-4 rounded bg-gray-200" />
+                <div className="table-cell border-b border-foreground/10 px-4 py-2 align-middle w-16">
+                  <div className="shimmer h-4 w-4 rounded bg-foreground/10" />
                 </div>
-                <div className="table-cell border-b border-gray-200 px-2 py-2 align-middle w-12">
-                  <div className="shimmer h-4 w-4 rounded bg-gray-200 mx-auto" />
+                <div className="table-cell border-b border-foreground/10 px-2 py-2 align-middle w-12">
+                  <div className="shimmer h-4 w-4 rounded bg-foreground/10 mx-auto" />
                 </div>
-                <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-1/3">
-                  <div className="shimmer h-4 w-[65%] rounded bg-gray-200" />
+                <div className="table-cell border-b border-foreground/10 px-4 py-2 align-middle w-1/3">
+                  <div className="shimmer h-4 w-[65%] rounded bg-foreground/10" />
                 </div>
-                <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-48">
-                  <div className="shimmer h-4 w-[65%] rounded bg-gray-200" />
+                <div className="table-cell border-b border-foreground/10 px-4 py-2 align-middle w-48">
+                  <div className="shimmer h-4 w-[65%] rounded bg-foreground/10" />
                 </div>
-                <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-32">
-                  <div className="shimmer h-4 w-[65%] rounded bg-gray-200" />
+                <div className="table-cell border-b border-foreground/10 px-4 py-2 align-middle w-32">
+                  <div className="shimmer h-4 w-[65%] rounded bg-foreground/10" />
                 </div>
-                <div className="table-cell border-b border-gray-200 px-4 py-2 align-middle w-32">
-                  <div className="shimmer h-4 w-[65%] rounded bg-gray-200" />
+                <div className="table-cell border-b border-foreground/10 px-4 py-2 align-middle w-32">
+                  <div className="shimmer h-4 w-[65%] rounded bg-foreground/10" />
                 </div>
-                <div className="table-cell border-b border-gray-200 px-4 py-2 text-right align-middle w-28">
-                  <div className="shimmer ml-auto h-4 w-8 rounded bg-gray-200" />
+                <div className="table-cell border-b border-foreground/10 px-4 py-2 text-right align-middle w-28">
+                  <div className="shimmer ml-auto h-4 w-8 rounded bg-foreground/10" />
                 </div>
-                <div className="table-cell border-b border-gray-200 px-4 py-2 text-right align-middle w-32">
-                  <div className="shimmer ml-auto h-4 w-12 rounded bg-gray-200" />
+                <div className="table-cell border-b border-foreground/10 px-4 py-2 text-right align-middle w-32">
+                  <div className="shimmer ml-auto h-4 w-12 rounded bg-foreground/10" />
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-2 text-xs text-gray-500">
-        <span className="shimmer h-3 w-24 rounded bg-gray-200" />
+      <div className="flex items-center justify-between border-t border-foreground/10 bg-foreground/5 px-4 py-2 text-xs text-foreground/40">
+        <span className="shimmer h-3 w-24 rounded bg-foreground/10" />
       </div>
     </div>
   )

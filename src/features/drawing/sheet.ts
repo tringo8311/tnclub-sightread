@@ -165,10 +165,18 @@ export function drawMusicNote(
   x: number,
   y: number,
   color: string | CanvasGradient,
+  duration: number = 0.5,
 ) {
   ctx.save()
   ctx.font = `${STAFF_FIVE_LINES_HEIGHT}px ${MUSIC_FONT}`
-  drawSymbol(ctx, glyphs.noteheadBlack, x - STAFF_SPACE / 2, y, STAFF_FIVE_LINES_HEIGHT, color)
+  // Select appropriate notehead based on duration (in seconds/beats)
+  let glyph = glyphs.noteheadBlack
+  if (duration >= 3.0) {
+    glyph = glyphs.noteheadWhole
+  } else if (duration >= 1.5) {
+    glyph = glyphs.noteheadHalf
+  }
+  drawSymbol(ctx, glyph, x - STAFF_SPACE / 2, y, STAFF_FIVE_LINES_HEIGHT, color)
   ctx.restore()
 }
 

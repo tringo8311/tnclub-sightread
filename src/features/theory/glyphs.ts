@@ -20,6 +20,8 @@ const glyphs = {
   timeSigCombNumerator: '\uE09E',
   timeSigCombDenominator: '\uE09F',
 
+  noteheadWhole: '\uE0A2',
+  noteheadHalf: '\uE0A3',
   noteheadBlack: '\uE0A4',
   noteEmptyBlack: '\uE1AF',
   noteAFlatBlack: '\uE196',

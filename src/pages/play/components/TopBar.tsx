@@ -1,6 +1,6 @@
 import { Tooltip } from '@/components'
 import { ArrowLeft, BarChart2, KeyboardMusic, Settings } from '@/icons'
-import { Mic } from 'lucide-react'
+import { Mic, ChevronDown } from 'lucide-react'
 import clsx from 'clsx'
 import { useAtomValue } from 'jotai'
 import { detectedMicNoteAtom } from '@/features/audio/useMicrophonePitch'
@@ -19,6 +19,7 @@ type TopBarProps = {
   onClickMic: (e: MouseEvent<any>) => void
   isSettingsOpen: boolean
   onToggleSettings: () => void
+  onOpenMicTest: () => void
 }
 
 export default function TopBar({
@@ -32,6 +33,7 @@ export default function TopBar({
   onClickMic,
   isSettingsOpen,
   onToggleSettings,
+  onOpenMicTest,
 }: TopBarProps) {
   const detectedMidi = useAtomValue(detectedMicNoteAtom)
 
@@ -69,7 +71,7 @@ export default function TopBar({
           <ButtonWithTooltip tooltip="Choose a MIDI device" onClick={onClickMidi}>
             <KeyboardMusic size={24} />
           </ButtonWithTooltip>
-          <div className="flex items-center gap-2 rounded-md bg-[#252836] p-1 pr-2">
+          <div className="flex items-center gap-1 rounded-md bg-[#252836] p-1">
             <ButtonWithTooltip 
               tooltip={isMicActive ? 'Turn off Microphone' : 'Use Microphone'} 
               isActive={isMicActive}
@@ -78,10 +80,20 @@ export default function TopBar({
               <Mic size={24} />
             </ButtonWithTooltip>
             {isMicActive && (
-              <div className="flex min-w-[32px] items-center justify-center text-sm font-bold text-white">
+              <div className="flex min-w-[32px] items-center justify-center px-1 text-sm font-bold text-white">
                 {detectedMidi !== null ? getNoteName(detectedMidi) : '--'}
               </div>
             )}
+            <ButtonWithTooltip
+              tooltip="Microphone Settings"
+              onClick={(e) => {
+                e.stopPropagation()
+                onOpenMicTest()
+              }}
+              className="flex items-center justify-center rounded p-1 hover:bg-white/10"
+            >
+              <ChevronDown size={16} />
+            </ButtonWithTooltip>
           </div>
           <ButtonWithTooltip
             tooltip="Settings"

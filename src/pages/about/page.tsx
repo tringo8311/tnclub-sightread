@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 function SidebarLink({ children }: PropsWithChildren<{ children: string }>) {
   return (
-    <a className="hover:text-purple-hover" href={`#${slugify(children)}`}>
+    <a className="hover:text-primary transition-colors text-foreground/80 hover:text-foreground" href={`#${slugify(children)}`}>
       {children}
     </a>
   )
@@ -21,7 +21,7 @@ export default function AboutPage() {
     <div className="relative">
       <title>{t('about.title')}</title>
       <AppBar />
-      <div className="md:bg-purple-lightest">
+      <div className="w-full">
         <div className="mx-auto flex max-w-(--breakpoint-lg)">
           <div className="sticky top-0 hidden max-h-screen p-8 md:block">
             <section className="mx-auto flex flex-col">
@@ -55,7 +55,7 @@ export default function AboutPage() {
               </ul>
             </section>
           </div>
-          <div className="mx-auto my-8 w-full flex-1 bg-white p-8 text-base">
+          <div className="mx-auto my-8 w-full flex-1 glass-card p-8 text-base">
             <div className="mx-auto flex max-w-prose flex-col gap-12">
               <WhatSection />
               <GettingStarted />
@@ -250,7 +250,7 @@ function AttributionsSection() {
     return (
       <Link
         {...props}
-        className="cursor-pointer text-gray-800 underline-offset-4 hover:text-gray-950 hover:underline"
+        className="cursor-pointer text-foreground/80 underline-offset-4 hover:text-foreground hover:underline transition-colors"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -287,7 +287,7 @@ function AttributionsSection() {
 
 function AboutLink({ children, ...props }: PropsWithChildren<LinkProps>) {
   return (
-    <Link {...props} className="text-purple-primary hover:text-purple-hover">
+    <Link {...props} className="text-primary hover:text-primary/80 transition-colors">
       {children}
     </Link>
   )

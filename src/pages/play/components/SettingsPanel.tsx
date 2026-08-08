@@ -47,7 +47,6 @@ type SidebarProps = {
   onClose?: () => void
   isLooping: boolean
   onLoopToggled: (b: boolean) => void
-  onOpenMicTest: () => void
 }
 
 const METRONOME_PRESETS = [0.25, 0.5, 1, 2, 4]
@@ -63,7 +62,7 @@ export default function SettingsPanel(props: SidebarProps) {
   const [activeProfileId, setActiveProfileId] = useAtom(activeProfileIdAtom)
   const { left, right, visualization, waiting, noteLabels, coloredNotes, keySignature, transpose } =
     props.config
-  const { onClose, onLoopToggled, isLooping, onOpenMicTest } = props
+  const { onClose, onLoopToggled, isLooping } = props
   const player = usePlayer()
   const bpmModifier = useAtomValue(player.getBpmModifier())
   const bpm = useAtomValue(player.getBpm())
@@ -262,21 +261,6 @@ export default function SettingsPanel(props: SidebarProps) {
         </button>
       </div>
       <div className="flex-1 overflow-y-auto pt-0">
-        <Section id="microphone" title="Microphone" icon={<Mic className="h-4 w-4 text-violet-300" />} defaultOpen={true}>
-          <SettingRow
-            icon={<Mic className="h-4 w-4" />}
-            title="Test Microphone"
-            subtitle="Calibrate pitch and volume"
-          >
-            <button
-              onClick={onOpenMicTest}
-              className="rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-violet-500"
-            >
-              Test Mic
-            </button>
-          </SettingRow>
-        </Section>
-
         <Section id="playback" title={t('settings.playback')} icon={<AudioWaveform className="h-4 w-4 text-violet-300" />}>
           <SettingRow
             icon={<Gauge className="h-4 w-4" />}

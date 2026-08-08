@@ -31,6 +31,7 @@ export const profilesAtom = atomWithStorage<Profile[]>('sightread_profiles', [{ 
 export const activeProfileIdAtom = atomWithStorage<string>('sightread_active_profile', 'default', undefined, { getOnInit: true })
 export const songProgressAtom = atomWithStorage<Record<string, number>>('sightread_song_progress', {}, undefined, { getOnInit: true })
 export const favoritesAtom = atomWithStorage<Record<string, boolean>>('sightread_favorites', {}, undefined, { getOnInit: true })
+export const themeAtom = atomWithStorage<string>('sightread_theme', 'dark', undefined, { getOnInit: true })
 
 export function getActiveProfileId(): string {
   if (typeof window === 'undefined') return 'default'

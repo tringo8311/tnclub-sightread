@@ -57,7 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Manually inserted styles */}
         <style dangerouslySetInnerHTML={{ __html: styles }} />
       </head>
-      <body>
+      <body className="bg-background text-foreground selection:bg-primary/30">
         {children}
         <ScrollRestoration />
         <Scripts />
