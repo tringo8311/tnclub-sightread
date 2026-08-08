@@ -12,6 +12,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <title>Sightread</title>
+        <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}favicon.png`} />
         <meta name="author" content="Jake Fried" />
         <meta name="description" content="app for learning piano" />
 

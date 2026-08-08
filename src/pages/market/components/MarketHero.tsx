@@ -69,11 +69,10 @@ export function MarketHero({
           onDragLeave={() => setIsDragOver(false)}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`cursor-pointer group relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 transition-all duration-300 ${
-            isDragOver
+          className={`cursor-pointer group relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 transition-all duration-300 ${isDragOver
               ? 'border-primary bg-primary/10 shadow-lg scale-[1.01]'
               : 'border-primary/30 bg-foreground/5 hover:border-primary hover:bg-primary/5'
-          }`}
+            }`}
         >
           <input
             ref={fileInputRef}
@@ -110,7 +109,6 @@ export function MarketHero({
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
             {[
               { name: 'BitMidi (Kho 110k+ MIDI)', url: 'https://bitmidi.com' },
-              { name: 'FreeMidi.org', url: 'https://freemidi.org' },
               { name: 'Mutopia Classical', url: 'https://www.mutopiaproject.org' },
               { name: 'Ichigos Anime MIDI', url: 'https://ichigos.com' },
             ].map((portal) => (
