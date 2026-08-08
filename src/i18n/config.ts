@@ -2,6 +2,7 @@ import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
 import { homeLocales } from '@/pages/home'
+import { marketLocales } from '@/pages/market'
 import en from './locales/en.json'
 import vi from './locales/vi.json'
 
@@ -15,6 +16,7 @@ i18n
         translation: {
           ...en.translation,
           home: homeLocales.en,
+          market: marketLocales.en,
         },
       },
       vi: {
@@ -22,6 +24,7 @@ i18n
         translation: {
           ...vi.translation,
           home: homeLocales.vi,
+          market: marketLocales.vi,
         },
       },
     },

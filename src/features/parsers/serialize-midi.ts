@@ -67,7 +67,7 @@ export default function serializeMidi(song: Song): Uint8Array {
   const trackIds = Object.keys(song.tracks)
     .map((id) => Number(id))
     .sort((a, b) => a - b)
-  const tracks = new Map<number, ReturnType<Midi['addTrack']>>()
+  const tracks = new Map<number, ReturnType<typeof midi.addTrack>>()
 
   for (const id of trackIds) {
     const track = midi.addTrack()

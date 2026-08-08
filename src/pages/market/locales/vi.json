@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "badge": "MIDI Hub & Nhập nhạc trực tiếp",
+    "title": "Thư Viện Nhạc MIDI Thực Hành Piano",
+    "description": "Khám phá bộ sưu tập bản nhạc MIDI Piano tuyển chọn hoặc dán trực tiếp đường dẫn file .mid công khai để thực hành đọc nốt ngay lập tức."
+  },
+  "directUrl": {
+    "placeholder": "Dán đường dẫn (.mid / .midi) công khai từ Internet...",
+    "submit": "Tra cứu & Xem",
+    "ariaLabel": "Nhập đường dẫn MIDI trực tiếp",
+    "fetchError": "Không thể tải file từ URL này. Hãy kiểm tra lại liên kết.",
+    "defaultError": "Lỗi khi tải file MIDI từ đường dẫn."
+  },
+  "controls": {
+    "searchPlaceholder": "Tìm kiếm tác phẩm, tác giả hoặc thẻ...",
+    "searchAriaLabel": "Tìm kiếm các bản nhạc tuyển chọn",
+    "categories": {
+      "All": "Tất cả Thể loại",
+      "Classical": "Cổ điển",
+      "Game OST": "Game OST",
+      "Jazz": "Jazz"
+    }
+  },
+  "empty": {
+    "title": "Không tìm thấy bài hát MIDI nào",
+    "description": "Thử tìm kiếm với từ khóa khác hoặc lọc lại thể loại."
+  },
+  "songCard": {
+    "preview": "Xem thử",
+    "downloadTooltip": "Tải file .mid về máy",
+    "saved": "Đã lưu",
+    "saveToApp": "Thêm vào App",
+    "previewDescription": "Xem thử bản nhạc {{title}}"
+  }
+}

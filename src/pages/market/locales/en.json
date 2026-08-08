@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "badge": "MIDI Music Hub & Direct Import",
+    "title": "Piano MIDI Sight-reading Library",
+    "description": "Explore our curated collection of Piano MIDI pieces or paste a public .mid file URL to practice sight-reading right away."
+  },
+  "directUrl": {
+    "placeholder": "Paste a public .mid / .midi link from the internet...",
+    "submit": "Lookup & Preview",
+    "ariaLabel": "Direct MIDI URL input",
+    "fetchError": "Could not fetch file from this URL. Please verify the link.",
+    "defaultError": "Error fetching MIDI file from specified URL."
+  },
+  "controls": {
+    "searchPlaceholder": "Search pieces, composers, or tags...",
+    "searchAriaLabel": "Search curated songs",
+    "categories": {
+      "All": "All Categories",
+      "Classical": "Classical",
+      "Game OST": "Game OST",
+      "Jazz": "Jazz"
+    }
+  },
+  "empty": {
+    "title": "No MIDI songs found",
+    "description": "Try searching with a different keyword or filter category."
+  },
+  "songCard": {
+    "preview": "Preview",
+    "downloadTooltip": "Download .mid file to device",
+    "saved": "Saved",
+    "saveToApp": "Add to App",
+    "previewDescription": "Preview song {{title}}"
+  }
+}
