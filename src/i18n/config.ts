@@ -1,6 +1,7 @@
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
+import { aboutLocales } from '@/pages/about'
 import { homeLocales } from '@/pages/home'
 import { marketLocales } from '@/pages/market'
 import en from './locales/en.json'
@@ -17,6 +18,7 @@ i18n
           ...en.translation,
           home: homeLocales.en,
           market: marketLocales.en,
+          about: aboutLocales.en,
         },
       },
       vi: {
@@ -25,6 +27,7 @@ i18n
           ...vi.translation,
           home: homeLocales.vi,
           market: marketLocales.vi,
+          about: aboutLocales.vi,
         },
       },
     },

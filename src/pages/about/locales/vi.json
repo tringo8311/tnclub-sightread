@@ -1,0 +1,60 @@
+{
+  "title": "Giới thiệu",
+  "sections": {
+    "what": "TNClub Sightread là gì?",
+    "getting_started": "Hướng dẫn bắt đầu",
+    "music_selection": "Thư viện bài hát",
+    "browser_compatibility": "Tương thích trình duyệt",
+    "roadmap": "Lộ trình phát triển",
+    "feedback": "Phản hồi & Đóng góp",
+    "product_recommendations": "Gợi ý thiết bị",
+    "attributions": "Ghi nhận tác quyền"
+  },
+  "what": {
+    "intro": "TNClub Sightread là ứng dụng web miễn phí giúp học và thực hành chơi đàn Piano trực quan.",
+    "falling_notes_desc": "TNClub Sightread phù hợp cho người mới bắt đầu – bạn có thể chơi các bản nhạc mà không bắt buộc phải đọc thạo nốt nhạc ngay. Ứng dụng tạo ra giao diện nốt rơi (Falling Notes) trực quan, tương tự như các trò chơi âm nhạc.",
+    "caption_falling_notes": "Giao diện Nốt rơi (Falling Notes) kèm nhãn nốt",
+    "sheet_hero_desc": "Dành cho những ai muốn học đọc bản nhạc (Sheet Music), TNClub Sightread cung cấp chế độ Sheet Hero. Chế độ này là cầu nối giữa sự đơn giản của nốt rơi và độ phức tạp của bản nhạc tiêu chuẩn. Các nốt được sắp xếp trên khuông nhạc, nhưng thời lượng được tối giản bằng đuôi nốt trực quan.",
+    "caption_sheet_hero": "Giao diện Sheet Hero (beta) hỗ trợ luyện nốt"
+  },
+  "gettingStarted": {
+    "subtitle": "Kết nối đàn. Bắt đầu chậm rãi. Nâng dần tốc độ.",
+    "separate_hands": "Khi mới bắt đầu học một bài hát, chúng tôi khuyên bạn nên luyện tập riêng từng tay (tay trái và tay phải). Bạn nên tận dụng bộ điều chỉnh BPM để giảm tốc độ bài hát xuống ít nhất 50%. Việc đánh đúng nốt với tư thế chuẩn ở tốc độ chậm hiệu quả hơn nhiều so với việc vội vã đánh nhanh.",
+    "wait_mode": "Nếu bạn kết nối đàn Piano điện / MIDI Keyboard via USB, bạn có thể bật chế độ Chờ (Wait mode) – bản nhạc sẽ tạm dừng cho đến khi bạn nhấn đúng phím đàn tương ứng.",
+    "education": "TNClub Sightread đạt hiệu quả tốt nhất khi kết hợp với sự hướng dẫn của giáo viên Piano hoặc lộ trình học nhạc lý bài bản."
+  },
+  "musicSelection": {
+    "intro": "Thư viện nhạc của TNClub Sightread gồm hai phần chính: Bài hát có sẵn và Nhập file MIDI cá nhân.",
+    "builtin": "Ứng dụng tích hợp bộ sưu tập các bản nhạc Piano phổ biến và nhạc cổ điển công cộng.",
+    "upload": "Bạn có thể tải trực tiếp file MIDI (.mid) của riêng mình lên ứng dụng để thực hành, dữ liệu được lưu an toàn ngay trên trình duyệt của bạn."
+  },
+  "browserCompatibility": {
+    "intro": "TNClub Sightread tương thích tốt nhất trên các trình duyệt hiện đại như Google Chrome, Microsoft Edge và Mozilla Firefox.",
+    "midi_note": "Để kết nối Đàn Piano điện qua cổng USB MIDI, khuyến nghị sử dụng trình duyệt hỗ trợ chuẩn WebMIDI (như Chrome, Edge, Brave)."
+  },
+  "roadmap": {
+    "intro": "Các tính năng và cải tiến đang được phát triển trong tương lai:",
+    "items": {
+      "mobile": "Ứng dụng di động tối ưu cho máy tính bảng và điện thoại.",
+      "musicxml": "Hỗ trợ định dạng MusicXML và hiển thị bản nhạc đầy đủ.",
+      "scoring": "Theo dõi tiến trình học và chấm điểm bài luyện tập.",
+      "freeplay_record": "Ghi âm phần biểu diễn ở chế độ Chơi tự do và chia sẻ liên kết.",
+      "training_games": "Các bài tập nhỏ và trò chơi luyện phản xạ nhận biết nốt."
+    }
+  },
+  "feedback": {
+    "text": "Bạn phát hiện lỗi hoặc có góp ý tính năng mới? Hãy gửi đóng góp cho cộng đồng phát triển TNClub Sightread."
+  },
+  "recommendations": {
+    "intro": "Tìm kiếm Đàn Piano điện / Keyboard phù hợp để luyện tập?",
+    "usb_advice": "TNClub Sightread cần kết nối MIDI-out (thường qua cổng USB B hoặc Bluetooth MIDI). Bạn nên ưu tiên kết nối cáp USB trực tiếp để đảm bảo độ độ trễ thấp nhất.",
+    "beginner_title": "Người mới bắt đầu:",
+    "beginner_desc": "Các dòng đàn Piano điện / Organ 61 phím có hỗ trợ USB MIDI.",
+    "intermediate_title": "Nâng cao:",
+    "intermediate_desc": "Đàn Piano điện 88 phím có phím nặng (Weighted Keys) giúp cảm giác phím chân thực."
+  },
+  "attributions": {
+    "intro": "Một số bản nhạc và bản phối trong ứng dụng được tham khảo từ cộng đồng mở.",
+    "thanks": "Chúng tôi trân trọng đóng góp của các tác giả và cộng đồng âm nhạc."
+  }
+}

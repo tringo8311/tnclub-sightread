@@ -1,0 +1,60 @@
+{
+  "title": "About",
+  "sections": {
+    "what": "What is TNClub Sightread?",
+    "getting_started": "Getting Started",
+    "music_selection": "Music Catalog",
+    "browser_compatibility": "Browser Compatibility",
+    "roadmap": "Roadmap",
+    "feedback": "Feedback & Community",
+    "product_recommendations": "Hardware Recommendations",
+    "attributions": "Attributions"
+  },
+  "what": {
+    "intro": "TNClub Sightread is a free web app for learning and practicing piano interactive sight-reading.",
+    "falling_notes_desc": "TNClub Sightread is great for beginners – you can play songs without needing to learn complex sheet music right away. TNClub Sightread creates an intuitive Falling Notes visualization, similar to popular rhythm games.",
+    "caption_falling_notes": "Falling Notes mode with note labels",
+    "sheet_hero_desc": "For those who want to learn sheet music, TNClub Sightread offers Sheet Hero (beta) mode. Sheet Hero acts as a bridge between falling notes and full sheet music. Notes are laid out on a musical staff with simplified timing.",
+    "caption_sheet_hero": "Sheet Hero (beta) mode with note labels"
+  },
+  "gettingStarted": {
+    "subtitle": "Connect a keyboard. Start slow. Gradually speed up.",
+    "separate_hands": "When initially learning a song, we recommend learning left and right hands separately. You can slow down the song using the BPM controls by at least 50%. Practicing slowly with good form is far more effective than rushing at full speed.",
+    "wait_mode": "If you connect a MIDI keyboard via USB, enable Wait mode – the song will pause until you press the correct key.",
+    "education": "TNClub Sightread works best alongside regular practice and formal music education."
+  },
+  "musicSelection": {
+    "intro": "The catalog consists of two components: built-in pieces and local MIDI file imports.",
+    "builtin": "Includes curated public domain classical and practice pieces.",
+    "upload": "Upload your own .mid files directly to practice; files remain stored safely in your browser."
+  },
+  "browserCompatibility": {
+    "intro": "TNClub Sightread is fully compatible with modern browsers like Google Chrome, Microsoft Edge, and Mozilla Firefox.",
+    "midi_note": "For connecting a MIDI keyboard via USB, a WebMIDI capable browser (such as Chrome, Edge, or Brave) is recommended."
+  },
+  "roadmap": {
+    "intro": "Exciting features currently planned for future updates:",
+    "items": {
+      "mobile": "Mobile tablet and phone optimized layout.",
+      "musicxml": "MusicXML file import and full sheet music renderer.",
+      "scoring": "Practice scoring and performance progress tracking.",
+      "freeplay_record": "Record performances in Free Play mode and share links.",
+      "training_games": "Interactive note recognition games and sight-reading drills."
+    }
+  },
+  "feedback": {
+    "text": "Found a bug or have a feature suggestion? Contributions and community feedback are welcome!"
+  },
+  "recommendations": {
+    "intro": "Looking for a compatible keyboard?",
+    "usb_advice": "TNClub Sightread works best with keyboards supporting USB MIDI output for minimal latency.",
+    "beginner_title": "Beginner:",
+    "beginner_desc": "Portable 61-key or 88-key electronic keyboards with USB MIDI.",
+    "intermediate_title": "Intermediate & Advanced:",
+    "intermediate_desc": "Full 88-key weighted digital pianos for authentic key action."
+  },
+  "attributions": {
+    "intro": "Some music arrangements featured are shared by the community under open licenses.",
+    "thanks": "Grateful to all contributors and original arrangers."
+  }
+}

@@ -3,7 +3,7 @@ import { useEventListener, usePlayerState } from '@/hooks'
 import { SongMetadata } from '@/types'
 import clsx from 'clsx'
 import { useAtomValue } from 'jotai'
-import { Pause, Play } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import { useState } from 'react'
 import { Heading, Text } from 'react-aria-components'
 import { createSearchParams, useNavigate } from 'react-router'
@@ -106,7 +106,11 @@ export default function SongPreviewModal({
               isSidebarCollapsed ? 'mb-4' : 'absolute top-5 right-5',
             )}
           >
-            {isSidebarCollapsed ? '◀' : '▶'}
+            {isSidebarCollapsed ? (
+              <ChevronLeft className="h-4 w-4" />
+            ) : (
+              <ChevronRight className="h-4 w-4" />
+            )}
           </button>
 
           {isSidebarCollapsed ? (
