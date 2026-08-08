@@ -98,11 +98,6 @@ export default function SelectSongPage() {
         data-component="SelectSongPage"
         className="bg-background text-foreground flex h-screen w-full flex-col overflow-hidden"
       >
-        {/* Background glow effects */}
-        <div className="pointer-events-none absolute top-0 left-0 z-0 h-screen w-full overflow-hidden">
-          <div className="animate-float-slow absolute top-[10%] -left-[5%] h-[40%] w-[40%] rounded-full bg-[var(--color-cyan-neon)] opacity-[0.07] blur-[120px]" />
-          <div className="animate-float absolute -right-[10%] bottom-[20%] h-[50%] w-[30%] rounded-full bg-[var(--color-pink-neon)] opacity-[0.05] blur-[150px]" />
-        </div>
         <div className="relative z-10 shrink-0">
           <AppBar />
         </div>

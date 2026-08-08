@@ -458,7 +458,11 @@ export default function PlaySongPage() {
             onClickBack={() => {
               saveProgress()
               player.stop()
-              navigate('/songs')
+              if (window.history.length > 1) {
+                navigate(-1)
+              } else {
+                navigate('/songs')
+              }
             }}
             onClickMidi={(e) => {
               e.stopPropagation()

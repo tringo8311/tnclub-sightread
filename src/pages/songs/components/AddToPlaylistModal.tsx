@@ -46,12 +46,8 @@ export default function AddToPlaylistModal({
   }
 
   return (
-    <div
-      data-ui="add-to-playlist-modal"
-      data-component="AddToPlaylistModal"
-      className="p-6"
-    >
-      <div className="border-border mb-4 flex items-center justify-between border-b pb-3 pr-8">
+    <div data-ui="add-to-playlist-modal" data-component="AddToPlaylistModal" className="p-6">
+      <div className="border-border mb-4 flex items-center justify-between border-b pr-8 pb-3">
         <div className="flex items-center gap-2.5">
           <ListPlus className="h-5 w-5 text-violet-400" />
           <h3 className="text-foreground text-base font-bold">Thêm Vào Playlist</h3>

@@ -51,12 +51,8 @@ export default function PlaylistManagerModal({
   }
 
   return (
-    <div
-      data-ui="playlist-modal"
-      data-component="PlaylistManagerModal"
-      className="p-6"
-    >
-      <div className="border-border mb-6 flex items-center justify-between border-b pb-4 pr-8">
+    <div data-ui="playlist-modal" data-component="PlaylistManagerModal" className="p-6">
+      <div className="border-border mb-6 flex items-center justify-between border-b pr-8 pb-4">
         <div className="flex items-center gap-3">
           <div className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-2 text-violet-400">
             <ListMusic className="h-6 w-6" />

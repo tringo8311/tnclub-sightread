@@ -36,12 +36,6 @@ export default function Home() {
 
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 relative flex min-h-screen w-full flex-col overflow-x-hidden">
-      {/* Background glow effects */}
-      <div className="pointer-events-none absolute top-0 left-0 z-0 h-screen w-full overflow-hidden">
-        <div className="animate-float-slow absolute -top-[20%] -left-[10%] h-[50%] w-[50%] rounded-full bg-[var(--color-cyan-neon)] opacity-10 blur-[120px]" />
-        <div className="animate-float absolute top-[20%] -right-[10%] h-[60%] w-[40%] rounded-full bg-[var(--color-pink-neon)] opacity-10 blur-[150px]" />
-      </div>
-
       <div className="relative z-10 flex flex-1 flex-col">
         <AppBar />
 

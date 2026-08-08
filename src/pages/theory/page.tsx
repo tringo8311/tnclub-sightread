@@ -8,11 +8,6 @@ export default function TheoryPage() {
       <AppBar />
 
       <main className="relative w-full flex-1">
-        {/* Background Gradients for aesthetic */}
-        <div className="from-primary/10 pointer-events-none absolute top-0 left-0 -z-10 h-[500px] w-full bg-gradient-to-b to-transparent" />
-        <div className="bg-primary/10 pointer-events-none absolute top-1/4 right-0 -z-10 h-96 w-96 rounded-full blur-[100px]" />
-        <div className="bg-primary/5 pointer-events-none absolute bottom-1/4 left-0 -z-10 h-96 w-96 rounded-full blur-[100px]" />
-
         <div className="mx-auto w-full max-w-(--breakpoint-lg) px-6 py-12 md:py-20">
           <div className="mb-16 space-y-4 text-center">
             <h1 className="from-foreground via-foreground to-foreground/60 bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent md:text-5xl">
