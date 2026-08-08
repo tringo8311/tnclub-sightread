@@ -31,12 +31,20 @@ export default function AppBar() {
     <header
       data-ui="app-header"
       data-component="AppBar"
-      className="border-primary/20 bg-primary/85 text-primary-foreground sticky top-0 z-50 flex h-[60px] min-h-[60px] flex-col justify-center border-b shadow-md backdrop-blur-md transition-all duration-300"
+      className="border-primary/20 bg-primary/85 text-primary-foreground relative sticky top-0 z-50 flex h-[60px] min-h-[60px] flex-col justify-center overflow-hidden border-b shadow-md backdrop-blur-md transition-all duration-300"
       style={{
         paddingLeft: 'calc(100vw - 100%)',
       }}
     >
-      <div className="mx-auto flex w-full items-center justify-between px-6 md:max-w-(--breakpoint-lg)">
+      {/* Subtle Diamond (Argyle/Rhombus) Pattern Background Overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-15 transition-opacity duration-300"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='24' height='40' viewBox='0 0 24 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L24 20L12 40L0 20Z' fill='none' stroke='currentColor' stroke-width='1' stroke-opacity='0.4'/%3E%3Cpath d='M12 8L20 20L12 32L4 20Z' fill='none' stroke='currentColor' stroke-width='0.5' stroke-opacity='0.25'/%3E%3C/svg%3E")`,
+          backgroundSize: '24px 40px',
+        }}
+      />
+      <div className="relative z-10 mx-auto flex w-full items-center justify-between px-6 md:max-w-(--breakpoint-lg)">
         <Link
           to={'/'}
           data-element-id="nav-logo"
