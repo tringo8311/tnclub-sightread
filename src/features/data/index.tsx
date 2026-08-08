@@ -10,7 +10,10 @@ async function handleSong(response: Response): Promise<Song> {
 }
 
 function getBuiltinSongUrl(id: string) {
-  return `/music/songs/${id}`
+  const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`
+  return `${baseUrl}music/songs/${id}`
 }
 
 function getBase64Song(data: string): Song {
@@ -19,12 +22,20 @@ function getBase64Song(data: string): Song {
 }
 
 async function fetchSong(id: string, source: SongSource): Promise<Song> {
+  const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`
+
   if (source === 'builtin') {
     const url = getBuiltinSongUrl(id)
     return fetch(url).then(handleSong)
   } else if (source === 'market') {
     // If it is a market song with direct URL or relative URL
-    const url = id.startsWith('http') || id.startsWith('/') ? id : getBuiltinSongUrl(id)
+    let url = id
+    if (!id.startsWith('http')) {
+      const cleanPath = id.startsWith('/') ? id.slice(1) : id
+      url = `${baseUrl}${cleanPath}`
+    }
     return fetch(url).then(handleSong)
   } else if (source === 'downloaded') {
     const blobKey = `midi_blob_${id}`

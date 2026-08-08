@@ -189,11 +189,14 @@ async function getMeasuresForChord(
   clef: Clef,
 ): Promise<Measure[]> {
   const chordAndHighOrLow = irishMidiFiles[chord]
-  let filename = `/music/irish/Right Hand/${chordAndHighOrLow}_Lvl_${level}.mid`
+  const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`
+  let filename = `${baseUrl}music/irish/Right Hand/${chordAndHighOrLow}_Lvl_${level}.mid`
   if (clef === 'bass') {
     const chord = chordAndHighOrLow.slice(0, chordAndHighOrLow.indexOf('_'))
     const bassLevel = Math.min(2, level)
-    filename = `/music/irish/Left Hand/${chord.toString()}_Lvl_${bassLevel}_LH.mid`
+    filename = `${baseUrl}music/irish/Left Hand/${chord.toString()}_Lvl_${bassLevel}_LH.mid`
   }
 
   return fetch(filename)

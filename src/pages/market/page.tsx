@@ -55,10 +55,19 @@ export default function MidiMarketPage() {
     })
   }
 
+  const getMidiFetchUrl = (url: string) => {
+    if (url.startsWith('http')) return url
+    const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+      ? import.meta.env.BASE_URL
+      : `${import.meta.env.BASE_URL}/`
+    const cleanPath = url.startsWith('/') ? url.slice(1) : url
+    return `${baseUrl}${cleanPath}`
+  }
+
   // Handle adding song to App IndexedDB library
   const handleSaveToApp = async (item: MarketMidiItem) => {
     try {
-      const res = await fetch(item.midiUrl)
+      const res = await fetch(getMidiFetchUrl(item.midiUrl))
       const buffer = await res.arrayBuffer()
       const songMeta: SongMetadata = {
         id: item.id,
@@ -81,7 +90,7 @@ export default function MidiMarketPage() {
   // Handle downloading .mid file to device disk
   const handleDownloadFile = async (item: MarketMidiItem) => {
     try {
-      const res = await fetch(item.midiUrl)
+      const res = await fetch(getMidiFetchUrl(item.midiUrl))
       const buffer = await res.arrayBuffer()
       downloadMidiFileToDisk(`${item.title}.mid`, buffer)
     } catch (e) {
