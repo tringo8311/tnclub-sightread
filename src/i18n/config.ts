@@ -4,6 +4,7 @@ import { initReactI18next } from 'react-i18next'
 import { aboutLocales } from '@/pages/about'
 import { homeLocales } from '@/pages/home'
 import { marketLocales } from '@/pages/market'
+import { theoryLocales } from '@/pages/theory'
 import en from './locales/en.json'
 import vi from './locales/vi.json'
 
@@ -19,6 +20,7 @@ i18n
           home: homeLocales.en,
           market: marketLocales.en,
           about: aboutLocales.en,
+          theory: theoryLocales.en,
         },
       },
       vi: {
@@ -28,6 +30,7 @@ i18n
           home: homeLocales.vi,
           market: marketLocales.vi,
           about: aboutLocales.vi,
+          theory: theoryLocales.vi,
         },
       },
     },

@@ -16,6 +16,7 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@types/resize-observer-browser": "0.1.11",
+    "@types/three": "^0.185.4",
     "@types/wicg-file-system-access": "2023.10.7",
     "eslint": "9.39.2",
     "fluent-ffmpeg": "2.1.3",
@@ -57,6 +58,7 @@
     "tailwind-variants": "3.1.1",
     "tailwindcss-animate": "1.0.7",
     "tailwindcss-react-aria-components": "1.1.2",
+    "three": "^0.185.1",
     "wasm-media-encoders": "0.7.0"
   },
   "scripts": {

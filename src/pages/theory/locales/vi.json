@@ -1,0 +1,132 @@
+{
+  "title": "Bách Khoa Toàn Thư Piano & Nhạc Lý",
+  "subtitle": "Khám phá lịch sử, nghệ thuật chế tác thủ công, các loại đàn Piano huyền thoại và nền tảng nhạc lý căn bản.",
+  "tabs": {
+    "all": "Tất cả",
+    "history": "Lịch Sử & Tiến Hóa",
+    "types": "Các Dòng Đàn Piano",
+    "craftsmanship": "Cấu Tạo & Chế Tác",
+    "brands": "Thương Hiệu Huyền Thoại",
+    "fundamentals": "Căn Bản Nhạc Lý"
+  },
+  "history": {
+    "title": "Lịch Sử Ra Đời & Phát Triển Của Piano",
+    "subtitle": "Từ nhạc cụ gảy dây cổ điển đến Vua của các loại nhạc cụ",
+    "cristofori_title": "1700 – Phát minh bởi Bartolomeo Cristofori",
+    "cristofori_desc": "Tại Florence (Ý), nghệ nhân Cristofori sáng chế ra cây đàn 'Un cimbalo di cipresso di piano e forte' - cho phép người chơi tạo ra âm thanh êm dịu (piano) hay mạnh mẽ (forte) bằng lực nhấn của ngón tay.",
+    "fortepiano_title": "Thế kỷ 18 – Thời đại Fortepiano cổ điển",
+    "fortepiano_desc": "Các thiên tài như Mozart, Haydn và Beethoven đã sáng tác những kiệt tác đỉnh cao cho Fortepiano, thúc đẩy việc mở rộng quãng âm và cải tiến bộ cơ nảy búa.",
+    "industrial_title": "Thế kỷ 19 – Cuộc cách mạng đúc khung gang",
+    "industrial_desc": "Khung gang đúc liền khối (Iron Frame) và búa bọc dạ nén ra đời, giúp đàn chịu được lực căng cực lớn từ dây thép, tạo nên âm thanh uy lực vang dội trong các đại hòa nhạc.",
+    "modern_title": "Thế kỷ 20 - 21 – Thời đại Piano hiện đại & Kỹ thuật số",
+    "modern_desc": "Sự ra đời của các dòng Concert Grand đỉnh cao kết hợp cùng Piano điện (Digital) và Piano lai (Hybrid), đưa âm nhạc Piano tiếp cận hàng triệu người trên toàn thế giới."
+  },
+  "types": {
+    "title": "Các Dòng Đàn Piano & Đặc Điểm",
+    "subtitle": "Khám phá sự đa dạng trong thiết kế và cơ chế tạo âm thanh",
+    "grand": {
+      "name": "Grand Piano (Piano Đại / Nằm Ngang)",
+      "desc": "Dây đàn và bảng cộng hưởng nằm ngang. Cơ chế búa nảy hoạt động dựa vào trọng lực tự nhiên, cho phép lặp nốt cực nhanh và sắc thái biểu cảm đỉnh cao nhất.",
+      "badge": "Âm thanh Concert đỉnh phong",
+      "feature1": "Chiều dài: 1.5m (Baby Grand) đến 2.7m+ (Concert Grand).",
+      "feature2": "Nắp đàn mở tối ưu hóa độ vang âm học không gian lớn."
+    },
+    "upright": {
+      "name": "Upright Piano (Piano Đứng / Dựng Đứng)",
+      "desc": "Dây đàn và bảng cộng hưởng dựng đứng vuông góc với sàn nhà. Thiết kế nhỏ gọn, sang trọng, là lựa chọn hoàn hảo cho không gian gia đình và lớp học nhạc.",
+      "badge": "Lựa chọn tiêu chuẩn gia đình",
+      "feature1": "Cơ chế lò xo phản hồi búa nảy linh hoạt.",
+      "feature2": "Tiết kiệm diện tích mà vẫn giữ nguyên âm thanh cơ học."
+    },
+    "digital": {
+      "name": "Digital Piano (Piano Điện)",
+      "desc": "Sử dụng công nghệ lấy mẫu âm thanh (Sampling) hoặc mô phỏng vật lý (Physical Modeling) từ các cây Concert Grand danh tiếng. Tích hợp tai nghe, USB MIDI và kết nối máy tính.",
+      "badge": "Hiện đại & Đa năng",
+      "feature1": "Phím nặng mô phỏng (Weighted Action) cảm giác thật.",
+      "feature2": "Không cần lên dây định kỳ, dễ dàng thu âm và luyện tập ban đêm."
+    },
+    "hybrid": {
+      "name": "Hybrid Piano (Piano Lai Cơ - Điện)",
+      "desc": "Sự kết hợp hoàn hảo giữa bộ cơ gỗ thật 100% của Piano cơ acoustic và cảm biến quang học điện tử cao cấp.",
+      "badge": "Đỉnh cao công nghệ",
+      "feature1": "Cảm giác phím cơ thật 100% không sự khác biệt.",
+      "feature2": "Tùy chỉnh âm lượng hoặc chơi im lặng qua tai nghe."
+    }
+  },
+  "craftsmanship": {
+    "title": "Cấu Tạo & Kỳ Tích Chế Tác Thủ Công",
+    "subtitle": "Hơn 8,000 chi tiết cơ khí chính xác hòa quyện tạo nên kiệt tác âm thanh",
+    "frame_title": "Khung Gang Đúc (Cast-Iron Plate)",
+    "frame_desc": "Khung gang chịu lực đúc nguyên khối có khả năng chịu được tổng lực kéo lên tới 20 tấn từ hơn 230 sợi dây thép đan chéo.",
+    "soundboard_title": "Bảng Cộng Hưởng (Sitka Spruce Soundboard)",
+    "soundboard_desc": "Được chế tác từ gỗ Vân Mộc tuyển chọn hàng trăm năm tuổi, đóng vai trò như trái tim khuếch đại độ ngân rung của dây đàn.",
+    "action_title": "Bộ Cơ Búa Đàn (Action Mechanism)",
+    "action_desc": "Hệ thống hơn 8,000 chi tiết gỗ, dạ nén và da thuộc được căn chỉnh thủ công với độ chính xác từng phần mười milimét.",
+    "pedals_title": "Hệ Thống 3 Ba-đan (Pedals)",
+    "pedal_sustain": "Sustain (Phải): Nâng toàn bộ bộ chặn tiếng (dampers), giúp âm thanh ngân vang ngân dài.",
+    "pedal_sostenuto": "Sostenuto (Giữa): Chỉ giữ ngân vang riêng các nốt được nhấn tại thời điểm đạp pedal.",
+    "pedal_soft": "Una Corda / Soft (Trái): Dịch chuyển bộ cơ để búa gõ ít dây hơn, tạo âm thanh dịu nhẹ."
+  },
+  "brands": {
+    "title": "Những Thương Hiệu Piano Huyền Thoại Thế Giới",
+    "subtitle": "Biểu tượng của di sản âm nhạc, chất lượng chuẩn mực và đẳng cấp nghệ thuật",
+    "steinway": {
+      "name": "Steinway & Sons",
+      "country": "Mỹ / Đức (Từ 1853)",
+      "desc": "Chuẩn mực vàng của các đại nhạc hội thế giới. Hơn 95% nghệ sĩ độc tấu Concert Grand lựa chọn Steinway nhờ âm thanh uy lực, ấm áp và độ phản hồi phím tuyệt vời."
+    },
+    "bosendorfer": {
+      "name": "Bösendorfer",
+      "country": "Áo (Từ 1828)",
+      "desc": "Nổi tiếng với âm thanh mượt mà, sâu lắng đặc trưng Vienna. Các dòng Imperial 290 sở hữu tới 97 phím đàn (thêm 9 phím trầm màu đen)."
+    },
+    "bechstein": {
+      "name": "C. Bechstein",
+      "country": "Đức (Từ 1853)",
+      "desc": "Thương hiệu yêu thích của Liszt và Debussy. Âm thanh trong trẻo, sắc nét và quý tộc chuẩn mực châu Âu."
+    },
+    "fazioli": {
+      "name": "Fazioli",
+      "country": "Ý (Từ 1981)",
+      "desc": "Đỉnh cao chế tác thủ công hiện đại. Mỗi cây đàn Fazioli được sản xuất giới hạn với chất âm ngân vang trong như pha lê."
+    },
+    "yamaha_kawai": {
+      "name": "Yamaha & Kawai",
+      "country": "Nhật Bản (Từ 1887 / 1927)",
+      "desc": "Biểu tượng của sự chính xác, độ bền vượt thời gian và đóng góp to lớn cho nền giáo dục âm nhạc toàn cầu."
+    }
+  },
+  "fundamentals": {
+    "title": "Căn Bản Nhạc Lý & Bàn Phím Piano",
+    "subtitle": "Nền tảng giúp bạn tự tin đọc bản nhạc và làm chủ bàn phím",
+    "staff_title": "Khuông Nhạc (Staff)",
+    "staff_desc": "Gồm 5 dòng kẻ song song và 4 khe. Nốt càng nằm cao trên khuông nhạc thì âm thanh phát ra càng cao.",
+    "clefs_title": "Khóa Sol & Khóa Fa",
+    "clefs_treble": "Khóa Sol (Treble Clef): Dùng cho nốt cao, chơi bằng tay phải.",
+    "clefs_bass": "Khóa Fa (Bass Clef): Dùng cho nốt trầm, chơi bằng tay trái.",
+    "notes_title": "7 Nốt Nhạc Tự Nhiên",
+    "notes_list": "Đô (C) - Rê (D) - Mi (E) - Fa (F) - Sol (G) - La (A) - Si (B)",
+    "durations_title": "Trường Độ Nốt Nhạc",
+    "whole": "Nốt tròn (Whole note): 4 nhịp",
+    "half": "Nốt trắng (Half note): 2 nhịp",
+    "quarter": "Nốt đen (Quarter note): 1 nhịp",
+    "eighth": "Nốt móc đơn (Eighth note): 1/2 nhịp",
+    "keyboard_title": "Bàn Phím 88 Phím Standard",
+    "keyboard_desc": "Gồm 52 phím trắng và 36 phím đen xếp theo cụm 2 và cụm 3 phím đen xen kẽ.",
+    "middle_c_title": "Nốt Đô Giữa (Middle C4)",
+    "middle_c_desc": "Nằm ngay bên trái cụm 2 phím đen ở vị trí trung tâm bàn phím, là mốc tham chiếu giữa Khóa Sol và Khóa Fa.",
+    "interactive_keyboard_title": "Bàn Phím Piano Tương Tác & Phát Âm Thanh",
+    "interactive_keyboard_subtitle": "Bấm vào các phím đàn bên dưới để nghe âm thanh thực tế, xem cao độ Hz và vị trí nốt trên khuông nhạc.",
+    "modes": {
+      "all": "Tất cả phím",
+      "middle_c": "Nốt Đô Giữa (C4)",
+      "treble": "Khóa Sol (Tay phải)",
+      "bass": "Khóa Fa (Tay trái)",
+      "black_keys": "Cụm Phím Đen (2 & 3)"
+    },
+    "accidentals_title": "Dấu Hóa & Cung - Nửa Cung",
+    "sharp": "Dấu Thăng (#): Nâng cao độ lên 1/2 cung (phím kề bên phải).",
+    "flat": "Dấu Giáng (b): Hạ cao độ xuống 1/2 cung (phím kề bên trái).",
+    "natural": "Dấu Bình (♮): Hủy bỏ hiệu lực của dấu thăng hoặc giáng, trở về nốt tự nhiên."
+  }
+}

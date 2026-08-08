@@ -1,0 +1,6 @@
+export { TheoryHero } from './TheoryHero'
+export { PianoHistorySection } from './PianoHistorySection'
+export { PianoTypesSection } from './PianoTypesSection'
+export { PianoCraftsmanshipSection } from './PianoCraftsmanshipSection'
+export { PianoBrandsSection } from './PianoBrandsSection'
+export { MusicFundamentalsSection } from './MusicFundamentalsSection'

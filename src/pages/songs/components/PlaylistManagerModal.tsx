@@ -7,7 +7,7 @@ import {
   removeSongFromPlaylist,
 } from '@/features/persist/persistence'
 import { useAtomValue } from 'jotai'
-import { ListMusic, Music, Plus, Trash2, X } from 'lucide-react'
+import { ListMusic, Music, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 type PlaylistManagerModalProps = {
@@ -51,10 +51,11 @@ export default function PlaylistManagerModal({
   }
 
   return (
-    <div data-ui="playlist-modal" data-component="PlaylistManagerModal" className="p-6">
+    <div data-ui="playlist-modal" data-component="PlaylistManagerModal" className="p-6 md:p-8">
+      {/* Header */}
       <div className="border-border mb-6 flex items-center justify-between border-b pr-8 pb-4">
         <div className="flex items-center gap-3">
-          <div className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-2 text-violet-400">
+          <div className="rounded-xl border border-primary/30 bg-primary/10 p-2.5 text-primary">
             <ListMusic className="h-6 w-6" />
           </div>
           <div>
@@ -68,7 +69,7 @@ export default function PlaylistManagerModal({
         {/* Playlist List Column */}
         <div className="space-y-3 md:col-span-5">
           <div className="flex items-center justify-between">
-            <span className="text-muted-foreground text-xs font-semibold uppercase">
+            <span className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">
               Danh sách ({playlists.length})
             </span>
             <Button
@@ -78,7 +79,7 @@ export default function PlaylistManagerModal({
               data-ui="playlist-modal"
               aria-label="Create playlist"
               onClick={() => setIsCreating(true)}
-              className="border-violet-500/30 text-xs text-violet-400 hover:bg-violet-500/10"
+              className="border-primary/30 text-xs text-primary hover:bg-primary/10"
             >
               <Plus className="mr-1 h-3.5 w-3.5" />
               Tạo mới
@@ -89,7 +90,7 @@ export default function PlaylistManagerModal({
             <form
               onSubmit={handleCreate}
               data-ui="playlist-modal-create-form"
-              className="border-border bg-foreground/5 space-y-3 rounded-xl border p-3"
+              className="border-border bg-foreground/5 space-y-3 rounded-xl border p-3 shadow-inner"
             >
               <TextInput
                 placeholder="Tên danh sách phát..."
@@ -134,7 +135,7 @@ export default function PlaylistManagerModal({
             </form>
           )}
 
-          <div className="max-h-[300px] space-y-1.5 overflow-y-auto pr-1">
+          <div className="max-h-[320px] space-y-1.5 overflow-y-auto pr-1">
             {playlists.length === 0 ? (
               <div className="border-border/60 text-muted-foreground rounded-xl border border-dashed py-8 text-center text-xs">
                 Chưa có danh sách phát nào
@@ -150,7 +151,7 @@ export default function PlaylistManagerModal({
                     onClick={() => setSelectedPlaylistId(pl.id)}
                     className={`group flex cursor-pointer items-center justify-between rounded-xl p-3 text-xs font-medium transition-all ${
                       isActive
-                        ? 'border border-violet-500/40 bg-violet-500/15 text-violet-300 shadow-sm'
+                        ? 'border border-primary/40 bg-primary/15 text-primary shadow-sm'
                         : 'hover:bg-foreground/5 text-foreground/80 border border-transparent'
                     }`}
                   >
@@ -196,8 +197,8 @@ export default function PlaylistManagerModal({
 
               <div className="max-h-[320px] space-y-1.5 overflow-y-auto pr-1">
                 {selectedPlaylist.songIds.length === 0 ? (
-                  <div className="text-muted-foreground flex flex-col items-center justify-center py-10 text-center text-xs">
-                    <Music className="mb-2 h-8 w-8 opacity-30" />
+                  <div className="text-muted-foreground flex flex-col items-center justify-center py-12 text-center text-xs">
+                    <Music className="mb-2 h-8 w-8 opacity-30 text-primary" />
                     Chưa có bài hát nào trong playlist này.
                   </div>
                 ) : (
@@ -211,7 +212,7 @@ export default function PlaylistManagerModal({
                         className="border-border/60 hover:bg-foreground/5 flex items-center justify-between rounded-xl border p-2.5 text-xs transition-colors"
                       >
                         <div className="flex min-w-0 flex-1 items-center gap-2.5">
-                          <Music className="h-3.5 w-3.5 shrink-0 text-violet-400" />
+                          <Music className="h-3.5 w-3.5 shrink-0 text-primary" />
                           <span className="truncate font-medium">{title}</span>
                         </div>
                         <Button

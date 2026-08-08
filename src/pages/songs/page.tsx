@@ -85,7 +85,7 @@ export default function SelectSongPage() {
       <Modal
         show={isPlaylistModalOpen}
         onClose={() => setIsPlaylistModalOpen(false)}
-        className="w-[min(96vw,720px)] overflow-hidden rounded-2xl bg-white p-0"
+        className="w-[min(96vw,720px)] overflow-hidden rounded-2xl bg-card text-card-foreground p-0"
         modalClassName="max-w-[720px]"
       >
         <PlaylistManagerModal

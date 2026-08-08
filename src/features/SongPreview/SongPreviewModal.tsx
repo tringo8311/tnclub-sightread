@@ -19,7 +19,7 @@ type ModalProps = {
 }
 export default function SongPreviewModal({
   show = true,
-  onClose = () => {},
+  onClose = () => { },
   songMeta = undefined,
 }: ModalProps) {
   const { title, id, source } = songMeta ?? {}
@@ -226,6 +226,13 @@ export default function SongPreviewModal({
               </div>
 
               <div className="mt-auto border-t border-gray-100 px-6 py-6">
+                <div className="mb-3 text-center text-xs text-gray-400">
+                  Press{' '}
+                  <kbd className="rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 font-mono text-gray-500">
+                    Enter
+                  </kbd>{' '}
+                  to start
+                </div>
                 <Button
                   variant="primary"
                   size="lg"
@@ -237,13 +244,6 @@ export default function SongPreviewModal({
                 >
                   Play Now
                 </Button>
-                <div className="mt-3 text-center text-xs text-gray-400">
-                  Press{' '}
-                  <kbd className="rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 font-mono text-gray-500">
-                    Enter
-                  </kbd>{' '}
-                  to start
-                </div>
               </div>
             </>
           )}

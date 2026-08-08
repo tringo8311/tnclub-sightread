@@ -1,0 +1,132 @@
+{
+  "title": "Piano Encyclopedia & Music Theory Guide",
+  "subtitle": "Discover the rich history, craftsmanship, legendary piano makers, and core music theory fundamentals.",
+  "tabs": {
+    "all": "All Overview",
+    "history": "History & Evolution",
+    "types": "Piano Types",
+    "craftsmanship": "Craftsmanship & Anatomy",
+    "brands": "Legendary Brands",
+    "fundamentals": "Music Fundamentals"
+  },
+  "history": {
+    "title": "History & Evolution of the Piano",
+    "subtitle": "From classical stringed instruments to the King of Musical Instruments",
+    "cristofori_title": "1700 – Invented by Bartolomeo Cristofori",
+    "cristofori_desc": "In Florence, Italy, Cristofori created the 'Un cimbalo di cipresso di piano e forte' – allowing players to produce soft (piano) or loud (forte) dynamics via touch intensity.",
+    "fortepiano_title": "18th Century – The Classical Fortepiano Era",
+    "fortepiano_desc": "Composers like Mozart, Haydn, and Beethoven wrote masterpieces for the Fortepiano, driving key range expansion and hammer action responsiveness.",
+    "industrial_title": "19th Century – Cast-Iron Frame Revolution",
+    "industrial_desc": "Single-piece cast-iron frames and felt-compressed hammers enabled pianos to withstand massive string tension, delivering powerful acoustic projection in concert halls.",
+    "modern_title": "20th–21st Century – Modern & Digital Era",
+    "modern_desc": "The pinnacle of Concert Grands combined with Digital and Hybrid Pianos, bringing piano music to millions around the globe."
+  },
+  "types": {
+    "title": "Piano Classifications & Characteristics",
+    "subtitle": "Explore the diversity of architectural designs and sound generation mechanics",
+    "grand": {
+      "name": "Grand Piano (Horizontal)",
+      "desc": "Strings and soundboard lie horizontally. Gravity-assisted hammer mechanism allows ultra-fast repetition and ultimate dynamic expression.",
+      "badge": "Pinnacle Concert Sound",
+      "feature1": "Length ranges from 1.5m (Baby Grand) to 2.7m+ (Concert Grand).",
+      "feature2": "Lid opens up to project rich acoustic resonance."
+    },
+    "upright": {
+      "name": "Upright Piano (Vertical)",
+      "desc": "Strings and soundboard run vertically. Space-saving elegant design, ideal for homes and music classrooms.",
+      "badge": "Family Standard Choice",
+      "feature1": "Spring-assisted hammer return mechanism.",
+      "feature2": "Compact footprint while preserving true mechanical touch."
+    },
+    "digital": {
+      "name": "Digital Piano",
+      "desc": "Uses audio sampling or physical modeling from world-class concert grands. Features headphone support, USB MIDI, and computer connectivity.",
+      "badge": "Modern & Versatile",
+      "feature1": "Weighted action keybed simulates authentic feel.",
+      "feature2": "No tuning required, easy recording and silent night practice."
+    },
+    "hybrid": {
+      "name": "Hybrid Piano (Acoustic-Digital)",
+      "desc": "Combines a real 100% wooden acoustic action with high-precision optical electronic sensors.",
+      "badge": "Pinnacle Technology",
+      "feature1": "100% real acoustic key action touch.",
+      "feature2": "Adjustable volume or silent headphone playing."
+    }
+  },
+  "craftsmanship": {
+    "title": "Anatomy & Craftsmanship Marvels",
+    "subtitle": "Over 8,000 precision mechanical parts harmonizing to produce acoustic perfection",
+    "frame_title": "Cast-Iron Plate",
+    "frame_desc": "A single-piece cast-iron frame withstands up to 20 tons of string tension across 230+ steel strings.",
+    "soundboard_title": "Sitka Spruce Soundboard",
+    "soundboard_desc": "Crafted from aged Sitka Spruce, acting as the acoustic amplifier heart of the instrument.",
+    "action_title": "Action Mechanism",
+    "action_desc": "Over 8,000 parts made of wood, felt, and leather calibrated to sub-millimeter precision.",
+    "pedals_title": "3-Pedal System",
+    "pedal_sustain": "Sustain (Right): Lifts all dampers to allow strings to vibrate freely.",
+    "pedal_sostenuto": "Sostenuto (Middle): Sustains only the notes currently held down when pressed.",
+    "pedal_soft": "Una Corda / Soft (Left): Shifts action so hammers strike fewer strings for a softer tone."
+  },
+  "brands": {
+    "title": "Legendary World-Class Piano Makers",
+    "subtitle": "Icons of musical heritage, uncompromising quality, and artistic excellence",
+    "steinway": {
+      "name": "Steinway & Sons",
+      "country": "USA / Germany (Est. 1853)",
+      "desc": "The gold standard of world concert halls. Chosen by over 95% of concert grand soloists worldwide for its powerful, warm tone and responsive keybed."
+    },
+    "bosendorfer": {
+      "name": "Bösendorfer",
+      "country": "Austria (Est. 1828)",
+      "desc": "Renowned for its rich, singing Viennese tone. The Imperial 290 model features 97 keys (9 extra bass keys)."
+    },
+    "bechstein": {
+      "name": "C. Bechstein",
+      "country": "Germany (Est. 1853)",
+      "desc": "Favored by Liszt and Debussy. Known for clear, singing, aristocratic European tone quality."
+    },
+    "fazioli": {
+      "name": "Fazioli",
+      "country": "Italy (Est. 1981)",
+      "desc": "The pinnacle of modern artisan craftsmanship. Each Fazioli is custom handcrafted with crystalline acoustic clarity."
+    },
+    "yamaha_kawai": {
+      "name": "Yamaha & Kawai",
+      "country": "Japan (Est. 1887 / 1927)",
+      "desc": "Icons of precision engineering, enduring durability, and global music education contributions."
+    }
+  },
+  "fundamentals": {
+    "title": "Music Theory Fundamentals & Keyboard",
+    "subtitle": "Essential building blocks for reading sheet music and mastering the keyboard",
+    "staff_title": "The Musical Staff",
+    "staff_desc": "Consists of 5 parallel lines and 4 spaces. Higher note positions indicate higher pitches.",
+    "clefs_title": "Treble & Bass Clefs",
+    "clefs_treble": "Treble Clef (Sol): Used for higher notes, played with the right hand.",
+    "clefs_bass": "Bass Clef (Fa): Used for lower notes, played with the left hand.",
+    "notes_title": "7 Natural Notes",
+    "notes_list": "C - D - E - F - G - A - B",
+    "durations_title": "Note Values & Durations",
+    "whole": "Whole note: 4 beats",
+    "half": "Half note: 2 beats",
+    "quarter": "Quarter note: 1 beat",
+    "eighth": "Eighth note: 1/2 beat",
+    "keyboard_title": "Standard 88-Key Layout",
+    "keyboard_desc": "Comprises 52 white keys and 36 black keys arranged in groups of 2 and 3 black keys.",
+    "middle_c_title": "Middle C (C4)",
+    "middle_c_desc": "Located directly to the left of the 2-black-key group at the center of the keyboard, serving as the benchmark between Treble and Bass clefs.",
+    "interactive_keyboard_title": "Interactive Sound-Playing Piano Keyboard",
+    "interactive_keyboard_subtitle": "Click on keys below to listen to pitch sounds, view Hz frequencies, and see note placement on the musical staff.",
+    "modes": {
+      "all": "All Keys",
+      "middle_c": "Middle C (C4)",
+      "treble": "Treble Clef (Right Hand)",
+      "bass": "Bass Clef (Left Hand)",
+      "black_keys": "Black Key Clusters (2 & 3)"
+    },
+    "accidentals_title": "Accidentals & Semitones",
+    "sharp": "Sharp (#): Raises pitch by a semitone (half-step to adjacent right key).",
+    "flat": "Flat (b): Lowers pitch by a semitone (half-step to adjacent left key).",
+    "natural": "Natural (♮): Cancels a sharp or flat, returning to natural pitch."
+  }
+}

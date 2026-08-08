@@ -18,7 +18,7 @@ type ModalProps = {
 }
 
 const overlayStyles = tv({
-  base: 'fixed top-0 left-0 w-full h-(--visual-viewport-height) isolate z-20 bg-gray-400/60 flex items-center justify-center p-4 text-center',
+  base: 'fixed top-0 left-0 w-full h-(--visual-viewport-height) isolate z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 text-center',
   variants: {
     isEntering: {
       true: 'animate-in fade-in duration-100 ease-out',
@@ -30,7 +30,7 @@ const overlayStyles = tv({
 })
 
 const modalStyles = tv({
-  base: 'w-full max-w-md max-h-full rounded-2xl bg-white text-left align-middle text-slate-700 shadow-2xl bg-clip-padding border border-black/10',
+  base: 'w-full max-w-md max-h-full rounded-2xl bg-card text-card-foreground shadow-2xl bg-clip-padding border border-border overflow-hidden',
   variants: {
     isEntering: {
       true: 'animate-in zoom-in-105 ease-out duration-100',
@@ -72,7 +72,7 @@ export default function Modal({
         isDismissable
       >
         <Dialog
-          className={twMerge('relative rounded-md bg-white', className)}
+          className={twMerge('relative rounded-2xl bg-card text-card-foreground', className)}
           aria-label="Modal"
           data-description={resolvedDescription}
           data-action={resolvedAction}

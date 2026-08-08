@@ -7,7 +7,7 @@ import {
   removeSongFromPlaylist,
 } from '@/features/persist/persistence'
 import { useAtomValue } from 'jotai'
-import { Check, ListPlus, Plus, X } from 'lucide-react'
+import { Check, ListPlus, Plus } from 'lucide-react'
 import { useState } from 'react'
 
 type AddToPlaylistModalProps = {
@@ -49,7 +49,7 @@ export default function AddToPlaylistModal({
     <div data-ui="add-to-playlist-modal" data-component="AddToPlaylistModal" className="p-6">
       <div className="border-border mb-4 flex items-center justify-between border-b pr-8 pb-3">
         <div className="flex items-center gap-2.5">
-          <ListPlus className="h-5 w-5 text-violet-400" />
+          <ListPlus className="h-5 w-5 text-primary" />
           <h3 className="text-foreground text-base font-bold">Thêm Vào Playlist</h3>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default function AddToPlaylistModal({
                 onClick={() => handleToggle(pl.id, isSongIn)}
                 className={`flex cursor-pointer items-center justify-between rounded-xl p-3 text-xs font-medium transition-all ${
                   isSongIn
-                    ? 'border border-violet-500/40 bg-violet-500/15 text-violet-300 shadow-sm'
+                    ? 'border border-primary/40 bg-primary/15 text-primary shadow-sm'
                     : 'border-border/60 hover:bg-foreground/5 text-foreground/80 border'
                 }`}
               >
@@ -84,7 +84,7 @@ export default function AddToPlaylistModal({
                 <div
                   className={`flex h-5 w-5 items-center justify-center rounded-md border ${
                     isSongIn
-                      ? 'border-violet-500 bg-violet-600 text-white'
+                      ? 'border-primary bg-primary text-primary-foreground'
                       : 'border-border bg-background'
                   }`}
                 >
@@ -104,7 +104,7 @@ export default function AddToPlaylistModal({
               placeholder="Tên playlist mới..."
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              className="border-border bg-background text-foreground placeholder:text-muted-foreground flex-1 rounded-xl border px-3 py-1.5 text-xs focus:ring-1 focus:ring-violet-500 focus:outline-none"
+              className="border-border bg-background text-foreground placeholder:text-muted-foreground flex-1 rounded-xl border px-3 py-1.5 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
               autoFocus
             />
             <Button type="submit" variant="primary" size="sm" className="text-xs">
@@ -127,7 +127,7 @@ export default function AddToPlaylistModal({
             elementId="add-playlist-modal-new-btn"
             data-ui="add-to-playlist-modal"
             onClick={() => setIsCreating(true)}
-            className="w-full border-violet-500/30 text-xs text-violet-400 hover:bg-violet-500/10"
+            className="w-full border-primary/30 text-xs text-primary hover:bg-primary/10"
           >
             <Plus className="mr-1.5 h-3.5 w-3.5" />
             Tạo Playlist mới
