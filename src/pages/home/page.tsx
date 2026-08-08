@@ -29,6 +29,13 @@ export default function Home() {
     ].join(',')
 
     const elements = document.querySelectorAll(selectors)
+    
+    // Fallback: If IntersectionObserver doesn't trigger, reveal elements
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach((el) => el.classList.add(styles.revealActive))
+      return
+    }
+
     elements.forEach((el) => observer.observe(el))
 
     return () => observer.disconnect()
@@ -124,7 +131,7 @@ export default function Home() {
             <div className={styles.connectivityGrid}>
               <div className={`${styles.connectivityImageWrapper} ${styles.revealLeft}`}>
                 <img
-                  src="/images/midi_connectivity.png"
+                  src={`${import.meta.env.BASE_URL}images/midi_connectivity.png`}
                   alt="Bluetooth & Cable MIDI Connectivity Illustration"
                   className={styles.connectivityImg}
                 />
