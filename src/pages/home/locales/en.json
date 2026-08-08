@@ -23,6 +23,17 @@
     "desc": "Dive into our beautifully designed interactive lessons. Learn about staves, clefs, notes, and the piano keyboard through stunning 3D glassmorphism illustrations.",
     "button": "Explore Theory Section"
   },
+  "connectivity": {
+    "badge": "Instant Plug & Play",
+    "title": "Seamless Bluetooth & USB MIDI Connection",
+    "desc": "Learning piano has never been smoother. Simply pair your electronic keyboard via Bluetooth MIDI or plug in with a USB cable — zero latency, instant note detection, and zero complex driver setup required.",
+    "feature1_title": "Bluetooth 5.0 Wireless MIDI",
+    "feature1_desc": "Play freely without tangled wires with ultra-low latency wireless MIDI pairing.",
+    "feature2_title": "Universal Cable & Audio Support",
+    "feature2_desc": "Compatible with standard USB-C, MIDI DIN cables, and real-time audio pitch detection.",
+    "feature3_title": "Perfect for Beginners",
+    "feature3_desc": "Get instant visual note feedback the exact millisecond you press a key on your piano."
+  },
   "cta": {
     "title": "Ready to play?",
     "desc": "Join thousands of musicians improving their sight-reading skills every day. Connect your MIDI keyboard and start instantly.",

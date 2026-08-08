@@ -23,6 +23,17 @@
     "desc": "Tìm hiểu sâu về nhạc lý thông qua các bài học tương tác được thiết kế tuyệt đẹp. Tìm hiểu về khuông nhạc, khóa nhạc, nốt nhạc và bàn phím đàn piano qua các minh họa 3D sống động.",
     "button": "Vào Trang Nhạc Lý"
   },
+  "connectivity": {
+    "badge": "Kết Nối Tức Thì",
+    "title": "Hỗ Trợ Toàn Diện Bluetooth & Dây Cáp MIDI",
+    "desc": "Học piano chưa bao giờ dễ dàng và trực quan đến thế. Dễ dàng kết nối bàn phím điện tử của bạn qua Bluetooth không dây hoặc cáp USB cắm trực tiếp — độ trễ cực thấp, nhận diện nốt tức thì và không cần cài đặt driver phức tạp.",
+    "feature1_title": "Bluetooth 5.0 Wireless MIDI",
+    "feature1_desc": "Tự do chơi nhạc không lo vướng víu với kết nối Bluetooth MIDI phản hồi siêu tốc.",
+    "feature2_title": "Tương Thích Cáp USB & Audio",
+    "feature2_desc": "Hỗ trợ chuẩn USB-C, cáp MIDI DIN truyền thống và cả công nghệ nhận diện cao độ qua Micro.",
+    "feature3_title": "Tuyệt Vời Cho Người Mới Bắt Đầu",
+    "feature3_desc": "Hiển thị phản hồi nốt nhạc chính xác ngay khoảnh khắc bạn nhấn phím đàn piano."
+  },
   "cta": {
     "title": "Sẵn sàng để chơi nhạc?",
     "desc": "Gia nhập cùng hàng ngàn nhạc sĩ đang cải thiện kỹ năng thị tấu mỗi ngày. Kết nối bàn phím MIDI của bạn và bắt đầu chơi ngay lập tức.",

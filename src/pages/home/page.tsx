@@ -1,5 +1,5 @@
 import { AppBar, MarketingFooter } from '@/components'
-import { BookOpen, ChevronRight, Layers, Music, Sparkles, Zap } from 'lucide-react'
+import { Bluetooth, BookOpen, Cable, CheckCircle2, ChevronRight, Layers, Music, Sparkles, Zap } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
@@ -37,6 +37,7 @@ export default function Home() {
   const navSections = [
     { id: 'hero-section', label: 'Hero' },
     { id: 'features-section', label: 'Features' },
+    { id: 'connectivity-section', label: 'MIDI' },
     { id: 'theory-section', label: 'Theory' },
     { id: 'cta-section', label: 'Play' },
   ]
@@ -113,6 +114,62 @@ export default function Home() {
                 description={t('home.why.feature3_desc')}
                 className={`${styles.revealOnScroll} ${styles.delay3}`}
               />
+            </div>
+          </div>
+        </div>
+
+        {/* CONNECTIVITY SECTION */}
+        <div id="connectivity-section" className={styles.connectivitySection}>
+          <div className={styles.container}>
+            <div className={styles.connectivityGrid}>
+              <div className={`${styles.connectivityImageWrapper} ${styles.revealLeft}`}>
+                <img
+                  src="/images/midi_connectivity.png"
+                  alt="Bluetooth & Cable MIDI Connectivity Illustration"
+                  className={styles.connectivityImg}
+                />
+              </div>
+              <div className={`${styles.connectivityContent} ${styles.revealRight} ${styles.delay2}`}>
+                <div className={styles.connectivityBadge}>
+                  <Bluetooth size={18} />
+                  <span>{t('home.connectivity.badge')}</span>
+                </div>
+                <h2 className={styles.sectionTitle}>
+                  {t('home.connectivity.title')}
+                </h2>
+                <p className={styles.heroSubtitle}>
+                  {t('home.connectivity.desc')}
+                </p>
+                <div className={styles.connectivityList}>
+                  <div className={styles.connectivityItem}>
+                    <div className={styles.connectivityIcon}>
+                      <Bluetooth size={22} />
+                    </div>
+                    <div>
+                      <h4 className={styles.connectivityItemTitle}>{t('home.connectivity.feature1_title')}</h4>
+                      <p className={styles.connectivityItemDesc}>{t('home.connectivity.feature1_desc')}</p>
+                    </div>
+                  </div>
+                  <div className={styles.connectivityItem}>
+                    <div className={styles.connectivityIcon}>
+                      <Cable size={22} />
+                    </div>
+                    <div>
+                      <h4 className={styles.connectivityItemTitle}>{t('home.connectivity.feature2_title')}</h4>
+                      <p className={styles.connectivityItemDesc}>{t('home.connectivity.feature2_desc')}</p>
+                    </div>
+                  </div>
+                  <div className={styles.connectivityItem}>
+                    <div className={styles.connectivityIcon}>
+                      <CheckCircle2 size={22} />
+                    </div>
+                    <div>
+                      <h4 className={styles.connectivityItemTitle}>{t('home.connectivity.feature3_title')}</h4>
+                      <p className={styles.connectivityItemDesc}>{t('home.connectivity.feature3_desc')}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
