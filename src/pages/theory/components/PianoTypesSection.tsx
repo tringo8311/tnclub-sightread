@@ -10,7 +10,7 @@ export function PianoTypesSection() {
       id: 'grand',
       name: t('theory.types.grand.name', 'Grand Piano (Piano Đại / Nằm Ngang)'),
       badge: t('theory.types.grand.badge', 'Âm thanh Concert đỉnh phong'),
-      image: '/images/theory/grand_piano.png',
+      image: `${import.meta.env.BASE_URL}images/theory/grand_piano.png`,
       desc: t(
         'theory.types.grand.desc',
         'Dây đàn và bảng cộng hưởng nằm ngang. Cơ chế búa nảy hoạt động dựa vào trọng lực tự nhiên, cho phép lặp nốt cực nhanh và sắc thái biểu cảm đỉnh cao nhất.',
@@ -24,7 +24,7 @@ export function PianoTypesSection() {
       id: 'upright',
       name: t('theory.types.upright.name', 'Upright Piano (Piano Đứng / Dựng Đứng)'),
       badge: t('theory.types.upright.badge', 'Lựa chọn tiêu chuẩn gia đình'),
-      image: '/images/theory/upright_piano.png',
+      image: `${import.meta.env.BASE_URL}images/theory/upright_piano.png`,
       desc: t(
         'theory.types.upright.desc',
         'Dây đàn và bảng cộng hưởng dựng đứng vuông góc với sàn nhà. Thiết kế nhỏ gọn, sang trọng, là lựa chọn hoàn hảo cho không gian gia đình và lớp học nhạc.',
@@ -38,7 +38,7 @@ export function PianoTypesSection() {
       id: 'digital',
       name: t('theory.types.digital.name', 'Digital Piano (Piano Điện)'),
       badge: t('theory.types.digital.badge', 'Hiện đại & Đa năng'),
-      image: '/images/theory/digital_piano.png',
+      image: `${import.meta.env.BASE_URL}images/theory/digital_piano.png`,
       desc: t(
         'theory.types.digital.desc',
         'Sử dụng công nghệ lấy mẫu âm thanh (Sampling) hoặc mô phỏng vật lý (Physical Modeling) từ các cây Concert Grand danh tiếng. Tích hợp tai nghe, USB MIDI và kết nối máy tính.',
@@ -52,7 +52,7 @@ export function PianoTypesSection() {
       id: 'hybrid',
       name: t('theory.types.hybrid.name', 'Hybrid Piano (Piano Lai Cơ - Điện)'),
       badge: t('theory.types.hybrid.badge', 'Đỉnh cao công nghệ'),
-      image: '/images/theory/hybrid_piano.png',
+      image: `${import.meta.env.BASE_URL}images/theory/hybrid_piano.png`,
       desc: t(
         'theory.types.hybrid.desc',
         'Sự kết hợp hoàn hảo giữa bộ cơ gỗ thật 100% của Piano cơ acoustic và cảm biến quang học điện tử cao cấp.',

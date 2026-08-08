@@ -11,7 +11,7 @@ export function PianoBrandsSection() {
       name: t('theory.brands.steinway.name', 'Steinway & Sons'),
       country: t('theory.brands.steinway.country', 'Mỹ / Đức (Từ 1853)'),
       tag: 'Concert Standard',
-      image: '/images/theory/brand_steinway.png',
+      image: `${import.meta.env.BASE_URL}images/theory/brand_steinway.png`,
       models: 'Model D-274, Model B-211, Spirio R',
       desc: t(
         'theory.brands.steinway.desc',
@@ -23,7 +23,7 @@ export function PianoBrandsSection() {
       name: t('theory.brands.bosendorfer.name', 'Bösendorfer'),
       country: t('theory.brands.bosendorfer.country', 'Áo (Từ 1828)'),
       tag: 'Viennese Sound',
-      image: '/images/theory/brand_bosendorfer.png',
+      image: `${import.meta.env.BASE_URL}images/theory/brand_bosendorfer.png`,
       models: 'Imperial 290 (97 phím), 280VC, 214VC',
       desc: t(
         'theory.brands.bosendorfer.desc',
@@ -35,7 +35,7 @@ export function PianoBrandsSection() {
       name: t('theory.brands.bechstein.name', 'C. Bechstein'),
       country: t('theory.brands.bechstein.country', 'Đức (Từ 1853)'),
       tag: 'European Noble',
-      image: '/images/theory/brand_bechstein.png',
+      image: `${import.meta.env.BASE_URL}images/theory/brand_bechstein.png`,
       models: 'Concert D 282, Academy A 190, Concert L 167',
       desc: t(
         'theory.brands.bechstein.desc',
@@ -47,7 +47,7 @@ export function PianoBrandsSection() {
       name: t('theory.brands.fazioli.name', 'Fazioli'),
       country: t('theory.brands.fazioli.country', 'Ý (Từ 1981)'),
       tag: 'Modern Perfection',
-      image: '/images/theory/brand_fazioli.png',
+      image: `${import.meta.env.BASE_URL}images/theory/brand_fazioli.png`,
       models: 'F308 (Đại dương cầm 3.08m), F278, F228',
       desc: t(
         'theory.brands.fazioli.desc',
@@ -59,7 +59,7 @@ export function PianoBrandsSection() {
       name: t('theory.brands.yamaha.name', 'Yamaha'),
       country: t('theory.brands.yamaha.country', 'Nhật Bản (Từ 1887)'),
       tag: 'Precision & Power',
-      image: '/images/theory/brand_yamaha_kawai.png',
+      image: `${import.meta.env.BASE_URL}images/theory/brand_yamaha_kawai.png`,
       models: 'Concert Grand CFX, SX Series, Upright U3, Clavinova',
       desc: t(
         'theory.brands.yamaha.desc',
@@ -71,7 +71,7 @@ export function PianoBrandsSection() {
       name: t('theory.brands.kawai.name', 'Kawai'),
       country: t('theory.brands.kawai.country', 'Nhật Bản (Từ 1927)'),
       tag: 'Master Craftsmanship',
-      image: '/images/theory/grand_piano.png',
+      image: `${import.meta.env.BASE_URL}images/theory/grand_piano.png`,
       models: 'Shigeru Kawai SK-EX, K-500, Hybrid Novus NV10S',
       desc: t(
         'theory.brands.kawai.desc',
@@ -104,7 +104,7 @@ export function PianoBrandsSection() {
       <div className="glass-card relative overflow-hidden rounded-3xl border border-white/10 shadow-xl">
         <div className="relative h-64 md:h-80 w-full overflow-hidden">
           <img
-            src="/images/theory/piano_brands.png"
+            src={`${import.meta.env.BASE_URL}images/theory/piano_brands.png`}
             alt="World Famous Piano Brands"
             className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
           />
@@ -206,7 +206,7 @@ export function PianoBrandsSection() {
         <div className="grid gap-6 md:grid-cols-12 items-center">
           <div className="relative md:col-span-5 h-60 overflow-hidden rounded-2xl border border-cyan-400/40 shadow-2xl group">
             <img
-              src="/images/theory/crystal_piano_real.jpg"
+              src={`${import.meta.env.BASE_URL}images/theory/crystal_piano_real.jpg`}
               alt="The Crystal Piano"
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />

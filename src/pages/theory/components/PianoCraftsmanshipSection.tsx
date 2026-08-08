@@ -71,7 +71,7 @@ export function PianoCraftsmanshipSection() {
         <div className="overflow-hidden rounded-2xl border border-white/10 lg:col-span-5 shadow-2xl">
           <div className="relative aspect-4/3 overflow-hidden">
             <img
-              src="/images/theory/craftsmanship.png"
+              src={`${import.meta.env.BASE_URL}images/theory/craftsmanship.png`}
               alt="Piano Action Craftsmanship"
               className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
             />

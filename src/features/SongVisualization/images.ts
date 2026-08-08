@@ -26,9 +26,12 @@ let imagesReadyPromise: Promise<void> | null = null
 export function waitForImages(): Promise<void> {
   if (!imagesReadyPromise) {
     imagesReadyPromise = (async () => {
+      const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+        ? import.meta.env.BASE_URL
+        : `${import.meta.env.BASE_URL}/`
       const [blackKeyRaised, blackKeyPressed] = await Promise.all([
-        loadImage('/images/black-key-raised.png'),
-        loadImage('/images/black-key-pressed.png'),
+        loadImage(`${baseUrl}images/black-key-raised.png`),
+        loadImage(`${baseUrl}images/black-key-pressed.png`),
       ])
       images = { blackKeyRaised, blackKeyPressed }
     })()

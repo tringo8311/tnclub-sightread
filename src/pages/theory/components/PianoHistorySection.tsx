@@ -61,7 +61,7 @@ export function PianoHistorySection() {
         <div className="overflow-hidden rounded-2xl border border-white/10 lg:col-span-5 shadow-2xl">
           <div className="relative aspect-4/3 overflow-hidden">
             <img
-              src="/images/theory/history.png"
+              src={`${import.meta.env.BASE_URL}images/theory/history.png`}
               alt="Vintage Fortepiano History"
               className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
             />

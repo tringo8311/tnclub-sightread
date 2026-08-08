@@ -23,7 +23,7 @@ export function WhatSection() {
       </p>
       <Sizer height={8} />
       <CaptionedImage
-        src="/images/mode_falling_notes_screenshot.png"
+        src={`${import.meta.env.BASE_URL}images/mode_falling_notes_screenshot.png`}
         caption={t('about.what.caption_falling_notes', 'Giao diện Nốt rơi (Falling Notes) kèm nhãn nốt')}
         height={1628}
         width={1636}
@@ -38,7 +38,7 @@ export function WhatSection() {
       </p>
       <Sizer height={8} />
       <CaptionedImage
-        src="/images/mode_sheet_hero_screenshot.png"
+        src={`${import.meta.env.BASE_URL}images/mode_sheet_hero_screenshot.png`}
         width={1980}
         height={1148}
         caption={t('about.what.caption_sheet_hero', 'Giao diện Sheet Hero (beta) hỗ trợ luyện nốt')}
