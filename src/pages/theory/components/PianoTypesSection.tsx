@@ -38,6 +38,7 @@ export function PianoTypesSection() {
       id: 'digital',
       name: t('theory.types.digital.name', 'Digital Piano (Piano Điện)'),
       badge: t('theory.types.digital.badge', 'Hiện đại & Đa năng'),
+      image: '/images/theory/digital_piano.png',
       desc: t(
         'theory.types.digital.desc',
         'Sử dụng công nghệ lấy mẫu âm thanh (Sampling) hoặc mô phỏng vật lý (Physical Modeling) từ các cây Concert Grand danh tiếng. Tích hợp tai nghe, USB MIDI và kết nối máy tính.',
@@ -51,6 +52,7 @@ export function PianoTypesSection() {
       id: 'hybrid',
       name: t('theory.types.hybrid.name', 'Hybrid Piano (Piano Lai Cơ - Điện)'),
       badge: t('theory.types.hybrid.badge', 'Đỉnh cao công nghệ'),
+      image: '/images/theory/hybrid_piano.png',
       desc: t(
         'theory.types.hybrid.desc',
         'Sự kết hợp hoàn hảo giữa bộ cơ gỗ thật 100% của Piano cơ acoustic và cảm biến quang học điện tử cao cấp.',

@@ -89,6 +89,34 @@ export default function MidiMarketPage() {
     }
   }
 
+  // Handle local file upload (Drag & Drop or File Picker)
+  const handleFileUpload = async (file: File) => {
+    try {
+      const buffer = await file.arrayBuffer()
+      const parsed = parseMidi(new Uint8Array(buffer))
+      const cleanTitle = file.name.replace(/\.(mid|midi)$/i, '')
+      const fileId = `uploaded-${Date.now()}-${file.name}`
+
+      const uploadedMeta: SongMetadata = {
+        id: fileId,
+        title: cleanTitle,
+        source: 'downloaded',
+        author: 'Local Upload',
+        category: 'Custom',
+        level: 'Intermediate',
+        duration: Math.round(parsed.duration || 120),
+        difficulty: 0,
+        file: fileId,
+      }
+
+      await saveMarketSongToIndexedDB(uploadedMeta, buffer)
+      setSavedIds((prev) => ({ ...prev, [fileId]: true }))
+      setPreviewSongMeta(uploadedMeta)
+    } catch (e) {
+      console.error('Lỗi đọc file MIDI:', e)
+    }
+  }
+
   // Handle fetching & previewing custom MIDI URL
   const handleLookupUrl = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -112,12 +140,12 @@ export default function MidiMarketPage() {
 
       const urlSongMeta: SongMetadata = {
         id: urlInput.trim(),
-        title: urlInput.split('/').pop()?.replace('.mid', '') || 'Custom MIDI File',
+        title: urlInput.split('/').pop()?.replace(/\.(mid|midi)$/i, '') || 'Custom MIDI File',
         source: 'market',
         author: 'Online Import',
         category: 'Custom',
         level: 'Intermediate',
-        duration: Math.round(parsed.duration),
+        duration: Math.round(parsed.duration || 120),
         difficulty: 0,
         file: urlInput.trim(),
       }
@@ -153,6 +181,7 @@ export default function MidiMarketPage() {
           urlLoading={urlLoading}
           urlError={urlError}
           onLookupUrl={handleLookupUrl}
+          onFileUpload={handleFileUpload}
         />
 
         {/* Modular Content Section */}
@@ -167,6 +196,7 @@ export default function MidiMarketPage() {
           <SongsGrid
             songs={filteredSongs}
             savedIds={savedIds}
+            searchQuery={search}
             onPreview={handlePreview}
             onDownload={handleDownloadFile}
             onSave={handleSaveToApp}

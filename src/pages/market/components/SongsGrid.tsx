@@ -6,14 +6,22 @@ import { SongCard } from './SongCard'
 interface SongsGridProps {
   songs: MarketMidiItem[]
   savedIds: Record<string, boolean>
+  searchQuery?: string
   onPreview: (item: MarketMidiItem) => void
   onDownload: (item: MarketMidiItem) => void
   onSave: (item: MarketMidiItem) => void
 }
 
-export function SongsGrid({ songs, savedIds, onPreview, onDownload, onSave }: SongsGridProps) {
+export function SongsGrid({
+  songs,
+  savedIds,
+  searchQuery,
+  onPreview,
+  onDownload,
+  onSave,
+}: SongsGridProps) {
   if (songs.length === 0) {
-    return <EmptyState />
+    return <EmptyState searchQuery={searchQuery} />
   }
 
   return (
