@@ -1,24 +1,58 @@
 import { AppBar, MarketingFooter } from '@/components'
 import { BookOpen, ChevronRight, Layers, Music, Sparkles, Zap } from 'lucide-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
-import { FeatureCard, FeaturedSongsPreview } from './components'
+import { FeatureCard, FeaturedSongsPreview, SideDotNav } from './components'
 import styles from './home.module.css'
 
 export default function Home() {
   const { t } = useTranslation()
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.revealActive)
+          }
+        })
+      },
+      { threshold: 0.12 },
+    )
+
+    const selectors = [
+      `.${styles.revealOnScroll}`,
+      `.${styles.revealLeft}`,
+      `.${styles.revealRight}`,
+      `.${styles.revealZoom}`,
+    ].join(',')
+
+    const elements = document.querySelectorAll(selectors)
+    elements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
+  const navSections = [
+    { id: 'hero-section', label: 'Hero' },
+    { id: 'features-section', label: 'Features' },
+    { id: 'theory-section', label: 'Theory' },
+    { id: 'cta-section', label: 'Play' },
+  ]
+
   return (
     <div className={styles.pageContainer}>
+      <SideDotNav sections={navSections} />
+
       <div className={styles.contentWrapper}>
         <AppBar />
 
         {/* HERO SECTION */}
-        <div className={styles.heroSection}>
+        <div id="hero-section" className={styles.heroSection}>
           <div className={styles.container}>
             <div className={styles.heroGrid}>
-              <div className={styles.heroLeft}>
+              <div className={`${styles.heroLeft} ${styles.revealLeft}`}>
                 <div className={styles.badge}>
                   <Sparkles size={16} />
                   <span>{t('home.hero.standard_badge')}</span>
@@ -40,7 +74,7 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              <div className={styles.heroRight}>
+              <div className={`${styles.heroRight} ${styles.revealRight} ${styles.delay2}`}>
                 <div className={styles.glowBackground} />
                 <div className={`${styles.glassCard} ${styles.previewContainer}`}>
                   <FeaturedSongsPreview className="w-full" />
@@ -51,9 +85,9 @@ export default function Home() {
         </div>
 
         {/* FEATURES SECTION */}
-        <div className={styles.featuresSection}>
+        <div id="features-section" className={styles.featuresSection}>
           <div className={styles.container}>
-            <div className={styles.sectionHeader}>
+            <div className={`${styles.sectionHeader} ${styles.revealOnScroll}`}>
               <h2 className={styles.sectionTitle}>
                 {t('home.why.title')}
               </h2>
@@ -65,26 +99,29 @@ export default function Home() {
                 icon={Zap}
                 title={t('home.why.feature1_title')}
                 description={t('home.why.feature1_desc')}
+                className={`${styles.revealOnScroll} ${styles.delay1}`}
               />
               <FeatureCard
                 icon={Layers}
                 title={t('home.why.feature2_title')}
                 description={t('home.why.feature2_desc')}
+                className={`${styles.revealOnScroll} ${styles.delay2}`}
               />
               <FeatureCard
                 icon={Music}
                 title={t('home.why.feature3_title')}
                 description={t('home.why.feature3_desc')}
+                className={`${styles.revealOnScroll} ${styles.delay3}`}
               />
             </div>
           </div>
         </div>
 
         {/* THEORY SECTION */}
-        <div className={styles.theorySection}>
+        <div id="theory-section" className={styles.theorySection}>
           <div className={styles.container}>
             <div className={styles.theoryGrid}>
-              <div className={`${styles.glassCard} ${styles.theoryCard}`}>
+              <div className={`${styles.glassCard} ${styles.theoryCard} ${styles.revealLeft}`}>
                 <div className={styles.theoryGlow} />
                 <div className={styles.cardInner}>
                   <div className={styles.noteContainer}>
@@ -104,7 +141,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className={styles.theoryTextContent}>
+              <div className={`${styles.theoryTextContent} ${styles.revealRight} ${styles.delay2}`}>
                 <h2 className={styles.sectionTitle}>
                   {t('home.theory.title')}
                 </h2>
@@ -124,9 +161,9 @@ export default function Home() {
         </div>
 
         {/* CTA SECTION */}
-        <div className={styles.ctaSection}>
+        <div id="cta-section" className={styles.ctaSection}>
           <div className={styles.ctaGradientOverlay} />
-          <div className={`${styles.container} ${styles.ctaContent}`}>
+          <div className={`${styles.container} ${styles.ctaContent} ${styles.revealZoom}`}>
             <h2 className={styles.ctaTitle}>
               {t('home.cta.title')}
             </h2>

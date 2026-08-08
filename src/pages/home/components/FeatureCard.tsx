@@ -5,13 +5,15 @@ export function FeatureCard({
   icon: Icon,
   title,
   description,
+  className = '',
 }: {
   icon: React.ElementType
   title: string
   description: string
+  className?: string
 }) {
   return (
-    <div className={`${styles.glassCard} ${styles.featureCard}`}>
+    <div className={`${styles.glassCard} ${styles.featureCard} ${className}`}>
       <div className={styles.cardGlowOverlay} />
       <div className={styles.cardInner}>
         <div className={styles.iconWrapper}>
