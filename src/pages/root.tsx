@@ -1,6 +1,6 @@
 import { GA_TRACKING_ID } from '@/features/analytics'
 import styles from '@/styles/global.css?inline'
-import { Outlet, Scripts, ScrollRestoration } from 'react-router'
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
 import '@/i18n/config'
 import { Providers } from './providers'
 
@@ -10,6 +10,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
 
         <title>Sightread</title>
         <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}favicon.png`} />

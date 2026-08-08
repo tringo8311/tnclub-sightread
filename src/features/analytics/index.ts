@@ -1,5 +1,5 @@
 if (import.meta.env.PROD && !import.meta.env.VITE_PUBLIC_GA_ID) {
-  throw new Error('Missing VITE_PUBLIC_GA_ID')
+  console.warn('Missing VITE_PUBLIC_GA_ID, Google Analytics disabled')
 }
 
 export const GA_TRACKING_ID = import.meta.env.VITE_PUBLIC_GA_ID ?? ''
