@@ -17,7 +17,7 @@ type NavItem = {
 }
 const navItems: NavItem[] = [
   { route: '/about', labelKey: 'home.about', icon: Info },
-  { route: '/theory', labelKey: 'home.theory', icon: BookOpen },
+  { route: '/theory', labelKey: 'home.nav_theory', icon: BookOpen },
   { route: '/songs', labelKey: 'home.learn_song', icon: Music },
   { route: '/market', labelKey: 'MIDI Market', icon: Store },
   { route: '/freeplay', labelKey: 'home.free_play', icon: Piano },

@@ -1,0 +1,31 @@
+{
+  "learn_song": "Learn a song",
+  "free_play": "Free play",
+  "about": "About",
+  "nav_theory": "Theory",
+  "hero": {
+    "standard_badge": "The New Standard",
+    "title": "Your Piano Journey Begins Here",
+    "subtitle": "Plug in your keyboard and learn, right in your browser"
+  },
+  "why": {
+    "title": "Why Sightread",
+    "subtitle": "A few reasons to give it a try.",
+    "feature1_title": "Your Own Music",
+    "feature1_desc": "Works with any MIDI file. We'll automatically detect which track is for which hand.",
+    "feature2_title": "Learn at Your Own Pace",
+    "feature2_desc": "Tempo controls and Wait Mode let you slow down and focus on accuracy.",
+    "feature3_title": "Multiple Modes",
+    "feature3_desc": "Falling Notes or Sheet Hero. Switch views to match how you learn."
+  },
+  "theory": {
+    "title": "Master Music Theory",
+    "desc": "Dive into our beautifully designed interactive lessons. Learn about staves, clefs, notes, and the piano keyboard through stunning 3D glassmorphism illustrations.",
+    "button": "Explore Theory Section"
+  },
+  "cta": {
+    "title": "Ready to play?",
+    "desc": "Join thousands of musicians improving their sight-reading skills every day. Connect your MIDI keyboard and start instantly.",
+    "button": "Start Free Play"
+  }
+}

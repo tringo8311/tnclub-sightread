@@ -1,7 +1,9 @@
+import * as tonejsMidi from '@tonejs/midi'
 import { loadInstrument, soundfonts } from '@/features/synth/loadInstrument'
 import { InstrumentName } from '@/features/synth/types'
 import { getAudioContext, getKeyForSoundfont } from '@/features/synth/utils'
-import { Midi } from '@tonejs/midi'
+
+const Midi = tonejsMidi.Midi || (tonejsMidi as any).default?.Midi || (tonejsMidi as any).default
 
 const DEFAULT_TAIL_SECONDS = 1
 const MAX_RELEASE_SECONDS = 0.25

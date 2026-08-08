@@ -1,0 +1,31 @@
+{
+  "learn_song": "Học bài hát",
+  "free_play": "Chơi tự do",
+  "about": "Giới thiệu",
+  "nav_theory": "Nhạc Lý",
+  "hero": {
+    "standard_badge": "Tiêu Chuẩn Mới",
+    "title": "Hành Trình Âm Nhạc Bắt Đầu Từ Đây",
+    "subtitle": "Cắm phím đàn vào và học ngay trên trình duyệt của bạn"
+  },
+  "why": {
+    "title": "Vì sao chọn Sightread?",
+    "subtitle": "Một vài lý do để bạn trải nghiệm.",
+    "feature1_title": "Nhạc Của Riêng Bạn",
+    "feature1_desc": "Hỗ trợ mọi file MIDI. Hệ thống sẽ tự động nhận diện bản nhạc dành cho từng tay.",
+    "feature2_title": "Học Theo Nhịp Độ Của Bạn",
+    "feature2_desc": "Kiểm soát nhịp độ và Chế Độ Chờ giúp bạn chơi chậm lại và tập trung vào độ chính xác.",
+    "feature3_title": "Nhiều Chế Độ Hiển Thị",
+    "feature3_desc": "Nốt Nhạc Rơi hoặc Chế Độ Sheet Hero. Dễ dàng chuyển đổi góc nhìn cho phù hợp với cách bạn học."
+  },
+  "theory": {
+    "title": "Khám Phá Nhạc Lý",
+    "desc": "Tìm hiểu sâu về nhạc lý thông qua các bài học tương tác được thiết kế tuyệt đẹp. Tìm hiểu về khuông nhạc, khóa nhạc, nốt nhạc và bàn phím đàn piano qua các minh họa 3D sống động.",
+    "button": "Vào Trang Nhạc Lý"
+  },
+  "cta": {
+    "title": "Sẵn sàng để chơi nhạc?",
+    "desc": "Gia nhập cùng hàng ngàn nhạc sĩ đang cải thiện kỹ năng thị tấu mỗi ngày. Kết nối bàn phím MIDI của bạn và bắt đầu chơi ngay lập tức.",
+    "button": "Bắt Đầu Tự Do"
+  }
+}
