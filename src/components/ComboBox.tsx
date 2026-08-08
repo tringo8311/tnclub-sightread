@@ -17,6 +17,11 @@ export interface ComboBoxProps<T extends object> extends Omit<AriaComboBoxProps<
   label?: string
   description?: string | null
   isLoading?: boolean
+  elementId?: string
+  'data-element-id'?: string
+  'data-component'?: string
+  'data-ui'?: string
+  'data-testid'?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
   fieldGroupClassName?: string
   inputClassName?: string
@@ -32,6 +37,11 @@ const ComboBoxInner = <T extends object>(
     children,
     items,
     isLoading,
+    elementId,
+    'data-element-id': dataElementId,
+    'data-component': dataComponent = 'ComboBox',
+    'data-ui': dataUi,
+    'data-testid': dataTestId,
     fieldGroupClassName,
     inputClassName,
     buttonClassName,
@@ -42,17 +52,27 @@ const ComboBoxInner = <T extends object>(
   const ariaLabelProp = props['aria-label']
   const ariaLabelledByProp = props['aria-labelledby']
   const ariaLabel = ariaLabelledByProp || ariaLabelProp ? ariaLabelProp : (ariaLabelProp ?? label)
+  const resolvedElementId = elementId || dataElementId
+
   return (
     <AriaComboBox
       {...props}
       ref={ref}
       aria-label={ariaLabel}
+      data-component={dataComponent}
+      data-element-id={resolvedElementId}
+      data-ui={dataUi}
+      data-testid={dataTestId}
       className={composeTailwindRenderProps(props.className, 'group flex flex-col gap-1')}
     >
       {label ? <Label>{label}</Label> : null}
       <FieldGroup className={fieldGroupClassName}>
-        <Input className={inputClassName} />
+        <Input
+          className={inputClassName}
+          data-element-id={resolvedElementId ? `${resolvedElementId}-input` : undefined}
+        />
         <Button
+          data-element-id={resolvedElementId ? `${resolvedElementId}-button` : undefined}
           className={composeTailwindRenderProps(
             buttonClassName,
             'mr-1 flex w-6 items-center justify-center rounded-xs outline-offset-0',

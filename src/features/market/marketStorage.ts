@@ -6,10 +6,11 @@ export interface MarketMidiItem {
   id: string
   title: string
   author: string
-  category: 'Classical' | 'Anime' | 'Game OST' | 'Pop' | 'Jazz'
+  category: 'Classical' | 'Anime' | 'Game OST' | 'Pop' | 'Jazz' | 'Custom'
   level: 'Beginner' | 'Intermediate' | 'Advanced'
   duration: number
   midiUrl: string
+  provider?: string
   description?: string
   tags?: string[]
 }

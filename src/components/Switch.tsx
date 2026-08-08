@@ -6,6 +6,11 @@ import { composeTailwindRenderProps, Expand, focusRing } from './utils'
 interface SwitchProps_ extends Omit<AriaSwitchProps, 'children'> {
   children: React.ReactNode
   size?: 'sm' | 'md' | 'lg'
+  elementId?: string
+  'data-element-id'?: string
+  'data-component'?: string
+  'data-ui'?: string
+  'data-testid'?: string
 }
 export type SwitchProps = Expand<SwitchProps_>
 
@@ -49,10 +54,25 @@ const handle = tv({
   },
 })
 
-export function Switch({ children, size = 'sm', ...props }: SwitchProps) {
+export function Switch({
+  children,
+  size = 'sm',
+  elementId,
+  'data-element-id': dataElementId,
+  'data-component': dataComponent = 'Switch',
+  'data-ui': dataUi,
+  'data-testid': dataTestId,
+  ...props
+}: SwitchProps) {
+  const resolvedElementId = elementId || dataElementId
+
   return (
     <AriaSwitch
       {...props}
+      data-component={dataComponent}
+      data-element-id={resolvedElementId}
+      data-ui={dataUi}
+      data-testid={dataTestId}
       className={composeTailwindRenderProps(
         props.className,
         'group relative flex items-center gap-2 text-sm text-gray-800 transition disabled:text-gray-300',

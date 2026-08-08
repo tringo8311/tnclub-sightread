@@ -54,9 +54,16 @@ export default function TransportBar({
   const speedOptions = getSpeedPresetOptions(bpmModifier)
 
   return (
-    <div className="flex h-12 items-center justify-between border-t border-[#23242b] bg-[#141419] px-4 text-gray-200">
+    <div
+      data-ui="transport-bar"
+      data-component="TransportBar"
+      className="flex h-12 items-center justify-between border-t border-[#23242b] bg-[#141419] px-4 text-gray-200"
+    >
       <div className="flex items-center gap-3">
         <Button
+          data-element-id="transport-restart-btn"
+          data-ui="transport-bar"
+          aria-label="Restart playback"
           className="text-gray-400 transition hover:text-white"
           onPress={onClickRestart}
           onMouseDown={(event) => event.preventDefault()}
@@ -64,6 +71,9 @@ export default function TransportBar({
           <SkipBack className="h-5 w-5" />
         </Button>
         <Button
+          data-element-id="transport-play-pause-btn"
+          data-ui="transport-bar"
+          aria-label={isPlaying ? 'Pause' : 'Play'}
           className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-600 text-white shadow-[0_0_12px_rgba(139,92,246,0.35)] transition hover:bg-violet-500 active:scale-95"
           onPress={onTogglePlaying}
           onMouseDown={(event) => event.preventDefault()}
@@ -76,9 +86,9 @@ export default function TransportBar({
             <Play className="h-5 w-5" />
           )}
         </Button>
-        <div className="flex items-center gap-2 pl-2">
+        <div className="flex items-center gap-2 pl-2" data-element-id="transport-volume-section">
           <Volume2 className="h-4 w-4 text-gray-400" />
-          <div className="w-24">
+          <div className="w-24" data-element-id="transport-volume-slider">
             <Slider
               orientation="horizontal"
               min={0}
@@ -92,7 +102,7 @@ export default function TransportBar({
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <div className="flex flex-col items-end select-none">
+        <div className="flex flex-col items-end select-none" data-ui="transport-timer">
           <div className="flex items-baseline gap-1 font-mono select-none">
             <span className="text-sm font-semibold text-white select-none">{currentTime}</span>
             <span className="text-[11px] text-gray-500 select-none">/ {duration}</span>
@@ -108,6 +118,7 @@ export default function TransportBar({
             label="Metronome"
             icon={<Metronome />}
             onPress={onToggleMetronome}
+            elementId="transport-metronome-btn"
           />
           <TogglePill
             isActive={isWaiting}
@@ -115,10 +126,14 @@ export default function TransportBar({
             icon={<Hourglass />}
             content="Wait"
             onPress={onToggleWaiting}
+            elementId="transport-wait-mode-btn"
           />
           <MenuTrigger>
             <TooltipTrigger>
               <Button
+                data-element-id="transport-speed-menu-btn"
+                data-ui="transport-bar"
+                aria-label="Playback speed menu"
                 className={clsx(
                   'flex items-center gap-1.5 rounded border px-2.5 py-1 text-xs font-medium transition',
                   isBpmModified
@@ -152,6 +167,7 @@ export default function TransportBar({
                     <MenuItem
                       id={option.id}
                       key={option.id}
+                      data-element-id={`transport-speed-option-${option.id}`}
                       className={clsx(
                         'flex items-center justify-between rounded-md px-2.5 py-1.5 text-xs font-medium text-zinc-200 transition outline-none',
                         'data-[focused]:bg-zinc-700 data-[pressed]:bg-zinc-700',
@@ -174,11 +190,18 @@ export default function TransportBar({
           icon={<Repeat />}
           content="Loop"
           onPress={onToggleLoop}
+          elementId="transport-loop-btn"
         />
         <div className="h-6 w-px bg-[#2a2b32]" />
-        <div className="flex items-center gap-1 rounded border border-transparent bg-[#1e2028] p-0.5 transition-colors hover:border-[#2a2b32]">
+        <div
+          className="flex items-center gap-1 rounded border border-transparent bg-[#1e2028] p-0.5 transition-colors hover:border-[#2a2b32]"
+          data-ui="transport-mic-controls"
+        >
           <TooltipTrigger>
             <Button
+              data-element-id="transport-mic-toggle-btn"
+              data-ui="transport-bar"
+              aria-label={isMicActive ? 'Turn off Microphone' : 'Use Microphone'}
               className={clsx(
                 'flex items-center gap-1.5 rounded px-2 py-1 text-xs font-medium transition',
                 isMicActive
@@ -193,12 +216,18 @@ export default function TransportBar({
             <Tooltip>{isMicActive ? 'Turn off Microphone' : 'Use Microphone'}</Tooltip>
           </TooltipTrigger>
           {isMicActive && (
-            <span className="min-w-6 px-1 text-center font-mono text-xs font-bold text-amber-300">
+            <span
+              className="min-w-6 px-1 text-center font-mono text-xs font-bold text-amber-300"
+              data-element-id="transport-mic-pitch-display"
+            >
               {detectedMidi !== null ? getNoteName(detectedMidi) : '--'}
             </span>
           )}
           <TooltipTrigger>
             <Button
+              data-element-id="transport-mic-settings-btn"
+              data-ui="transport-bar"
+              aria-label="Microphone settings"
               className="flex items-center justify-center rounded p-1 text-gray-400 hover:bg-white/10 hover:text-white"
               onPress={onOpenMicTest}
             >
@@ -219,6 +248,7 @@ type TogglePillProps = {
   content?: React.ReactNode
   onPress: () => void
   showStateText?: boolean
+  elementId?: string
 }
 
 function TogglePill({
@@ -228,6 +258,7 @@ function TogglePill({
   content,
   onPress,
   showStateText = true,
+  elementId,
 }: TogglePillProps) {
   const iconClasses = isActive ? 'h-3.5 w-3.5 text-violet-200' : 'h-3.5 w-3.5 text-gray-400'
   const styledIcon = React.cloneElement(icon, { className: iconClasses })
@@ -235,6 +266,9 @@ function TogglePill({
   return (
     <TooltipTrigger>
       <Button
+        data-element-id={elementId}
+        data-ui="transport-bar"
+        aria-label={label}
         className={`flex items-center gap-1.5 rounded px-2.5 py-1 text-xs font-medium transition ${
           isActive
             ? 'border border-violet-500/30 bg-violet-500/10 text-violet-200 hover:bg-violet-500/20'

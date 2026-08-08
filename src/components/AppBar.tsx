@@ -29,6 +29,8 @@ export default function AppBar() {
 
   return (
     <header
+      data-ui="app-header"
+      data-component="AppBar"
       className="border-primary/20 bg-primary/85 text-primary-foreground sticky top-0 z-50 flex h-[60px] min-h-[60px] flex-col justify-center border-b shadow-md backdrop-blur-md transition-all duration-300"
       style={{
         paddingLeft: 'calc(100vw - 100%)',
@@ -37,6 +39,7 @@ export default function AppBar() {
       <div className="mx-auto flex w-full items-center justify-between px-6 md:max-w-(--breakpoint-lg)">
         <Link
           to={'/'}
+          data-element-id="nav-logo"
           className="group text-primary-foreground flex items-center gap-2 transition-transform duration-300 hover:scale-105 active:scale-95"
         >
           <div className="bg-primary-foreground/10 group-hover:bg-primary-foreground/20 rounded-xl p-1.5 transition-colors">
@@ -53,14 +56,16 @@ export default function AppBar() {
 
         {/* Desktop Navigation & Actions aligned right */}
         <div className="ml-auto hidden items-center gap-4 md:flex">
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-1" data-ui="desktop-nav">
             {navItems.map((nav) => {
               const isActive = currentRoute === nav.route
               const Icon = nav.icon
+              const navId = nav.route.replace('/', '') || 'home'
               return (
                 <Link
                   to={nav.route}
                   key={nav.route}
+                  data-element-id={`nav-link-${navId}`}
                   className={clsx(
                     'group relative flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-300 ease-out',
                     isActive

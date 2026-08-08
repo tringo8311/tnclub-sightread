@@ -38,6 +38,11 @@ export interface SelectProps_<T extends object> extends Omit<AriaSelectProps<T>,
   label?: string
   description?: string
   action?: string
+  elementId?: string
+  'data-element-id'?: string
+  'data-component'?: string
+  'data-ui'?: string
+  'data-testid'?: string
   'data-description'?: string
   'data-action'?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
@@ -52,6 +57,11 @@ export function Select<T extends object>({
   label,
   description,
   action,
+  elementId,
+  'data-element-id': dataElementId,
+  'data-component': dataComponent = 'Select',
+  'data-ui': dataUi,
+  'data-testid': dataTestId,
   'data-description': dataDescription,
   'data-action': dataAction,
   errorMessage,
@@ -63,10 +73,15 @@ export function Select<T extends object>({
 }: SelectProps<T>) {
   const resolvedDescription = description || dataDescription
   const resolvedAction = action || dataAction
+  const resolvedElementId = elementId || dataElementId
 
   return (
     <AriaSelect
       {...props}
+      data-component={dataComponent}
+      data-element-id={resolvedElementId}
+      data-ui={dataUi}
+      data-testid={dataTestId}
       data-description={resolvedDescription}
       data-action={resolvedAction}
       className={composeTailwindRenderProps(props.className, 'group relative flex flex-col gap-1')}
@@ -76,6 +91,9 @@ export function Select<T extends object>({
       <Button
         className={(renderProps) => styles({ ...renderProps, size })}
         data-action={resolvedAction}
+        data-element-id={resolvedElementId ? `${resolvedElementId}-trigger` : undefined}
+        data-component={`${dataComponent}Trigger`}
+        data-ui={dataUi}
       >
         <SelectValue className="min-w-0 flex-1 truncate text-zinc-200" />
         {isLoading ? (

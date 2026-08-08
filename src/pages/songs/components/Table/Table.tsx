@@ -1,9 +1,10 @@
+import { Modal } from '@/components'
 import {
   activeProfileIdAtom,
   favoritesAtom,
   songProgressAtom,
 } from '@/features/persist/persistence'
-import { ChevronDown } from '@/icons'
+import { ChevronDown, ListPlus } from '@/icons'
 import { SongMetadata } from '@/types'
 import { formatTime } from '@/utils'
 import clsx from 'clsx'
@@ -13,6 +14,7 @@ import * as React from 'react'
 import { useMemo, useState } from 'react'
 import { useCollator, useFilter } from 'react-aria'
 import { Cell, Column, Table as RacTable, Row, TableBody, TableHeader } from 'react-aria-components'
+import AddToPlaylistModal from '../AddToPlaylistModal'
 
 type SongsTableProps = {
   rows: SongMetadata[]
@@ -44,6 +46,9 @@ export default function Table({
     direction: 'ascending',
   })
   const [favorites, setFavorites] = useAtom(favoritesAtom)
+  const [playlistModalSong, setPlaylistModalSong] = useState<{ id: string; title: string } | null>(
+    null,
+  )
 
   const toggleFavorite = (e: React.MouseEvent, songId: string) => {
     e.stopPropagation()
@@ -97,249 +102,308 @@ export default function Table({
   }, [collator, filtered, sortDescriptor, songProgress, activeProfileId])
 
   return (
-    <div
-      className="glass-card flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl"
-      style={{
-        ['--sort-icon-gap' as any]: '1.5rem',
-        fontVariantNumeric: 'tabular-nums',
-      }}
-    >
-      <div className="flex min-h-0 flex-1 flex-col">
-        <RacTable
-          aria-label="Songs"
-          className="flex h-full w-full flex-col text-sm"
-          sortDescriptor={sortDescriptor}
-          onSortChange={(descriptor) =>
-            setSortDescriptor({
-              column: descriptor.column as SortState['column'],
-              direction: descriptor.direction as SortState['direction'],
-            })
-          }
-        >
-          <TableHeader className="bg-foreground/5 table w-full table-fixed backdrop-blur-md">
-            <Column
-              id="stt"
-              className="border-foreground/10 text-foreground/60 w-16 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
-            >
-              STT
-            </Column>
-            <Column
-              id="favorite"
-              className="border-foreground/10 text-foreground/60 w-12 border-b px-4 py-2 text-center text-sm font-semibold tracking-wider uppercase"
-            >
-              <Star size={14} className="text-foreground/40 mx-auto" />
-            </Column>
-            <Column
-              id="title"
-              isRowHeader
-              allowsSorting
-              className="border-foreground/10 text-foreground/60 w-1/3 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
-            >
-              {({ sortDirection }) => (
-                <div className="relative flex items-center">
-                  <span className="truncate pr-[var(--sort-icon-gap)]">Title</span>
-                  <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
-                    {sortDirection && (
-                      <ChevronDown
-                        className={clsx('h-4 w-4', sortDirection === 'descending' && 'rotate-180')}
-                      />
-                    )}
-                  </span>
-                </div>
-              )}
-            </Column>
-            <Column
-              id="author"
-              allowsSorting
-              className="border-foreground/10 text-foreground/60 w-48 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
-            >
-              {({ sortDirection }) => (
-                <div className="relative flex items-center">
-                  <span className="truncate pr-[var(--sort-icon-gap)]">Author</span>
-                  <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
-                    {sortDirection && (
-                      <ChevronDown
-                        className={clsx('h-4 w-4', sortDirection === 'descending' && 'rotate-180')}
-                      />
-                    )}
-                  </span>
-                </div>
-              )}
-            </Column>
-            <Column
-              id="category"
-              allowsSorting
-              className="w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
-            >
-              {({ sortDirection }) => (
-                <div className="relative flex items-center">
-                  <span className="truncate pr-[var(--sort-icon-gap)]">Category</span>
-                  <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
-                    {sortDirection && (
-                      <ChevronDown
-                        className={clsx('h-4 w-4', sortDirection === 'descending' && 'rotate-180')}
-                      />
-                    )}
-                  </span>
-                </div>
-              )}
-            </Column>
-            <Column
-              id="level"
-              allowsSorting
-              className="w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
-            >
-              {({ sortDirection }) => (
-                <div className="relative flex items-center">
-                  <span className="truncate pr-[var(--sort-icon-gap)]">Level</span>
-                  <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
-                    {sortDirection && (
-                      <ChevronDown
-                        className={clsx('h-4 w-4', sortDirection === 'descending' && 'rotate-180')}
-                      />
-                    )}
-                  </span>
-                </div>
-              )}
-            </Column>
-            <Column
-              id="progress"
-              allowsSorting
-              className="w-28 border-b border-gray-200 px-4 py-2 text-right text-sm font-semibold tracking-wider text-gray-500 uppercase"
-            >
-              {({ sortDirection }) => (
-                <div className="relative flex items-center justify-end">
-                  <span className="truncate pr-[var(--sort-icon-gap)] text-right">Progress</span>
-                  <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
-                    {sortDirection && (
-                      <ChevronDown
-                        className={clsx('h-4 w-4', sortDirection === 'descending' && 'rotate-180')}
-                      />
-                    )}
-                  </span>
-                </div>
-              )}
-            </Column>
-            <Column
-              id="duration"
-              allowsSorting
-              className="w-32 border-b border-gray-200 px-4 py-2 text-right text-sm font-semibold tracking-wider text-gray-500 uppercase"
-            >
-              {({ sortDirection }) => (
-                <div className="relative flex items-center justify-end">
-                  <span className="truncate pr-[var(--sort-icon-gap)] text-right">Length</span>
-                  <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
-                    {sortDirection && (
-                      <ChevronDown
-                        className={clsx('h-4 w-4', sortDirection === 'descending' && 'rotate-180')}
-                      />
-                    )}
-                  </span>
-                </div>
-              )}
-            </Column>
-          </TableHeader>
-          <TableBody
-            className={clsx(
-              'block flex-1 overflow-y-auto',
-              sorted.length === 0 && 'flex h-full flex-col items-center justify-center',
-            )}
-            items={sorted}
-            renderEmptyState={() => (
-              <div className="animate-in fade-in flex h-full w-full flex-col items-center justify-center py-12 text-center duration-300">
-                <div className="bg-foreground/5 text-foreground/40 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-                  <Star className="h-8 w-8" />
-                </div>
-                <h3 className="text-foreground mb-1 text-lg font-medium">
-                  Không tìm thấy bài hát nào
-                </h3>
-                <p className="text-foreground/50 max-w-sm text-sm leading-relaxed">
-                  Thử thay đổi từ khóa tìm kiếm hoặc chọn bộ lọc khác.
-                </p>
-              </div>
-            )}
+    <>
+      <Modal
+        show={!!playlistModalSong}
+        onClose={() => setPlaylistModalSong(null)}
+        className="w-[min(96vw,440px)] overflow-hidden rounded-2xl bg-white p-0"
+        modalClassName="max-w-[440px]"
+      >
+        {playlistModalSong && (
+          <AddToPlaylistModal
+            songId={playlistModalSong.id}
+            songTitle={playlistModalSong.title}
+            onClose={() => setPlaylistModalSong(null)}
+          />
+        )}
+      </Modal>
+      <div
+        data-ui="song-list-table"
+        data-component="SongTable"
+        className="glass-card flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl"
+        style={{
+          ['--sort-icon-gap' as any]: '1.5rem',
+          fontVariantNumeric: 'tabular-nums',
+        }}
+      >
+        <div className="flex min-h-0 flex-1 flex-col">
+          <RacTable
+            aria-label="Songs"
+            data-element-id="songs-table"
+            data-ui="song-list-table"
+            className="flex h-full w-full flex-col text-sm"
+            sortDescriptor={sortDescriptor}
+            onSortChange={(descriptor) =>
+              setSortDescriptor({
+                column: descriptor.column as SortState['column'],
+                direction: descriptor.direction as SortState['direction'],
+              })
+            }
           >
-            {(item) => {
-              const idx = sorted.findIndex((s) => s.id === item.id) + 1
-              const progress = songProgress[`${activeProfileId}_${item.id}`] || 0
-              return (
-                <Row
-                  id={item.id}
-                  className="text-foreground hover:bg-foreground/5 table w-full table-fixed cursor-pointer transition-colors"
-                  onAction={() => onSelectRow(item.id)}
-                >
-                  <Cell className="border-foreground/10 text-foreground/40 w-16 border-b px-4 py-2">
-                    {idx}
-                  </Cell>
-                  <Cell
-                    className="border-foreground/10 w-12 border-b px-2 py-2 text-center"
-                    style={{ paddingLeft: '0.75rem', paddingRight: '0.75rem' }}
-                  >
-                    <button
-                      onClick={(e) => toggleFavorite(e, item.id)}
-                      className="hover:bg-foreground/10 rounded-full p-1 transition-colors"
-                    >
-                      <Star
-                        size={16}
-                        className={clsx(
-                          favorites[`${activeProfileId}_${item.id}`]
-                            ? 'fill-[var(--color-pink-neon)] text-[var(--color-pink-neon)]'
-                            : 'text-foreground/20',
-                        )}
-                      />
-                    </button>
-                  </Cell>
-                  <Cell className="border-foreground/10 w-1/3 border-b px-4 py-2">
-                    <span className="block truncate whitespace-nowrap">{item.title}</span>
-                  </Cell>
-                  <Cell className="border-foreground/10 w-48 border-b px-4 py-2">
-                    <span className="text-foreground/60 block truncate whitespace-nowrap">
-                      {item.author || '-'}
-                    </span>
-                  </Cell>
-                  <Cell className="border-foreground/10 w-32 border-b px-4 py-2">
-                    <span className="text-foreground/60 block truncate whitespace-nowrap">
-                      {item.category || '-'}
-                    </span>
-                  </Cell>
-                  <Cell className="border-foreground/10 w-32 border-b px-4 py-2">
-                    <span className="text-foreground/60 block truncate whitespace-nowrap">
-                      {item.level || '-'}
-                    </span>
-                  </Cell>
-                  <Cell
-                    className="border-foreground/10 w-28 border-b px-4 py-2 text-right"
-                    style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
-                  >
-                    <span
-                      className={clsx(
-                        'font-semibold',
-                        progress === 100
-                          ? 'glow-text-green text-[var(--color-green-neon)]'
-                          : progress > 0
-                            ? 'glow-text-cyan text-[var(--color-cyan-neon)]'
-                            : 'text-foreground/40',
+            <TableHeader className="bg-foreground/5 table w-full table-fixed backdrop-blur-md">
+              <Column
+                id="stt"
+                className="border-foreground/10 text-foreground/60 w-16 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
+              >
+                STT
+              </Column>
+              <Column
+                id="favorite"
+                className="border-foreground/10 text-foreground/60 w-10 border-b px-2 py-2 text-center text-sm font-semibold tracking-wider uppercase"
+              >
+                <Star size={14} className="text-foreground/40 mx-auto" />
+              </Column>
+              <Column
+                id="playlist"
+                className="border-foreground/10 text-foreground/60 w-10 border-b px-2 py-2 text-center text-sm font-semibold tracking-wider uppercase"
+              >
+                <ListPlus size={14} className="text-foreground/40 mx-auto" />
+              </Column>
+              <Column
+                id="title"
+                isRowHeader
+                allowsSorting
+                className="border-foreground/10 text-foreground/60 w-1/3 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
+              >
+                {({ sortDirection }) => (
+                  <div className="relative flex items-center">
+                    <span className="truncate pr-[var(--sort-icon-gap)]">Title</span>
+                    <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
+                      {sortDirection && (
+                        <ChevronDown
+                          className={clsx(
+                            'h-4 w-4',
+                            sortDirection === 'descending' && 'rotate-180',
+                          )}
+                        />
                       )}
-                    >
-                      {progress}%
                     </span>
-                  </Cell>
-                  <Cell
-                    className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-2 text-right"
-                    style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
+                  </div>
+                )}
+              </Column>
+              <Column
+                id="author"
+                allowsSorting
+                className="border-foreground/10 text-foreground/60 w-48 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
+              >
+                {({ sortDirection }) => (
+                  <div className="relative flex items-center">
+                    <span className="truncate pr-[var(--sort-icon-gap)]">Author</span>
+                    <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
+                      {sortDirection && (
+                        <ChevronDown
+                          className={clsx(
+                            'h-4 w-4',
+                            sortDirection === 'descending' && 'rotate-180',
+                          )}
+                        />
+                      )}
+                    </span>
+                  </div>
+                )}
+              </Column>
+              <Column
+                id="category"
+                allowsSorting
+                className="w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
+              >
+                {({ sortDirection }) => (
+                  <div className="relative flex items-center">
+                    <span className="truncate pr-[var(--sort-icon-gap)]">Category</span>
+                    <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
+                      {sortDirection && (
+                        <ChevronDown
+                          className={clsx(
+                            'h-4 w-4',
+                            sortDirection === 'descending' && 'rotate-180',
+                          )}
+                        />
+                      )}
+                    </span>
+                  </div>
+                )}
+              </Column>
+              <Column
+                id="level"
+                allowsSorting
+                className="w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
+              >
+                {({ sortDirection }) => (
+                  <div className="relative flex items-center">
+                    <span className="truncate pr-[var(--sort-icon-gap)]">Level</span>
+                    <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
+                      {sortDirection && (
+                        <ChevronDown
+                          className={clsx(
+                            'h-4 w-4',
+                            sortDirection === 'descending' && 'rotate-180',
+                          )}
+                        />
+                      )}
+                    </span>
+                  </div>
+                )}
+              </Column>
+              <Column
+                id="progress"
+                allowsSorting
+                className="w-28 border-b border-gray-200 px-4 py-2 text-right text-sm font-semibold tracking-wider text-gray-500 uppercase"
+              >
+                {({ sortDirection }) => (
+                  <div className="relative flex items-center justify-end">
+                    <span className="truncate pr-[var(--sort-icon-gap)] text-right">Progress</span>
+                    <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
+                      {sortDirection && (
+                        <ChevronDown
+                          className={clsx(
+                            'h-4 w-4',
+                            sortDirection === 'descending' && 'rotate-180',
+                          )}
+                        />
+                      )}
+                    </span>
+                  </div>
+                )}
+              </Column>
+              <Column
+                id="duration"
+                allowsSorting
+                className="w-32 border-b border-gray-200 px-4 py-2 text-right text-sm font-semibold tracking-wider text-gray-500 uppercase"
+              >
+                {({ sortDirection }) => (
+                  <div className="relative flex items-center justify-end">
+                    <span className="truncate pr-[var(--sort-icon-gap)] text-right">Length</span>
+                    <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
+                      {sortDirection && (
+                        <ChevronDown
+                          className={clsx(
+                            'h-4 w-4',
+                            sortDirection === 'descending' && 'rotate-180',
+                          )}
+                        />
+                      )}
+                    </span>
+                  </div>
+                )}
+              </Column>
+            </TableHeader>
+            <TableBody
+              className={clsx(
+                'block flex-1 overflow-y-auto',
+                sorted.length === 0 && 'flex h-full flex-col items-center justify-center',
+              )}
+              items={sorted}
+              renderEmptyState={() => (
+                <div className="animate-in fade-in flex h-full w-full flex-col items-center justify-center py-12 text-center duration-300">
+                  <div className="bg-foreground/5 text-foreground/40 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                    <Star className="h-8 w-8" />
+                  </div>
+                  <h3 className="text-foreground mb-1 text-lg font-medium">
+                    Không tìm thấy bài hát nào
+                  </h3>
+                  <p className="text-foreground/50 max-w-sm text-sm leading-relaxed">
+                    Thử thay đổi từ khóa tìm kiếm hoặc chọn bộ lọc khác.
+                  </p>
+                </div>
+              )}
+            >
+              {(item) => {
+                const idx = sorted.findIndex((s) => s.id === item.id) + 1
+                const progress = songProgress[`${activeProfileId}_${item.id}`] || 0
+                return (
+                  <Row
+                    id={item.id}
+                    className="text-foreground hover:bg-foreground/5 table w-full table-fixed cursor-pointer transition-colors"
+                    onAction={() => onSelectRow(item.id)}
                   >
-                    {formatTime(Number(item.duration))}
-                  </Cell>
-                </Row>
-              )
-            }}
-          </TableBody>
-        </RacTable>
+                    <Cell className="border-foreground/10 text-foreground/40 w-16 border-b px-4 py-2">
+                      {idx}
+                    </Cell>
+                    <Cell className="border-foreground/10 w-10 border-b px-1 py-2 text-center">
+                      <button
+                        data-element-id={`song-favorite-btn-${item.id}`}
+                        data-ui="song-list-table"
+                        aria-label="Favorite song"
+                        onClick={(e) => toggleFavorite(e, item.id)}
+                        className="hover:bg-foreground/10 rounded-full p-1 transition-colors"
+                      >
+                        <Star
+                          size={16}
+                          className={clsx(
+                            favorites[`${activeProfileId}_${item.id}`]
+                              ? 'fill-[var(--color-pink-neon)] text-[var(--color-pink-neon)]'
+                              : 'text-foreground/20',
+                          )}
+                        />
+                      </button>
+                    </Cell>
+                    <Cell className="border-foreground/10 w-10 border-b px-1 py-2 text-center">
+                      <button
+                        data-element-id={`song-add-playlist-btn-${item.id}`}
+                        data-ui="song-list-table"
+                        aria-label="Add to playlist"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setPlaylistModalSong({ id: item.id, title: item.title })
+                        }}
+                        className="hover:bg-foreground/10 text-foreground/40 rounded-full p-1 transition-colors hover:text-violet-400"
+                        title="Thêm vào Playlist"
+                      >
+                        <ListPlus size={16} />
+                      </button>
+                    </Cell>
+                    <Cell className="border-foreground/10 w-1/3 border-b px-4 py-2">
+                      <span className="block truncate whitespace-nowrap">{item.title}</span>
+                    </Cell>
+                    <Cell className="border-foreground/10 w-48 border-b px-4 py-2">
+                      <span className="text-foreground/60 block truncate whitespace-nowrap">
+                        {item.author || '-'}
+                      </span>
+                    </Cell>
+                    <Cell className="border-foreground/10 w-32 border-b px-4 py-2">
+                      <span className="text-foreground/60 block truncate whitespace-nowrap">
+                        {item.category || '-'}
+                      </span>
+                    </Cell>
+                    <Cell className="border-foreground/10 w-32 border-b px-4 py-2">
+                      <span className="text-foreground/60 block truncate whitespace-nowrap">
+                        {item.level || '-'}
+                      </span>
+                    </Cell>
+                    <Cell
+                      className="border-foreground/10 w-28 border-b px-4 py-2 text-right"
+                      style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
+                    >
+                      <span
+                        className={clsx(
+                          'font-semibold',
+                          progress === 100
+                            ? 'glow-text-green text-[var(--color-green-neon)]'
+                            : progress > 0
+                              ? 'glow-text-cyan text-[var(--color-cyan-neon)]'
+                              : 'text-foreground/40',
+                        )}
+                      >
+                        {progress}%
+                      </span>
+                    </Cell>
+                    <Cell
+                      className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-2 text-right"
+                      style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
+                    >
+                      {formatTime(Number(item.duration))}
+                    </Cell>
+                  </Row>
+                )
+              }}
+            </TableBody>
+          </RacTable>
+        </div>
+        <div className="border-foreground/10 bg-foreground/5 text-foreground/40 flex items-center justify-between border-t px-4 py-2 text-xs">
+          <span>Showing {sorted.length} songs</span>
+        </div>
       </div>
-      <div className="border-foreground/10 bg-foreground/5 text-foreground/40 flex items-center justify-between border-t px-4 py-2 text-xs">
-        <span>Showing {sorted.length} songs</span>
-      </div>
-    </div>
+    </>
   )
 }
 

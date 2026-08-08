@@ -55,6 +55,21 @@ export const themeAtom = atomWithStorage<string>('sightread_theme', 'dark', unde
   getOnInit: true,
 })
 
+export type Playlist = {
+  id: string
+  name: string
+  description?: string
+  songIds: string[]
+  createdAt: number
+}
+
+export const playlistsAtom = atomWithStorage<Record<string, Playlist[]>>(
+  'sightread_playlists',
+  {},
+  undefined,
+  { getOnInit: true },
+)
+
 export function getActiveProfileId(): string {
   if (typeof window === 'undefined') return 'default'
   try {
@@ -270,4 +285,72 @@ export function getPersistedSongSettings(file: string) {
 export function setPersistedSongSettings(file: string, config: SongConfig) {
   const profileId = getActiveProfileId()
   return Storage.set(`${profileId}/${file}/settings`, config)
+}
+
+export function createPlaylist(name: string, description?: string): Playlist {
+  const profileId = getActiveProfileId()
+  const playlistsMap = store.get(playlistsAtom)
+  const currentList = playlistsMap[profileId] || []
+  const newPlaylist: Playlist = {
+    id: `pl_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    name,
+    description,
+    songIds: [],
+    createdAt: Date.now(),
+  }
+  store.set(playlistsAtom, {
+    ...playlistsMap,
+    [profileId]: [...currentList, newPlaylist],
+  })
+  return newPlaylist
+}
+
+export function deletePlaylist(playlistId: string): void {
+  const profileId = getActiveProfileId()
+  const playlistsMap = store.get(playlistsAtom)
+  const currentList = playlistsMap[profileId] || []
+  store.set(playlistsAtom, {
+    ...playlistsMap,
+    [profileId]: currentList.filter((p) => p.id !== playlistId),
+  })
+}
+
+export function updatePlaylist(
+  playlistId: string,
+  updates: Partial<Pick<Playlist, 'name' | 'description'>>,
+): void {
+  const profileId = getActiveProfileId()
+  const playlistsMap = store.get(playlistsAtom)
+  const currentList = playlistsMap[profileId] || []
+  store.set(playlistsAtom, {
+    ...playlistsMap,
+    [profileId]: currentList.map((p) => (p.id === playlistId ? { ...p, ...updates } : p)),
+  })
+}
+
+export function addSongToPlaylist(playlistId: string, songId: string): void {
+  const profileId = getActiveProfileId()
+  const playlistsMap = store.get(playlistsAtom)
+  const currentList = playlistsMap[profileId] || []
+  store.set(playlistsAtom, {
+    ...playlistsMap,
+    [profileId]: currentList.map((p) => {
+      if (p.id !== playlistId) return p
+      if (p.songIds.includes(songId)) return p
+      return { ...p, songIds: [...p.songIds, songId] }
+    }),
+  })
+}
+
+export function removeSongFromPlaylist(playlistId: string, songId: string): void {
+  const profileId = getActiveProfileId()
+  const playlistsMap = store.get(playlistsAtom)
+  const currentList = playlistsMap[profileId] || []
+  store.set(playlistsAtom, {
+    ...playlistsMap,
+    [profileId]: currentList.map((p) => {
+      if (p.id !== playlistId) return p
+      return { ...p, songIds: p.songIds.filter((id) => id !== songId) }
+    }),
+  })
 }

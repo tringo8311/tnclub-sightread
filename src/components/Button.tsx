@@ -36,6 +36,11 @@ export interface ButtonProps extends RACButtonProps, VariantProps<typeof buttonS
   description?: string
   action?: string
   title?: string
+  elementId?: string
+  'data-element-id'?: string
+  'data-component'?: string
+  'data-ui'?: string
+  'data-testid'?: string
   'data-description'?: string
   'data-action'?: string
 }
@@ -48,6 +53,11 @@ export function Button({
   isDisabled,
   description,
   action,
+  elementId,
+  'data-element-id': dataElementId,
+  'data-component': dataComponent = 'Button',
+  'data-ui': dataUi,
+  'data-testid': dataTestId,
   'data-description': dataDescription,
   'data-action': dataAction,
   className,
@@ -55,11 +65,16 @@ export function Button({
 }: ButtonProps) {
   const resolvedDescription = description || dataDescription
   const resolvedAction = action || dataAction
+  const resolvedElementId = elementId || dataElementId
 
   return (
     <RACButton
       {...props}
       isDisabled={isDisabled || isLoading}
+      data-component={dataComponent}
+      data-element-id={resolvedElementId}
+      data-ui={dataUi}
+      data-testid={dataTestId}
       data-description={resolvedDescription}
       data-action={resolvedAction}
       className={composeTailwindRenderProps(className, buttonStyles({ variant, size }))}
