@@ -1,7 +1,7 @@
 import type { Song, SongConfig, SongMetadata } from '@/types'
-import { atomWithStorage } from 'jotai/utils'
 import * as idb from 'idb-keyval'
 import * as jotai from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
 import { parseMidi } from '../parsers'
 import * as storageKeys from './constants'
 import Storage from './storage'
@@ -27,11 +27,33 @@ export const localSongsAtom = jotai.atom<Map<string, SongMetadata[]>>(new Map())
 export const isInitializedAtom = jotai.atom<boolean>(false)
 
 export type Profile = { id: string; name: string }
-export const profilesAtom = atomWithStorage<Profile[]>('sightread_profiles', [{ id: 'default', name: 'Default Profile' }], undefined, { getOnInit: true })
-export const activeProfileIdAtom = atomWithStorage<string>('sightread_active_profile', 'default', undefined, { getOnInit: true })
-export const songProgressAtom = atomWithStorage<Record<string, number>>('sightread_song_progress', {}, undefined, { getOnInit: true })
-export const favoritesAtom = atomWithStorage<Record<string, boolean>>('sightread_favorites', {}, undefined, { getOnInit: true })
-export const themeAtom = atomWithStorage<string>('sightread_theme', 'dark', undefined, { getOnInit: true })
+export const profilesAtom = atomWithStorage<Profile[]>(
+  'sightread_profiles',
+  [{ id: 'default', name: 'Default Profile' }],
+  undefined,
+  { getOnInit: true },
+)
+export const activeProfileIdAtom = atomWithStorage<string>(
+  'sightread_active_profile',
+  'default',
+  undefined,
+  { getOnInit: true },
+)
+export const songProgressAtom = atomWithStorage<Record<string, number>>(
+  'sightread_song_progress',
+  {},
+  undefined,
+  { getOnInit: true },
+)
+export const favoritesAtom = atomWithStorage<Record<string, boolean>>(
+  'sightread_favorites',
+  {},
+  undefined,
+  { getOnInit: true },
+)
+export const themeAtom = atomWithStorage<string>('sightread_theme', 'dark', undefined, {
+  getOnInit: true,
+})
 
 export function getActiveProfileId(): string {
   if (typeof window === 'undefined') return 'default'
@@ -232,7 +254,7 @@ export function getPersistedSongSettings(file: string) {
   if (profileSpecificConfig) {
     return profileSpecificConfig
   }
-  
+
   // Fallback migration for legacy settings
   if (profileId === 'default') {
     const legacyConfig = Storage.get<SongConfig>(`${file}/settings`)

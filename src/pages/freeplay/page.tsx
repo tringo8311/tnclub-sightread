@@ -6,10 +6,10 @@ import { MidiModal } from '@/pages/play/components/MidiModal'
 import { MidiStateEvent, SongConfig } from '@/types'
 import { bytesToBase64 } from '@/utils'
 import { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import RecordingModal from './components/RecordingModal'
 import TopBar from './components/TopBar'
 import FreePlayer from './utils/free-player'
-import { useTranslation } from 'react-i18next'
 
 export default function FreePlay() {
   const { t } = useTranslation()

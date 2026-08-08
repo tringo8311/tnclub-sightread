@@ -81,26 +81,29 @@ export function handleManualScroll(deltaY: number) {
 function deriveState(state: GivenState): State {
   const lineWidthTime = getLineWidthTime(state as State)
   const activeLineIndex = Math.floor(state.time / lineWidthTime)
-  
+
   const showTreble = state.hand === 'both' || state.hand === 'right' || state.hand === 'none'
   const showBass = state.hand === 'both' || state.hand === 'left' || state.hand === 'none'
-  const systemHeight = (showTreble && showBass) ? DEFAULT_SYSTEM_HEIGHT : SINGLE_SYSTEM_HEIGHT
+  const systemHeight = showTreble && showBass ? DEFAULT_SYSTEM_HEIGHT : SINGLE_SYSTEM_HEIGHT
 
-  currentAutoScrollY = Math.max(0, activeLineIndex * systemHeight - state.height / 2 + systemHeight / 2)
-  
+  currentAutoScrollY = Math.max(
+    0,
+    activeLineIndex * systemHeight - state.height / 2 + systemHeight / 2,
+  )
+
   if (state.player.isPlaying() || state.player.isCountingDown()) {
     isAutoScrolling = true
   }
 
   const scrollY = isAutoScrolling ? currentAutoScrollY : (manualScrollY ?? currentAutoScrollY)
-  
+
   return { ...state, lineWidthTime, activeLineIndex, scrollY, systemHeight, showTreble, showBass }
 }
 
 export function renderSheetA4Vis(givenState: GivenState): void {
   const state = deriveState(givenState)
   state.ctx.clearRect(0, 0, state.windowWidth, state.height)
-  
+
   state.ctx.save()
   state.ctx.translate(0, -state.scrollY)
 
@@ -115,10 +118,10 @@ export function renderSheetA4Vis(givenState: GivenState): void {
     drawStaticsForLine(state, lineIndex)
   }
 
-  const items = state.items.filter(item => {
+  const items = state.items.filter((item) => {
     if (item.type === 'note' && state.hand !== 'both' && state.hand !== 'none') {
-       const itemHand = state.hands?.[item.track]?.hand
-       if (itemHand !== state.hand && itemHand !== 'none') return false;
+      const itemHand = state.hands?.[item.track]?.hand
+      if (itemHand !== state.hand && itemHand !== 'none') return false
     }
     const lineIdx = getLineIndex(item.time, state)
     return lineIdx >= firstVisibleLine - 1 && lineIdx <= lastVisibleLine + 1
@@ -143,13 +146,17 @@ function drawActivePlayLine(state: State) {
   const { ctx, showTreble, showBass } = state
   const localTime = state.time % state.lineWidthTime
   const x = getPlayNotesLineX(state) + localTime * state.pps
-  
-  const topY = showTreble ? getTrebleStaffTopY(state, state.activeLineIndex) : getBassStaffTopY(state, state.activeLineIndex)
-  const bottomY = showBass ? getBassStaffTopY(state, state.activeLineIndex) : getTrebleStaffTopY(state, state.activeLineIndex)
-  
+
+  const topY = showTreble
+    ? getTrebleStaffTopY(state, state.activeLineIndex)
+    : getBassStaffTopY(state, state.activeLineIndex)
+  const bottomY = showBass
+    ? getBassStaffTopY(state, state.activeLineIndex)
+    : getTrebleStaffTopY(state, state.activeLineIndex)
+
   const playLineTop = topY - PLAY_NOTES_LINE_OFFSET * 2
   const playLineBottom = bottomY + STAFF_FIVE_LINES_HEIGHT + PLAY_NOTES_LINE_OFFSET * 2
-  
+
   ctx.fillStyle = 'rgba(139, 92, 246, 0.4)'
   ctx.fillRect(x - 2, playLineTop, 4, playLineBottom - playLineTop)
   ctx.fillStyle = 'rgba(139, 92, 246, 0.8)'
@@ -158,10 +165,10 @@ function drawActivePlayLine(state: State) {
 
 function drawStaticsForLine(state: State, lineIndex: number) {
   const { ctx, displayKeySignature, showTreble, showBass } = state
-  
+
   ctx.fillStyle = 'rgba(0,0,0, 0.5)'
   ctx.strokeStyle = 'rgba(0,0,0, 0.5)'
-  
+
   const rightEdge = state.windowWidth - STAFF_END_MARGIN
   const staffHeight = STAFF_FIVE_LINES_HEIGHT
 
@@ -170,16 +177,16 @@ function drawStaticsForLine(state: State, lineIndex: number) {
     const bassTopY = getBassStaffTopY(state, lineIndex)
     const curlyBraceSize = staffHeight * 2 + 60
     const curlyBraceY = trebleTopY + curlyBraceSize / 2
-    
+
     drawCurlyBrace(state.ctx, STAFF_START_X - 25, curlyBraceY, curlyBraceSize)
     drawStaffLines(state.ctx, STAFF_START_X, trebleTopY, rightEdge)
     drawStaffLines(state.ctx, STAFF_START_X, bassTopY, rightEdge)
     drawStaffConnectingLine(state.ctx, STAFF_START_X, trebleTopY - 1, bassTopY + staffHeight + 1)
     drawStaffConnectingLine(state.ctx, rightEdge, trebleTopY - 1, bassTopY + staffHeight + 1)
-    
+
     drawGClef(ctx, getClefX(), trebleTopY)
     drawFClef(ctx, getClefX(), bassTopY)
-    
+
     if (displayKeySignature) {
       drawKeySignature(ctx, getKeySignatureX(), trebleTopY, displayKeySignature, 'treble')
       drawKeySignature(ctx, getKeySignatureX(), bassTopY, displayKeySignature, 'bass')
@@ -194,7 +201,7 @@ function drawStaticsForLine(state: State, lineIndex: number) {
     drawStaffLines(state.ctx, STAFF_START_X, trebleTopY, rightEdge)
     drawStaffConnectingLine(state.ctx, STAFF_START_X, trebleTopY - 1, trebleTopY + staffHeight + 1)
     drawStaffConnectingLine(state.ctx, rightEdge, trebleTopY - 1, trebleTopY + staffHeight + 1)
-    
+
     drawGClef(ctx, getClefX(), trebleTopY)
     if (displayKeySignature) {
       drawKeySignature(ctx, getKeySignatureX(), trebleTopY, displayKeySignature, 'treble')
@@ -207,7 +214,7 @@ function drawStaticsForLine(state: State, lineIndex: number) {
     drawStaffLines(state.ctx, STAFF_START_X, bassTopY, rightEdge)
     drawStaffConnectingLine(state.ctx, STAFF_START_X, bassTopY - 1, bassTopY + staffHeight + 1)
     drawStaffConnectingLine(state.ctx, rightEdge, bassTopY - 1, bassTopY + staffHeight + 1)
-    
+
     drawFClef(ctx, getClefX(), bassTopY)
     if (displayKeySignature) {
       drawKeySignature(ctx, getKeySignatureX(), bassTopY, displayKeySignature, 'bass')
@@ -302,9 +309,10 @@ function renderLedgerLines(state: State, note: SongNote): void {
   const lineIndex = getLineIndex(note.time, state)
   const localTime = note.time % state.lineWidthTime
   const canvasX = getPlayNotesLineX(state) + localTime * state.pps + PLAY_NOTES_WIDTH / 2
-  
+
   const staff = state.hands?.[note.track].hand === 'right' ? 'treble' : 'bass'
-  const staffTopY = staff === 'treble' ? getTrebleStaffTopY(state, lineIndex) : getBassStaffTopY(state, lineIndex)
+  const staffTopY =
+    staff === 'treble' ? getTrebleStaffTopY(state, lineIndex) : getBassStaffTopY(state, lineIndex)
   const transposed = getTransposedMidi(state, note)
 
   ctx.fillStyle = 'rgba(0,0,0,0.8)'
@@ -324,15 +332,16 @@ function renderLedgerLines(state: State, note: SongNote): void {
 function renderSheetNote(state: State, note: SongNote): void {
   const { ctx, pps, keySignature } = state
   ctx.save()
-  
+
   const length = Math.round(pps * note.duration)
   const lineIndex = getLineIndex(note.time, state)
   const localTime = note.time % state.lineWidthTime
   const canvasX = getPlayNotesLineX(state) + localTime * state.pps + PLAY_NOTES_WIDTH / 2
-  
+
   const isPast = state.time >= note.time
   const staff = state.hands?.[note.track].hand === 'right' ? 'treble' : 'bass'
-  const staffTopY = staff === 'treble' ? getTrebleStaffTopY(state, lineIndex) : getBassStaffTopY(state, lineIndex)
+  const staffTopY =
+    staff === 'treble' ? getTrebleStaffTopY(state, lineIndex) : getBassStaffTopY(state, lineIndex)
   const transposed = getTransposedMidi(state, note)
   let canvasY = getNoteY(transposed, staff, staffTopY, keySignature)
 
@@ -343,16 +352,22 @@ function renderSheetNote(state: State, note: SongNote): void {
 
   ctx.fillStyle = `rgba(${prefix}, 1)`
   ctx.strokeStyle = `rgba(${prefix}, 1)`
-  
+
   // Draw tail (clamped to end of line if it spans across)
   const trailLength = Math.max(0, length - STAFF_SPACE)
   const rightEdge = state.windowWidth - STAFF_END_MARGIN
   const actualTrailLength = Math.min(trailLength, rightEdge - canvasX)
-  
+
   if (actualTrailLength > 0) {
     const trailHeight = 8
     ctx.beginPath()
-    ctx.roundRect(canvasX + STAFF_SPACE / 2, canvasY - trailHeight / 2, actualTrailLength, trailHeight, trailHeight / 2)
+    ctx.roundRect(
+      canvasX + STAFF_SPACE / 2,
+      canvasY - trailHeight / 2,
+      actualTrailLength,
+      trailHeight,
+      trailHeight / 2,
+    )
     ctx.fill()
   }
 
@@ -363,7 +378,7 @@ function renderSheetNote(state: State, note: SongNote): void {
     const symbolX = canvasX - (STAFF_SPACE + 8)
     drawSymbol(ctx, symbol, symbolX, canvasY, STAFF_FIVE_LINES_HEIGHT * 0.8, `rgba(${prefix}, 1)`)
   }
-  
+
   if (state.noteLabels !== 'none') {
     ctx.font = `bold 10px ${TEXT_FONT}`
     ctx.fillStyle = 'rgba(255,255,255,0.9)'
@@ -378,16 +393,16 @@ function renderSheetNote(state: State, note: SongNote): void {
 function renderMidiPressedKeys(state: State, inRange: CanvasItem[]): void {
   const { ctx } = state
   const pressed = midiState.getPressedNotes()
-  
+
   // We need to render the pressed keys on the ACTIVE line
   const activeLineIndex = state.activeLineIndex
-  
+
   for (let note of pressed.keys()) {
     let staff: Clef = note < getNote('C4') ? 'bass' : 'treble'
     const inRangeNote = inRange.find(
       (n) => n.type === 'note' && getTransposedMidi(state, n) === +note,
     ) as SongNote | undefined
-    
+
     if (inRangeNote) {
       staff = state.hands?.[inRangeNote.track].hand === 'right' ? 'treble' : 'bass'
     }
@@ -396,14 +411,17 @@ function renderMidiPressedKeys(state: State, inRange: CanvasItem[]): void {
       continue
     }
 
-    const staffTopY = staff === 'bass' ? getBassStaffTopY(state, activeLineIndex) : getTrebleStaffTopY(state, activeLineIndex)
-    
+    const staffTopY =
+      staff === 'bass'
+        ? getBassStaffTopY(state, activeLineIndex)
+        : getTrebleStaffTopY(state, activeLineIndex)
+
     // Y must be adjusted by scrollY because we are outside the saved translation state
     const canvasY = getNoteY(note, staff, staffTopY, state.keySignature) - state.scrollY
-    
+
     const localTime = state.time % state.lineWidthTime
     const canvasX = getPlayNotesLineX(state) + localTime * state.pps + PLAY_NOTES_WIDTH / 2
-    
+
     const key = getKey(note, state.keySignature)
     drawMusicNote(
       ctx,

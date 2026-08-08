@@ -25,7 +25,6 @@ export default function TopBar({
   isSettingsOpen,
   onToggleSettings,
 }: TopBarProps) {
-
   return (
     <div className="relative z-10 h-14 w-screen border-b border-[#20222a] bg-[#15161b] px-4">
       <div className="flex h-full items-center justify-between">

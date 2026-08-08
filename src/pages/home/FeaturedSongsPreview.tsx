@@ -50,28 +50,28 @@ export function FeaturedSongsPreview({
     >
       <SongPreview songId={songId} source={source} />
       {showPlaceholder && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background">
+        <div className="bg-background absolute inset-0 flex items-center justify-center">
           {showSpinner && (
-            <div className="h-12 w-12 animate-spin rounded-full border-4 border-foreground border-t-transparent"></div>
+            <div className="border-foreground h-12 w-12 animate-spin rounded-full border-4 border-t-transparent"></div>
           )}
         </div>
       )}
-      <div className="absolute top-0 right-0 left-0 z-20 flex h-14 items-center justify-between border-b border-border bg-card px-4">
+      <div className="border-border bg-card absolute top-0 right-0 left-0 z-20 flex h-14 items-center justify-between border-b px-4">
         <div className="flex items-center gap-3">
           <button
             className={clsx(
-              'bg-primary hover:bg-primary/80 flex h-8 w-8 items-center justify-center rounded-full text-primary-foreground transition',
+              'bg-primary hover:bg-primary/80 text-primary-foreground flex h-8 w-8 items-center justify-center rounded-full transition',
               !playerState.canPlay && 'cursor-progress',
             )}
             onClick={() => player.toggle()}
           >
             {playerState.playing ? <Pause size={18} /> : <Play size={18} />}
           </button>
-          <span className="text-sm text-muted-foreground">Preview</span>
+          <span className="text-muted-foreground text-sm">Preview</span>
         </div>
-        <div className="relative text-foreground">
+        <div className="text-foreground relative">
           <select
-            className="appearance-none rounded bg-foreground/5 py-1.5 pr-8 pl-3 text-sm font-medium text-foreground transition hover:bg-foreground/10"
+            className="bg-foreground/5 text-foreground hover:bg-foreground/10 appearance-none rounded py-1.5 pr-8 pl-3 text-sm font-medium transition"
             onChange={(e) => {
               setCurrentSong(e.target.value as any)
             }}
@@ -80,7 +80,7 @@ export function FeaturedSongsPreview({
             <option value="canon">Canon in D</option>
             <option value="gymnopedie">Gymnopédie No.1</option>
           </select>
-          <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-foreground/70">
+          <span className="text-foreground/70 pointer-events-none absolute inset-y-0 right-2 flex items-center">
             <ChevronDown className="h-4 w-4" />
           </span>
         </div>

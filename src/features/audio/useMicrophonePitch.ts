@@ -1,10 +1,8 @@
-import { useEffect, useRef } from 'react'
-import { Macleod } from 'pitchfinder'
 import midiState from '@/features/midi'
-
-
 import { atom, getDefaultStore } from 'jotai'
+import { Macleod } from 'pitchfinder'
 import type { ProbabalisticPitchDetector } from 'pitchfinder/lib/detectors/types'
+import { useEffect, useRef } from 'react'
 
 export const detectedMicNoteAtom = atom<number | null>(null)
 export const micVolumeAtom = atom<number>(0)
@@ -43,7 +41,7 @@ export function useMicrophonePitch(isActive: boolean) {
             autoGainControl: false,
             noiseSuppression: false,
             channelCount: 1, // Optimize for mono detection
-          }
+          },
         })
         store.set(micStreamAtom, stream)
 
@@ -57,7 +55,11 @@ export function useMicrophonePitch(isActive: boolean) {
         microphone.connect(analyser)
 
         // Macleod is better for polyphonic/complex instruments like piano.
-        detectPitch = Macleod({ sampleRate: audioContext.sampleRate, bufferSize: analyser.fftSize, cutoff: 0.9 }) as ProbabalisticPitchDetector
+        detectPitch = Macleod({
+          sampleRate: audioContext.sampleRate,
+          bufferSize: analyser.fftSize,
+          cutoff: 0.9,
+        }) as ProbabalisticPitchDetector
 
         const dataArray = new Float32Array(analyser.fftSize)
 
@@ -93,7 +95,7 @@ export function useMicrophonePitch(isActive: boolean) {
               // Lọc nhiễu ù điện 50Hz/100Hz (Mains Hum) thường bị nhận nhầm thành nốt G2 (98Hz).
               // Chỉ bỏ qua nếu tần số quanh 100Hz VÀ âm lượng cực kỳ bé (đặc trưng của nhiễu tĩnh).
               const isMainsHum = result.freq >= 97 && result.freq <= 103 && rms < 0.005
-              
+
               if (!isMainsHum) {
                 currentFreq = result.freq
                 currentMidi = Math.round(69 + 12 * Math.log2(result.freq / 440))
@@ -175,7 +177,7 @@ export function useMicrophonePitch(isActive: boolean) {
         audioContext.close().catch(console.error)
       }
       if (stream) {
-        stream.getTracks().forEach(track => track.stop())
+        stream.getTracks().forEach((track) => track.stop())
       }
     }
   }, [isActive])

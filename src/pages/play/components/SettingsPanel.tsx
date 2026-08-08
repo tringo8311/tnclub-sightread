@@ -1,6 +1,8 @@
 import { Select, Tooltip } from '@/components'
 import { SelectItem } from '@/components/Select'
 import { PickInstrument } from '@/features/controls'
+import { usePersistedState } from '@/features/persist'
+import { activeProfileIdAtom } from '@/features/persist/persistence'
 import { Player, usePlayer } from '@/features/player'
 import { HAND_COLORS } from '@/features/SongVisualization/handColors'
 import { getDefaultSongSettings } from '@/features/SongVisualization/utils'
@@ -10,7 +12,7 @@ import { useOnUnmount } from '@/hooks'
 import { Metronome as MetronomeIcon } from '@/icons'
 import { Song, SongConfig, VisualizationMode } from '@/types'
 import clsx from 'clsx'
-import { getDefaultStore, useAtomValue } from 'jotai'
+import { getDefaultStore, useAtom, useAtomValue } from 'jotai'
 import {
   AudioWaveform,
   ChevronDown,
@@ -19,6 +21,7 @@ import {
   Hourglass,
   Key,
   ListMusic,
+  Mic,
   Monitor,
   Pause,
   Play,
@@ -26,19 +29,15 @@ import {
   SlidersHorizontal,
   Timer,
   Type,
+  User,
   Volume2,
   VolumeX,
   X,
-  User,
-  Mic,
 } from 'lucide-react'
 import { PropsWithChildren, useMemo, useState } from 'react'
 import { Switch as AriaSwitch, TooltipTrigger } from 'react-aria-components'
-import { useAtom } from 'jotai'
-import { usePersistedState } from '@/features/persist'
-import { activeProfileIdAtom } from '@/features/persist/persistence'
-import { getSpeedPresetOptions, SPEED_PRESETS } from './speedPresets'
 import { useTranslation } from 'react-i18next'
+import { getSpeedPresetOptions, SPEED_PRESETS } from './speedPresets'
 
 type SidebarProps = {
   onChange: (settings: SongConfig) => void
@@ -261,7 +260,11 @@ export default function SettingsPanel(props: SidebarProps) {
         </button>
       </div>
       <div className="flex-1 overflow-y-auto pt-0">
-        <Section id="playback" title={t('settings.playback')} icon={<AudioWaveform className="h-4 w-4 text-violet-300" />}>
+        <Section
+          id="playback"
+          title={t('settings.playback')}
+          icon={<AudioWaveform className="h-4 w-4 text-violet-300" />}
+        >
           <SettingRow
             icon={<Gauge className="h-4 w-4" />}
             title={t('settings.speed')}
@@ -424,7 +427,11 @@ export default function SettingsPanel(props: SidebarProps) {
           </SettingRow>
         </Section>
 
-        <Section id="display" title={t('settings.display')} icon={<Monitor className="h-4 w-4 text-violet-300" />}>
+        <Section
+          id="display"
+          title={t('settings.display')}
+          icon={<Monitor className="h-4 w-4 text-violet-300" />}
+        >
           <SettingRow icon={<Monitor className="h-4 w-4" />} title={t('settings.visualizer')}>
             <Select
               aria-label="Visualizer"
@@ -443,10 +450,16 @@ export default function SettingsPanel(props: SidebarProps) {
           </SettingRow>
           {(visualization === 'sheet' || visualization === 'sheet-a4') && (
             <div className="ml-2 flex flex-col gap-3 border-l border-[#2b2a33] pl-9">
-              <SettingRow title={t('settings.colored_notes')} subtitle={t('settings.identify_easier')}>
+              <SettingRow
+                title={t('settings.colored_notes')}
+                subtitle={t('settings.identify_easier')}
+              >
                 <SidebarSwitch isSelected={coloredNotes} onChange={handleColoredNotes} />
               </SettingRow>
-              <SettingRow title={t('settings.key_signature')} subtitle={t('settings.affects_sharps')}>
+              <SettingRow
+                title={t('settings.key_signature')}
+                subtitle={t('settings.affects_sharps')}
+              >
                 <Select
                   aria-label="Key signature"
                   className="w-16"
@@ -608,7 +621,10 @@ type SectionProps = PropsWithChildren<{
 
 function Section({ children, id, title, icon, defaultOpen = false, badge }: SectionProps) {
   const activeProfileId = useAtomValue(activeProfileIdAtom)
-  const [isOpen, setIsOpen] = usePersistedState<boolean>(`sightread_${activeProfileId}_section_${id}_open`, defaultOpen)
+  const [isOpen, setIsOpen] = usePersistedState<boolean>(
+    `sightread_${activeProfileId}_section_${id}_open`,
+    defaultOpen,
+  )
 
   return (
     <details

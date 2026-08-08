@@ -1,13 +1,13 @@
 import { Popover, Slider, Tooltip } from '@/components'
+import { detectedMicNoteAtom } from '@/features/audio/useMicrophonePitch'
 import { useSongScrubTimes } from '@/features/controls'
 import { usePlayer } from '@/features/player'
-import { Check, Gauge, Hourglass, Metronome, Pause, Play, Repeat, SkipBack, Volume2 } from '@/icons'
-import { Mic, ChevronUp } from 'lucide-react'
-import { detectedMicNoteAtom } from '@/features/audio/useMicrophonePitch'
 import { getNoteName } from '@/features/theory'
+import { Check, Gauge, Hourglass, Metronome, Pause, Play, Repeat, SkipBack, Volume2 } from '@/icons'
 import { round } from '@/utils'
 import clsx from 'clsx'
 import { useAtomValue } from 'jotai'
+import { ChevronUp, Mic } from 'lucide-react'
 import React from 'react'
 import { Button, Menu, MenuItem, MenuTrigger, TooltipTrigger } from 'react-aria-components'
 import { getSpeedPresetOptions } from './speedPresets'
@@ -176,14 +176,14 @@ export default function TransportBar({
           onPress={onToggleLoop}
         />
         <div className="h-6 w-px bg-[#2a2b32]" />
-        <div className="flex items-center gap-1 rounded bg-[#1e2028] p-0.5 border border-transparent hover:border-[#2a2b32] transition-colors">
+        <div className="flex items-center gap-1 rounded border border-transparent bg-[#1e2028] p-0.5 transition-colors hover:border-[#2a2b32]">
           <TooltipTrigger>
             <Button
               className={clsx(
                 'flex items-center gap-1.5 rounded px-2 py-1 text-xs font-medium transition',
                 isMicActive
-                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  ? 'border border-amber-500/30 bg-amber-500/20 text-amber-300'
+                  : 'text-gray-400 hover:bg-white/5 hover:text-white',
               )}
               onPress={onToggleMic}
             >
@@ -193,7 +193,7 @@ export default function TransportBar({
             <Tooltip>{isMicActive ? 'Turn off Microphone' : 'Use Microphone'}</Tooltip>
           </TooltipTrigger>
           {isMicActive && (
-            <span className="min-w-6 text-center text-xs font-bold text-amber-300 font-mono px-1">
+            <span className="min-w-6 px-1 text-center font-mono text-xs font-bold text-amber-300">
               {detectedMidi !== null ? getNoteName(detectedMidi) : '--'}
             </span>
           )}

@@ -90,28 +90,28 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
   }
 
   return (
-    <div className="mx-auto bg-card text-card-foreground px-6 pt-6 pb-6 rounded-xl border border-border shadow-lg">
-      <div className="mb-6 border-b border-border pb-4">
-        <h2 className="mb-1 text-xl font-semibold text-foreground">Folder Management</h2>
-        <p className="text-sm text-muted-foreground">Organize your music collection</p>
+    <div className="bg-card text-card-foreground border-border mx-auto rounded-xl border px-6 pt-6 pb-6 shadow-lg">
+      <div className="border-border mb-6 border-b pb-4">
+        <h2 className="text-foreground mb-1 text-xl font-semibold">Folder Management</h2>
+        <p className="text-muted-foreground text-sm">Organize your music collection</p>
       </div>
 
       <div className="flex items-center justify-between gap-4">
-        <div className="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
+        <div className="text-muted-foreground text-[11px] font-semibold tracking-wider uppercase">
           Folders ({folders.length})
         </div>
         <div className="flex gap-3">
           <button
             onClick={handleScanFolders}
             disabled={isScanningActive}
-            className="flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-foreground/80 bg-foreground/5 hover:bg-foreground/10 active:bg-foreground/15 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="text-foreground/80 bg-foreground/5 hover:bg-foreground/10 active:bg-foreground/15 flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${showSpinner ? 'animate-spin' : ''}`} />
             Scan Folders
           </button>
           <button
             onClick={addFolder}
-            className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:opacity-90"
+            className="bg-primary text-primary-foreground flex cursor-pointer items-center justify-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium transition-colors hover:opacity-90"
           >
             <Plus className="h-4 w-4" />
             Add Folder
@@ -124,16 +124,16 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
       {/* Folders List */}
       <div className="space-y-2">
         {needsPermission && (
-          <p className="text-xs text-destructive">
+          <p className="text-destructive text-xs">
             Please rescan folders to grant access to your music files.
           </p>
         )}
 
         {folders.length === 0 ? (
           <div className="py-8 text-center">
-            <Folder className="mx-auto mb-3 h-12 w-12 text-muted-foreground/40" />
-            <p className="text-sm text-muted-foreground">No folders added yet</p>
-            <p className="mt-1 text-xs text-muted-foreground/70">Add a folder to get started</p>
+            <Folder className="text-muted-foreground/40 mx-auto mb-3 h-12 w-12" />
+            <p className="text-muted-foreground text-sm">No folders added yet</p>
+            <p className="text-muted-foreground/70 mt-1 text-xs">Add a folder to get started</p>
           </div>
         ) : (
           <div className="space-y-1">
@@ -142,17 +142,17 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
               return (
                 <div
                   key={i}
-                  className="group flex items-center justify-between rounded-md border border-border p-3 transition-colors hover:border-border/80 hover:bg-foreground/5"
+                  className="group border-border hover:border-border/80 hover:bg-foreground/5 flex items-center justify-between rounded-md border p-3 transition-colors"
                 >
                   <div className="flex min-w-0 flex-1 items-center gap-3">
-                    <Folder className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                    <Folder className="text-muted-foreground h-4 w-4 flex-shrink-0" />
                     <div className="min-w-0 flex-1">
-                      <p className={'truncate text-sm font-medium text-foreground'}>
+                      <p className={'text-foreground truncate text-sm font-medium'}>
                         {folder.handle.name}
                       </p>
                       <div className="mt-1 flex items-center gap-1">
-                        <Music className="h-3 w-3 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">
+                        <Music className="text-muted-foreground h-3 w-3" />
+                        <span className="text-muted-foreground text-xs">
                           {songCount} {songCount === 1 ? 'song' : 'songs'}
                         </span>
                       </div>
@@ -163,7 +163,7 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
                       e.stopPropagation()
                       removeFolder(folder.id)
                     }}
-                    className="rounded p-1.5 text-muted-foreground opacity-0 transition-colors group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
+                    className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive rounded p-1.5 opacity-0 transition-colors group-hover:opacity-100"
                     title="Remove folder"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -176,8 +176,8 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
       </div>
 
       {folders.length > 0 && (
-        <div className="mt-6 border-t border-border pt-4">
-          <p className="text-center text-xs text-muted-foreground">
+        <div className="border-border mt-6 border-t pt-4">
+          <p className="text-muted-foreground text-center text-xs">
             Total:{' '}
             {folders.reduce((sum, folder) => sum + (localSongs.get(folder.id)?.length ?? 0), 0)}{' '}
             songs across {folders.length} folders

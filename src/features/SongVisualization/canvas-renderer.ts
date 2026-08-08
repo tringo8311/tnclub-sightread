@@ -3,6 +3,7 @@ import { Hand, HandSettings } from '@/types'
 import { Player } from '../player'
 import { renderFallingVis } from './falling-notes'
 import { renderSheetVis } from './sheet'
+import { renderSheetA4Vis } from './sheet-a4'
 import { CanvasItem } from './utils'
 
 export type GivenState = {
@@ -28,8 +29,6 @@ export type GivenState = {
   game: boolean
   player: Player
 }
-
-import { renderSheetA4Vis } from './sheet-a4'
 
 export function render(state: Readonly<GivenState>) {
   if (state.visualization === 'falling-notes') {

@@ -95,7 +95,7 @@ function CanvasRenderer({
         if (config.visualization === 'sheet-a4') {
           // Manual drag for A4 paper
           if (e.buttons > 0) {
-            import('./sheet-a4').then(m => m.handleManualScroll(-e.movementY))
+            import('./sheet-a4').then((m) => m.handleManualScroll(-e.movementY))
           }
         } else if (enableTouchscroll) {
           touchscroll.handleMove(player, e.nativeEvent)
@@ -119,9 +119,9 @@ function CanvasRenderer({
       }}
       onWheel={(e) => {
         if (config.visualization === 'sheet-a4') {
-          import('./sheet-a4').then(m => m.handleManualScroll(e.deltaY))
+          import('./sheet-a4').then((m) => m.handleManualScroll(e.deltaY))
         } else if (enableTouchscroll) {
-          const seekAmount = (e.deltaY / 100)
+          const seekAmount = e.deltaY / 100
           const newTime = Math.max(0, Math.min(player.getDuration(), player.getTime() + seekAmount))
           player.seek(newTime)
         }

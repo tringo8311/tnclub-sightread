@@ -1,28 +1,17 @@
 import clsx from 'clsx'
 
-type TextInputProps = {
-  type: string
-  onChange: any
-  name?: string
-  className?: string
+type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean
-  placeholder?: string
-  autoFocus?: boolean
 }
-export function TextInput(props: TextInputProps) {
-  const { onChange, name, className, error, type, placeholder, autoFocus } = props
+export function TextInput({ className, error, ...rest }: TextInputProps) {
   return (
     <input
-      type={type}
-      name={name}
-      onChange={onChange}
+      {...rest}
       className={clsx(
         className,
         'rounded-md p-2 text-base shadow-[inset_0px_1px_4px_rgba(0,0,0,0.25)]',
         error && 'outline outline-red-600',
       )}
-      placeholder={placeholder}
-      autoFocus={autoFocus}
     />
   )
 }

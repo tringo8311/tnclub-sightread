@@ -1,15 +1,18 @@
 import { AppBar, MarketingFooter, Sizer } from '@/components'
 import React, { PropsWithChildren } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, LinkProps } from 'react-router'
 import manifest from './../../manifest.json'
 import type { SongMetadata } from './../../types'
 import { Article, CaptionedImage } from './components'
 import { slugify } from './utils'
-import { useTranslation } from 'react-i18next'
 
 function SidebarLink({ children }: PropsWithChildren<{ children: string }>) {
   return (
-    <a className="hover:text-primary transition-colors text-foreground/80 hover:text-foreground" href={`#${slugify(children)}`}>
+    <a
+      className="hover:text-primary text-foreground/80 hover:text-foreground transition-colors"
+      href={`#${slugify(children)}`}
+    >
       {children}
     </a>
   )
@@ -55,7 +58,7 @@ export default function AboutPage() {
               </ul>
             </section>
           </div>
-          <div className="mx-auto my-8 w-full flex-1 glass-card p-8 text-base">
+          <div className="glass-card mx-auto my-8 w-full flex-1 p-8 text-base">
             <div className="mx-auto flex max-w-prose flex-col gap-12">
               <WhatSection />
               <GettingStarted />
@@ -118,7 +121,10 @@ function WhatSection() {
 function GettingStarted() {
   const { t } = useTranslation()
   return (
-    <Article header={t('about.getting_started')} first="Plug in a keyboard. Start slow. Gradually speed up.">
+    <Article
+      header={t('about.getting_started')}
+      first="Plug in a keyboard. Start slow. Gradually speed up."
+    >
       <p>
         When initially learning a song, we recommend learning left and right hands separately. You
         should also take advantage of the BPM modifier to slow down a song by at least 50%. It is
@@ -174,14 +180,14 @@ function RoadmapSection() {
   const { t } = useTranslation()
   return (
     <Article header={t('about.roadmap')}>
-      <p>
-        We have so many exciting ideas. Things we plan to implement in future releases:
-      </p>
+      <p>We have so many exciting ideas. Things we plan to implement in future releases:</p>
       <ul className="list-disc px-12">
         <li>iOS App</li>
         <li>MusicXML file upload and full Sheet Music display.</li>
         <li>Progress tracking and song scoring to see improvement over time.</li>
-        <li>Difficulty scaling for algorithmically scaling the difficulty of a song up and down.</li>
+        <li>
+          Difficulty scaling for algorithmically scaling the difficulty of a song up and down.
+        </li>
         <li>Record a performance in free play and share it with a link.</li>
         <li>Small training tools and games.</li>
       </ul>
@@ -250,7 +256,7 @@ function AttributionsSection() {
     return (
       <Link
         {...props}
-        className="cursor-pointer text-foreground/80 underline-offset-4 hover:text-foreground hover:underline transition-colors"
+        className="text-foreground/80 hover:text-foreground cursor-pointer underline-offset-4 transition-colors hover:underline"
         target="_blank"
         rel="noopener noreferrer"
       >

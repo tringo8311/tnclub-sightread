@@ -1,12 +1,16 @@
+import {
+  activeProfileIdAtom,
+  favoritesAtom,
+  songProgressAtom,
+} from '@/features/persist/persistence'
 import { SongMetadata } from '@/types'
 import { formatTime } from '@/utils'
 import clsx from 'clsx'
+import { useAtom, useAtomValue } from 'jotai'
+import { BarChart, Clock, Music, Star } from 'lucide-react'
 import * as React from 'react'
 import { useMemo, useState } from 'react'
-import { useAtom, useAtomValue } from 'jotai'
-import { activeProfileIdAtom, songProgressAtom, favoritesAtom } from '@/features/persist/persistence'
 import { useCollator, useFilter } from 'react-aria'
-import { Music, BarChart, Clock, Star } from 'lucide-react'
 
 type CardViewProps = {
   rows: SongMetadata[]
@@ -16,7 +20,13 @@ type CardViewProps = {
   onSelectRow: (id: string) => void
 }
 
-export default function CardView({ rows, search, levelFilter, favoritesOnly, onSelectRow }: CardViewProps) {
+export default function CardView({
+  rows,
+  search,
+  levelFilter,
+  favoritesOnly,
+  onSelectRow,
+}: CardViewProps) {
   const { contains } = useFilter({ sensitivity: 'base' })
   const collator = useCollator({ numeric: true, sensitivity: 'base' })
   const activeProfileId = useAtomValue(activeProfileIdAtom)
@@ -26,7 +36,7 @@ export default function CardView({ rows, search, levelFilter, favoritesOnly, onS
   const toggleFavorite = (e: React.MouseEvent, songId: string) => {
     e.stopPropagation()
     const key = `${activeProfileId}_${songId}`
-    setFavorites(prev => ({ ...prev, [key]: !prev[key] }))
+    setFavorites((prev) => ({ ...prev, [key]: !prev[key] }))
   }
 
   // In CardView, we can just sort by title by default, or keep duration
@@ -36,14 +46,19 @@ export default function CardView({ rows, search, levelFilter, favoritesOnly, onS
   })
 
   const filtered = useMemo(() => {
+    const query = search.trim().toLowerCase()
     return rows.filter((row) => {
-      const matchSearch = !search || contains(row.title, search)
+      const matchSearch =
+        !query ||
+        row.title.toLowerCase().includes(query) ||
+        (row.author && row.author.toLowerCase().includes(query)) ||
+        (row.category && row.category.toLowerCase().includes(query))
       const matchLevel = levelFilter === 'All' || row.level === levelFilter
       const isFavorite = favorites[`${activeProfileId}_${row.id}`]
       const matchFavorites = !favoritesOnly || isFavorite
       return matchSearch && matchLevel && matchFavorites
     })
-  }, [contains, rows, search, levelFilter, favoritesOnly, favorites, activeProfileId])
+  }, [rows, search, levelFilter, favoritesOnly, favorites, activeProfileId])
 
   const sorted = useMemo(() => {
     const next = [...filtered]
@@ -63,70 +78,106 @@ export default function CardView({ rows, search, levelFilter, favoritesOnly, onS
       } else {
         cmp = collator.compare(a.title, b.title)
       }
-      
+
       if (cmp === 0) {
         cmp = collator.compare(a.title, b.title)
       }
-      
+
       return direction === 'descending' ? -cmp : cmp
     })
     return next
   }, [collator, filtered, sortDescriptor, songProgress, activeProfileId])
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden p-1">
+    <div className="flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto p-1">
       {sorted.length === 0 ? (
-        <div className="p-5 text-2xl text-center text-foreground/50 mt-10">No results</div>
+        <div className="animate-in fade-in flex flex-1 flex-col items-center justify-center py-16 text-center duration-300">
+          <div className="bg-foreground/5 text-foreground/40 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+            <Music className="h-8 w-8" />
+          </div>
+          <h3 className="text-foreground mb-1 text-lg font-medium">Không tìm thấy bài hát nào</h3>
+          <p className="text-foreground/50 max-w-sm text-sm leading-relaxed">
+            Thử thay đổi từ khóa tìm kiếm hoặc chọn bộ lọc khác.
+          </p>
+        </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-6">
+        <div className="grid grid-cols-1 gap-6 pb-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {sorted.map((item) => {
             const progress = songProgress[`${activeProfileId}_${item.id}`] || 0
             return (
               <div
                 key={item.id}
                 onClick={() => onSelectRow(item.id)}
-                className="glass-card group relative flex flex-col rounded-2xl p-5 cursor-pointer overflow-hidden"
+                className="glass-card group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl p-5"
               >
                 {/* Decorative background accent */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-cyan-neon)] to-[var(--color-pink-neon)] opacity-0 group-hover:opacity-100 transition-opacity" />
-                
-                <div className="flex justify-between items-start mb-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground/5 text-[var(--color-cyan-neon)] transition-transform group-hover:scale-110 group-hover:bg-[var(--color-cyan-neon)]/10">
+                <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-[var(--color-cyan-neon)] to-[var(--color-pink-neon)] opacity-0 transition-opacity group-hover:opacity-100" />
+
+                <div className="mb-4 flex items-start justify-between">
+                  <div className="bg-foreground/5 flex h-10 w-10 items-center justify-center rounded-xl text-[var(--color-cyan-neon)] transition-transform group-hover:scale-110 group-hover:bg-[var(--color-cyan-neon)]/10">
                     <Music size={20} />
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="flex flex-col items-end">
-                      <span className={clsx("text-sm font-bold", progress === 100 ? "text-[var(--color-green-neon)] glow-text-green" : progress > 0 ? "text-[var(--color-cyan-neon)] glow-text-cyan" : "text-foreground/40")}>
+                      <span
+                        className={clsx(
+                          'text-sm font-bold',
+                          progress === 100
+                            ? 'glow-text-green text-[var(--color-green-neon)]'
+                            : progress > 0
+                              ? 'glow-text-cyan text-[var(--color-cyan-neon)]'
+                              : 'text-foreground/40',
+                        )}
+                      >
                         {progress}%
                       </span>
-                      <span className="text-[10px] text-foreground/40 uppercase tracking-wide">Progress</span>
+                      <span className="text-foreground/40 text-[10px] tracking-wide uppercase">
+                        Progress
+                      </span>
                     </div>
-                    <button 
+                    <button
                       onClick={(e) => toggleFavorite(e, item.id)}
-                      className="p-1 -mr-1 -mt-1 rounded-full hover:bg-foreground/10 transition-colors"
+                      className="hover:bg-foreground/10 -mt-1 -mr-1 rounded-full p-1 transition-colors"
                     >
-                      <Star size={18} className={clsx(favorites[`${activeProfileId}_${item.id}`] ? "fill-[var(--color-pink-neon)] text-[var(--color-pink-neon)]" : "text-foreground/20")} />
+                      <Star
+                        size={18}
+                        className={clsx(
+                          favorites[`${activeProfileId}_${item.id}`]
+                            ? 'fill-[var(--color-pink-neon)] text-[var(--color-pink-neon)]'
+                            : 'text-foreground/20',
+                        )}
+                      />
                     </button>
                   </div>
                 </div>
 
-                <div className="flex-1 mb-4">
-                  <h3 className="text-lg font-semibold text-foreground line-clamp-2 leading-tight group-hover:text-[var(--color-cyan-neon)] transition-colors">
+                <div className="mb-4 flex-1">
+                  <h3 className="text-foreground line-clamp-2 text-lg leading-tight font-semibold transition-colors group-hover:text-[var(--color-cyan-neon)]">
                     {item.title}
                   </h3>
-                  {item.author && <p className="text-sm text-foreground/60 mt-1 line-clamp-1">{item.author}</p>}
-                  <p className="text-sm text-foreground/40 mt-1 line-clamp-1">{item.category || 'No Category'}</p>
+                  {item.author && (
+                    <p className="text-foreground/60 mt-1 line-clamp-1 text-sm">{item.author}</p>
+                  )}
+                  <p className="text-foreground/40 mt-1 line-clamp-1 text-sm">
+                    {item.category || 'No Category'}
+                  </p>
                 </div>
 
-                <div className="flex items-center gap-4 text-xs font-medium text-foreground/50 pt-4 border-t border-foreground/10">
+                <div className="text-foreground/50 border-foreground/10 flex items-center gap-4 border-t pt-4 text-xs font-medium">
                   <div className="flex items-center gap-1.5" title="Level">
-                    <BarChart size={14} className={clsx(
-                      item.level === 'Advanced' ? 'text-[var(--color-pink-neon)]' :
-                      item.level === 'Intermediate' ? 'text-amber-400' : 'text-[var(--color-green-neon)]'
-                    )} />
+                    <BarChart
+                      size={14}
+                      className={clsx(
+                        item.level === 'Advanced'
+                          ? 'text-[var(--color-pink-neon)]'
+                          : item.level === 'Intermediate'
+                            ? 'text-amber-400'
+                            : 'text-[var(--color-green-neon)]',
+                      )}
+                    />
                     <span>{item.level || 'Beginner'}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 ml-auto" title="Duration">
+                  <div className="ml-auto flex items-center gap-1.5" title="Duration">
                     <Clock size={14} className="text-foreground/40" />
                     <span>{formatTime(Number(item.duration))}</span>
                   </div>

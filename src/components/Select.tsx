@@ -37,6 +37,9 @@ const styles = tv({
 export interface SelectProps_<T extends object> extends Omit<AriaSelectProps<T>, 'children'> {
   label?: string
   description?: string
+  action?: string
+  'data-description'?: string
+  'data-action'?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
   isLoading?: boolean
   size?: 'sm' | 'md' | 'lg'
@@ -48,6 +51,9 @@ type SelectProps<T extends object> = Expand<SelectProps_<T>>
 export function Select<T extends object>({
   label,
   description,
+  action,
+  'data-description': dataDescription,
+  'data-action': dataAction,
   errorMessage,
   children,
   items,
@@ -55,14 +61,22 @@ export function Select<T extends object>({
   size = 'md',
   ...props
 }: SelectProps<T>) {
+  const resolvedDescription = description || dataDescription
+  const resolvedAction = action || dataAction
+
   return (
     <AriaSelect
       {...props}
+      data-description={resolvedDescription}
+      data-action={resolvedAction}
       className={composeTailwindRenderProps(props.className, 'group relative flex flex-col gap-1')}
       isDisabled={props.isDisabled || isLoading}
     >
       {label && <Label>{label}</Label>}
-      <Button className={(renderProps) => styles({ ...renderProps, size })}>
+      <Button
+        className={(renderProps) => styles({ ...renderProps, size })}
+        data-action={resolvedAction}
+      >
         <SelectValue className="min-w-0 flex-1 truncate text-zinc-200" />
         {isLoading ? (
           <LoaderCircle className="absolute top-1/2 right-2 h-3 w-3 -translate-y-1/2 animate-spin text-zinc-400" />

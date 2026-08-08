@@ -22,6 +22,18 @@ async function fetchSong(id: string, source: SongSource): Promise<Song> {
   if (source === 'builtin') {
     const url = getBuiltinSongUrl(id)
     return fetch(url).then(handleSong)
+  } else if (source === 'market') {
+    // If it is a market song with direct URL or relative URL
+    const url = id.startsWith('http') || id.startsWith('/') ? id : getBuiltinSongUrl(id)
+    return fetch(url).then(handleSong)
+  } else if (source === 'downloaded') {
+    const blobKey = `midi_blob_${id}`
+    const idb = await import('idb-keyval')
+    const buffer = await idb.get<ArrayBuffer>(blobKey)
+    if (!buffer) {
+      throw new Error(`Could not get downloaded song buffer for ${id}`)
+    }
+    return parseMidi(new Uint8Array(buffer))
   } else if (source === 'base64') {
     return getBase64Song(id)
   } else if (source === 'local') {

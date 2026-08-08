@@ -44,8 +44,8 @@ export function parserInferHands(song: Song): { left: number; right: number } {
   const pianoTracks = Array.from(Object.entries(song.tracks))
     .filter(([_id, track]) => isPiano(track))
     .filter(([id, _track]) => {
-      const notes = song.notes.filter((note) => note.track === +id)
-      return song.notes.filter((note) => note.track === +id).length > 0
+      const count = song.notes.filter((note) => note.track === +id).length
+      return count >= 5
     })
   // TODO: force users to choose tracks in this case.
 
@@ -58,12 +58,19 @@ export function parserInferHands(song: Song): { left: number; right: number } {
       )
     }
     ;[t1, t2] = pianoTracks.map(([trackId, _track]) => +trackId)
-  } else if (pianoTracks.length < 2) {
-    ;[t1, t2] = Object.keys(song.tracks).map(Number)
+  } else {
+    // Sort all tracks by note count descending and pick the 2 tracks with the most notes
+    const sortedByNotes = Object.keys(song.tracks)
+      .map(Number)
+      .map((id) => ({ id, count: song.notes.filter((n) => n.track === id).length }))
+      .sort((a, b) => b.count - a.count)
+
+    t1 = sortedByNotes[0]?.id ?? 0
+    t2 = sortedByNotes[1]?.id ?? 1
   }
   // Dumb way to determine r/l hand, calc which has the higher avg score, and flip if guessed wrong.
   const sum = (arr: Array<number>) => arr.reduce((a: number, b: number) => a + b, 0)
-  const avg = (arr: Array<number>) => sum(arr) / arr.length
+  const avg = (arr: Array<number>) => (arr.length ? sum(arr) / arr.length : 0)
   let t1Avg = avg(song.notes.filter((n) => n.track === t1).map((n) => n.midiNote))
   let t2Avg = avg(song.notes.filter((n) => n.track === t2).map((n) => n.midiNote))
   if (t1Avg < t2Avg) {

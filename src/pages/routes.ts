@@ -6,6 +6,7 @@ export default [
   route('freeplay', './freeplay/page.tsx'),
   route('play', './play/page.tsx'),
   route('songs', './songs/page.tsx'),
+  route('market', './market/page.tsx'),
   route('theory', './theory/page.tsx'),
   ...prefix('training', [
     route('phrases', './training/phrases/page.tsx'),

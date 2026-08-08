@@ -11,6 +11,10 @@ type ModalProps = {
   className?: string
   modalClassName?: string
   overlayClassName?: string
+  description?: string
+  action?: string
+  'data-description'?: string
+  'data-action'?: string
 }
 
 const overlayStyles = tv({
@@ -44,7 +48,14 @@ export default function Modal({
   className,
   modalClassName,
   overlayClassName,
+  description,
+  action,
+  'data-description': dataDescription,
+  'data-action': dataAction,
 }: PropsWithChildren<ModalProps>) {
+  const resolvedDescription = description || dataDescription
+  const resolvedAction = action || dataAction
+
   return (
     <ModalOverlay
       className={(renderProps) => overlayStyles({ ...renderProps, className: overlayClassName })}
@@ -60,10 +71,17 @@ export default function Modal({
         className={(renderProps) => modalStyles({ ...renderProps, className: modalClassName })}
         isDismissable
       >
-        <Dialog className={twMerge('relative rounded-md bg-white', className)} aria-label="Modal">
+        <Dialog
+          className={twMerge('relative rounded-md bg-white', className)}
+          aria-label="Modal"
+          data-description={resolvedDescription}
+          data-action={resolvedAction}
+        >
           <Button
             className="absolute top-6 right-5 z-10 cursor-pointer text-gray-400 hover:text-gray-600 active:text-gray-700"
             onPress={onClose}
+            aria-label="Close modal"
+            data-action="close-modal"
           >
             <XMark height={24} width={24} />
           </Button>

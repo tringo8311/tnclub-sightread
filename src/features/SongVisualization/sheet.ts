@@ -277,11 +277,17 @@ function renderSheetNote(state: State, note: SongNote): void {
 
   ctx.fillStyle = noteGradient
   ctx.strokeStyle = noteGradient
-  
+
   ctx.beginPath()
-  ctx.roundRect(canvasX + STAFF_SPACE / 2, canvasY - trailHeight / 2, trailLength, trailHeight, trailHeight / 2)
+  ctx.roundRect(
+    canvasX + STAFF_SPACE / 2,
+    canvasY - trailHeight / 2,
+    trailLength,
+    trailHeight,
+    trailHeight / 2,
+  )
   ctx.fill()
-  
+
   ctx.globalCompositeOperation = 'source-over'
 
   // Return after drawing the tail for the notes that have already crossed.

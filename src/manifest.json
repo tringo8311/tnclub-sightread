@@ -202,5 +202,17 @@
     "level": "Beginner",
     "category": "Classical",
     "author": "Unknown"
+  },
+  {
+    "file": "music/songs/old-doll.mid",
+    "title": "Old Doll (Mad Father)",
+    "source": "builtin",
+    "id": "old-doll.mid",
+    "duration": 85,
+    "url": "https://github.com/thewildwestmidis/midis",
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "level": "Intermediate",
+    "category": "Game Theme",
+    "author": "Nobuo Uematsu / Mad Father OST"
   }
 ]

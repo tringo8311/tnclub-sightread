@@ -1,15 +1,15 @@
 import Toast from '@/components/Toast'
-import { useSong } from '@/features/data'
 import { useMicrophonePitch } from '@/features/audio/useMicrophonePitch'
+import { useSong } from '@/features/data'
 import { useSongMetadata } from '@/features/data/library'
 import midiState from '@/features/midi'
+import { usePersistedState } from '@/features/persist'
 import {
   activeProfileIdAtom,
   requiresPermissionAtom,
   scanFolders,
   songProgressAtom,
 } from '@/features/persist/persistence'
-import { usePersistedState } from '@/features/persist'
 import { usePlayer } from '@/features/player'
 import {
   getDefaultSongSettings,
@@ -35,7 +35,7 @@ import { atomWithStorage } from 'jotai/utils'
 import { AlertCircle, ArrowLeft, RefreshCw } from 'lucide-react'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
-import { SettingsPanel, TopBar, MicTestModal } from './components'
+import { MicTestModal, SettingsPanel, TopBar } from './components'
 import CountdownOverlay from './components/CountdownOverlay'
 import { MidiModal } from './components/MidiModal'
 import { StatsPopup } from './components/StatsPopup'
@@ -130,8 +130,11 @@ export default function PlaySongPage() {
   const [isMicActive, setIsMicActive] = useState(false)
   const [isMicTestModalOpen, setMicTestModalOpen] = useState(false)
   const [statsVisible, setStatsVisible] = useState(false)
-  const [isSettingsOpen, setSettingsOpen] = usePersistedState<boolean>(`sightread_${activeProfileId}_is_settings_open`, false)
-  
+  const [isSettingsOpen, setSettingsOpen] = usePersistedState<boolean>(
+    `sightread_${activeProfileId}_is_settings_open`,
+    false,
+  )
+
   useMicrophonePitch(isMicActive)
   const playerState = usePlayerState()
   const countdownTotal = useAtomValue(player.countdownTotal)
@@ -139,7 +142,7 @@ export default function PlaySongPage() {
   const synth = useLazyStableRef(() => getSynthStub('acoustic_grand_piano'))
   let { data: song, error, isLoading, mutate } = useSong(id, source)
   let songMeta = useSongMetadata(id, source)
-  
+
   const accuracy = useAtomValue(player.score.accuracy)
   const [songProgress, setSongProgress] = useAtom(songProgressAtom)
 
@@ -148,7 +151,7 @@ export default function PlaySongPage() {
       setSongProgress((prev) => {
         const current = prev[`${activeProfileId}_${songMeta.id}`] || 0
         const currentProgress = Math.min(100, Math.round((player.getTime() / song.duration) * 100))
-        
+
         if (currentProgress > current) {
           const newState = {
             ...prev,
@@ -469,9 +472,12 @@ export default function PlaySongPage() {
         )}
         <div
           className={clsx(
-            'relative h-full min-h-0 min-w-0 flex justify-center items-center',
-            songConfig.visualization === 'sheet' ? 'bg-white' : 
-            songConfig.visualization === 'sheet-a4' ? 'bg-[#0f1014] overflow-hidden' : 'bg-[#0f1014]',
+            'relative flex h-full min-h-0 min-w-0 items-center justify-center',
+            songConfig.visualization === 'sheet'
+              ? 'bg-white'
+              : songConfig.visualization === 'sheet-a4'
+                ? 'overflow-hidden bg-[#0f1014]'
+                : 'bg-[#0f1014]',
           )}
         >
           {songConfig.visualization === 'sheet-a4' ? (
@@ -553,9 +559,9 @@ export default function PlaySongPage() {
       {!isRecording && (
         <>
           <MidiModal isOpen={isMidiModalOpen} onClose={() => setMidiModal(false)} />
-          <MicTestModal 
-            isOpen={isMicTestModalOpen} 
-            onClose={() => setMicTestModalOpen(false)} 
+          <MicTestModal
+            isOpen={isMicTestModalOpen}
+            onClose={() => setMicTestModalOpen(false)}
             isMicActive={isMicActive}
             onToggleMic={() => setIsMicActive(!isMicActive)}
           />

@@ -6,8 +6,8 @@ import { ButtonWithTooltip } from '@/pages/play/components/TopBar'
 import clsx from 'clsx'
 import React, { MouseEvent } from 'react'
 import { TooltipTrigger } from 'react-aria-components'
-import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router'
 
 type TopBarProps = {
   isError: boolean
@@ -29,7 +29,9 @@ export default function TopBar({
   onClickRecord,
 }: TopBarProps) {
   const { t } = useTranslation()
-  const recordTooltip = isRecordingAudio ? t('freeplay.stop_recording') : t('freeplay.start_recording')
+  const recordTooltip = isRecordingAudio
+    ? t('freeplay.stop_recording')
+    : t('freeplay.start_recording')
 
   return (
     <div className="relative z-10 h-14 w-screen border-b border-[#20222a] bg-[#15161b] px-4">
@@ -81,7 +83,7 @@ function RecordPillButton({ isRecording, tooltip, onClick, className }: RecordPi
           className,
           'flex h-8 items-center gap-2 rounded px-3 text-sm font-medium transition',
           isRecording
-            ? 'border border-primary/30 bg-primary/10 text-primary-foreground hover:bg-primary/20'
+            ? 'border-primary/30 bg-primary/10 text-primary-foreground hover:bg-primary/20 border'
             : 'border border-transparent bg-[#1e2028] text-gray-300 hover:bg-[#232633]',
         )}
         onClick={onClick}
