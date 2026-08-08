@@ -15,7 +15,10 @@ export async function loadInstrument(instrument: InstrumentName) {
   }
 
   // Original link:https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/${instrument}-mp3.js
-  const sfFetch = fetch(`/soundfonts/FluidR3_GM/${instrument}-mp3.js`)
+  const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`
+  const sfFetch = fetch(`${baseUrl}soundfonts/FluidR3_GM/${instrument}-mp3.js`)
 
   let doneDownloadingRes: any
   downloading[instrument] = new Promise((res) => (doneDownloadingRes = res))
