@@ -27,7 +27,10 @@
       "note_labels": "Ký hiệu nốt",
       "profiles": "Hồ sơ cá nhân",
       "add_new_profile": "Tạo hồ sơ mới...",
-      "profile_name_prompt": "Nhập tên hồ sơ mới:"
+      "profile_name_prompt": "Nhập tên hồ sơ mới:",
+      "font_size": "Kích thước chữ",
+      "theme": "Giao diện",
+      "language": "Ngôn ngữ"
     },
     "songs": {
       "page_title": "Chọn bài hát",

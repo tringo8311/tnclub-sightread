@@ -46,10 +46,14 @@ export default function AddToPlaylistModal({
   }
 
   return (
-    <div data-ui="add-to-playlist-modal" data-component="AddToPlaylistModal" className="p-6">
-      <div className="border-border mb-4 flex items-center justify-between border-b pr-8 pb-3">
+    <div
+      data-ui="add-to-playlist-modal"
+      data-component="AddToPlaylistModal"
+      className="bg-card text-card-foreground p-6"
+    >
+      <div className="border-border mb-4 flex items-center justify-between border-b pb-3">
         <div className="flex items-center gap-2.5">
-          <ListPlus className="h-5 w-5 text-primary" />
+          <ListPlus className="text-primary h-5 w-5" />
           <h3 className="text-foreground text-base font-bold">Thêm Vào Playlist</h3>
         </div>
       </div>
@@ -60,7 +64,7 @@ export default function AddToPlaylistModal({
         </p>
       )}
 
-      <div className="max-h-[260px] space-y-1.5 overflow-y-auto pr-1">
+      <div className="custom-scrollbar max-h-[260px] space-y-2 overflow-y-auto pr-1">
         {playlists.length === 0 ? (
           <div className="border-border/60 text-muted-foreground rounded-xl border border-dashed py-6 text-center text-xs">
             Chưa có playlist nào. Hãy tạo mới bên dưới!
@@ -69,28 +73,29 @@ export default function AddToPlaylistModal({
           playlists.map((pl) => {
             const isSongIn = pl.songIds.includes(songId)
             return (
-              <div
+              <button
                 key={pl.id}
+                type="button"
                 data-element-id={`add-playlist-toggle-${pl.id}`}
                 data-ui="add-to-playlist-modal"
                 onClick={() => handleToggle(pl.id, isSongIn)}
-                className={`flex cursor-pointer items-center justify-between rounded-xl p-3 text-xs font-medium transition-all ${
+                className={`flex w-full cursor-pointer items-center justify-between rounded-xl p-3 text-xs font-medium transition-all ${
                   isSongIn
-                    ? 'border border-primary/40 bg-primary/15 text-primary shadow-sm'
-                    : 'border-border/60 hover:bg-foreground/5 text-foreground/80 border'
+                    ? 'border-primary/40 bg-primary/20 text-primary border shadow-sm'
+                    : 'border-border/60 text-foreground/80 hover:bg-foreground/10 border'
                 }`}
               >
                 <span className="truncate">{pl.name}</span>
                 <div
-                  className={`flex h-5 w-5 items-center justify-center rounded-md border ${
+                  className={`flex h-5 w-5 items-center justify-center rounded-md border transition-colors ${
                     isSongIn
                       ? 'border-primary bg-primary text-primary-foreground'
-                      : 'border-border bg-background'
+                      : 'border-border bg-foreground/5'
                   }`}
                 >
                   {isSongIn && <Check className="h-3.5 w-3.5" />}
                 </div>
-              </div>
+              </button>
             )
           })
         )}
@@ -127,7 +132,7 @@ export default function AddToPlaylistModal({
             elementId="add-playlist-modal-new-btn"
             data-ui="add-to-playlist-modal"
             onClick={() => setIsCreating(true)}
-            className="w-full border-primary/30 text-xs text-primary hover:bg-primary/10"
+            className="border-primary/30 text-primary hover:bg-primary/10 w-full text-xs"
           >
             <Plus className="mr-1.5 h-3.5 w-3.5" />
             Tạo Playlist mới

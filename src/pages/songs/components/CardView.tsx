@@ -98,7 +98,7 @@ export default function CardView({
       <Modal
         show={!!playlistModalSong}
         onClose={() => setPlaylistModalSong(null)}
-        className="w-[min(96vw,440px)] overflow-hidden rounded-2xl bg-white p-0"
+        className="w-[min(96vw,440px)] overflow-hidden rounded-2xl bg-card text-card-foreground p-0 border-none shadow-2xl"
         modalClassName="max-w-[440px]"
       >
         {playlistModalSong && (

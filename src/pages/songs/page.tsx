@@ -11,11 +11,11 @@ import { useEventListener } from '@/hooks'
 import { SongMetadata } from '@/types'
 import clsx from 'clsx'
 import { useAtomValue } from 'jotai'
-import { LayoutGrid, List, ListMusic, Star } from 'lucide-react'
+import { Folder, LayoutGrid, List, ListMusic, Star } from 'lucide-react'
 import * as React from 'react'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Table } from './components'
+import { ManageFoldersForm, Table } from './components'
 import CardView from './components/CardView'
 import PlaylistManagerModal from './components/PlaylistManagerModal'
 import { SearchBox } from './components/Table/SearchBox'
@@ -26,6 +26,7 @@ export default function SelectSongPage() {
   const songs: SongMetadata[] = useSongManifest()
   const isInitialized = useAtomValue(isInitializedAtom)
   const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState<boolean>(false)
+  const [isFolderModalOpen, setIsFolderModalOpen] = useState<boolean>(false)
   const [selectedSongId, setSelectedSongId] = useState<any>('')
   const selectedSongMeta = songs.find((s) => s.id === selectedSongId)
   const activeProfileId = useAtomValue(activeProfileIdAtom)
@@ -56,6 +57,7 @@ export default function SelectSongPage() {
   useEventListener<KeyboardEvent>('keydown', (event) => {
     if (event.key === 'Escape') {
       setIsPlaylistModalOpen(false)
+      setIsFolderModalOpen(false)
     }
   })
 
@@ -93,6 +95,14 @@ export default function SelectSongPage() {
           songTitleMap={songTitleMap}
         />
       </Modal>
+      <Modal
+        show={isFolderModalOpen}
+        onClose={() => setIsFolderModalOpen(false)}
+        className="w-[min(96vw,600px)] overflow-hidden rounded-2xl bg-card text-card-foreground p-0 border-none shadow-2xl"
+        modalClassName="max-w-[600px]"
+      >
+        <ManageFoldersForm onClose={() => setIsFolderModalOpen(false)} />
+      </Modal>
       <div
         data-ui="songs-page"
         data-component="SelectSongPage"
@@ -102,14 +112,53 @@ export default function SelectSongPage() {
           <AppBar />
         </div>
         <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-(--breakpoint-lg) flex-1 flex-col p-6">
-          <h2 className="from-foreground to-foreground/60 bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent">
-            {t('home.learn_song')}
-          </h2>
-          <Sizer height={8} />
-          <h3 className="text-foreground/60 text-sm">{t('songs.subtitle')}</h3>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="from-foreground to-foreground/60 bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent">
+                {t('home.learn_song')}
+              </h2>
+              <Sizer height={4} />
+              <h3 className="text-foreground/60 text-sm">{t('songs.subtitle')}</h3>
+            </div>
+
+            <div className="flex items-center gap-2.5">
+              <button
+                data-element-id="songs-playlists-btn"
+                data-ui="songs-page"
+                aria-label="Manage playlists"
+                className={clsx(
+                  'cursor-pointer flex-nowrap whitespace-nowrap',
+                  'text-foreground inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium shadow-sm',
+                  'glass-card neon-glow-cyan transition-all hover:-translate-y-0.5 hover:border-[var(--color-cyan-neon)]/50 active:scale-95',
+                )}
+                onClick={() => setIsPlaylistModalOpen(true)}
+              >
+                <ListMusic width={16} height={16} className="text-[var(--color-cyan-neon)]" />
+                <span>Danh sách phát</span>
+              </button>
+
+              <button
+                data-element-id="songs-folders-btn"
+                data-ui="songs-page"
+                aria-label="Manage music folders"
+                className={clsx(
+                  'cursor-pointer flex-nowrap whitespace-nowrap',
+                  'text-foreground inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium shadow-sm',
+                  'glass-card neon-glow-cyan transition-all hover:-translate-y-0.5 hover:border-[var(--color-cyan-neon)]/50 active:scale-95',
+                )}
+                onClick={() => setIsFolderModalOpen(true)}
+              >
+                <Folder width={16} height={16} className="text-[var(--color-cyan-neon)]" />
+                <span>Thư mục</span>
+              </button>
+            </div>
+          </div>
+
           <Sizer height={16} />
+
+          {/* Unified Search & Filter Toolbar */}
           <div className="flex flex-wrap items-center gap-3">
-            <div className="min-w-[200px] flex-1">
+            <div className="min-w-[220px] flex-1">
               <SearchBox
                 value={search}
                 placeholder={t('songs.search_placeholder')}
@@ -122,7 +171,7 @@ export default function SelectSongPage() {
               aria-label="Filter by level"
               data-element-id="songs-level-filter-select"
               data-ui="songs-page"
-              className="glass-card text-foreground [&>option]:bg-background cursor-pointer rounded-xl px-3 py-2 text-sm font-medium shadow-sm transition-colors hover:border-[var(--color-cyan-neon)]/50 focus:ring-1 focus:ring-[var(--color-cyan-neon)] focus:outline-none"
+              className="glass-card text-foreground [&>option]:bg-background cursor-pointer rounded-xl px-3.5 py-2 text-sm font-medium shadow-sm transition-colors hover:border-[var(--color-cyan-neon)]/50 focus:ring-1 focus:ring-[var(--color-cyan-neon)] focus:outline-none"
               value={levelFilter}
               onChange={(e) => setLevelFilter(e.target.value)}
             >
@@ -136,7 +185,7 @@ export default function SelectSongPage() {
               aria-label="Filter by playlist"
               data-element-id="songs-playlist-filter-select"
               data-ui="songs-page"
-              className="glass-card text-foreground [&>option]:bg-background cursor-pointer rounded-xl px-3 py-2 text-sm font-medium shadow-sm transition-colors hover:border-[var(--color-cyan-neon)]/50 focus:ring-1 focus:ring-[var(--color-cyan-neon)] focus:outline-none"
+              className="glass-card text-foreground [&>option]:bg-background cursor-pointer rounded-xl px-3.5 py-2 text-sm font-medium shadow-sm transition-colors hover:border-[var(--color-cyan-neon)]/50 focus:ring-1 focus:ring-[var(--color-cyan-neon)] focus:outline-none"
               value={playlistFilter}
               onChange={(e) => setPlaylistFilter(e.target.value)}
             >
@@ -147,21 +196,6 @@ export default function SelectSongPage() {
                 </option>
               ))}
             </select>
-
-            <button
-              data-element-id="songs-playlists-btn"
-              data-ui="songs-page"
-              aria-label="Manage playlists"
-              className={clsx(
-                'cursor-pointer flex-nowrap whitespace-nowrap',
-                'text-foreground inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium shadow-sm',
-                'glass-card neon-glow-cyan transition-all hover:-translate-y-0.5 hover:border-[var(--color-cyan-neon)]/50 active:scale-95',
-              )}
-              onClick={() => setIsPlaylistModalOpen(true)}
-            >
-              <ListMusic width={16} height={16} className="text-[var(--color-cyan-neon)]" />
-              <span>Danh sách phát</span>
-            </button>
 
             <div className="glass-card ml-auto flex items-center gap-1 !rounded-xl !p-1">
               <button

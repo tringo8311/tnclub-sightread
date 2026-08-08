@@ -22,7 +22,7 @@ export function MarketingFooter() {
       <MaxWidthWrapper className="mx-auto w-full py-6">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="text-muted-foreground text-center text-xs sm:text-left">
-            © 2025 Sightread Studio, LLC. All rights reserved.
+            Powered by Sightread Studio
           </div>
           <div className="text-muted-foreground flex items-center gap-6">
             <div className="flex cursor-default items-center gap-1.5 text-xs transition-colors hover:text-white">

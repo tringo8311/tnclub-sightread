@@ -106,7 +106,7 @@ export default function Table({
       <Modal
         show={!!playlistModalSong}
         onClose={() => setPlaylistModalSong(null)}
-        className="w-[min(96vw,440px)] overflow-hidden rounded-2xl bg-white p-0"
+        className="w-[min(96vw,440px)] overflow-hidden rounded-2xl bg-card text-card-foreground p-0 border-none shadow-2xl"
         modalClassName="max-w-[440px]"
       >
         {playlistModalSong && (
@@ -143,19 +143,19 @@ export default function Table({
             <TableHeader className="bg-foreground/5 table w-full table-fixed backdrop-blur-md">
               <Column
                 id="stt"
-                className="border-foreground/10 text-foreground/60 w-16 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
+                className="border-foreground/10 text-foreground/60 w-16 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
               >
                 STT
               </Column>
               <Column
                 id="favorite"
-                className="border-foreground/10 text-foreground/60 w-10 border-b px-2 py-2 text-center text-sm font-semibold tracking-wider uppercase"
+                className="border-foreground/10 text-foreground/60 w-12 border-b px-2 py-3 text-center text-xs font-bold tracking-wider uppercase"
               >
                 <Star size={14} className="text-foreground/40 mx-auto" />
               </Column>
               <Column
                 id="playlist"
-                className="border-foreground/10 text-foreground/60 w-10 border-b px-2 py-2 text-center text-sm font-semibold tracking-wider uppercase"
+                className="border-foreground/10 text-foreground/60 w-12 border-b px-2 py-3 text-center text-xs font-bold tracking-wider uppercase"
               >
                 <ListPlus size={14} className="text-foreground/40 mx-auto" />
               </Column>
@@ -163,7 +163,7 @@ export default function Table({
                 id="title"
                 isRowHeader
                 allowsSorting
-                className="border-foreground/10 text-foreground/60 w-1/3 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
+                className="border-foreground/10 text-foreground/60 w-1/3 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -184,7 +184,7 @@ export default function Table({
               <Column
                 id="author"
                 allowsSorting
-                className="border-foreground/10 text-foreground/60 w-48 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"
+                className="border-foreground/10 text-foreground/60 w-48 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -205,7 +205,7 @@ export default function Table({
               <Column
                 id="category"
                 allowsSorting
-                className="w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
+                className="w-32 border-b border-foreground/10 px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/60 uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -226,7 +226,7 @@ export default function Table({
               <Column
                 id="level"
                 allowsSorting
-                className="w-32 border-b border-gray-200 px-4 py-2 text-left text-sm font-semibold tracking-wider text-gray-500 uppercase"
+                className="w-32 border-b border-foreground/10 px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/60 uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -247,7 +247,7 @@ export default function Table({
               <Column
                 id="progress"
                 allowsSorting
-                className="w-28 border-b border-gray-200 px-4 py-2 text-right text-sm font-semibold tracking-wider text-gray-500 uppercase"
+                className="w-28 border-b border-foreground/10 px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/60 uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center justify-end">
@@ -268,7 +268,7 @@ export default function Table({
               <Column
                 id="duration"
                 allowsSorting
-                className="w-32 border-b border-gray-200 px-4 py-2 text-right text-sm font-semibold tracking-wider text-gray-500 uppercase"
+                className="w-32 border-b border-foreground/10 px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/60 uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center justify-end">
@@ -316,10 +316,10 @@ export default function Table({
                     className="text-foreground hover:bg-foreground/5 table w-full table-fixed cursor-pointer transition-colors"
                     onAction={() => onSelectRow(item.id)}
                   >
-                    <Cell className="border-foreground/10 text-foreground/40 w-16 border-b px-4 py-2">
+                    <Cell className="border-foreground/10 text-foreground/40 w-16 border-b px-4 py-3.5">
                       {idx}
                     </Cell>
-                    <Cell className="border-foreground/10 w-10 border-b px-1 py-2 text-center">
+                    <Cell className="border-foreground/10 w-12 border-b px-1 py-3.5 text-center">
                       <button
                         data-element-id={`song-favorite-btn-${item.id}`}
                         data-ui="song-list-table"
@@ -337,7 +337,7 @@ export default function Table({
                         />
                       </button>
                     </Cell>
-                    <Cell className="border-foreground/10 w-10 border-b px-1 py-2 text-center">
+                    <Cell className="border-foreground/10 w-12 border-b px-1 py-3.5 text-center">
                       <button
                         data-element-id={`song-add-playlist-btn-${item.id}`}
                         data-ui="song-list-table"
@@ -352,26 +352,26 @@ export default function Table({
                         <ListPlus size={16} />
                       </button>
                     </Cell>
-                    <Cell className="border-foreground/10 w-1/3 border-b px-4 py-2">
+                    <Cell className="border-foreground/10 w-1/3 border-b px-4 py-3.5 font-medium">
                       <span className="block truncate whitespace-nowrap">{item.title}</span>
                     </Cell>
-                    <Cell className="border-foreground/10 w-48 border-b px-4 py-2">
-                      <span className="text-foreground/60 block truncate whitespace-nowrap">
+                    <Cell className="border-foreground/10 w-48 border-b px-4 py-3.5">
+                      <span className="text-foreground/70 block truncate whitespace-nowrap">
                         {item.author || '-'}
                       </span>
                     </Cell>
-                    <Cell className="border-foreground/10 w-32 border-b px-4 py-2">
-                      <span className="text-foreground/60 block truncate whitespace-nowrap">
+                    <Cell className="border-foreground/10 w-32 border-b px-4 py-3.5">
+                      <span className="text-foreground/70 block truncate whitespace-nowrap">
                         {item.category || '-'}
                       </span>
                     </Cell>
-                    <Cell className="border-foreground/10 w-32 border-b px-4 py-2">
-                      <span className="text-foreground/60 block truncate whitespace-nowrap">
+                    <Cell className="border-foreground/10 w-32 border-b px-4 py-3.5">
+                      <span className="text-foreground/70 block truncate whitespace-nowrap">
                         {item.level || '-'}
                       </span>
                     </Cell>
                     <Cell
-                      className="border-foreground/10 w-28 border-b px-4 py-2 text-right"
+                      className="border-foreground/10 w-28 border-b px-4 py-3.5 text-right"
                       style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
                     >
                       <span
@@ -388,7 +388,7 @@ export default function Table({
                       </span>
                     </Cell>
                     <Cell
-                      className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-2 text-right"
+                      className="border-foreground/10 text-foreground/70 w-32 border-b px-4 py-3.5 text-right"
                       style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
                     >
                       {formatTime(Number(item.duration))}

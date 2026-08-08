@@ -6,4 +6,8 @@ export {
   removeFolder,
   localDirsAtom,
   localSongsAtom,
+  fontSizeAtom,
+  themeAtom,
+  profilesAtom,
+  activeProfileIdAtom,
 } from './persistence'

@@ -27,7 +27,10 @@
       "note_labels": "Note labels",
       "profiles": "Profiles",
       "add_new_profile": "Add new profile...",
-      "profile_name_prompt": "Enter new profile name:"
+      "profile_name_prompt": "Enter new profile name:",
+      "font_size": "Font Size",
+      "theme": "Theme",
+      "language": "Language"
     },
     "songs": {
       "page_title": "Select a song",
