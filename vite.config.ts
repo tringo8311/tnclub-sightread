@@ -5,5 +5,6 @@ import devtoolsJson from 'vite-plugin-devtools-json'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/tnclub-sightread/' : '/',
   plugins: [devtoolsJson(), tailwindcss(), reactRouter(), tsconfigPaths()],
 })
