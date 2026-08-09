@@ -1,17 +1,17 @@
 import { index, prefix, route, type RouteConfig } from '@react-router/dev/routes'
 
 export default [
-  index('./home/page.tsx'),
-  route('about', './about/page.tsx'),
-  route('freeplay', './freeplay/page.tsx'),
-  route('play', './play/page.tsx'),
-  route('songs', './songs/page.tsx'),
-  route('market', './market/page.tsx'),
-  route('theory', './theory/page.tsx'),
-  route('piano-history', './piano-history/page.tsx'),
+  index('home/page.tsx'),
+  route('about', 'about/page.tsx'),
+  route('freeplay', 'freeplay/page.tsx'),
+  route('play', 'play/page.tsx'),
+  route('songs', 'songs/page.tsx'),
+  route('market', 'market/page.tsx'),
+  route('theory', 'theory/page.tsx'),
+  route('piano-history', 'piano-history/page.tsx'),
   ...prefix('training', [
-    route('phrases', './training/phrases/page.tsx'),
-    route('speed', './training/speed/page.tsx'),
+    route('phrases', 'training/phrases/page.tsx'),
+    route('speed', 'training/speed/page.tsx'),
   ]),
-  route('*', './not-found/page.tsx'),
+  route('*', 'not-found/page.tsx'),
 ] satisfies RouteConfig

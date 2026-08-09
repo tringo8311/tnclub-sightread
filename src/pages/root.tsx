@@ -6,7 +6,7 @@ import { Providers } from './providers'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -58,9 +58,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
 
         {/* Manually inserted styles */}
-        <style dangerouslySetInnerHTML={{ __html: styles }} />
+        <style dangerouslySetInnerHTML={{ __html: styles }} suppressHydrationWarning />
       </head>
-      <body className="bg-background text-foreground selection:bg-primary/30">
+      <body className="bg-background text-foreground selection:bg-primary/30" suppressHydrationWarning>
         {children}
         <ScrollRestoration />
         <Scripts />

@@ -209,7 +209,7 @@ export function ChordScaleSection() {
   const [selectedRootIndex, setSelectedRootIndex] = useState(0)
   const [selectedChordId, setSelectedChordId] = useState('major')
   const [selectedScaleId, setSelectedScaleId] = useState('major_scale')
-  const [handView, setHandView] = useState<'rh' | 'lh'>('rh')
+  const [handView, setHandView] = useState<'rh' | 'lh' | 'both'>('both')
 
   const root = ROOT_NOTES[selectedRootIndex]
   const activeChord = CHORDS.find((c) => c.id === selectedChordId) || CHORDS[0]
@@ -219,14 +219,16 @@ export function ChordScaleSection() {
   const activeIntervals = mode === 'chord' ? activeChord.intervals : activeScale.intervals
   const activePitches = activeIntervals.map((interval) => root.pitch + interval)
 
-  // Fingering map for active pitches
-  const activeFingering = mode === 'chord'
-    ? (handView === 'rh' ? activeChord.rhFingering : activeChord.lhFingering)
-    : (handView === 'rh' ? activeScale.rhFingering : activeScale.lhFingering)
+  // Fingering map for active pitches (RH & LH)
+  const rhFingeringList = mode === 'chord' ? activeChord.rhFingering : activeScale.rhFingering
+  const lhFingeringList = mode === 'chord' ? activeChord.lhFingering : activeScale.lhFingering
 
-  const pitchFingeringMap: Record<number, number> = {}
+  const pitchRhFingeringMap: Record<number, number> = {}
+  const pitchLhFingeringMap: Record<number, number> = {}
+
   activePitches.forEach((pitch, idx) => {
-    pitchFingeringMap[pitch] = activeFingering[idx % activeFingering.length]
+    pitchRhFingeringMap[pitch] = rhFingeringList[idx % rhFingeringList.length]
+    pitchLhFingeringMap[pitch] = lhFingeringList[idx % lhFingeringList.length]
   })
 
   // Web Audio Synthesis for playing notes
@@ -262,15 +264,16 @@ export function ChordScaleSection() {
     }
   }
 
-  // Generate 2-Octave Keyboard keys (C4 to B5 -> 60 to 83)
+  // Generate 3-Octave Keyboard keys (C3 to C6 -> 48 to 84)
   const keys: { pitch: number; isBlack: boolean; name: string }[] = []
-  for (let p = 60; p <= 83; p++) {
+  for (let p = 48; p <= 84; p++) {
     const isBlack = [1, 3, 6, 8, 10].includes(p % 12)
     keys.push({ pitch: p, isBlack, name: getNoteName(p) })
   }
 
   return (
-    <div className="border-border bg-card/60 rounded-2xl border p-6 shadow-xl backdrop-blur-md space-y-6">
+    <section className="space-y-8 max-w-5xl mx-auto">
+      <div className="border-border bg-card/60 rounded-2xl border p-6 shadow-xl backdrop-blur-md space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-4">
         <div>
           <h2 className="from-amber-400 via-amber-200 to-white bg-gradient-to-r bg-clip-text text-2xl font-black text-transparent">
@@ -413,115 +416,144 @@ export function ChordScaleSection() {
       </div>
 
       {/* Hand Fingering View Switcher */}
-      <div className="flex items-center justify-between pt-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
           3. Sơ Đồ Phím Đàn & Thế Bấm Ngón (Fingering):
         </label>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground font-medium">Xem thế bấm:</span>
-          <button
-            type="button"
-            onClick={() => setHandView('rh')}
-            className={`px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer ${
-              handView === 'rh'
-                ? 'bg-amber-500 text-slate-950 font-bold shadow'
-                : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10'
-            }`}
-          >
-            ✋ Tay Phải (RH)
-          </button>
+        <div className="flex flex-wrap items-center gap-1.5 bg-foreground/5 p-1 rounded-xl border border-border/60">
           <button
             type="button"
             onClick={() => setHandView('lh')}
-            className={`px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer ${
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
               handView === 'lh'
-                ? 'bg-cyan-500 text-slate-950 font-bold shadow'
-                : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10'
+                ? 'bg-cyan-500 text-slate-950 shadow-md font-extrabold'
+                : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
             }`}
           >
-            🤚 Tay Trái (LH)
+            <span>🤚 Tay Trái (LH)</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setHandView('rh')}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
+              handView === 'rh'
+                ? 'bg-amber-500 text-slate-950 shadow-md font-extrabold'
+                : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
+            }`}
+          >
+            <span>✋ Tay Phải (RH)</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setHandView('both')}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
+              handView === 'both'
+                ? 'bg-emerald-500 text-slate-950 shadow-md font-extrabold'
+                : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
+            }`}
+          >
+            <span>🙌 Cả Hai Tay (RH + LH)</span>
           </button>
         </div>
       </div>
 
       {/* Visual Interactive Piano Keyboard with Fingering Badges */}
-      <div className="border-border bg-slate-950 rounded-2xl border p-4 shadow-inner overflow-x-auto custom-scrollbar">
-        <div className="relative flex h-48 w-full min-w-[640px] justify-center select-none">
-          {keys.map((k) => {
-            const isActive = activePitches.includes(k.pitch)
-            const fingerNum = pitchFingeringMap[k.pitch]
+      <div className="border-border bg-slate-950 rounded-2xl border p-6 shadow-inner overflow-x-auto custom-scrollbar flex justify-center">
+        <div className="relative flex h-44 select-none w-max">
+          {/* Render White Keys */}
+          {keys
+            .filter((k) => !k.isBlack)
+            .map((wKey) => {
+              const isActive = activePitches.includes(wKey.pitch)
+              const rhFingerNum = pitchRhFingeringMap[wKey.pitch]
+              const lhFingerNum = pitchLhFingeringMap[wKey.pitch]
 
-            if (!k.isBlack) {
               return (
                 <div
-                  key={k.pitch}
-                  onClick={() => playSound([k.pitch], false)}
+                  key={wKey.pitch}
+                  onClick={() => playSound([wKey.pitch], false)}
                   className={`relative flex flex-col justify-end items-center pb-2 w-10 border-r border-slate-300 rounded-b-md transition-colors cursor-pointer ${
                     isActive ? 'bg-amber-200 shadow-[inset_0_-8px_16px_rgba(245,158,11,0.5)]' : 'bg-white hover:bg-slate-100'
                   }`}
                 >
-                  {isActive && fingerNum && (
-                    <div
-                      className={`absolute top-4 flex h-7 w-7 items-center justify-center rounded-full text-xs font-black shadow-md ${
-                        handView === 'rh'
-                          ? 'bg-amber-500 text-slate-950 ring-2 ring-amber-300'
-                          : 'bg-cyan-500 text-slate-950 ring-2 ring-cyan-300'
-                      }`}
-                    >
-                      {fingerNum}
+                  {isActive && (
+                    <div className="absolute top-2.5 flex flex-col items-center gap-1">
+                      {(handView === 'rh' || handView === 'both') && rhFingerNum && (
+                        <div
+                          title="Tay Phải (RH)"
+                          className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black shadow-md bg-amber-500 text-slate-950 ring-1 ring-amber-300"
+                        >
+                          {rhFingerNum}
+                        </div>
+                      )}
+                      {(handView === 'lh' || handView === 'both') && lhFingerNum && (
+                        <div
+                          title="Tay Trái (LH)"
+                          className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black shadow-md bg-cyan-500 text-slate-950 ring-1 ring-cyan-300"
+                        >
+                          {lhFingerNum}
+                        </div>
+                      )}
                     </div>
                   )}
                   <span className={`text-[10px] font-bold ${isActive ? 'text-amber-900 font-extrabold' : 'text-slate-500'}`}>
-                    {k.name}
+                    {wKey.name}
+                  </span>
+                </div>
+              )
+            })}
+
+          {/* Render Black Keys accurately aligned on top of white keys */}
+          {keys.map((k, i) => {
+            if (k.isBlack) {
+              const isActive = activePitches.includes(k.pitch)
+              const rhFingerNum = pitchRhFingeringMap[k.pitch]
+              const lhFingerNum = pitchLhFingeringMap[k.pitch]
+              const whiteKeyOffset = keys.slice(0, i).filter((x) => !x.isBlack).length
+              const leftPos = whiteKeyOffset * 40 - 12
+
+              return (
+                <div
+                  key={k.pitch}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    playSound([k.pitch], false)
+                  }}
+                  style={{ left: `${leftPos}px` }}
+                  className={`absolute top-0 z-20 flex flex-col justify-end items-center pb-2 w-6 h-28 rounded-b-md transition-colors cursor-pointer shadow-md ${
+                    isActive
+                      ? 'bg-amber-500 border border-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.8)]'
+                      : 'bg-slate-900 hover:bg-slate-800 border border-slate-700'
+                  }`}
+                >
+                  {isActive && (
+                    <div className="absolute top-2 flex flex-col items-center gap-1">
+                      {(handView === 'rh' || handView === 'both') && rhFingerNum && (
+                        <div
+                          title="Tay Phải (RH)"
+                          className="flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-black shadow bg-amber-300 text-slate-950 ring-1 ring-amber-500"
+                        >
+                          {rhFingerNum}
+                        </div>
+                      )}
+                      {(handView === 'lh' || handView === 'both') && lhFingerNum && (
+                        <div
+                          title="Tay Trái (LH)"
+                          className="flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-black shadow bg-cyan-300 text-slate-950 ring-1 ring-cyan-500"
+                        >
+                          {lhFingerNum}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  <span className={`text-[9px] font-bold ${isActive ? 'text-slate-950' : 'text-slate-400'}`}>
+                    {k.name.split('/')[0]}
                   </span>
                 </div>
               )
             }
             return null
           })}
-
-          {/* Black Keys Layer */}
-          <div className="absolute top-0 left-0 right-0 flex h-28 w-full min-w-[640px] justify-center pointer-events-none">
-            {keys.map((k, i) => {
-              if (k.isBlack) {
-                const isActive = activePitches.includes(k.pitch)
-                const fingerNum = pitchFingeringMap[k.pitch]
-                // Offset index relative to white keys for alignment
-                const whiteKeyOffset = keys.slice(0, i).filter((x) => !x.isBlack).length
-                const leftPos = whiteKeyOffset * 40 - 13
-
-                return (
-                  <div
-                    key={k.pitch}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      playSound([k.pitch], false)
-                    }}
-                    style={{ left: `${leftPos}px` }}
-                    className={`absolute z-20 flex flex-col justify-end items-center pb-2 w-6 h-28 rounded-b-md transition-colors cursor-pointer pointer-events-auto shadow-md ${
-                      isActive ? 'bg-amber-500 border border-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.8)]' : 'bg-slate-900 hover:bg-slate-800 border border-slate-700'
-                    }`}
-                  >
-                    {isActive && fingerNum && (
-                      <div
-                        className={`absolute top-3 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black shadow ${
-                          handView === 'rh'
-                            ? 'bg-amber-300 text-slate-950 ring-1 ring-amber-500'
-                            : 'bg-cyan-300 text-slate-950 ring-1 ring-cyan-500'
-                        }`}
-                      >
-                        {fingerNum}
-                      </div>
-                    )}
-                    <span className={`text-[9px] font-bold ${isActive ? 'text-slate-950' : 'text-slate-400'}`}>
-                      {k.name.split('/')[0]}
-                    </span>
-                  </div>
-                )
-              }
-              return null
-            })}
-          </div>
         </div>
       </div>
 
@@ -537,5 +569,6 @@ export function ChordScaleSection() {
         </div>
       </div>
     </div>
-  )
+  </section>
+)
 }

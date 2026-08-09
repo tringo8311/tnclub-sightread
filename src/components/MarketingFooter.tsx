@@ -27,6 +27,10 @@ export function MarketingFooter() {
             <Link to="/piano-history" className="hover:text-amber-400 transition-colors font-bold text-foreground">
               🎹 Lịch Sử & Bách Khoa Piano
             </Link>
+            <span className="hidden sm:inline text-gray-400/50">•</span>
+            <Link to="/freeplay" className="hover:text-amber-400 transition-colors font-bold text-foreground">
+              🎹 Chơi Tự Do
+            </Link>
           </div>
 
           <div className="flex items-center gap-5">

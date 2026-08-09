@@ -20,7 +20,6 @@ const navItems: NavItem[] = [
   { route: '/theory', labelKey: 'home.nav_theory', icon: BookOpen },
   { route: '/songs', labelKey: 'home.learn_song', icon: Music },
   { route: '/market', labelKey: 'MIDI Market', icon: Store },
-  { route: '/freeplay', labelKey: 'home.free_play', icon: Piano },
 ]
 
 export default function AppBar() {
