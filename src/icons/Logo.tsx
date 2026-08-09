@@ -25,42 +25,27 @@ export default function Logo(props: LucideProps) {
         </linearGradient>
       </defs>
 
-      {/* Outer Decorative Ring */}
-      <circle cx="32" cy="32" r="30" fill="url(#tnLogoGrad)" opacity="0.12" />
-      <circle
-        cx="32"
-        cy="32"
-        r="28"
+      {/* Sleek Modern Eighth Note Emblem (Clef Note) */}
+      {/* Note Stem & Flag */}
+      <path
+        d="M34 16V36C34 39.3137 30.866 42 27 42C23.134 42 20 39.3137 20 36C20 32.6863 23.134 30 27 30C29.2 30 31.15 30.86 32.5 32.22V22C32.5 22 41 18 45 16V22C41 24 34.5 26 34.5 26"
+        fill="url(#tnLogoGrad)"
+      />
+
+      {/* Elegant Acoustic Soundwave Accents */}
+      <path
+        d="M44 26C47 28.5 49 32 49 36C49 40 47 43.5 44 46"
+        stroke="url(#tnLogoGrad)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeOpacity="0.8"
+      />
+      <path
+        d="M50 22C54.5 25.5 57.5 30.5 57.5 36C57.5 41.5 54.5 46.5 50 50"
         stroke="url(#tnLogoGrad)"
         strokeWidth="2"
-        strokeDasharray="100 12"
-      />
-
-      {/* Treble Note + Grand Piano Wave */}
-      <path
-        d="M20 42C20 34 24 26 32 20C39 15 47 13 50 17C53 20 51 26 46 30C41 33 35 33 32 29C29 25 29 19 34 15"
-        stroke="url(#tnLogoGrad)"
-        strokeWidth="3.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Piano Keyboard Arc */}
-      <path
-        d="M13 41H51V45C51 47.5 49 49.5 46.5 49.5H17.5C15 49.5 13 47.5 13 45V41Z"
-        fill="url(#tnKeysGrad)"
-      />
-      {/* Black Keys */}
-      <rect x="18" y="41" width="3.5" height="5.5" rx="0.5" fill="#0F172A" />
-      <rect x="24.5" y="41" width="3.5" height="5.5" rx="0.5" fill="#0F172A" />
-      <rect x="31" y="41" width="3.5" height="5.5" rx="0.5" fill="#0F172A" />
-      <rect x="39.5" y="41" width="3.5" height="5.5" rx="0.5" fill="#0F172A" />
-      <rect x="46" y="41" width="3.5" height="5.5" rx="0.5" fill="#0F172A" />
-
-      {/* Sparkle Accent */}
-      <path
-        d="M48 10L49.5 14.5L54 16L49.5 17.5L48 22L46.5 17.5L42 16L46.5 14.5L48 10Z"
-        fill="#FBBF24"
+        strokeOpacity="0.4"
       />
     </svg>
   )

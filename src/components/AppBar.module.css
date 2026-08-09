@@ -174,25 +174,34 @@
 
 .brandPill {
   margin-bottom: 12px;
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  border-radius: 9999px;
-  border: 1px solid rgba(251, 191, 36, 0.5);
-  background: rgba(2, 6, 23, 0.7);
-  padding: 2px 36px;
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  gap: 12px;
+  background: transparent;
+  padding: 4px 12px;
   translate: 0 6px;
   transition: all 0.3s ease;
 }
 
-.brandLink:hover .brandPill {
-  border-color: rgba(252, 211, 77, 0.8);
-  background: rgba(2, 6, 23, 0.85);
-  box-shadow: 0 0 22px rgba(245, 158, 11, 0.55);
+.wingIconLeft,
+.wingIconRight {
+  height: 22px;
+  width: 56px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.7));
+}
+
+.brandLink:hover .wingIconLeft {
+  transform: translateX(-6px) scale(1.1);
+  filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.95));
+}
+
+.brandLink:hover .wingIconRight {
+  transform: translateX(6px) scale(1.1);
+  filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.95));
 }
 
 .brandTextLeft {
@@ -203,7 +212,7 @@
   background-clip: text;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   color: transparent;
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
 }
@@ -218,6 +227,7 @@
   font-size: 9px;
   color: rgba(251, 191, 36, 0.7);
   flex-shrink: 0;
+  width: 20px;
 }
 
 .brandTextRight {
@@ -239,27 +249,62 @@
 
 .badgeLogo {
   position: absolute;
-  top: 18px;
+  top: 16px;
   z-index: 50;
   display: flex;
-  height: 56px;
-  width: 56px;
+  height: 52px;
+  width: 52px;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  border: 2px solid rgba(251, 191, 36, 0.8);
-  background: rgba(2, 6, 23, 0.9);
+  /* Regular Dodecagon Shape (Thập Nhị Giác - 12 cạnh) */
+  clip-path: polygon(
+    50% 0%,
+    75% 6.7%,
+    93.3% 25%,
+    100% 50%,
+    93.3% 75%,
+    75% 93.3%,
+    50% 100%,
+    25% 93.3%,
+    6.7% 75%,
+    0% 50%,
+    6.7% 25%,
+    25% 6.7%
+  );
+  background: rgba(2, 6, 23, 0.4);
   color: #fbbf24;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 18px rgba(245, 158, 11, 0.45);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   transition: all 0.3s ease;
+  filter: drop-shadow(0 4px 14px rgba(245, 158, 11, 0.45));
+}
+
+/* Dodecagon glowing gradient border overlay */
+.badgeLogo::before {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  clip-path: polygon(
+    50% 0%,
+    75% 6.7%,
+    93.3% 25%,
+    100% 50%,
+    93.3% 75%,
+    75% 93.3%,
+    50% 100%,
+    25% 93.3%,
+    6.7% 75%,
+    0% 50%,
+    6.7% 25%,
+    25% 6.7%
+  );
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.6), rgba(245, 158, 11, 0.2) 50%, rgba(251, 191, 36, 0.6));
+  z-index: -1;
 }
 
 .brandLink:hover .badgeLogo {
   transform: scale(1.1);
-  border-color: rgba(252, 211, 77, 0.9);
-  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.7);
+  filter: drop-shadow(0 6px 20px rgba(245, 158, 11, 0.7));
 }
 
 .mobileNav {

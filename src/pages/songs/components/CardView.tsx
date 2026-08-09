@@ -139,100 +139,96 @@ export default function CardView({
                   data-element-id={`song-card-${item.id}`}
                   data-ui="song-card-item"
                   onClick={() => onSelectRow(item.id)}
-                  className={clsx('glass-card', styles.cardItem)}
+                  className={styles.cardItem}
                 >
-                  {/* Decorative background accent */}
-                  <div className={styles.cardAccent} />
-
                   <div className={styles.cardHeader}>
-                    <div className={styles.cardIcon}>
-                      <Music size={20} />
-                    </div>
-                    <div className={styles.cardHeaderRight}>
-                      <div className={styles.progressWrapper}>
-                        <span
-                          className={clsx(
-                            styles.progressText,
-                            progress === 100
-                              ? 'glow-text-green text-[var(--color-green-neon)]'
-                              : progress > 0
-                                ? 'glow-text-cyan text-[var(--color-cyan-neon)]'
-                                : 'text-foreground/40',
-                          )}
-                        >
-                          {progress}%
-                        </span>
-                        <span className={styles.progressLabel}>
-                          Progress
-                        </span>
+                    {/* Top Row: Icon + Progress Badge */}
+                    <div className={styles.cardTopRow}>
+                      <div className={styles.cardIcon}>
+                        <Music size={20} />
                       </div>
-                      <button
-                        data-element-id={`song-add-playlist-btn-${item.id}`}
-                        data-ui="song-card-item"
-                        aria-label="Add to playlist"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setPlaylistModalSong({ id: item.id, title: item.title })
-                        }}
-                        className={styles.actionIconBtn}
-                        title="Thêm vào Playlist"
-                      >
-                        <ListPlus size={18} />
-                      </button>
-                      <button
-                        data-element-id={`song-favorite-btn-${item.id}`}
-                        data-ui="song-card-item"
-                        aria-label="Favorite song"
-                        onClick={(e) => toggleFavorite(e, item.id)}
-                        className={styles.actionIconBtn}
-                      >
-                        <Star
-                          size={18}
-                          className={clsx(
-                            favorites[`${activeProfileId}_${item.id}`]
-                              ? 'fill-[var(--color-pink-neon)] text-[var(--color-pink-neon)]'
-                              : 'text-foreground/20',
-                          )}
-                        />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className={styles.cardBody}>
-                    <h3 className={styles.songTitle}>
-                      {item.title}
-                    </h3>
-                    {item.author && (
-                      <p className={styles.songAuthor}>{item.author}</p>
-                    )}
-                    <p className={styles.songCategory}>
-                      {item.category || 'No Category'}
-                    </p>
-                  </div>
-
-                  <div className={styles.cardFooter}>
-                    <div className={styles.levelTag} title="Level">
-                      <BarChart
-                        size={14}
-                        className={clsx(
-                          item.level === 'Advanced'
-                            ? 'text-[var(--color-pink-neon)]'
-                            : item.level === 'Intermediate'
-                              ? 'text-amber-400'
-                              : item.level === 'Fresher'
-                                ? 'text-emerald-400'
-                                : 'text-[var(--color-green-neon)]',
-                        )}
-                      />
                       <span
-                        className={item.level === 'Fresher' ? 'font-bold text-emerald-400' : ''}
+                        className={clsx(
+                          styles.progressBadge,
+                          progress === 100
+                            ? 'glow-text-green text-[var(--color-green-neon)]'
+                            : progress > 0
+                              ? 'glow-text-cyan text-[var(--color-cyan-neon)]'
+                              : 'text-foreground/40',
+                        )}
                       >
-                        {item.level === 'Fresher' ? '🌱 Fresher' : item.level || 'Beginner'}
+                        {progress}%
                       </span>
                     </div>
-                    <div className={styles.durationTag} title="Duration">
-                      <Clock size={14} className="text-foreground/40" />
-                      <span>{formatTime(Number(item.duration))}</span>
+
+                    {/* Title & Author (100% width) */}
+                    <div className={styles.titleContainer}>
+                      <h3 className={styles.songTitle} title={item.title}>
+                        {item.title}
+                      </h3>
+                      <span className={styles.songAuthorDefault}>
+                        {item.author || item.category || 'Sheet Music'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Footer Meta Row: Level + Duration + Actions */}
+                  <div className={styles.hoverMetaInfo}>
+                    <div className={styles.cardFooter}>
+                      <div className={styles.levelTag} title="Level">
+                        <BarChart
+                          size={14}
+                          className={clsx(
+                            item.level === 'Advanced'
+                              ? 'text-[var(--color-pink-neon)]'
+                              : item.level === 'Intermediate'
+                                ? 'text-amber-400'
+                                : item.level === 'Fresher'
+                                  ? 'text-emerald-400'
+                                  : 'text-[var(--color-green-neon)]',
+                          )}
+                        />
+                        <span className={item.level === 'Fresher' ? 'font-bold text-emerald-400' : ''}>
+                          {item.level === 'Fresher' ? 'Fresher' : item.level || 'Beginner'}
+                        </span>
+                      </div>
+
+                      <div className={styles.durationTag} title="Duration">
+                        <Clock size={14} className="text-foreground/40" />
+                        <span>{formatTime(Number(item.duration))}</span>
+                      </div>
+
+                      <div className="ml-2 flex items-center gap-1">
+                        <button
+                          data-element-id={`song-add-playlist-btn-${item.id}`}
+                          data-ui="song-card-item"
+                          aria-label="Add to playlist"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setPlaylistModalSong({ id: item.id, title: item.title })
+                          }}
+                          className={styles.actionIconBtn}
+                          title="Thêm vào Playlist"
+                        >
+                          <ListPlus size={16} />
+                        </button>
+                        <button
+                          data-element-id={`song-favorite-btn-${item.id}`}
+                          data-ui="song-card-item"
+                          aria-label="Favorite song"
+                          onClick={(e) => toggleFavorite(e, item.id)}
+                          className={styles.actionIconBtn}
+                        >
+                          <Star
+                            size={16}
+                            className={clsx(
+                              favorites[`${activeProfileId}_${item.id}`]
+                                ? 'fill-[var(--color-pink-neon)] text-[var(--color-pink-neon)]'
+                                : 'text-foreground/20',
+                            )}
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

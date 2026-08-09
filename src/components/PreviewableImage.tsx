@@ -53,7 +53,7 @@ export function PreviewableImage({
         <div className="absolute inset-0 flex items-center justify-center bg-slate-950/40 opacity-0 backdrop-blur-[1.5px] transition-all duration-300 group-hover/preview:opacity-100">
           <div className="flex transform items-center gap-2 rounded-full border border-amber-400/60 bg-amber-950/80 px-3.5 py-2 text-xs font-bold text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.5)] backdrop-blur-md transition-transform duration-300 group-hover/preview:scale-110">
             <Eye className="h-4 w-4 animate-pulse text-amber-400" />
-            {showEyeText && <span>Xem phóng to</span>}
+            {showEyeText && <span>Xem</span>}
           </div>
         </div>
 
