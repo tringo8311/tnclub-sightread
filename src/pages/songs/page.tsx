@@ -1,4 +1,4 @@
-import { AppBar, MarketingFooter, Modal, Sizer } from '@/components'
+import { AppBar, MarketingFooter, Modal, Select, SelectItem, Sizer } from '@/components'
 import { useSongManifest } from '@/features/data/library'
 import { usePersistedState } from '@/features/persist'
 import {
@@ -20,6 +20,7 @@ import CardView from './components/CardView'
 import PlaylistManagerModal from './components/PlaylistManagerModal'
 import { SearchBox } from './components/Table/SearchBox'
 import { TableSkeleton } from './components/Table/Table'
+import styles from './page.module.css'
 
 export default function SelectSongPage() {
   const { t } = useTranslation()
@@ -106,31 +107,27 @@ export default function SelectSongPage() {
       <div
         data-ui="songs-page"
         data-component="SelectSongPage"
-        className="bg-background text-foreground flex h-screen w-full flex-col overflow-hidden"
+        className={styles.pageContainer}
       >
-        <div className="relative z-10 shrink-0">
+        <div className={styles.headerWrapper}>
           <AppBar />
         </div>
-        <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-(--breakpoint-lg) flex-1 flex-col p-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className={styles.contentWrapper}>
+          <div className={styles.headerSection}>
             <div>
-              <h2 className="from-foreground to-foreground/60 bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent">
+              <h2 className={styles.titleText}>
                 {t('home.learn_song')}
               </h2>
               <Sizer height={4} />
-              <h3 className="text-foreground/60 text-sm">{t('songs.subtitle')}</h3>
+              <h3 className={styles.subtitleText}>{t('songs.subtitle')}</h3>
             </div>
 
-            <div className="flex items-center gap-2.5">
+            <div className={styles.actionButtons}>
               <button
                 data-element-id="songs-playlists-btn"
                 data-ui="songs-page"
                 aria-label="Manage playlists"
-                className={clsx(
-                  'cursor-pointer flex-nowrap whitespace-nowrap',
-                  'text-foreground inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium shadow-sm',
-                  'glass-card neon-glow-cyan transition-all hover:-translate-y-0.5 hover:border-[var(--color-cyan-neon)]/50 active:scale-95',
-                )}
+                className={styles.actionButton}
                 onClick={() => setIsPlaylistModalOpen(true)}
               >
                 <ListMusic width={16} height={16} className="text-[var(--color-cyan-neon)]" />
@@ -141,11 +138,7 @@ export default function SelectSongPage() {
                 data-element-id="songs-folders-btn"
                 data-ui="songs-page"
                 aria-label="Manage music folders"
-                className={clsx(
-                  'cursor-pointer flex-nowrap whitespace-nowrap',
-                  'text-foreground inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium shadow-sm',
-                  'glass-card neon-glow-cyan transition-all hover:-translate-y-0.5 hover:border-[var(--color-cyan-neon)]/50 active:scale-95',
-                )}
+                className={styles.actionButton}
                 onClick={() => setIsFolderModalOpen(true)}
               >
                 <Folder width={16} height={16} className="text-[var(--color-cyan-neon)]" />
@@ -157,8 +150,8 @@ export default function SelectSongPage() {
           <Sizer height={16} />
 
           {/* Unified Search & Filter Toolbar */}
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="min-w-[220px] flex-1">
+          <div className={styles.toolbar}>
+            <div className={styles.searchBoxWrapper}>
               <SearchBox
                 value={search}
                 placeholder={t('songs.search_placeholder')}
@@ -167,49 +160,46 @@ export default function SelectSongPage() {
               />
             </div>
 
-            <select
+            <Select
               aria-label="Filter by level"
               data-element-id="songs-level-filter-select"
               data-ui="songs-page"
-              className="glass-card text-foreground [&>option]:bg-background cursor-pointer rounded-xl px-3.5 py-2 text-sm font-medium shadow-sm transition-colors hover:border-[var(--color-cyan-neon)]/50 focus:ring-1 focus:ring-[var(--color-cyan-neon)] focus:outline-none"
-              value={levelFilter}
-              onChange={(e) => setLevelFilter(e.target.value)}
+              className={styles.selectLevel}
+              size="lg"
+              selectedKey={levelFilter}
+              onSelectionChange={(key) => setLevelFilter(String(key))}
             >
-              <option value="All">Tất cả Trình độ</option>
-              <option value="Fresher">Fresher</option>
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Advanced">Advanced</option>
-            </select>
+              <SelectItem id="All">Tất cả Trình độ</SelectItem>
+              <SelectItem id="Fresher">Fresher</SelectItem>
+              <SelectItem id="Beginner">Beginner</SelectItem>
+              <SelectItem id="Intermediate">Intermediate</SelectItem>
+              <SelectItem id="Advanced">Advanced</SelectItem>
+            </Select>
 
-            <select
+            <Select
               aria-label="Filter by playlist"
               data-element-id="songs-playlist-filter-select"
               data-ui="songs-page"
-              className="glass-card text-foreground [&>option]:bg-background cursor-pointer rounded-xl px-3.5 py-2 text-sm font-medium shadow-sm transition-colors hover:border-[var(--color-cyan-neon)]/50 focus:ring-1 focus:ring-[var(--color-cyan-neon)] focus:outline-none"
-              value={playlistFilter}
-              onChange={(e) => setPlaylistFilter(e.target.value)}
+              className={styles.selectPlaylist}
+              size="lg"
+              selectedKey={playlistFilter}
+              onSelectionChange={(key) => setPlaylistFilter(String(key))}
             >
-              <option value="All">Tất cả Bài hát</option>
+              <SelectItem id="All">Tất cả Bài hát</SelectItem>
               {playlists.map((pl) => (
-                <option key={pl.id} value={pl.id}>
+                <SelectItem key={pl.id} id={pl.id}>
                   Playlist: {pl.name} ({pl.songIds.length})
-                </option>
+                </SelectItem>
               ))}
-            </select>
+            </Select>
 
-            <div className="glass-card ml-auto flex items-center gap-1 !rounded-xl !p-1">
+            <div className={styles.layoutToggleGroup}>
               <button
                 data-element-id="songs-toggle-favorites-btn"
                 data-ui="songs-page"
                 aria-label="Toggle favorites filter"
                 onClick={() => setFavoritesOnly(!favoritesOnly)}
-                className={clsx(
-                  'flex items-center gap-1.5 rounded-lg p-1.5 transition-all duration-300',
-                  favoritesOnly
-                    ? 'bg-[var(--color-pink-neon)]/20 text-[var(--color-pink-neon)] shadow-[0_0_10px_rgba(255,0,187,0.3)]'
-                    : 'text-foreground/40 hover:text-foreground hover:bg-foreground/10',
-                )}
+                className={clsx(styles.favoriteButton, favoritesOnly && styles.favoriteActive)}
                 title="Toggle Favorites"
               >
                 <Star
@@ -222,18 +212,13 @@ export default function SelectSongPage() {
                 />
                 <span className="hidden pr-1 text-sm font-medium lg:inline">Yêu thích</span>
               </button>
-              <div className="bg-foreground/10 mx-1 h-6 w-px"></div>
+              <div className={styles.layoutDivider}></div>
               <button
                 data-element-id="songs-table-layout-btn"
                 data-ui="songs-page"
                 aria-label="Switch to table layout"
                 onClick={() => setLayout('table')}
-                className={clsx(
-                  'rounded-lg p-1.5 transition-all duration-300',
-                  layout === 'table'
-                    ? 'bg-foreground/10 text-[var(--color-cyan-neon)] shadow-[0_0_10px_rgba(0,243,255,0.2)]'
-                    : 'text-foreground/40 hover:text-foreground hover:bg-foreground/10',
-                )}
+                className={clsx(styles.layoutButton, layout === 'table' && styles.layoutActive)}
                 title="Table View"
               >
                 <List size={16} />
@@ -243,12 +228,7 @@ export default function SelectSongPage() {
                 data-ui="songs-page"
                 aria-label="Switch to card layout"
                 onClick={() => setLayout('card')}
-                className={clsx(
-                  'rounded-lg p-1.5 transition-all duration-300',
-                  layout === 'card'
-                    ? 'bg-foreground/10 text-[var(--color-cyan-neon)] shadow-[0_0_10px_rgba(0,243,255,0.2)]'
-                    : 'text-foreground/40 hover:text-foreground hover:bg-foreground/10',
-                )}
+                className={clsx(styles.layoutButton, layout === 'card' && styles.layoutActive)}
                 title="Card View"
               >
                 <LayoutGrid size={16} />
@@ -278,7 +258,7 @@ export default function SelectSongPage() {
             <TableSkeleton />
           )}
         </div>
-        <div className="bg-background relative z-10 shrink-0">
+        <div className={styles.footerWrapper}>
           <MarketingFooter />
         </div>
       </div>

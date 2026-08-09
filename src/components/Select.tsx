@@ -1,38 +1,21 @@
-import { ChevronDown, LoaderCircle } from 'lucide-react'
+import clsx from 'clsx'
+import { Check, ChevronDown, LoaderCircle } from 'lucide-react'
 import React from 'react'
 import {
   Select as AriaSelect,
   SelectProps as AriaSelectProps,
   Button,
   ListBox,
+  ListBoxItem as AriaListBoxItem,
   ListBoxItemProps,
   SelectValue,
   ValidationResult,
 } from 'react-aria-components'
-import { tv } from 'tailwind-variants'
 import { Description, FieldError, Label } from './Field'
-import { DropdownItem, DropdownSection, DropdownSectionProps } from './ListBox'
+import { DropdownSection, DropdownSectionProps } from './ListBox'
 import { Popover } from './Popover'
-import { composeTailwindRenderProps, Expand, focusRing } from './utils'
-
-const styles = tv({
-  extend: focusRing,
-  base: 'relative flex w-full items-center rounded-md border border-zinc-700 bg-zinc-900/70 text-start text-zinc-200 transition hover:bg-zinc-900/80 max-w-full',
-  variants: {
-    size: {
-      sm: 'h-6 pl-2 pr-7 text-[10px] font-semibold',
-      md: 'h-7 pl-2 pr-7 text-[11px] font-medium',
-      lg: 'h-8 pl-3 pr-8 text-xs font-medium',
-    },
-    isDisabled: {
-      false: 'cursor-pointer',
-      true: 'cursor-not-allowed text-gray-500',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-  },
-})
+import styles from './Select.module.css'
+import { Expand } from './utils'
 
 export interface SelectProps_<T extends object> extends Omit<AriaSelectProps<T>, 'children'> {
   label?: string
@@ -84,34 +67,33 @@ export function Select<T extends object>({
       data-testid={dataTestId}
       data-description={resolvedDescription}
       data-action={resolvedAction}
-      className={composeTailwindRenderProps(props.className, 'group relative flex flex-col gap-1')}
+      className={clsx(styles.selectContainer, props.className)}
       isDisabled={props.isDisabled || isLoading}
     >
       {label && <Label>{label}</Label>}
       <Button
-        className={(renderProps) => styles({ ...renderProps, size })}
+        className={clsx(
+          styles.trigger,
+          size === 'sm' && styles.sizeSm,
+          size === 'md' && styles.sizeMd,
+          size === 'lg' && styles.sizeLg,
+        )}
         data-action={resolvedAction}
         data-element-id={resolvedElementId ? `${resolvedElementId}-trigger` : undefined}
         data-component={`${dataComponent}Trigger`}
         data-ui={dataUi}
       >
-        <SelectValue className="min-w-0 flex-1 truncate text-zinc-200" />
+        <SelectValue className={styles.value} />
         {isLoading ? (
-          <LoaderCircle className="absolute top-1/2 right-2 h-3 w-3 -translate-y-1/2 animate-spin text-zinc-400" />
+          <LoaderCircle className={clsx(styles.icon, 'animate-spin')} size={16} />
         ) : (
-          <ChevronDown
-            aria-hidden
-            className="absolute top-1/2 right-2 h-2.5 w-2.5 -translate-y-1/2 text-zinc-400 group-disabled:text-zinc-500"
-          />
+          <ChevronDown aria-hidden className={styles.icon} size={16} />
         )}
       </Button>
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
-      <Popover className="min-w-(--trigger-width)">
-        <ListBox
-          items={items}
-          className="max-h-[inherit] overflow-auto p-1 outline-hidden [clip-path:inset(0_0_0_0_round_.75rem)]"
-        >
+      <Popover className={styles.popover}>
+        <ListBox items={items} className={styles.listBox}>
           {children}
         </ListBox>
       </Popover>
@@ -120,7 +102,20 @@ export function Select<T extends object>({
 }
 
 export function SelectItem(props: ListBoxItemProps) {
-  return <DropdownItem {...props} />
+  let textValue =
+    props.textValue || (typeof props.children === 'string' ? props.children : undefined)
+  return (
+    <AriaListBoxItem {...props} textValue={textValue} className={styles.item}>
+      {(renderProps) => (
+        <>
+          <span className="truncate">
+            {typeof props.children === 'function' ? props.children(renderProps) : props.children}
+          </span>
+          {renderProps.isSelected && <Check className={styles.checkIcon} />}
+        </>
+      )}
+    </AriaListBoxItem>
+  )
 }
 
 export function SelectSection<T extends object>(props: DropdownSectionProps<T>) {

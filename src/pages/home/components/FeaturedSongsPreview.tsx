@@ -5,7 +5,7 @@ import useDelayedFlag from '@/hooks/useDelayedFlag'
 import { Pause, Play } from '@/icons'
 import type { SongSource } from '@/types'
 import clsx from 'clsx'
-import { ChevronDown } from 'lucide-react'
+import { Select, SelectItem } from '@/components'
 import { useState } from 'react'
 
 const FEATURED_SONGS: { [id: string]: { source: SongSource; id: string } } = {
@@ -70,19 +70,17 @@ export function FeaturedSongsPreview({
           <span className="text-muted-foreground text-sm">Preview</span>
         </div>
         <div className="text-foreground relative">
-          <select
-            className="bg-foreground/5 text-foreground hover:bg-foreground/10 appearance-none rounded py-1.5 pr-8 pl-3 text-sm font-medium transition"
-            onChange={(e) => {
-              setCurrentSong(e.target.value as any)
-            }}
+          <Select
+            aria-label="Select Featured Song"
+            selectedKey={currentSong}
+            onSelectionChange={(key) => setCurrentSong(key as any)}
+            className="w-[160px]"
+            size="md"
           >
-            <option value="ode">Ode to Joy</option>
-            <option value="canon">Canon in D</option>
-            <option value="gymnopedie">Gymnopédie No.1</option>
-          </select>
-          <span className="text-foreground/70 pointer-events-none absolute inset-y-0 right-2 flex items-center">
-            <ChevronDown className="h-4 w-4" />
-          </span>
+            <SelectItem id="ode">Ode to Joy</SelectItem>
+            <SelectItem id="canon">Canon in D</SelectItem>
+            <SelectItem id="gymnopedie">Gymnopédie No.1</SelectItem>
+          </Select>
         </div>
       </div>
     </div>

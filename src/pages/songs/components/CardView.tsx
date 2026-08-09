@@ -13,6 +13,7 @@ import * as React from 'react'
 import { useMemo, useState } from 'react'
 import { useCollator, useFilter } from 'react-aria'
 import AddToPlaylistModal from './AddToPlaylistModal'
+import styles from './components.module.css'
 
 type CardViewProps = {
   rows: SongMetadata[]
@@ -113,23 +114,23 @@ export default function CardView({
         data-ui="song-card-grid"
         data-component="CardView"
         data-element-id="song-card-grid"
-        className="flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto p-1"
+        className={styles.cardGridContainer}
       >
         {sorted.length === 0 ? (
           <div
             data-ui="song-card-empty"
-            className="animate-in fade-in flex flex-1 flex-col items-center justify-center py-16 text-center duration-300"
+            className={styles.emptyState}
           >
-            <div className="bg-foreground/5 text-foreground/40 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+            <div className={styles.emptyIconWrapper}>
               <Music className="h-8 w-8" />
             </div>
-            <h3 className="text-foreground mb-1 text-lg font-medium">Không tìm thấy bài hát nào</h3>
-            <p className="text-foreground/50 max-w-sm text-sm leading-relaxed">
+            <h3 className={styles.emptyTitle}>Không tìm thấy bài hát nào</h3>
+            <p className={styles.emptySubtitle}>
               Thử thay đổi từ khóa tìm kiếm hoặc chọn bộ lọc khác.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 pb-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className={styles.grid}>
             {sorted.map((item) => {
               const progress = songProgress[`${activeProfileId}_${item.id}`] || 0
               return (
@@ -138,20 +139,20 @@ export default function CardView({
                   data-element-id={`song-card-${item.id}`}
                   data-ui="song-card-item"
                   onClick={() => onSelectRow(item.id)}
-                  className="glass-card group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl p-5"
+                  className={clsx('glass-card', styles.cardItem)}
                 >
                   {/* Decorative background accent */}
-                  <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-[var(--color-cyan-neon)] to-[var(--color-pink-neon)] opacity-0 transition-opacity group-hover:opacity-100" />
+                  <div className={styles.cardAccent} />
 
-                  <div className="mb-4 flex items-start justify-between">
-                    <div className="bg-foreground/5 flex h-10 w-10 items-center justify-center rounded-xl text-[var(--color-cyan-neon)] transition-transform group-hover:scale-110 group-hover:bg-[var(--color-cyan-neon)]/10">
+                  <div className={styles.cardHeader}>
+                    <div className={styles.cardIcon}>
                       <Music size={20} />
                     </div>
-                    <div className="flex items-start gap-2">
-                      <div className="flex flex-col items-end">
+                    <div className={styles.cardHeaderRight}>
+                      <div className={styles.progressWrapper}>
                         <span
                           className={clsx(
-                            'text-sm font-bold',
+                            styles.progressText,
                             progress === 100
                               ? 'glow-text-green text-[var(--color-green-neon)]'
                               : progress > 0
@@ -161,7 +162,7 @@ export default function CardView({
                         >
                           {progress}%
                         </span>
-                        <span className="text-foreground/40 text-[10px] tracking-wide uppercase">
+                        <span className={styles.progressLabel}>
                           Progress
                         </span>
                       </div>
@@ -173,7 +174,7 @@ export default function CardView({
                           e.stopPropagation()
                           setPlaylistModalSong({ id: item.id, title: item.title })
                         }}
-                        className="hover:bg-foreground/10 text-foreground/40 -mt-1 rounded-full p-1 transition-colors hover:text-violet-400"
+                        className={styles.actionIconBtn}
                         title="Thêm vào Playlist"
                       >
                         <ListPlus size={18} />
@@ -183,7 +184,7 @@ export default function CardView({
                         data-ui="song-card-item"
                         aria-label="Favorite song"
                         onClick={(e) => toggleFavorite(e, item.id)}
-                        className="hover:bg-foreground/10 -mt-1 -mr-1 rounded-full p-1 transition-colors"
+                        className={styles.actionIconBtn}
                       >
                         <Star
                           size={18}
@@ -197,20 +198,20 @@ export default function CardView({
                     </div>
                   </div>
 
-                  <div className="mb-4 flex-1">
-                    <h3 className="text-foreground line-clamp-2 text-lg leading-tight font-semibold transition-colors group-hover:text-[var(--color-cyan-neon)]">
+                  <div className={styles.cardBody}>
+                    <h3 className={styles.songTitle}>
                       {item.title}
                     </h3>
                     {item.author && (
-                      <p className="text-foreground/60 mt-1 line-clamp-1 text-sm">{item.author}</p>
+                      <p className={styles.songAuthor}>{item.author}</p>
                     )}
-                    <p className="text-foreground/40 mt-1 line-clamp-1 text-sm">
+                    <p className={styles.songCategory}>
                       {item.category || 'No Category'}
                     </p>
                   </div>
 
-                  <div className="text-foreground/50 border-foreground/10 flex items-center gap-4 border-t pt-4 text-xs font-medium">
-                    <div className="flex items-center gap-1.5" title="Level">
+                  <div className={styles.cardFooter}>
+                    <div className={styles.levelTag} title="Level">
                       <BarChart
                         size={14}
                         className={clsx(
@@ -229,7 +230,7 @@ export default function CardView({
                         {item.level === 'Fresher' ? '🌱 Fresher' : item.level || 'Beginner'}
                       </span>
                     </div>
-                    <div className="ml-auto flex items-center gap-1.5" title="Duration">
+                    <div className={styles.durationTag} title="Duration">
                       <Clock size={14} className="text-foreground/40" />
                       <span>{formatTime(Number(item.duration))}</span>
                     </div>

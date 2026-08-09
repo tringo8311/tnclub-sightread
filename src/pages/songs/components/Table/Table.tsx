@@ -15,6 +15,7 @@ import { useMemo, useState } from 'react'
 import { useCollator, useFilter } from 'react-aria'
 import { Cell, Column, Table as RacTable, Row, TableBody, TableHeader } from 'react-aria-components'
 import AddToPlaylistModal from '../AddToPlaylistModal'
+import styles from '../components.module.css'
 
 type SongsTableProps = {
   rows: SongMetadata[]
@@ -120,7 +121,7 @@ export default function Table({
       <div
         data-ui="song-list-table"
         data-component="SongTable"
-        className="glass-card flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl"
+        className={styles.tableOuterContainer}
         style={{
           ['--sort-icon-gap' as any]: '1.5rem',
           fontVariantNumeric: 'tabular-nums',
@@ -140,22 +141,25 @@ export default function Table({
               })
             }
           >
-            <TableHeader className="bg-foreground/5 table w-full table-fixed backdrop-blur-md">
+            <TableHeader className={styles.tableHeader}>
               <Column
                 id="stt"
-                className="border-foreground/10 text-foreground/60 w-16 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '4rem' }}
               >
                 STT
               </Column>
               <Column
                 id="favorite"
-                className="border-foreground/10 text-foreground/60 w-12 border-b px-2 py-3 text-center text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '3rem', textAlign: 'center' }}
               >
                 <Star size={14} className="text-foreground/40 mx-auto" />
               </Column>
               <Column
                 id="playlist"
-                className="border-foreground/10 text-foreground/60 w-12 border-b px-2 py-3 text-center text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '3rem', textAlign: 'center' }}
               >
                 <ListPlus size={14} className="text-foreground/40 mx-auto" />
               </Column>
@@ -163,7 +167,8 @@ export default function Table({
                 id="title"
                 isRowHeader
                 allowsSorting
-                className="border-foreground/10 text-foreground/60 w-1/3 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '33.33%' }}
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -184,7 +189,8 @@ export default function Table({
               <Column
                 id="author"
                 allowsSorting
-                className="border-foreground/10 text-foreground/60 w-48 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '12rem' }}
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -205,7 +211,8 @@ export default function Table({
               <Column
                 id="category"
                 allowsSorting
-                className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '8rem' }}
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -226,7 +233,8 @@ export default function Table({
               <Column
                 id="level"
                 allowsSorting
-                className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '8rem' }}
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -247,7 +255,8 @@ export default function Table({
               <Column
                 id="progress"
                 allowsSorting
-                className="border-foreground/10 text-foreground/60 w-28 border-b px-4 py-3 text-right text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '7rem', textAlign: 'right' }}
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center justify-end">
@@ -268,7 +277,8 @@ export default function Table({
               <Column
                 id="duration"
                 allowsSorting
-                className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-3 text-right text-xs font-bold tracking-wider uppercase"
+                className={styles.tableHeaderCell}
+                style={{ width: '8rem', textAlign: 'right' }}
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center justify-end">
@@ -289,7 +299,7 @@ export default function Table({
             </TableHeader>
             <TableBody
               className={clsx(
-                'block flex-1 overflow-y-auto',
+                styles.tableBody,
                 sorted.length === 0 && 'flex h-full flex-col items-center justify-center',
               )}
               items={sorted}
@@ -313,13 +323,13 @@ export default function Table({
                 return (
                   <Row
                     id={item.id}
-                    className="text-foreground hover:bg-foreground/5 table w-full table-fixed cursor-pointer transition-colors"
+                    className={styles.tableRow}
                     onAction={() => onSelectRow(item.id)}
                   >
-                    <Cell className="border-foreground/10 text-foreground/40 w-16 border-b px-4 py-3.5">
+                    <Cell className={clsx(styles.tableCell, 'text-foreground/40')} style={{ width: '4rem' }}>
                       {idx}
                     </Cell>
-                    <Cell className="border-foreground/10 w-12 border-b px-1 py-3.5 text-center">
+                    <Cell className={styles.tableCell} style={{ width: '3rem', textAlign: 'center' }}>
                       <button
                         data-element-id={`song-favorite-btn-${item.id}`}
                         data-ui="song-list-table"
@@ -337,7 +347,7 @@ export default function Table({
                         />
                       </button>
                     </Cell>
-                    <Cell className="border-foreground/10 w-12 border-b px-1 py-3.5 text-center">
+                    <Cell className={styles.tableCell} style={{ width: '3rem', textAlign: 'center' }}>
                       <button
                         data-element-id={`song-add-playlist-btn-${item.id}`}
                         data-ui="song-list-table"
@@ -352,20 +362,20 @@ export default function Table({
                         <ListPlus size={16} />
                       </button>
                     </Cell>
-                    <Cell className="border-foreground/10 w-1/3 border-b px-4 py-3.5 font-medium">
+                    <Cell className={clsx(styles.tableCell, 'font-medium')} style={{ width: '33.33%' }}>
                       <span className="block truncate whitespace-nowrap">{item.title}</span>
                     </Cell>
-                    <Cell className="border-foreground/10 w-48 border-b px-4 py-3.5">
+                    <Cell className={styles.tableCell} style={{ width: '12rem' }}>
                       <span className="text-foreground/70 block truncate whitespace-nowrap">
                         {item.author || '-'}
                       </span>
                     </Cell>
-                    <Cell className="border-foreground/10 w-32 border-b px-4 py-3.5">
+                    <Cell className={styles.tableCell} style={{ width: '8rem' }}>
                       <span className="text-foreground/70 block truncate whitespace-nowrap">
                         {item.category || '-'}
                       </span>
                     </Cell>
-                    <Cell className="border-foreground/10 w-36 border-b px-4 py-3.5">
+                    <Cell className={styles.tableCell} style={{ width: '8rem' }}>
                       <span
                         className={clsx(
                           'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold',
@@ -382,8 +392,8 @@ export default function Table({
                       </span>
                     </Cell>
                     <Cell
-                      className="border-foreground/10 w-28 border-b px-4 py-3.5 text-right"
-                      style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
+                      className={styles.tableCell}
+                      style={{ width: '7rem', textAlign: 'right', paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
                     >
                       <span
                         className={clsx(
@@ -399,8 +409,8 @@ export default function Table({
                       </span>
                     </Cell>
                     <Cell
-                      className="border-foreground/10 text-foreground/70 w-32 border-b px-4 py-3.5 text-right"
-                      style={{ paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
+                      className={clsx(styles.tableCell, 'text-foreground/70')}
+                      style={{ width: '8rem', textAlign: 'right', paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
                     >
                       {formatTime(Number(item.duration))}
                     </Cell>
@@ -410,7 +420,7 @@ export default function Table({
             </TableBody>
           </RacTable>
         </div>
-        <div className="border-foreground/10 bg-foreground/5 text-foreground/40 flex items-center justify-between border-t px-4 py-2 text-xs">
+        <div className={styles.tableFooter}>
           <span>Showing {sorted.length} songs</span>
         </div>
       </div>
@@ -421,60 +431,60 @@ export default function Table({
 export function TableSkeleton() {
   const rows = Array.from({ length: 8 })
   return (
-    <div className="glass-card flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
+    <div className={styles.tableOuterContainer}>
       <div className="flex min-h-0 flex-1 flex-col">
-        <div className="bg-foreground/5 table w-full table-fixed">
+        <div className={styles.tableHeader}>
           <div className="table-row">
-            <div className="border-foreground/10 text-foreground/60 table-cell w-16 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase">
+            <div className={clsx(styles.tableHeaderCell, 'w-16')}>
               STT
             </div>
-            <div className="border-foreground/10 text-foreground/60 table-cell w-12 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase"></div>
-            <div className="border-foreground/10 text-foreground/60 table-cell w-1/3 border-b px-4 py-2 text-sm font-semibold tracking-wider uppercase">
+            <div className={clsx(styles.tableHeaderCell, 'w-12')}></div>
+            <div className={clsx(styles.tableHeaderCell, 'w-1/3')}>
               Title
             </div>
-            <div className="border-foreground/10 text-foreground/60 table-cell w-48 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase">
+            <div className={clsx(styles.tableHeaderCell, 'w-48')}>
               Author
             </div>
-            <div className="border-foreground/10 text-foreground/60 table-cell w-32 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase">
+            <div className={clsx(styles.tableHeaderCell, 'w-32')}>
               Category
             </div>
-            <div className="border-foreground/10 text-foreground/60 table-cell w-32 border-b px-4 py-2 text-left text-sm font-semibold tracking-wider uppercase">
+            <div className={clsx(styles.tableHeaderCell, 'w-32')}>
               Level
             </div>
-            <div className="border-foreground/10 text-foreground/60 table-cell w-28 border-b px-4 py-2 text-right text-sm font-semibold tracking-wider uppercase">
+            <div className={clsx(styles.tableHeaderCell, 'w-28 text-right')}>
               Progress
             </div>
-            <div className="border-foreground/10 text-foreground/60 table-cell w-32 border-b px-4 py-2 text-right text-sm font-semibold tracking-wider uppercase">
+            <div className={clsx(styles.tableHeaderCell, 'w-32 text-right')}>
               Length
             </div>
           </div>
         </div>
-        <div className="block flex-1 overflow-y-auto">
+        <div className={styles.tableBody}>
           {rows.map((_, index) => (
-            <div key={index} className="table w-full table-fixed">
+            <div key={index} className={styles.tableRow}>
               <div className="table-row" style={{ height: '36.5px' }}>
-                <div className="border-foreground/10 table-cell w-16 border-b px-4 py-2 align-middle">
+                <div className={clsx(styles.tableCell, 'w-16 align-middle')}>
                   <div className="shimmer bg-foreground/10 h-4 w-4 rounded" />
                 </div>
-                <div className="border-foreground/10 table-cell w-12 border-b px-2 py-2 align-middle">
+                <div className={clsx(styles.tableCell, 'w-12 align-middle')}>
                   <div className="shimmer bg-foreground/10 mx-auto h-4 w-4 rounded" />
                 </div>
-                <div className="border-foreground/10 table-cell w-1/3 border-b px-4 py-2 align-middle">
+                <div className={clsx(styles.tableCell, 'w-1/3 align-middle')}>
                   <div className="shimmer bg-foreground/10 h-4 w-[65%] rounded" />
                 </div>
-                <div className="border-foreground/10 table-cell w-48 border-b px-4 py-2 align-middle">
+                <div className={clsx(styles.tableCell, 'w-48 align-middle')}>
                   <div className="shimmer bg-foreground/10 h-4 w-[65%] rounded" />
                 </div>
-                <div className="border-foreground/10 table-cell w-32 border-b px-4 py-2 align-middle">
+                <div className={clsx(styles.tableCell, 'w-32 align-middle')}>
                   <div className="shimmer bg-foreground/10 h-4 w-[65%] rounded" />
                 </div>
-                <div className="border-foreground/10 table-cell w-32 border-b px-4 py-2 align-middle">
+                <div className={clsx(styles.tableCell, 'w-32 align-middle')}>
                   <div className="shimmer bg-foreground/10 h-4 w-[65%] rounded" />
                 </div>
-                <div className="border-foreground/10 table-cell w-28 border-b px-4 py-2 text-right align-middle">
+                <div className={clsx(styles.tableCell, 'w-28 text-right align-middle')}>
                   <div className="shimmer bg-foreground/10 ml-auto h-4 w-8 rounded" />
                 </div>
-                <div className="border-foreground/10 table-cell w-32 border-b px-4 py-2 text-right align-middle">
+                <div className={clsx(styles.tableCell, 'w-32 text-right align-middle')}>
                   <div className="shimmer bg-foreground/10 ml-auto h-4 w-12 rounded" />
                 </div>
               </div>
@@ -482,7 +492,7 @@ export function TableSkeleton() {
           ))}
         </div>
       </div>
-      <div className="border-foreground/10 bg-foreground/5 text-foreground/40 flex items-center justify-between border-t px-4 py-2 text-xs">
+      <div className={styles.tableFooter}>
         <span className="shimmer bg-foreground/10 h-3 w-24 rounded" />
       </div>
     </div>

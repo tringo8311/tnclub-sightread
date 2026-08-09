@@ -1,4 +1,6 @@
 import clsx from 'clsx'
+import React, { useId } from 'react'
+import styles from './TextInput.module.css'
 
 type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean
@@ -10,6 +12,7 @@ type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 }
 
 export function TextInput({
+  id,
   className,
   error,
   elementId,
@@ -19,19 +22,22 @@ export function TextInput({
   'data-testid': dataTestId,
   ...rest
 }: TextInputProps) {
+  const generatedId = useId()
   const resolvedElementId = elementId || dataElementId
+  const inputId = id || resolvedElementId || generatedId
 
   return (
     <input
+      id={inputId}
       {...rest}
       data-component={dataComponent}
       data-element-id={resolvedElementId}
       data-ui={dataUi}
       data-testid={dataTestId}
       className={clsx(
+        styles.input,
+        error && styles.error,
         className,
-        'rounded-md p-2 text-base shadow-[inset_0px_1px_4px_rgba(0,0,0,0.25)]',
-        error && 'outline outline-red-600',
       )}
     />
   )

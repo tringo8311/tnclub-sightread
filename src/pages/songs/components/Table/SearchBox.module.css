@@ -1,0 +1,60 @@
+.searchContainer {
+  position: relative;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  padding-left: 40px !important;
+  padding-right: 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 12px;
+  border: 1px solid hsl(var(--border) / 0.7);
+  background-color: hsl(var(--foreground) / 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: hsl(var(--foreground));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.searchInput::placeholder {
+  color: hsl(var(--foreground) / 0.4);
+  font-weight: 400;
+}
+
+.searchInput:hover {
+  border-color: hsl(var(--primary) / 0.5);
+  background-color: hsl(var(--foreground) / 0.05);
+  box-shadow: 0 4px 14px hsl(var(--primary) / 0.12);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  background-color: hsl(var(--background));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.2), 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: hsl(var(--foreground) / 0.45);
+  pointer-events: none;
+  transition: color 0.25s ease, transform 0.25s ease;
+  z-index: 2;
+}
+
+.searchContainer:focus-within .searchIcon {
+  color: hsl(var(--primary));
+  transform: translateY(-50%) scale(1.05);
+}
