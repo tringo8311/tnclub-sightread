@@ -1,0 +1,18 @@
+{
+  "midi": {
+    "title": "Cài đặt MIDI",
+    "refresh": "Tải lại danh sách",
+    "inputs": "Thiết bị đầu vào (Inputs)",
+    "outputs": "Thiết bị đầu ra (Outputs)",
+    "no_inputs_title": "Không tìm thấy thiết bị MIDI đầu vào",
+    "no_inputs_body": "Hãy đảm bảo thiết bị đã được kết nối và bật nguồn, sau đó bấm tải lại.",
+    "no_outputs_title": "Không tìm thấy thiết bị MIDI đầu ra",
+    "no_outputs_body": "Vui lòng kiểm tra cáp kết nối hoặc driver của thiết bị.",
+    "this_device": "Thiết bị này",
+    "internal_synth": "Bộ tổng hợp âm nội bộ (Internal Synth)",
+    "usb_connection": "Kết nối USB",
+    "hardware_port": "Cổng phần cứng",
+    "unknown_device": "Thiết bị không xác định",
+    "close": "Đóng"
+  }
+}

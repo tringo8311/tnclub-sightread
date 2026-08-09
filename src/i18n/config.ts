@@ -1,6 +1,7 @@
 import { aboutLocales } from '@/pages/about'
 import { homeLocales } from '@/pages/home'
 import { marketLocales } from '@/pages/market'
+import { playLocales } from '@/pages/play'
 import { theoryLocales } from '@/pages/theory'
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
@@ -21,7 +22,9 @@ i18n
           market: marketLocales.en,
           about: aboutLocales.en,
           theory: theoryLocales.en,
+          play: playLocales.en,
         },
+        play: playLocales.en,
       },
       vi: {
         ...vi,
@@ -31,7 +34,9 @@ i18n
           market: marketLocales.vi,
           about: aboutLocales.vi,
           theory: theoryLocales.vi,
+          play: playLocales.vi,
         },
+        play: playLocales.vi,
       },
     },
     fallbackLng: 'en',

@@ -1,0 +1,18 @@
+{
+  "midi": {
+    "title": "MIDI Settings",
+    "refresh": "Refresh Devices",
+    "inputs": "Inputs",
+    "outputs": "Outputs",
+    "no_inputs_title": "No MIDI Input Devices Found",
+    "no_inputs_body": "Ensure devices are connected and powered on, then refresh.",
+    "no_outputs_title": "No MIDI Output Devices Detected",
+    "no_outputs_body": "Verify connections or check device drivers.",
+    "this_device": "This Device",
+    "internal_synth": "Internal Synth",
+    "usb_connection": "USB Connection",
+    "hardware_port": "Hardware Port",
+    "unknown_device": "Unknown Device",
+    "close": "Close"
+  }
+}

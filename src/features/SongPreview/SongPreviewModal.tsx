@@ -68,12 +68,12 @@ export default function SongPreviewModal({
       show={show && !!id}
       onClose={handleClose}
       className="overflow-hidden rounded-2xl bg-transparent p-0"
-      modalClassName="max-w-[1200px] w-[min(96vw,1200px)]"
+      modalClassName="max-w-none w-[min(94vw,1100px)] max-h-[90vh] my-auto"
     >
-      <div className="flex h-[min(90vh,720px)] w-full bg-white text-left transition-all">
+      <div className="flex flex-col md:flex-row h-auto md:h-[min(85vh,680px)] max-h-[88vh] w-full bg-white text-left transition-all overflow-y-auto md:overflow-hidden">
         {/* Main Visualization Canvas */}
         <div
-          className="relative flex-1 overflow-hidden bg-[#21242b]"
+          className="relative w-full md:flex-1 h-[260px] sm:h-[340px] md:h-auto min-h-[220px] overflow-hidden bg-[#21242b] shrink-0"
           onClick={() => player.toggle()}
         >
           {!playerState.canPlay && (
@@ -92,8 +92,8 @@ export default function SongPreviewModal({
         {/* Sidebar Panel */}
         <div
           className={clsx(
-            'relative flex flex-col border-l border-gray-200 bg-white transition-all duration-300',
-            isSidebarCollapsed ? 'w-16 items-center py-4' : 'w-[380px]',
+            'relative flex flex-col border-t md:border-t-0 md:border-l border-gray-200 bg-white transition-all duration-300 w-full',
+            isSidebarCollapsed ? 'md:w-16 items-center py-4' : 'md:w-[360px] lg:w-[380px]',
           )}
         >
           {/* Collapse / Expand Toggle Button */}
