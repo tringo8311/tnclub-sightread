@@ -33,11 +33,7 @@ export default function TopBar({
     >
       <div className="flex h-full items-center justify-between">
         <div className="flex items-center gap-3">
-          <ButtonWithTooltip
-            elementId="play-topbar-back-btn"
-            tooltip="Back"
-            onClick={onClickBack}
-          >
+          <ButtonWithTooltip elementId="play-topbar-back-btn" tooltip="Back" onClick={onClickBack}>
             <ArrowLeft size={24} />
           </ButtonWithTooltip>
           <div className="flex flex-col">

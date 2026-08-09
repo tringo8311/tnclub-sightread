@@ -1,4 +1,5 @@
-import { Hammer, ShieldCheck, Sparkles, SlidersHorizontal } from 'lucide-react'
+import { PreviewableImage } from '@/components'
+import { Hammer, ShieldCheck, SlidersHorizontal, Sparkles } from 'lucide-react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -27,10 +28,12 @@ export function PianoCraftsmanshipSection() {
       <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
         {/* Anatomy Cards */}
         <div className="space-y-4 lg:col-span-7">
-          <div className="glass-card rounded-2xl p-5 space-y-2 border-l-4 border-l-amber-500">
-            <div className="flex items-center gap-2 font-bold text-foreground">
+          <div className="glass-card space-y-2 rounded-2xl border-l-4 border-l-amber-500 p-5">
+            <div className="text-foreground flex items-center gap-2 font-bold">
               <ShieldCheck className="h-4 w-4 text-amber-400" />
-              <span>{t('theory.craftsmanship.frame_title', 'Khung Gang Đúc (Cast-Iron Plate)')}</span>
+              <span>
+                {t('theory.craftsmanship.frame_title', 'Khung Gang Đúc (Cast-Iron Plate)')}
+              </span>
             </div>
             <p className="text-muted-foreground text-xs leading-relaxed md:text-sm">
               {t(
@@ -40,10 +43,15 @@ export function PianoCraftsmanshipSection() {
             </p>
           </div>
 
-          <div className="glass-card rounded-2xl p-5 space-y-2 border-l-4 border-l-emerald-500">
-            <div className="flex items-center gap-2 font-bold text-foreground">
+          <div className="glass-card space-y-2 rounded-2xl border-l-4 border-l-emerald-500 p-5">
+            <div className="text-foreground flex items-center gap-2 font-bold">
               <Sparkles className="h-4 w-4 text-emerald-400" />
-              <span>{t('theory.craftsmanship.soundboard_title', 'Bảng Cộng Hưởng (Sitka Spruce Soundboard)')}</span>
+              <span>
+                {t(
+                  'theory.craftsmanship.soundboard_title',
+                  'Bảng Cộng Hưởng (Sitka Spruce Soundboard)',
+                )}
+              </span>
             </div>
             <p className="text-muted-foreground text-xs leading-relaxed md:text-sm">
               {t(
@@ -53,10 +61,12 @@ export function PianoCraftsmanshipSection() {
             </p>
           </div>
 
-          <div className="glass-card rounded-2xl p-5 space-y-2 border-l-4 border-l-cyan-500">
-            <div className="flex items-center gap-2 font-bold text-foreground">
+          <div className="glass-card space-y-2 rounded-2xl border-l-4 border-l-cyan-500 p-5">
+            <div className="text-foreground flex items-center gap-2 font-bold">
               <Hammer className="h-4 w-4 text-cyan-400" />
-              <span>{t('theory.craftsmanship.action_title', 'Bộ Cơ Búa Đàn (Action Mechanism)')}</span>
+              <span>
+                {t('theory.craftsmanship.action_title', 'Bộ Cơ Búa Đàn (Action Mechanism)')}
+              </span>
             </div>
             <p className="text-muted-foreground text-xs leading-relaxed md:text-sm">
               {t(
@@ -68,15 +78,15 @@ export function PianoCraftsmanshipSection() {
         </div>
 
         {/* Action Illustration Image */}
-        <div className="overflow-hidden rounded-2xl border border-white/10 lg:col-span-5 shadow-2xl">
-          <div className="relative aspect-4/3 overflow-hidden">
-            <img
-              src={`${import.meta.env.BASE_URL}images/theory/craftsmanship.png`}
-              alt="Piano Action Craftsmanship"
-              className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-            />
+        <div className="overflow-hidden rounded-2xl border border-white/10 shadow-2xl lg:col-span-5">
+          <PreviewableImage
+            src={`${import.meta.env.BASE_URL}images/theory/craftsmanship.png`}
+            alt="Piano Action Craftsmanship"
+            title="Kỳ Tích Chế Tác & Bộ Cơ Piano"
+            className="relative aspect-4/3 overflow-hidden"
+          >
             <div className="from-background pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-50" />
-          </div>
+          </PreviewableImage>
         </div>
       </div>
 
@@ -90,7 +100,7 @@ export function PianoCraftsmanshipSection() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="border-border bg-foreground/5 rounded-xl border p-4 space-y-1">
+          <div className="border-border bg-foreground/5 space-y-1 rounded-xl border p-4">
             <span className="text-xs font-semibold text-amber-400">1. Sustain Pedal (Phải)</span>
             <p className="text-muted-foreground text-xs leading-relaxed">
               {t(
@@ -100,7 +110,7 @@ export function PianoCraftsmanshipSection() {
             </p>
           </div>
 
-          <div className="border-border bg-foreground/5 rounded-xl border p-4 space-y-1">
+          <div className="border-border bg-foreground/5 space-y-1 rounded-xl border p-4">
             <span className="text-xs font-semibold text-cyan-400">2. Sostenuto Pedal (Giữa)</span>
             <p className="text-muted-foreground text-xs leading-relaxed">
               {t(
@@ -110,8 +120,10 @@ export function PianoCraftsmanshipSection() {
             </p>
           </div>
 
-          <div className="border-border bg-foreground/5 rounded-xl border p-4 space-y-1">
-            <span className="text-xs font-semibold text-emerald-400">3. Una Corda / Soft (Trái)</span>
+          <div className="border-border bg-foreground/5 space-y-1 rounded-xl border p-4">
+            <span className="text-xs font-semibold text-emerald-400">
+              3. Una Corda / Soft (Trái)
+            </span>
             <p className="text-muted-foreground text-xs leading-relaxed">
               {t(
                 'theory.craftsmanship.pedal_soft',

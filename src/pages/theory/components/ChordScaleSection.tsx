@@ -272,303 +272,313 @@ export function ChordScaleSection() {
   }
 
   return (
-    <section className="space-y-8 max-w-5xl mx-auto">
-      <div className="border-border bg-card/60 rounded-2xl border p-6 shadow-xl backdrop-blur-md space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-4">
-        <div>
-          <h2 className="from-amber-400 via-amber-200 to-white bg-gradient-to-r bg-clip-text text-2xl font-black text-transparent">
-            Tra Cứu Hợp Âm & Âm Giai Piano (Chord & Scale Explorer)
-          </h2>
-          <p className="text-muted-foreground text-xs font-medium mt-1">
-            Xem vị trí nốt, cấu trúc quãng và thế bấm ngón tay chuẩn (Fingering 1-2-3-4-5) cho cả hai tay.
-          </p>
-        </div>
+    <section className="mx-auto max-w-5xl space-y-8">
+      <div className="border-border bg-card/60 space-y-6 rounded-2xl border p-6 shadow-xl backdrop-blur-md">
+        <div className="border-border/60 flex flex-wrap items-center justify-between gap-4 border-b pb-4">
+          <div>
+            <h2 className="bg-gradient-to-r from-amber-400 via-amber-200 to-white bg-clip-text text-2xl font-black text-transparent">
+              Tra Cứu Hợp Âm & Âm Giai Piano (Chord & Scale Explorer)
+            </h2>
+            <p className="text-muted-foreground mt-1 text-xs font-medium">
+              Xem vị trí nốt, cấu trúc quãng và thế bấm ngón tay chuẩn (Fingering 1-2-3-4-5) cho cả
+              hai tay.
+            </p>
+          </div>
 
-        {/* Mode Switcher: Chord vs Scale */}
-        <div className="glass-card flex items-center gap-1 !rounded-xl !p-1">
-          <button
-            type="button"
-            onClick={() => setMode('chord')}
-            className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-              mode === 'chord'
-                ? 'bg-amber-500 text-slate-950 shadow-md font-extrabold'
-                : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
-            }`}
-          >
-            Hợp Âm (Chords)
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode('scale')}
-            className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-              mode === 'scale'
-                ? 'bg-cyan-500 text-slate-950 shadow-md font-extrabold'
-                : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
-            }`}
-          >
-            Âm Giai (Scales)
-          </button>
-        </div>
-      </div>
-
-      {/* Root Note Picker */}
-      <div>
-        <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground block mb-2">
-          1. Chọn Nốt Gốc (Root Note):
-        </label>
-        <div className="flex flex-wrap items-center gap-1.5">
-          {ROOT_NOTES.map((r, idx) => (
+          {/* Mode Switcher: Chord vs Scale */}
+          <div className="glass-card flex items-center gap-1 !rounded-xl !p-1">
             <button
-              key={r.name}
               type="button"
-              onClick={() => setSelectedRootIndex(idx)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-                selectedRootIndex === idx
-                  ? 'bg-primary text-primary-foreground font-black ring-2 ring-primary/50 scale-105'
-                  : 'bg-foreground/5 text-foreground/80 hover:bg-foreground/15 border border-border/50'
+              onClick={() => setMode('chord')}
+              className={`cursor-pointer rounded-lg px-4 py-1.5 text-xs font-bold transition-all ${
+                mode === 'chord'
+                  ? 'bg-amber-500 font-extrabold text-slate-950 shadow-md'
+                  : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
               }`}
             >
-              {r.name.split(' / ')[0]}
+              Hợp Âm (Chords)
             </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Type Selection (Chords or Scales) */}
-      <div>
-        <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground block mb-2">
-          2. Chọn Loại {mode === 'chord' ? 'Hợp Âm' : 'Âm Giai'}:
-        </label>
-        <div className="flex flex-wrap items-center gap-2">
-          {mode === 'chord'
-            ? CHORDS.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => setSelectedChordId(c.id)}
-                  className={`px-3.5 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                    selectedChordId === c.id
-                      ? 'bg-amber-500/20 border-2 border-amber-400 text-amber-300 font-bold shadow-[0_0_12px_rgba(245,158,11,0.2)]'
-                      : 'bg-foreground/5 border border-border/50 text-foreground/70 hover:bg-foreground/10 hover:text-foreground'
-                  }`}
-                >
-                  {root.name.split(' / ')[0]}
-                  {c.symbol} ({c.name})
-                </button>
-              ))
-            : SCALES.map((s) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => setSelectedScaleId(s.id)}
-                  className={`px-3.5 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                    selectedScaleId === s.id
-                      ? 'bg-cyan-500/20 border-2 border-cyan-400 text-cyan-300 font-bold shadow-[0_0_12px_rgba(6,182,212,0.2)]'
-                      : 'bg-foreground/5 border border-border/50 text-foreground/70 hover:bg-foreground/10 hover:text-foreground'
-                  }`}
-                >
-                  {root.name.split(' / ')[0]} {s.name}
-                </button>
-              ))}
-        </div>
-      </div>
-
-      {/* Selected Info Card */}
-      <div className="border-border bg-foreground/5 rounded-2xl border p-4 flex flex-wrap items-center justify-between gap-4">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-black text-amber-400">
-              {root.name.split(' / ')[0]}
-              {mode === 'chord' ? activeChord.symbol : ''}
-            </span>
-            <span className="text-sm font-bold text-foreground">
-              - {mode === 'chord' ? activeChord.fullName : activeScale.fullName}
-            </span>
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Công thức phách: <strong className="text-foreground">{mode === 'chord' ? activeChord.formula : activeScale.formula}</strong>
-          </p>
-          <p className="text-xs text-foreground/80 font-medium">
-            {mode === 'chord' ? activeChord.desc : activeScale.desc}
-          </p>
-        </div>
-
-        {/* Audio Action Buttons */}
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => playSound(activePitches, false)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs shadow-md hover:bg-amber-400 transition cursor-pointer"
-          >
-            <Volume2 size={16} />
-            <span>{mode === 'chord' ? 'Phát Hợp Âm' : 'Phát Tất Cả'}</span>
-          </button>
-          {mode === 'chord' && (
             <button
               type="button"
-              onClick={() => playSound(activePitches, true)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-foreground/10 border border-border text-foreground font-semibold text-xs hover:bg-foreground/20 transition cursor-pointer"
+              onClick={() => setMode('scale')}
+              className={`cursor-pointer rounded-lg px-4 py-1.5 text-xs font-bold transition-all ${
+                mode === 'scale'
+                  ? 'bg-cyan-500 font-extrabold text-slate-950 shadow-md'
+                  : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
+              }`}
             >
-              <span>Phát Rải (Arpeggio)</span>
+              Âm Giai (Scales)
             </button>
-          )}
+          </div>
         </div>
-      </div>
 
-      {/* Hand Fingering View Switcher */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-        <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-          3. Sơ Đồ Phím Đàn & Thế Bấm Ngón (Fingering):
-        </label>
-        <div className="flex flex-wrap items-center gap-1.5 bg-foreground/5 p-1 rounded-xl border border-border/60">
-          <button
-            type="button"
-            onClick={() => setHandView('lh')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
-              handView === 'lh'
-                ? 'bg-cyan-500 text-slate-950 shadow-md font-extrabold'
-                : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
-            }`}
-          >
-            <span>🤚 Tay Trái (LH)</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setHandView('rh')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
-              handView === 'rh'
-                ? 'bg-amber-500 text-slate-950 shadow-md font-extrabold'
-                : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
-            }`}
-          >
-            <span>✋ Tay Phải (RH)</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setHandView('both')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
-              handView === 'both'
-                ? 'bg-emerald-500 text-slate-950 shadow-md font-extrabold'
-                : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
-            }`}
-          >
-            <span>🙌 Cả Hai Tay (RH + LH)</span>
-          </button>
+        {/* Root Note Picker */}
+        <div>
+          <label className="text-muted-foreground mb-2 block text-xs font-bold tracking-wider uppercase">
+            1. Chọn Nốt Gốc (Root Note):
+          </label>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {ROOT_NOTES.map((r, idx) => (
+              <button
+                key={r.name}
+                type="button"
+                onClick={() => setSelectedRootIndex(idx)}
+                className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                  selectedRootIndex === idx
+                    ? 'bg-primary text-primary-foreground ring-primary/50 scale-105 font-black ring-2'
+                    : 'bg-foreground/5 text-foreground/80 hover:bg-foreground/15 border-border/50 border'
+                }`}
+              >
+                {r.name.split(' / ')[0]}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Visual Interactive Piano Keyboard with Fingering Badges */}
-      <div className="border-border bg-slate-950 rounded-2xl border p-6 shadow-inner overflow-x-auto custom-scrollbar flex justify-center">
-        <div className="relative flex h-44 select-none w-max">
-          {/* Render White Keys */}
-          {keys
-            .filter((k) => !k.isBlack)
-            .map((wKey) => {
-              const isActive = activePitches.includes(wKey.pitch)
-              const rhFingerNum = pitchRhFingeringMap[wKey.pitch]
-              const lhFingerNum = pitchLhFingeringMap[wKey.pitch]
+        {/* Type Selection (Chords or Scales) */}
+        <div>
+          <label className="text-muted-foreground mb-2 block text-xs font-bold tracking-wider uppercase">
+            2. Chọn Loại {mode === 'chord' ? 'Hợp Âm' : 'Âm Giai'}:
+          </label>
+          <div className="flex flex-wrap items-center gap-2">
+            {mode === 'chord'
+              ? CHORDS.map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => setSelectedChordId(c.id)}
+                    className={`cursor-pointer rounded-xl px-3.5 py-2 text-xs font-semibold transition-all ${
+                      selectedChordId === c.id
+                        ? 'border-2 border-amber-400 bg-amber-500/20 font-bold text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
+                        : 'bg-foreground/5 border-border/50 text-foreground/70 hover:bg-foreground/10 hover:text-foreground border'
+                    }`}
+                  >
+                    {root.name.split(' / ')[0]}
+                    {c.symbol} ({c.name})
+                  </button>
+                ))
+              : SCALES.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setSelectedScaleId(s.id)}
+                    className={`cursor-pointer rounded-xl px-3.5 py-2 text-xs font-semibold transition-all ${
+                      selectedScaleId === s.id
+                        ? 'border-2 border-cyan-400 bg-cyan-500/20 font-bold text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.2)]'
+                        : 'bg-foreground/5 border-border/50 text-foreground/70 hover:bg-foreground/10 hover:text-foreground border'
+                    }`}
+                  >
+                    {root.name.split(' / ')[0]} {s.name}
+                  </button>
+                ))}
+          </div>
+        </div>
 
-              return (
-                <div
-                  key={wKey.pitch}
-                  onClick={() => playSound([wKey.pitch], false)}
-                  className={`relative flex flex-col justify-end items-center pb-2 w-10 border-r border-slate-300 rounded-b-md transition-colors cursor-pointer ${
-                    isActive ? 'bg-amber-200 shadow-[inset_0_-8px_16px_rgba(245,158,11,0.5)]' : 'bg-white hover:bg-slate-100'
-                  }`}
-                >
-                  {isActive && (
-                    <div className="absolute top-2.5 flex flex-col items-center gap-1">
-                      {(handView === 'rh' || handView === 'both') && rhFingerNum && (
-                        <div
-                          title="Tay Phải (RH)"
-                          className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black shadow-md bg-amber-500 text-slate-950 ring-1 ring-amber-300"
-                        >
-                          {rhFingerNum}
-                        </div>
-                      )}
-                      {(handView === 'lh' || handView === 'both') && lhFingerNum && (
-                        <div
-                          title="Tay Trái (LH)"
-                          className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black shadow-md bg-cyan-500 text-slate-950 ring-1 ring-cyan-300"
-                        >
-                          {lhFingerNum}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  <span className={`text-[10px] font-bold ${isActive ? 'text-amber-900 font-extrabold' : 'text-slate-500'}`}>
-                    {wKey.name}
-                  </span>
-                </div>
-              )
+        {/* Selected Info Card */}
+        <div className="border-border bg-foreground/5 flex flex-wrap items-center justify-between gap-4 rounded-2xl border p-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-lg font-black text-amber-400">
+                {root.name.split(' / ')[0]}
+                {mode === 'chord' ? activeChord.symbol : ''}
+              </span>
+              <span className="text-foreground text-sm font-bold">
+                - {mode === 'chord' ? activeChord.fullName : activeScale.fullName}
+              </span>
+            </div>
+            <p className="text-muted-foreground text-xs">
+              Công thức phách:{' '}
+              <strong className="text-foreground">
+                {mode === 'chord' ? activeChord.formula : activeScale.formula}
+              </strong>
+            </p>
+            <p className="text-foreground/80 text-xs font-medium">
+              {mode === 'chord' ? activeChord.desc : activeScale.desc}
+            </p>
+          </div>
+
+          {/* Audio Action Buttons */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => playSound(activePitches, false)}
+              className="flex cursor-pointer items-center gap-1.5 rounded-xl bg-amber-500 px-3.5 py-2 text-xs font-bold text-slate-950 shadow-md transition hover:bg-amber-400"
+            >
+              <Volume2 size={16} />
+              <span>{mode === 'chord' ? 'Phát Hợp Âm' : 'Phát Tất Cả'}</span>
+            </button>
+            {mode === 'chord' && (
+              <button
+                type="button"
+                onClick={() => playSound(activePitches, true)}
+                className="bg-foreground/10 border-border text-foreground hover:bg-foreground/20 flex cursor-pointer items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-semibold transition"
+              >
+                <span>Phát Rải (Arpeggio)</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Hand Fingering View Switcher */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <label className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
+            3. Sơ Đồ Phím Đàn & Thế Bấm Ngón (Fingering):
+          </label>
+          <div className="bg-foreground/5 border-border/60 flex flex-wrap items-center gap-1.5 rounded-xl border p-1">
+            <button
+              type="button"
+              onClick={() => setHandView('lh')}
+              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
+                handView === 'lh'
+                  ? 'bg-cyan-500 font-extrabold text-slate-950 shadow-md'
+                  : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
+              }`}
+            >
+              <span>🤚 Tay Trái (LH)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setHandView('rh')}
+              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
+                handView === 'rh'
+                  ? 'bg-amber-500 font-extrabold text-slate-950 shadow-md'
+                  : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
+              }`}
+            >
+              <span>✋ Tay Phải (RH)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setHandView('both')}
+              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
+                handView === 'both'
+                  ? 'bg-emerald-500 font-extrabold text-slate-950 shadow-md'
+                  : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
+              }`}
+            >
+              <span>🙌 Cả Hai Tay (RH + LH)</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Visual Interactive Piano Keyboard with Fingering Badges */}
+        <div className="border-border custom-scrollbar flex justify-center overflow-x-auto rounded-2xl border bg-slate-950 p-6 shadow-inner">
+          <div className="relative flex h-44 w-max select-none">
+            {/* Render White Keys */}
+            {keys
+              .filter((k) => !k.isBlack)
+              .map((wKey) => {
+                const isActive = activePitches.includes(wKey.pitch)
+                const rhFingerNum = pitchRhFingeringMap[wKey.pitch]
+                const lhFingerNum = pitchLhFingeringMap[wKey.pitch]
+
+                return (
+                  <div
+                    key={wKey.pitch}
+                    onClick={() => playSound([wKey.pitch], false)}
+                    className={`relative flex w-10 cursor-pointer flex-col items-center justify-end rounded-b-md border-r border-slate-300 pb-2 transition-colors ${
+                      isActive
+                        ? 'bg-amber-200 shadow-[inset_0_-8px_16px_rgba(245,158,11,0.5)]'
+                        : 'bg-white hover:bg-slate-100'
+                    }`}
+                  >
+                    {isActive && (
+                      <div className="absolute top-2.5 flex flex-col items-center gap-1">
+                        {(handView === 'rh' || handView === 'both') && rhFingerNum && (
+                          <div
+                            title="Tay Phải (RH)"
+                            className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-[10px] font-black text-slate-950 shadow-md ring-1 ring-amber-300"
+                          >
+                            {rhFingerNum}
+                          </div>
+                        )}
+                        {(handView === 'lh' || handView === 'both') && lhFingerNum && (
+                          <div
+                            title="Tay Trái (LH)"
+                            className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500 text-[10px] font-black text-slate-950 shadow-md ring-1 ring-cyan-300"
+                          >
+                            {lhFingerNum}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    <span
+                      className={`text-[10px] font-bold ${isActive ? 'font-extrabold text-amber-900' : 'text-slate-500'}`}
+                    >
+                      {wKey.name}
+                    </span>
+                  </div>
+                )
+              })}
+
+            {/* Render Black Keys accurately aligned on top of white keys */}
+            {keys.map((k, i) => {
+              if (k.isBlack) {
+                const isActive = activePitches.includes(k.pitch)
+                const rhFingerNum = pitchRhFingeringMap[k.pitch]
+                const lhFingerNum = pitchLhFingeringMap[k.pitch]
+                const whiteKeyOffset = keys.slice(0, i).filter((x) => !x.isBlack).length
+                const leftPos = whiteKeyOffset * 40 - 12
+
+                return (
+                  <div
+                    key={k.pitch}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      playSound([k.pitch], false)
+                    }}
+                    style={{ left: `${leftPos}px` }}
+                    className={`absolute top-0 z-20 flex h-28 w-6 cursor-pointer flex-col items-center justify-end rounded-b-md pb-2 shadow-md transition-colors ${
+                      isActive
+                        ? 'border border-amber-300 bg-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.8)]'
+                        : 'border border-slate-700 bg-slate-900 hover:bg-slate-800'
+                    }`}
+                  >
+                    {isActive && (
+                      <div className="absolute top-2 flex flex-col items-center gap-1">
+                        {(handView === 'rh' || handView === 'both') && rhFingerNum && (
+                          <div
+                            title="Tay Phải (RH)"
+                            className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-300 text-[9px] font-black text-slate-950 shadow ring-1 ring-amber-500"
+                          >
+                            {rhFingerNum}
+                          </div>
+                        )}
+                        {(handView === 'lh' || handView === 'both') && lhFingerNum && (
+                          <div
+                            title="Tay Trái (LH)"
+                            className="flex h-4 w-4 items-center justify-center rounded-full bg-cyan-300 text-[9px] font-black text-slate-950 shadow ring-1 ring-cyan-500"
+                          >
+                            {lhFingerNum}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    <span
+                      className={`text-[9px] font-bold ${isActive ? 'text-slate-950' : 'text-slate-400'}`}
+                    >
+                      {k.name.split('/')[0]}
+                    </span>
+                  </div>
+                )
+              }
+              return null
             })}
+          </div>
+        </div>
 
-          {/* Render Black Keys accurately aligned on top of white keys */}
-          {keys.map((k, i) => {
-            if (k.isBlack) {
-              const isActive = activePitches.includes(k.pitch)
-              const rhFingerNum = pitchRhFingeringMap[k.pitch]
-              const lhFingerNum = pitchLhFingeringMap[k.pitch]
-              const whiteKeyOffset = keys.slice(0, i).filter((x) => !x.isBlack).length
-              const leftPos = whiteKeyOffset * 40 - 12
-
-              return (
-                <div
-                  key={k.pitch}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    playSound([k.pitch], false)
-                  }}
-                  style={{ left: `${leftPos}px` }}
-                  className={`absolute top-0 z-20 flex flex-col justify-end items-center pb-2 w-6 h-28 rounded-b-md transition-colors cursor-pointer shadow-md ${
-                    isActive
-                      ? 'bg-amber-500 border border-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.8)]'
-                      : 'bg-slate-900 hover:bg-slate-800 border border-slate-700'
-                  }`}
-                >
-                  {isActive && (
-                    <div className="absolute top-2 flex flex-col items-center gap-1">
-                      {(handView === 'rh' || handView === 'both') && rhFingerNum && (
-                        <div
-                          title="Tay Phải (RH)"
-                          className="flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-black shadow bg-amber-300 text-slate-950 ring-1 ring-amber-500"
-                        >
-                          {rhFingerNum}
-                        </div>
-                      )}
-                      {(handView === 'lh' || handView === 'both') && lhFingerNum && (
-                        <div
-                          title="Tay Trái (LH)"
-                          className="flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-black shadow bg-cyan-300 text-slate-950 ring-1 ring-cyan-500"
-                        >
-                          {lhFingerNum}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  <span className={`text-[9px] font-bold ${isActive ? 'text-slate-950' : 'text-slate-400'}`}>
-                    {k.name.split('/')[0]}
-                  </span>
-                </div>
-              )
-            }
-            return null
-          })}
+        {/* Fingering Reference Note */}
+        <div className="border-border bg-foreground/5 text-muted-foreground flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 text-xs">
+          <div className="flex items-center gap-3">
+            <span className="text-foreground font-bold">Ký hiệu ngón tay (Fingering):</span>
+            <span>1: Ngón Cái (Thumb)</span>
+            <span>2: Ngón Trỏ (Index)</span>
+            <span>3: Ngón Giữa (Middle)</span>
+            <span>4: Ngón Áp Út (Ring)</span>
+            <span>5: Ngón Út (Pinky)</span>
+          </div>
         </div>
       </div>
-
-      {/* Fingering Reference Note */}
-      <div className="border-border bg-foreground/5 rounded-xl border p-3 text-xs text-muted-foreground flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-3">
-          <span className="font-bold text-foreground">Ký hiệu ngón tay (Fingering):</span>
-          <span>1: Ngón Cái (Thumb)</span>
-          <span>2: Ngón Trỏ (Index)</span>
-          <span>3: Ngón Giữa (Middle)</span>
-          <span>4: Ngón Áp Út (Ring)</span>
-          <span>5: Ngón Út (Pinky)</span>
-        </div>
-      </div>
-    </div>
-  </section>
-)
+    </section>
+  )
 }

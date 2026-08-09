@@ -9,6 +9,7 @@ import { Heading, Text } from 'react-aria-components'
 import { createSearchParams, useNavigate } from 'react-router'
 import { SongScrubBar, useSongScrubTimes } from '../controls'
 import { usePlayer } from '../player'
+import { SheetMusicPrintModal } from '../SongVisualization/SheetMusicPrintModal'
 import PreviewIcon from './PreviewIcon'
 import { SongPreview } from './SongPreview'
 
@@ -19,9 +20,10 @@ type ModalProps = {
 }
 export default function SongPreviewModal({
   show = true,
-  onClose = () => { },
+  onClose = () => {},
   songMeta = undefined,
 }: ModalProps) {
+  const [showPrintModal, setShowPrintModal] = useState(false)
   const { title, id, source } = songMeta ?? {}
   const player = usePlayer()
   const playerState = usePlayerState()
@@ -222,6 +224,18 @@ export default function SongPreviewModal({
                     </Text>
                     <Text className="text-sm font-semibold text-gray-900">{noteCountLabel}</Text>
                   </div>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    elementId="preview-modal-print-sheet-btn"
+                    data-ui="midi-preview-modal"
+                    aria-label="In / Xuất Sheet Nhạc"
+                    className="flex w-full items-center justify-center gap-2 border-gray-300 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    onPress={() => setShowPrintModal(true)}
+                  >
+                    <Printer className="h-4 w-4 text-gray-600 transition-colors group-hover:text-gray-900" />
+                    <span>In / Xuất Sheet Nhạc (A4)</span>
+                  </Button>
                 </div>
               </div>
 
@@ -245,24 +259,19 @@ export default function SongPreviewModal({
                   >
                     Play Now
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    elementId="preview-modal-print-sheet-btn"
-                    data-ui="midi-preview-modal"
-                    aria-label="In / Xuất Sheet Nhạc"
-                    className="w-full flex items-center justify-center gap-2 border-gray-300 text-gray-700 hover:bg-gray-100 font-medium"
-                    onPress={() => window.print()}
-                  >
-                    <Printer className="h-4 w-4 text-gray-600" />
-                    <span>In / Xuất Sheet Nhạc (A4)</span>
-                  </Button>
                 </div>
               </div>
             </>
           )}
         </div>
       </div>
+
+      <SheetMusicPrintModal
+        show={showPrintModal}
+        onClose={() => setShowPrintModal(false)}
+        songMeta={songMeta}
+        song={song}
+      />
     </Modal>
   )
 }

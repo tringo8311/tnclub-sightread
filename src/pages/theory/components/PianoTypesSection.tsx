@@ -1,3 +1,4 @@
+import { PreviewableImage } from '@/components'
 import { CheckCircle2, Music, Piano, Zap } from 'lucide-react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -31,7 +32,10 @@ export function PianoTypesSection() {
       ),
       features: [
         t('theory.types.upright.feature1', 'Cơ chế lò xo phản hồi búa nảy linh hoạt.'),
-        t('theory.types.upright.feature2', 'Tiết kiệm diện tích mà vẫn giữ nguyên âm thanh cơ học.'),
+        t(
+          'theory.types.upright.feature2',
+          'Tiết kiệm diện tích mà vẫn giữ nguyên âm thanh cơ học.',
+        ),
       ],
     },
     {
@@ -45,7 +49,10 @@ export function PianoTypesSection() {
       ),
       features: [
         t('theory.types.digital.feature1', 'Phím nặng mô phỏng (Weighted Action) cảm giác thật.'),
-        t('theory.types.digital.feature2', 'Không cần lên dây định kỳ, dễ dàng thu âm và luyện tập ban đêm.'),
+        t(
+          'theory.types.digital.feature2',
+          'Không cần lên dây định kỳ, dễ dàng thu âm và luyện tập ban đêm.',
+        ),
       ],
     },
     {
@@ -75,7 +82,10 @@ export function PianoTypesSection() {
             {t('theory.types.title', 'Các Dòng Đàn Piano & Đặc Điểm')}
           </h2>
           <p className="text-muted-foreground text-xs md:text-sm">
-            {t('theory.types.subtitle', 'Khám phá sự đa dạng trong thiết kế và cơ chế tạo âm thanh')}
+            {t(
+              'theory.types.subtitle',
+              'Khám phá sự đa dạng trong thiết kế và cơ chế tạo âm thanh',
+            )}
           </p>
         </div>
       </div>
@@ -88,17 +98,17 @@ export function PianoTypesSection() {
           >
             <div>
               {item.image && (
-                <div className="relative -mx-6 -mt-6 mb-6 h-52 overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                <PreviewableImage
+                  src={item.image}
+                  alt={item.name}
+                  title={item.name}
+                  className="-mx-6 -mt-6 mb-6 h-52 overflow-hidden"
+                >
                   <div className="from-card pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-90" />
-                  <span className="absolute top-4 left-4 inline-block rounded-lg border border-amber-500/30 bg-black/60 px-3 py-1 text-xs font-semibold text-amber-300 backdrop-blur-md">
+                  <span className="pointer-events-none absolute top-4 left-4 z-10 inline-block rounded-lg border border-amber-500/30 bg-black/60 px-3 py-1 text-xs font-semibold text-amber-300 backdrop-blur-md">
                     {item.badge}
                   </span>
-                </div>
+                </PreviewableImage>
               )}
 
               {!item.image && (
@@ -123,9 +133,9 @@ export function PianoTypesSection() {
               </p>
             </div>
 
-            <div className="border-border mt-6 border-t pt-4 space-y-2">
+            <div className="border-border mt-6 space-y-2 border-t pt-4">
               {item.features.map((feat, fIdx) => (
-                <div key={fIdx} className="flex items-start gap-2 text-xs text-foreground/80">
+                <div key={fIdx} className="text-foreground/80 flex items-start gap-2 text-xs">
                   <CheckCircle2 className="text-primary mt-0.5 h-3.5 w-3.5 shrink-0" />
                   <span>{feat}</span>
                 </div>

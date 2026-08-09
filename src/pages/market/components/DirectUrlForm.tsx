@@ -27,7 +27,10 @@ export function DirectUrlForm({
           type="url"
           value={urlInput}
           onChange={(e) => setUrlInput(e.target.value)}
-          placeholder={t('market.directUrl.placeholder', 'Dán đường dẫn (.mid / .midi) công khai từ Internet...')}
+          placeholder={t(
+            'market.directUrl.placeholder',
+            'Dán đường dẫn (.mid / .midi) công khai từ Internet...',
+          )}
           className={styles.directInput}
           aria-label={t('market.directUrl.ariaLabel', 'Direct MIDI URL input')}
           data-element-id="market-direct-url-input"

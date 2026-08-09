@@ -1,9 +1,9 @@
 import * as tonejsMidi from '@tonejs/midi'
-
-const Midi = tonejsMidi.Midi || (tonejsMidi as any).default?.Midi || (tonejsMidi as any).default
 import { parseMidi as parseMidiFile, writeMidi } from 'midi-file'
 import type { MidiData, MidiEvent, MidiKeySignatureEvent } from 'midi-file'
 import type { Song } from '../../../src/types'
+
+const Midi = tonejsMidi.Midi || (tonejsMidi as any).default?.Midi || (tonejsMidi as any).default
 
 function defaultSecondsToTicks(seconds: number, ppq: number, bpm = 120): number {
   const beats = seconds / (60 / bpm)

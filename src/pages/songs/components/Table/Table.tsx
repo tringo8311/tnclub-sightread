@@ -106,7 +106,7 @@ export default function Table({
       <Modal
         show={!!playlistModalSong}
         onClose={() => setPlaylistModalSong(null)}
-        className="w-[min(96vw,440px)] overflow-hidden rounded-2xl bg-card text-card-foreground p-0 border-none shadow-2xl"
+        className="bg-card text-card-foreground w-[min(96vw,440px)] overflow-hidden rounded-2xl border-none p-0 shadow-2xl"
         modalClassName="max-w-[440px]"
       >
         {playlistModalSong && (
@@ -205,7 +205,7 @@ export default function Table({
               <Column
                 id="category"
                 allowsSorting
-                className="w-32 border-b border-foreground/10 px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/60 uppercase"
+                className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -226,7 +226,7 @@ export default function Table({
               <Column
                 id="level"
                 allowsSorting
-                className="w-32 border-b border-foreground/10 px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/60 uppercase"
+                className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-3 text-left text-xs font-bold tracking-wider uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
@@ -247,7 +247,7 @@ export default function Table({
               <Column
                 id="progress"
                 allowsSorting
-                className="w-28 border-b border-foreground/10 px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/60 uppercase"
+                className="border-foreground/10 text-foreground/60 w-28 border-b px-4 py-3 text-right text-xs font-bold tracking-wider uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center justify-end">
@@ -268,7 +268,7 @@ export default function Table({
               <Column
                 id="duration"
                 allowsSorting
-                className="w-32 border-b border-foreground/10 px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/60 uppercase"
+                className="border-foreground/10 text-foreground/60 w-32 border-b px-4 py-3 text-right text-xs font-bold tracking-wider uppercase"
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center justify-end">
@@ -365,9 +365,20 @@ export default function Table({
                         {item.category || '-'}
                       </span>
                     </Cell>
-                    <Cell className="border-foreground/10 w-32 border-b px-4 py-3.5">
-                      <span className="text-foreground/70 block truncate whitespace-nowrap">
-                        {item.level || '-'}
+                    <Cell className="border-foreground/10 w-36 border-b px-4 py-3.5">
+                      <span
+                        className={clsx(
+                          'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold',
+                          item.level === 'Fresher'
+                            ? 'border border-emerald-500/40 bg-emerald-500/20 text-emerald-300'
+                            : item.level === 'Beginner'
+                              ? 'border border-cyan-500/30 bg-cyan-500/20 text-cyan-300'
+                              : item.level === 'Intermediate'
+                                ? 'border border-amber-500/30 bg-amber-500/20 text-amber-300'
+                                : 'border border-rose-500/30 bg-rose-500/20 text-rose-300',
+                        )}
+                      >
+                        {item.level === 'Fresher' ? '🌱 Fresher' : item.level || '-'}
                       </span>
                     </Cell>
                     <Cell

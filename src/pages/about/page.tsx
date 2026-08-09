@@ -16,7 +16,7 @@ import {
 export default function AboutPage() {
   const { t } = useTranslation()
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
+    <div className="bg-background text-foreground relative min-h-screen">
       <title>{t('about.title', 'Giới thiệu')} | TNClub Sightread</title>
       <AppBar />
       <div className="w-full">

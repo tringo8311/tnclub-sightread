@@ -30,23 +30,27 @@ export function FeedbackSection() {
           )}
         </p>
 
-        <div className="border-border bg-foreground/5 rounded-2xl border p-4 sm:p-5 space-y-3">
-          <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
+        <div className="border-border bg-foreground/5 space-y-3 rounded-2xl border p-4 sm:p-5">
+          <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-amber-400 uppercase">
             <Mail className="h-4 w-4 text-amber-400" />
             <span>Địa chỉ Email liên hệ trực tiếp:</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 font-mono text-sm font-semibold text-foreground shadow-sm">
+            <div className="border-border bg-card text-foreground flex items-center gap-2 rounded-xl border px-4 py-2.5 font-mono text-sm font-semibold shadow-sm">
               <span className="select-all">{email}</span>
               <button
                 type="button"
                 onClick={handleCopy}
                 title="Sao chép Email"
                 aria-label="Sao chép Email"
-                className="ml-2 rounded-lg p-1 text-muted-foreground hover:bg-foreground/10 hover:text-foreground transition cursor-pointer"
+                className="text-muted-foreground hover:bg-foreground/10 hover:text-foreground ml-2 cursor-pointer rounded-lg p-1 transition"
               >
-                {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                {copied ? (
+                  <Check className="h-4 w-4 text-emerald-400" />
+                ) : (
+                  <Copy className="h-4 w-4" />
+                )}
               </button>
             </div>
 
@@ -54,7 +58,7 @@ export function FeedbackSection() {
               href={mailtoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-xs font-bold text-slate-950 shadow-md hover:bg-amber-400 transition cursor-pointer"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-xs font-bold text-slate-950 shadow-md transition hover:bg-amber-400"
             >
               <Mail className="h-4 w-4" />
               <span>Gửi Email Phản Hồi</span>

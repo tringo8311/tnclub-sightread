@@ -149,7 +149,11 @@ export default function MidiMarketPage() {
 
       const urlSongMeta: SongMetadata = {
         id: urlInput.trim(),
-        title: urlInput.split('/').pop()?.replace(/\.(mid|midi)$/i, '') || 'Custom MIDI File',
+        title:
+          urlInput
+            .split('/')
+            .pop()
+            ?.replace(/\.(mid|midi)$/i, '') || 'Custom MIDI File',
         source: 'market',
         author: 'Online Import',
         category: 'Custom',

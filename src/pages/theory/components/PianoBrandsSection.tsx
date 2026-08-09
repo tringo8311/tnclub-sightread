@@ -1,3 +1,4 @@
+import { PreviewableImage } from '@/components'
 import { Award, Crown, Globe, Play, Shield, Star } from 'lucide-react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -59,7 +60,7 @@ export function PianoBrandsSection() {
       name: t('theory.brands.yamaha.name', 'Yamaha'),
       country: t('theory.brands.yamaha.country', 'Nhật Bản (Từ 1887)'),
       tag: 'Precision & Power',
-      image: `${import.meta.env.BASE_URL}images/theory/brand_yamaha_kawai.png`,
+      image: `${import.meta.env.BASE_URL}images/theory/brand_yamaha.png`,
       models: 'Concert Grand CFX, SX Series, Upright U3, Clavinova',
       desc: t(
         'theory.brands.yamaha.desc',
@@ -71,7 +72,7 @@ export function PianoBrandsSection() {
       name: t('theory.brands.kawai.name', 'Kawai'),
       country: t('theory.brands.kawai.country', 'Nhật Bản (Từ 1927)'),
       tag: 'Master Craftsmanship',
-      image: `${import.meta.env.BASE_URL}images/theory/grand_piano.png`,
+      image: `${import.meta.env.BASE_URL}images/theory/brand_kawai.png`,
       models: 'Shigeru Kawai SK-EX, K-500, Hybrid Novus NV10S',
       desc: t(
         'theory.brands.kawai.desc',
@@ -102,24 +103,24 @@ export function PianoBrandsSection() {
 
       {/* Hero Banner Artwork */}
       <div className="glass-card relative overflow-hidden rounded-3xl border border-white/10 shadow-xl">
-        <div className="relative h-64 md:h-80 w-full overflow-hidden">
-          <img
-            src={`${import.meta.env.BASE_URL}images/theory/piano_brands.png`}
-            alt="World Famous Piano Brands"
-            className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-          />
+        <PreviewableImage
+          src={`${import.meta.env.BASE_URL}images/theory/piano_brands.png`}
+          alt="World Famous Piano Brands"
+          title="Thánh Đường Của Những Cây Đại Dương Cầm Huyền Thoại"
+          className="h-64 w-full overflow-hidden md:h-80"
+        >
           <div className="from-card/95 via-card/60 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="pointer-events-none absolute right-6 bottom-6 left-6 z-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
-              <span className="inline-block rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-300 backdrop-blur-md mb-2">
+              <span className="mb-2 inline-block rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-300 backdrop-blur-md">
                 🏆 Di Sản & Đẳng Cấp Nghệ Thuật
               </span>
-              <h3 className="text-foreground text-xl md:text-2xl font-extrabold">
+              <h3 className="text-foreground text-xl font-extrabold md:text-2xl">
                 Thánh Đường Của Những Cây Đại Dương Cầm Huyền Thoại
               </h3>
             </div>
           </div>
-        </div>
+        </PreviewableImage>
       </div>
 
       {/* 6 Balanced Brand Cards Grid (2 rows x 3 columns) */}
@@ -127,28 +128,28 @@ export function PianoBrandsSection() {
         {brands.map((b) => (
           <div
             key={b.id}
-            className="glass-card group relative flex flex-col justify-between overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border border-white/10"
+            className="glass-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
           >
             <div>
               {/* Brand Artwork Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={b.image}
-                  alt={b.name}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+              <PreviewableImage
+                src={b.image}
+                alt={b.name}
+                title={`${b.name} - ${b.country}`}
+                className="h-48 overflow-hidden"
+              >
                 <div className="from-card pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-90" />
-                <span className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-lg border border-amber-500/30 bg-black/60 px-2.5 py-1 text-xs font-bold text-amber-300 backdrop-blur-md">
+                <span className="pointer-events-none absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-lg border border-amber-500/30 bg-black/60 px-2.5 py-1 text-xs font-bold text-amber-300 backdrop-blur-md">
                   <Star className="h-3 w-3 fill-amber-300 text-amber-300" />
                   <span>{b.tag}</span>
                 </span>
-                <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-lg border border-white/20 bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white/90 backdrop-blur-md">
+                <span className="pointer-events-none absolute top-3 right-3 z-10 inline-flex items-center gap-1 rounded-lg border border-white/20 bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white/90 backdrop-blur-md">
                   <Globe className="h-3 w-3" />
                   <span>{b.country}</span>
                 </span>
-              </div>
+              </PreviewableImage>
 
-              <div className="p-6 space-y-3">
+              <div className="space-y-3 p-6">
                 <h3 className="text-foreground group-hover:text-primary text-xl font-bold transition-colors">
                   {b.name}
                 </h3>
@@ -156,20 +157,22 @@ export function PianoBrandsSection() {
                 {/* Famous Model Series Badge */}
                 <div className="inline-flex items-center gap-1.5 rounded-md border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 text-[11px] font-semibold text-amber-400">
                   <Award className="h-3.5 w-3.5" />
-                  <span>Dòng đàn danh tiếng: <strong>{b.models}</strong></span>
+                  <span>
+                    Dòng đàn danh tiếng: <strong>{b.models}</strong>
+                  </span>
                 </div>
 
                 <p className="text-muted-foreground text-xs leading-relaxed md:text-sm">{b.desc}</p>
               </div>
             </div>
 
-            <div className="px-6 pb-5 pt-2 border-t border-border flex items-center justify-between text-[11px] font-medium text-foreground/70">
+            <div className="border-border text-foreground/70 flex items-center justify-between border-t px-6 pt-2 pb-5 text-[11px] font-medium">
               <span className="flex items-center gap-1 text-amber-400">
                 <Shield className="h-3.5 w-3.5" />
-                <span>Handcrafted Heritage</span>
+                <span>Di Sản Chế Tác Thủ Công</span>
               </span>
               <span className="text-muted-foreground font-mono text-[10px] uppercase">
-                Premium Grade
+                Phân Khúc Cao Cấp
               </span>
             </div>
           </div>
@@ -177,15 +180,15 @@ export function PianoBrandsSection() {
       </div>
 
       {/* Special Landmark Showcase: The Crystal Piano (3.22 Million USD) */}
-      <div className="glass-card relative overflow-hidden rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-cyan-950/40 via-card to-amber-950/20 p-6 md:p-8 shadow-2xl space-y-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-4">
+      <div className="glass-card via-card relative space-y-6 overflow-hidden rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-cyan-950/40 to-amber-950/20 p-6 shadow-2xl md:p-8">
+        <div className="flex flex-col items-start justify-between gap-4 border-b border-white/10 pb-4 md:flex-row md:items-center">
           <div className="flex items-center gap-3">
-            <span className="text-3xl animate-pulse">💎</span>
+            <span className="animate-pulse text-3xl">💎</span>
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-3 py-1 text-xs font-bold text-cyan-300">
                 ✨ Kỷ Lục Đấu Giá Đắt Nhất Thế Giới: $3.22M USD (~80 Tỷ VNĐ)
               </div>
-              <h3 className="text-foreground text-2xl font-extrabold mt-1">
+              <h3 className="text-foreground mt-1 text-2xl font-extrabold">
                 "The Crystal Piano" – Tuyệt Tác Piano Pha Lê Trong Suốt
               </h3>
             </div>
@@ -196,45 +199,54 @@ export function PianoBrandsSection() {
             href="https://www.youtube.com/results?search_query=Lang+Lang+Crystal+Piano+2008+Beijing+Olympics"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold px-4 py-2.5 text-xs shadow-lg transition-transform duration-200 hover:scale-105 active:scale-95 shrink-0"
+            className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-red-500 active:scale-95"
           >
             <Play className="h-4 w-4 fill-white" />
             <span>Xem Trình Diễn Trên YouTube (Lang Lang)</span>
           </a>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-12 items-center">
-          <div className="relative md:col-span-5 h-60 overflow-hidden rounded-2xl border border-cyan-400/40 shadow-2xl group">
-            <img
+        <div className="grid items-center gap-6 md:grid-cols-12">
+          <div className="h-60 overflow-hidden rounded-2xl border border-cyan-400/40 shadow-2xl md:col-span-5">
+            <PreviewableImage
               src={`${import.meta.env.BASE_URL}images/theory/crystal_piano_real.jpg`}
               alt="The Crystal Piano"
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            {/* Shimmering Glass Reflection Accent Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/80 via-transparent to-white/20 pointer-events-none" />
-            <div className="absolute top-3 left-3 rounded-lg border border-cyan-300/40 bg-black/70 px-2.5 py-1 text-[11px] font-bold text-cyan-300 backdrop-blur-md">
-              🔮 Acrylic Crystal Body 100%
-            </div>
-            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-              <span className="text-[11px] font-semibold text-cyan-100 bg-black/70 px-2.5 py-1 rounded-md backdrop-blur-md">
-                ✨ Trình diễn bởi Lang Lang tại Olympic Bắc Kinh 2008
-              </span>
-            </div>
+              title="The Crystal Piano - Kawai (Olympic Bắc Kinh 2008)"
+              className="h-full w-full"
+            >
+              {/* Shimmering Glass Reflection Accent Overlay */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-cyan-900/80 via-transparent to-white/20" />
+              <div className="pointer-events-none absolute top-3 left-3 z-10 rounded-lg border border-cyan-300/40 bg-black/70 px-2.5 py-1 text-[11px] font-bold text-cyan-300 backdrop-blur-md">
+                🔮 Acrylic Crystal Body 100%
+              </div>
+              <div className="pointer-events-none absolute right-3 bottom-3 left-3 z-10 flex items-center justify-between">
+                <span className="rounded-md bg-black/70 px-2.5 py-1 text-[11px] font-semibold text-cyan-100 backdrop-blur-md">
+                  ✨ Trình diễn bởi Lang Lang tại Olympic Bắc Kinh 2008
+                </span>
+              </div>
+            </PreviewableImage>
           </div>
 
-          <div className="md:col-span-7 space-y-3 text-xs md:text-sm leading-relaxed text-muted-foreground">
+          <div className="text-muted-foreground space-y-3 text-xs leading-relaxed md:col-span-7 md:text-sm">
             <p>
-              <strong className="text-foreground">Cây đàn Piano Pha Lê đắt nhất lịch sử</strong> được hãng <strong className="text-amber-300 font-bold">Kawai (Nhật Bản)</strong> chế tác đặc biệt hoàn toàn bằng chất liệu Acrylic trong suốt tinh khiết phục vụ cho Lễ khai mạc Thế vận hội Olympic Bắc Kinh 2008.
+              <strong className="text-foreground">Cây đàn Piano Pha Lê đắt nhất lịch sử</strong>{' '}
+              được hãng <strong className="font-bold text-amber-300">Kawai (Nhật Bản)</strong> chế
+              tác đặc biệt hoàn toàn bằng chất liệu Acrylic trong suốt tinh khiết phục vụ cho Lễ
+              khai mạc Thế vận hội Olympic Bắc Kinh 2008.
             </p>
             <p>
-              Cây đàn được đấu giá thành công với mức giá kỷ lục <strong className="text-cyan-300 font-bold">3.22 triệu USD (~80 tỷ VNĐ)</strong> sau khi được nghệ sĩ độc tấu huyền thoại <strong className="text-amber-300 font-bold">Lang Lang (Lãng Lãng)</strong> trình diễn trước hơn 1 tỷ khán giả trên toàn thế giới.
+              Cây đàn được đấu giá thành công với mức giá kỷ lục{' '}
+              <strong className="font-bold text-cyan-300">3.22 triệu USD (~80 tỷ VNĐ)</strong> sau
+              khi được nghệ sĩ độc tấu huyền thoại{' '}
+              <strong className="font-bold text-amber-300">Lang Lang (Lãng Lãng)</strong> trình diễn
+              trước hơn 1 tỷ khán giả trên toàn thế giới.
             </p>
-            <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3 text-xs">
               <div className="flex flex-wrap gap-2">
-                <span className="rounded-lg bg-foreground/5 border border-border px-3 py-1.5 font-medium text-foreground">
+                <span className="bg-foreground/5 border-border text-foreground rounded-lg border px-3 py-1.5 font-medium">
                   🎹 <strong>Chế tác:</strong> Kawai (Nhật) & Blüthner Lucid (Đức)
                 </span>
-                <span className="rounded-lg bg-foreground/5 border border-border px-3 py-1.5 font-medium text-foreground">
+                <span className="bg-foreground/5 border-border text-foreground rounded-lg border px-3 py-1.5 font-medium">
                   🔮 <strong>Thiết kế:</strong> Thùng đàn Acrylic Xuyên Thấu 100%
                 </span>
               </div>

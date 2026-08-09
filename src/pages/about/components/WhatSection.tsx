@@ -24,7 +24,10 @@ export function WhatSection() {
       <Sizer height={8} />
       <CaptionedImage
         src={`${import.meta.env.BASE_URL}images/mode_falling_notes_screenshot.png`}
-        caption={t('about.what.caption_falling_notes', 'Giao diện Nốt rơi (Falling Notes) kèm nhãn nốt')}
+        caption={t(
+          'about.what.caption_falling_notes',
+          'Giao diện Nốt rơi (Falling Notes) kèm nhãn nốt',
+        )}
         height={1628}
         width={1636}
         fetchPriority="high"

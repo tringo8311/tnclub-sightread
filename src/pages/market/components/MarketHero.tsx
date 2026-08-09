@@ -1,4 +1,4 @@
-import { FileAudio, Globe, ExternalLink, Sparkles, Upload } from 'lucide-react'
+import { ExternalLink, FileAudio, Globe, Sparkles, Upload } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styles from '../market.module.css'
@@ -69,10 +69,11 @@ export function MarketHero({
           onDragLeave={() => setIsDragOver(false)}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`cursor-pointer group relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 transition-all duration-300 ${isDragOver
-              ? 'border-primary bg-primary/10 shadow-lg scale-[1.01]'
+          className={`group relative flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 transition-all duration-300 ${
+            isDragOver
+              ? 'border-primary bg-primary/10 scale-[1.01] shadow-lg'
               : 'border-primary/30 bg-foreground/5 hover:border-primary hover:bg-primary/5'
-            }`}
+          }`}
         >
           <input
             ref={fileInputRef}
@@ -81,14 +82,17 @@ export function MarketHero({
             onChange={handleFileChange}
             className="hidden"
           />
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10 text-primary mb-3 shadow-md group-hover:scale-110 transition-transform">
+          <div className="border-primary/30 bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border shadow-md transition-transform group-hover:scale-110">
             <Upload className="h-6 w-6" />
           </div>
           <h3 className="text-foreground text-sm font-bold">
             Kéo & Thả File MIDI (.mid / .midi) vào đây
           </h3>
-          <p className="text-muted-foreground text-xs mt-1">
-            hoặc <span className="text-primary font-semibold underline">bấm để chọn file từ máy tính của bạn</span>
+          <p className="text-muted-foreground mt-1 text-xs">
+            hoặc{' '}
+            <span className="text-primary font-semibold underline">
+              bấm để chọn file từ máy tính của bạn
+            </span>
           </p>
         </div>
 
@@ -102,8 +106,8 @@ export function MarketHero({
         />
 
         {/* Trusted Free External MIDI Search Portals */}
-        <div className="pt-4 border-t border-border/50">
-          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block mb-3">
+        <div className="border-border/50 border-t pt-4">
+          <span className="text-muted-foreground mb-3 block text-xs font-semibold tracking-wider uppercase">
             🌐 Kho Nguồn Tải File MIDI Miễn Phí Uy Tín
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
@@ -117,9 +121,9 @@ export function MarketHero({
                 href={portal.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3 py-1.5 font-medium text-foreground hover:border-primary hover:text-primary transition-colors shadow-sm"
+                className="border-border bg-card text-foreground hover:border-primary hover:text-primary inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 font-medium shadow-sm transition-colors"
               >
-                <Globe className="h-3.5 w-3.5 text-primary" />
+                <Globe className="text-primary h-3.5 w-3.5" />
                 <span>{portal.name}</span>
                 <ExternalLink className="h-3 w-3 opacity-60" />
               </a>

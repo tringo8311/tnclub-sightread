@@ -1,5 +1,15 @@
 import { AppBar, MarketingFooter } from '@/components'
-import { Bluetooth, BookOpen, Cable, CheckCircle2, ChevronRight, Layers, Music, Sparkles, Zap } from 'lucide-react'
+import {
+  Bluetooth,
+  BookOpen,
+  Cable,
+  CheckCircle2,
+  ChevronRight,
+  Layers,
+  Music,
+  Sparkles,
+  Zap,
+} from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
@@ -29,7 +39,7 @@ export default function Home() {
     ].join(',')
 
     const elements = document.querySelectorAll(selectors)
-    
+
     // Fallback: If IntersectionObserver doesn't trigger, reveal elements
     if (!('IntersectionObserver' in window)) {
       elements.forEach((el) => el.classList.add(styles.revealActive))
@@ -65,12 +75,8 @@ export default function Home() {
                   <Sparkles size={16} />
                   <span>{t('home.hero.standard_badge')}</span>
                 </div>
-                <h1 className={styles.heroTitle}>
-                  {t('home.hero.title')}
-                </h1>
-                <h3 className={styles.heroSubtitle}>
-                  {t('home.hero.subtitle')}
-                </h3>
+                <h1 className={styles.heroTitle}>{t('home.hero.title')}</h1>
+                <h3 className={styles.heroSubtitle}>{t('home.hero.subtitle')}</h3>
                 <div className={styles.ctaButtons}>
                   <Link to="/songs" className={styles.btnPrimary}>
                     <span>{t('home.learn_song')}</span>
@@ -96,9 +102,7 @@ export default function Home() {
         <div id="features-section" className={styles.featuresSection}>
           <div className={styles.container}>
             <div className={`${styles.sectionHeader} ${styles.revealOnScroll}`}>
-              <h2 className={styles.sectionTitle}>
-                {t('home.why.title')}
-              </h2>
+              <h2 className={styles.sectionTitle}>{t('home.why.title')}</h2>
               <p className={styles.sectionSubtitle}>{t('home.why.subtitle')}</p>
             </div>
 
@@ -136,25 +140,27 @@ export default function Home() {
                   className={styles.connectivityImg}
                 />
               </div>
-              <div className={`${styles.connectivityContent} ${styles.revealRight} ${styles.delay2}`}>
+              <div
+                className={`${styles.connectivityContent} ${styles.revealRight} ${styles.delay2}`}
+              >
                 <div className={styles.connectivityBadge}>
                   <Bluetooth size={18} />
                   <span>{t('home.connectivity.badge')}</span>
                 </div>
-                <h2 className={styles.sectionTitle}>
-                  {t('home.connectivity.title')}
-                </h2>
-                <p className={styles.heroSubtitle}>
-                  {t('home.connectivity.desc')}
-                </p>
+                <h2 className={styles.sectionTitle}>{t('home.connectivity.title')}</h2>
+                <p className={styles.heroSubtitle}>{t('home.connectivity.desc')}</p>
                 <div className={styles.connectivityList}>
                   <div className={styles.connectivityItem}>
                     <div className={styles.connectivityIcon}>
                       <Bluetooth size={22} />
                     </div>
                     <div>
-                      <h4 className={styles.connectivityItemTitle}>{t('home.connectivity.feature1_title')}</h4>
-                      <p className={styles.connectivityItemDesc}>{t('home.connectivity.feature1_desc')}</p>
+                      <h4 className={styles.connectivityItemTitle}>
+                        {t('home.connectivity.feature1_title')}
+                      </h4>
+                      <p className={styles.connectivityItemDesc}>
+                        {t('home.connectivity.feature1_desc')}
+                      </p>
                     </div>
                   </div>
                   <div className={styles.connectivityItem}>
@@ -162,8 +168,12 @@ export default function Home() {
                       <Cable size={22} />
                     </div>
                     <div>
-                      <h4 className={styles.connectivityItemTitle}>{t('home.connectivity.feature2_title')}</h4>
-                      <p className={styles.connectivityItemDesc}>{t('home.connectivity.feature2_desc')}</p>
+                      <h4 className={styles.connectivityItemTitle}>
+                        {t('home.connectivity.feature2_title')}
+                      </h4>
+                      <p className={styles.connectivityItemDesc}>
+                        {t('home.connectivity.feature2_desc')}
+                      </p>
                     </div>
                   </div>
                   <div className={styles.connectivityItem}>
@@ -171,8 +181,12 @@ export default function Home() {
                       <CheckCircle2 size={22} />
                     </div>
                     <div>
-                      <h4 className={styles.connectivityItemTitle}>{t('home.connectivity.feature3_title')}</h4>
-                      <p className={styles.connectivityItemDesc}>{t('home.connectivity.feature3_desc')}</p>
+                      <h4 className={styles.connectivityItemTitle}>
+                        {t('home.connectivity.feature3_title')}
+                      </h4>
+                      <p className={styles.connectivityItemDesc}>
+                        {t('home.connectivity.feature3_desc')}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -200,18 +214,12 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={styles.dividerBar} />
-                  <p className={styles.codeSnippet}>
-                    import {'{ Note }'} from 'music-theory'
-                  </p>
+                  <p className={styles.codeSnippet}>import {'{ Note }'} from 'music-theory'</p>
                 </div>
               </div>
               <div className={`${styles.theoryTextContent} ${styles.revealRight} ${styles.delay2}`}>
-                <h2 className={styles.sectionTitle}>
-                  {t('home.theory.title')}
-                </h2>
-                <p className={styles.heroSubtitle}>
-                  {t('home.theory.desc')}
-                </p>
+                <h2 className={styles.sectionTitle}>{t('home.theory.title')}</h2>
+                <p className={styles.heroSubtitle}>{t('home.theory.desc')}</p>
                 <div>
                   <Link to="/theory" className={styles.theoryLink}>
                     <BookOpen size={20} />
@@ -228,12 +236,8 @@ export default function Home() {
         <div id="cta-section" className={styles.ctaSection}>
           <div className={styles.ctaGradientOverlay} />
           <div className={`${styles.container} ${styles.ctaContent} ${styles.revealZoom}`}>
-            <h2 className={styles.ctaTitle}>
-              {t('home.cta.title')}
-            </h2>
-            <p className={styles.ctaDescription}>
-              {t('home.cta.desc')}
-            </p>
+            <h2 className={styles.ctaTitle}>{t('home.cta.title')}</h2>
+            <p className={styles.ctaDescription}>{t('home.cta.desc')}</p>
             <Link to="/freeplay" className={styles.btnPrimary}>
               {t('home.cta.button')}
             </Link>

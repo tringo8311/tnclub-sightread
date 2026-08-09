@@ -87,7 +87,7 @@ export default function SelectSongPage() {
       <Modal
         show={isPlaylistModalOpen}
         onClose={() => setIsPlaylistModalOpen(false)}
-        className="w-[min(96vw,720px)] overflow-hidden rounded-2xl bg-card text-card-foreground p-0"
+        className="bg-card text-card-foreground w-[min(96vw,720px)] overflow-hidden rounded-2xl p-0"
         modalClassName="max-w-[720px]"
       >
         <PlaylistManagerModal
@@ -98,7 +98,7 @@ export default function SelectSongPage() {
       <Modal
         show={isFolderModalOpen}
         onClose={() => setIsFolderModalOpen(false)}
-        className="w-[min(96vw,600px)] overflow-hidden rounded-2xl bg-card text-card-foreground p-0 border-none shadow-2xl"
+        className="bg-card text-card-foreground w-[min(96vw,600px)] overflow-hidden rounded-2xl border-none p-0 shadow-2xl"
         modalClassName="max-w-[600px]"
       >
         <ManageFoldersForm onClose={() => setIsFolderModalOpen(false)} />
@@ -176,6 +176,7 @@ export default function SelectSongPage() {
               onChange={(e) => setLevelFilter(e.target.value)}
             >
               <option value="All">Tất cả Trình độ</option>
+              <option value="Fresher">Fresher</option>
               <option value="Beginner">Beginner</option>
               <option value="Intermediate">Intermediate</option>
               <option value="Advanced">Advanced</option>

@@ -1,4 +1,4 @@
-import { AppBar, MarketingFooter, Sizer } from '@/components'
+import { AppBar, MarketingFooter, PreviewableImage, Sizer } from '@/components'
 import { BookOpen, Crown, Hammer, History, Piano } from 'lucide-react'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -30,12 +30,16 @@ export default function PianoHistoryPage() {
         {/* Piano History & Craftsmanship Hero Banner */}
         <div className="relative overflow-hidden border-b border-amber-500/20 px-6 py-12 sm:py-16">
           <div className="absolute inset-0 z-0">
-            <img
+            <PreviewableImage
               src={`${import.meta.env.BASE_URL}images/theory_banner.png`}
               alt="Luxurious Grand Piano Banner"
-              className="h-full w-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-slate-950/75 backdrop-brightness-75" />
+              title="Luxurious Grand Piano Banner"
+              className="h-full w-full"
+              imgClassName="h-full w-full object-cover object-center"
+              showEyeText={false}
+            >
+              <div className="pointer-events-none absolute inset-0 bg-slate-950/75 backdrop-brightness-75" />
+            </PreviewableImage>
           </div>
 
           <div className="relative z-10 mx-auto max-w-5xl space-y-5 text-center">
@@ -44,12 +48,13 @@ export default function PianoHistoryPage() {
               <span>Nghệ Thuật, Lịch Sử & Chế Tác Piano</span>
             </div>
 
-            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl drop-shadow-md">
+            <h1 className="text-3xl font-extrabold tracking-tight text-white drop-shadow-md sm:text-5xl">
               Hành Trình <span className="text-amber-400">Đàn Piano Qua Các Thế Kỷ</span>
             </h1>
 
-            <p className="mx-auto max-w-3xl text-sm leading-relaxed text-zinc-200 sm:text-base font-medium drop-shadow">
-              Khám phá lịch sử tiến hóa từ Harpsichord đến Grand Piano hiện đại, nghệ thuật chế tác thủ công đỉnh cao và các thương hiệu piano huyền thoại thế giới.
+            <p className="mx-auto max-w-3xl text-sm leading-relaxed font-medium text-zinc-200 drop-shadow sm:text-base">
+              Khám phá lịch sử tiến hóa từ Harpsichord đến Grand Piano hiện đại, nghệ thuật chế tác
+              thủ công đỉnh cao và các thương hiệu piano huyền thoại thế giới.
             </p>
 
             {/* Category Tabs */}
@@ -62,8 +67,8 @@ export default function PianoHistoryPage() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all duration-200 ${
                       isActive
-                        ? 'bg-amber-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.5)] scale-105'
-                        : 'bg-slate-900/80 border border-slate-700/80 text-zinc-200 hover:bg-slate-800 hover:text-white hover:border-amber-400/50'
+                        ? 'scale-105 bg-amber-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.5)]'
+                        : 'border border-slate-700/80 bg-slate-900/80 text-zinc-200 hover:border-amber-400/50 hover:bg-slate-800 hover:text-white'
                     }`}
                   >
                     {tab.icon}

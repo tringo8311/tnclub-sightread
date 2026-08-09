@@ -11,9 +11,21 @@ export function TheoryHero({ activeTab, setActiveTab }: TheoryHeroProps) {
   const { t } = useTranslation()
 
   const tabs = [
-    { id: 'all', label: t('theory.tabs.all', 'Tất cả Nhạc Lý'), icon: <BookOpen className="h-4 w-4" /> },
-    { id: 'fundamentals', label: t('theory.tabs.fundamentals', 'Căn Bản Nhạc Lý'), icon: <Layers className="h-4 w-4" /> },
-    { id: 'time-signatures', label: 'Chỉ Số Nhịp (2/4, 3/4, 4/4)', icon: <Clock className="h-4 w-4 text-cyan-400" /> },
+    {
+      id: 'all',
+      label: t('theory.tabs.all', 'Tất cả Nhạc Lý'),
+      icon: <BookOpen className="h-4 w-4" />,
+    },
+    {
+      id: 'fundamentals',
+      label: t('theory.tabs.fundamentals', 'Căn Bản Nhạc Lý'),
+      icon: <Layers className="h-4 w-4" />,
+    },
+    {
+      id: 'time-signatures',
+      label: 'Chỉ Số Nhịp (2/4, 3/4, 4/4)',
+      icon: <Clock className="h-4 w-4 text-cyan-400" />,
+    },
     { id: 'chords', label: 'Hợp Âm & Âm Giai', icon: <Music className="h-4 w-4 text-amber-400" /> },
   ]
 
@@ -36,12 +48,13 @@ export function TheoryHero({ activeTab, setActiveTab }: TheoryHeroProps) {
           <span>Căn Bản Nhạc Lý & Hợp Âm Piano</span>
         </div>
 
-        <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl drop-shadow-md">
+        <h1 className="text-3xl font-extrabold tracking-tight text-white drop-shadow-md sm:text-5xl">
           Nền Tảng Nhạc Lý & <span className="text-amber-400">Tra Cứu Hợp Âm</span>
         </h1>
 
-        <p className="mx-auto max-w-3xl text-sm leading-relaxed text-zinc-200 sm:text-base font-medium drop-shadow">
-          Nắm vững khóa nhạc (Sol/Fa), trường độ nốt, dấu hóa, giải thích chỉ số nhịp (2/4, 3/4, 4/4, 6/8) và tra cứu hợp âm, âm giai kèm thế bấm ngón tay chuẩn.
+        <p className="mx-auto max-w-3xl text-sm leading-relaxed font-medium text-zinc-200 drop-shadow sm:text-base">
+          Nắm vững khóa nhạc (Sol/Fa), trường độ nốt, dấu hóa, giải thích chỉ số nhịp (2/4, 3/4,
+          4/4, 6/8) và tra cứu hợp âm, âm giai kèm thế bấm ngón tay chuẩn.
         </p>
 
         {/* Category Tabs */}
@@ -54,8 +67,8 @@ export function TheoryHero({ activeTab, setActiveTab }: TheoryHeroProps) {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all duration-200 ${
                   isActive
-                    ? 'bg-amber-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.5)] scale-105'
-                    : 'bg-slate-900/80 border border-slate-700/80 text-zinc-200 hover:bg-slate-800 hover:text-white hover:border-amber-400/50'
+                    ? 'scale-105 bg-amber-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.5)]'
+                    : 'border border-slate-700/80 bg-slate-900/80 text-zinc-200 hover:border-amber-400/50 hover:bg-slate-800 hover:text-white'
                 }`}
               >
                 {tab.icon}

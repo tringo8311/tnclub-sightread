@@ -20,21 +20,34 @@ export function MarketingFooter() {
         Footer
       </h2>
       <MaxWidthWrapper className="mx-auto w-full py-4">
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row text-xs text-muted-foreground">
-          <div className="flex items-center gap-4">
+        <div className="text-muted-foreground flex flex-col items-center justify-between gap-4 text-xs sm:flex-row">
+          <div className="flex flex-wrap items-center gap-4">
             <span>Powered by Sightread Studio</span>
-            <span className="hidden sm:inline text-gray-400/50">•</span>
-            <Link to="/piano-history" className="hover:text-amber-400 transition-colors font-bold text-foreground">
+            <span className="hidden text-gray-400/50 sm:inline">•</span>
+            <Link
+              to="/about"
+              className="text-foreground font-bold transition-colors hover:text-amber-400"
+            >
+              ℹ️ Giới Thiệu
+            </Link>
+            <span className="hidden text-gray-400/50 sm:inline">•</span>
+            <Link
+              to="/piano-history"
+              className="text-foreground font-bold transition-colors hover:text-amber-400"
+            >
               🎹 Lịch Sử & Bách Khoa Piano
             </Link>
-            <span className="hidden sm:inline text-gray-400/50">•</span>
-            <Link to="/freeplay" className="hover:text-amber-400 transition-colors font-bold text-foreground">
+            <span className="hidden text-gray-400/50 sm:inline">•</span>
+            <Link
+              to="/freeplay"
+              className="text-foreground font-bold transition-colors hover:text-amber-400"
+            >
               🎹 Chơi Tự Do
             </Link>
           </div>
 
           <div className="flex items-center gap-5">
-            <div className="flex cursor-default items-center gap-1.5 transition-colors hover:text-foreground">
+            <div className="hover:text-foreground flex cursor-default items-center gap-1.5 transition-colors">
               <MapPin size={16} />
               <span>Ho Chi Minh City, Vietnam</span>
             </div>

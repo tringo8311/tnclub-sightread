@@ -34,7 +34,10 @@ export function MarketCatalogControls({
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder={t('market.controls.searchPlaceholder', 'Tìm kiếm tác phẩm, tác giả hoặc thẻ...')}
+          placeholder={t(
+            'market.controls.searchPlaceholder',
+            'Tìm kiếm tác phẩm, tác giả hoặc thẻ...',
+          )}
           className={styles.searchInput}
           aria-label={t('market.controls.searchAriaLabel', 'Search curated songs')}
           data-element-id="market-search-input"

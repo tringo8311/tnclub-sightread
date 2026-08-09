@@ -8,7 +8,10 @@ export function ProductRecommendationsSection() {
   return (
     <Article
       header={t('about.sections.product_recommendations', 'Gợi ý thiết bị')}
-      first={t('about.recommendations.intro', 'Tìm kiếm Đàn Piano điện / Keyboard phù hợp để luyện tập?')}
+      first={t(
+        'about.recommendations.intro',
+        'Tìm kiếm Đàn Piano điện / Keyboard phù hợp để luyện tập?',
+      )}
     >
       <p>
         {t(
@@ -17,7 +20,7 @@ export function ProductRecommendationsSection() {
         )}
       </p>
 
-      <ul className="ml-6 space-y-2 list-disc pt-2 text-sm leading-relaxed">
+      <ul className="ml-6 list-disc space-y-2 pt-2 text-sm leading-relaxed">
         <li>
           <b>{t('about.recommendations.beginner_title', 'Người mới bắt đầu:')}</b>{' '}
           {t(

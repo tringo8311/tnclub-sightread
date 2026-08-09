@@ -1,9 +1,4 @@
-import {
-  activeProfileIdAtom,
-  fontSizeAtom,
-  profilesAtom,
-  themeAtom,
-} from '@/features/persist'
+import { activeProfileIdAtom, fontSizeAtom, profilesAtom, themeAtom } from '@/features/persist'
 import clsx from 'clsx'
 import { useAtom } from 'jotai'
 import { Globe, Minus, Plus, User } from 'lucide-react'
@@ -67,6 +62,8 @@ export function ProfileSwitcher() {
     }
   }, [isOpen])
 
+  const activeProfile = profiles.find((p) => p.id === activeProfileId) || profiles[0]
+
   return (
     <div className="relative inline-block">
       <button
@@ -74,9 +71,20 @@ export function ProfileSwitcher() {
         type="button"
         aria-label="Profile & Settings"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors outline-none hover:bg-white/20 focus:ring-2 focus:ring-white/50"
+        className={clsx(
+          'group flex h-9 cursor-pointer items-center gap-2 rounded-full px-3 text-xs font-semibold shadow-sm transition-all duration-300 outline-none',
+          'border-border bg-card/80 text-foreground border backdrop-blur-md',
+          'hover:border-primary/50 hover:bg-muted hover:shadow-[0_0_15px_hsl(var(--primary)/0.25)]',
+          'focus:ring-primary/40 focus:ring-2',
+          isOpen && 'border-primary ring-primary/40 shadow-md ring-2',
+        )}
       >
-        <User size={18} />
+        <div className="bg-primary text-primary-foreground flex h-6 w-6 items-center justify-center rounded-full font-bold shadow-xs">
+          <User size={13} className="transition-transform group-hover:scale-110" />
+        </div>
+        <span className="text-foreground/90 group-hover:text-foreground max-w-[110px] truncate font-medium">
+          {activeProfile?.name || 'Hồ sơ'}
+        </span>
       </button>
 
       {isOpen &&
@@ -88,66 +96,85 @@ export function ProfileSwitcher() {
               top: `${coords.top}px`,
               right: `${coords.right}px`,
             }}
-            className="fixed z-[9999] w-64 max-h-[85vh] overflow-y-auto custom-scrollbar border-border bg-popover text-popover-foreground rounded-xl border p-1.5 shadow-2xl backdrop-blur-md animate-in fade-in zoom-in-95 duration-100"
+            className="custom-scrollbar text-popover-foreground animate-in fade-in zoom-in-95 border-border bg-card/95 text-card-foreground fixed z-[9999] max-h-[85vh] w-72 overflow-y-auto rounded-2xl border p-3 shadow-2xl backdrop-blur-xl duration-150"
           >
             {/* PROFILES SECTION */}
-            <div className="px-3 py-1 text-xs font-semibold tracking-wider text-popover-foreground/50 uppercase">
-              {t('settings.profiles')}
-            </div>
-            <div className="space-y-0.5">
-              {profiles.map((profile) => (
+            <div className="border-border bg-muted/40 mb-2.5 rounded-xl border p-2.5">
+              <div className="text-muted-foreground flex items-center justify-between px-1 py-0.5 text-[11px] font-bold tracking-wider uppercase">
+                <span className="text-foreground flex items-center gap-1.5">
+                  <User size={13} className="text-primary" />
+                  {t('settings.profiles')}
+                </span>
+                <span className="bg-primary/15 text-primary rounded-full px-2 py-0.5 text-[10px] font-bold">
+                  {profiles.length}
+                </span>
+              </div>
+              <div className="mt-2 space-y-1">
+                {profiles.map((profile) => {
+                  const isActive = activeProfileId === profile.id
+                  return (
+                    <button
+                      key={profile.id}
+                      type="button"
+                      onClick={() => setActiveProfileId(profile.id)}
+                      className={clsx(
+                        'group flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all duration-200 outline-none',
+                        isActive
+                          ? 'bg-primary text-primary-foreground font-bold shadow-sm'
+                          : 'text-foreground/80 hover:bg-foreground/10 hover:text-foreground',
+                      )}
+                    >
+                      <div className="flex min-w-0 items-center gap-2 pr-2">
+                        <div
+                          className={clsx(
+                            'flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-bold',
+                            isActive
+                              ? 'bg-primary-foreground/20 text-primary-foreground'
+                              : 'bg-foreground/10 text-foreground/70 group-hover:bg-foreground/20 group-hover:text-foreground',
+                          )}
+                        >
+                          {profile.name.charAt(0).toUpperCase()}
+                        </div>
+                        <span className="truncate">{profile.name}</span>
+                      </div>
+                      {isActive && (
+                        <span className="flex h-2 w-2 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+                      )}
+                    </button>
+                  )
+                })}
                 <button
-                  key={profile.id}
                   type="button"
                   onClick={() => {
-                    setActiveProfileId(profile.id)
+                    const name = prompt(t('settings.profile_name_prompt'))
+                    if (name) {
+                      const id = crypto.randomUUID()
+                      setProfiles([...profiles, { id, name }])
+                      setActiveProfileId(id)
+                    }
                   }}
-                  className={clsx(
-                    'flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium transition outline-none',
-                    activeProfileId === profile.id
-                      ? 'bg-primary/20 text-popover-foreground font-bold'
-                      : 'text-popover-foreground/70 hover:bg-foreground/10 hover:text-popover-foreground',
-                  )}
+                  className="border-primary/40 bg-primary/10 text-primary hover:border-primary hover:bg-primary/20 mt-2 flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-dashed px-3 py-1.5 text-xs font-semibold transition-all outline-none"
                 >
-                  <span className="truncate pr-2">{profile.name}</span>
-                  {activeProfileId === profile.id && (
-                    <div className="h-2 w-2 shrink-0 rounded-full bg-green-400" />
-                  )}
+                  <Plus size={13} />
+                  {t('settings.add_new_profile')}
                 </button>
-              ))}
-              <button
-                type="button"
-                onClick={() => {
-                  const name = prompt(t('settings.profile_name_prompt'))
-                  if (name) {
-                    const id = crypto.randomUUID()
-                    setProfiles([...profiles, { id, name }])
-                    setActiveProfileId(id)
-                  }
-                }}
-                className="text-popover-foreground/80 hover:bg-foreground/10 hover:text-popover-foreground flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium transition outline-none mt-1"
-              >
-                <Plus size={14} />
-                {t('settings.add_new_profile')}
-              </button>
+              </div>
             </div>
-
-            <div className="border-border mx-2 my-1.5 border-t" />
 
             {/* FONT SIZE SETTING */}
             <div>
-              <div className="flex items-center justify-between px-3 py-1 text-xs font-semibold tracking-wider text-popover-foreground/50 uppercase">
+              <div className="text-muted-foreground flex items-center justify-between px-2 py-1 text-xs font-semibold tracking-wider uppercase">
                 <span>{t('settings.font_size')}</span>
                 <span className="text-primary font-mono font-bold normal-case">
                   {(fontSize / 16).toFixed(3).replace(/\.?0+$/, '')}rem
                 </span>
               </div>
-              <div className="px-3 py-1.5 flex items-center justify-between gap-2">
+              <div className="flex items-center justify-between gap-2 px-2 py-1.5">
                 <button
                   type="button"
                   onClick={() => setFontSize((prev) => Math.max(12, prev - 1))}
                   disabled={fontSize <= 12}
-                  className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-foreground/5 text-popover-foreground hover:bg-foreground/15 disabled:opacity-30 cursor-pointer"
+                  className="border-border bg-foreground/5 text-foreground hover:bg-foreground/15 flex h-7 w-7 cursor-pointer items-center justify-center rounded-md border transition-colors disabled:opacity-30"
                   title="Decrease font size"
                 >
                   <Minus size={14} />
@@ -159,10 +186,10 @@ export function ProfileSwitcher() {
                       type="button"
                       onClick={() => setFontSize(sizeVal)}
                       className={clsx(
-                        'px-2 py-0.5 text-xs font-medium rounded transition cursor-pointer',
+                        'cursor-pointer rounded px-2 py-0.5 text-xs font-medium transition',
                         fontSize === sizeVal
                           ? 'bg-primary text-primary-foreground font-bold'
-                          : 'bg-foreground/5 text-popover-foreground/70 hover:bg-foreground/10',
+                          : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10',
                       )}
                     >
                       {sizeVal === 14 ? 'S' : sizeVal === 16 ? 'M' : sizeVal === 18 ? 'L' : 'XL'}
@@ -173,7 +200,7 @@ export function ProfileSwitcher() {
                   type="button"
                   onClick={() => setFontSize((prev) => Math.min(24, prev + 1))}
                   disabled={fontSize >= 24}
-                  className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-foreground/5 text-popover-foreground hover:bg-foreground/15 disabled:opacity-30 cursor-pointer"
+                  className="border-border bg-foreground/5 text-foreground hover:bg-foreground/15 flex h-7 w-7 cursor-pointer items-center justify-center rounded-md border transition-colors disabled:opacity-30"
                   title="Increase font size"
                 >
                   <Plus size={14} />
@@ -181,7 +208,7 @@ export function ProfileSwitcher() {
               </div>
             </div>
 
-            <div className="border-border mx-2 my-1.5 border-t" />
+            <div className="border-border mx-1 my-2 border-t" />
 
             {/* LANGUAGE SWITCHER */}
             <button
@@ -190,34 +217,36 @@ export function ProfileSwitcher() {
                 const isVi = i18n.language?.startsWith('vi')
                 i18n.changeLanguage(isVi ? 'en' : 'vi')
               }}
-              className="text-popover-foreground/80 hover:bg-foreground/10 hover:text-popover-foreground flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium transition outline-none"
+              className="text-foreground/80 hover:bg-foreground/10 hover:text-foreground flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-medium transition outline-none"
             >
-              <Globe size={15} />
+              <Globe size={15} className="text-primary" />
               {i18n.language?.startsWith('vi') ? 'Ngôn ngữ: Tiếng Việt' : 'Language: English'}
             </button>
 
-            <div className="border-border mx-2 my-1.5 border-t" />
+            <div className="border-border mx-1 my-2 border-t" />
 
             {/* THEME SETTING */}
             <div>
-              <div className="px-3 py-1 text-xs font-semibold tracking-wider text-popover-foreground/50 uppercase">
+              <div className="text-muted-foreground px-2 py-1 text-xs font-semibold tracking-wider uppercase">
                 {t('settings.theme')}
               </div>
-              <div className="space-y-0.5">
+              <div className="mt-1 space-y-0.5">
                 {(['dark', 'light', 'read', 'modern'] as const).map((tOpt) => (
                   <button
                     key={tOpt}
                     type="button"
                     onClick={() => setTheme(tOpt)}
                     className={clsx(
-                      'flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-1.5 text-xs font-medium transition outline-none',
+                      'flex w-full cursor-pointer items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-medium transition outline-none',
                       theme === tOpt
-                        ? 'bg-primary/20 text-popover-foreground font-bold'
-                        : 'text-popover-foreground/70 hover:bg-foreground/10 hover:text-popover-foreground',
+                        ? 'bg-primary/20 text-foreground border-primary/30 border font-bold'
+                        : 'text-foreground/75 hover:bg-foreground/10 hover:text-foreground',
                     )}
                   >
                     <span className="capitalize">{tOpt}</span>
-                    {theme === tOpt && <div className="bg-primary h-2 w-2 shrink-0 rounded-full" />}
+                    {theme === tOpt && (
+                      <div className="bg-primary h-2 w-2 shrink-0 rounded-full shadow-[0_0_8px_hsl(var(--primary))]" />
+                    )}
                   </button>
                 ))}
               </div>

@@ -193,19 +193,55 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.01);
-    border-radius: 3px;
+    background: hsl(var(--foreground) / 0.05);
+    border-radius: 9999px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 3px;
-    transition: background 0.2s ease;
+    background: hsl(var(--primary) / 0.45);
+    border-radius: 9999px;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 243, 255, 0.3);
+    background: hsl(var(--primary) / 0.85);
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
   }
+}
+
+/* Dynamic Theme-Aware Global Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--foreground) / 0.06);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.5);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.9);
+  border: 1px solid hsl(var(--foreground) / 0.15);
+  box-shadow: 0 0 12px hsl(var(--primary) / 0.6);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: hsl(var(--primary));
+}
+
+/* Firefox Theme Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.5) hsl(var(--foreground) / 0.06);
 }
 
 @layer base {

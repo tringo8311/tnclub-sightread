@@ -109,7 +109,7 @@ export default function AddToPlaylistModal({
               placeholder="Tên playlist mới..."
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              className="border-border bg-background text-foreground placeholder:text-muted-foreground flex-1 rounded-xl border px-3 py-1.5 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
+              className="border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-primary flex-1 rounded-xl border px-3 py-1.5 text-xs focus:ring-1 focus:outline-none"
               autoFocus
             />
             <Button type="submit" variant="primary" size="sm" className="text-xs">

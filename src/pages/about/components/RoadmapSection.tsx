@@ -7,10 +7,18 @@ export function RoadmapSection() {
 
   return (
     <Article header={t('about.sections.roadmap', 'Lộ trình phát triển')}>
-      <p>{t('about.roadmap.intro', 'Các tính năng và cải tiến đang được phát triển trong tương lai:')}</p>
+      <p>
+        {t(
+          'about.roadmap.intro',
+          'Các tính năng và cải tiến đang được phát triển trong tương lai:',
+        )}
+      </p>
       <ul className="list-disc space-y-1.5 px-6 pt-2 text-sm leading-relaxed">
         <li>
-          {t('about.roadmap.items.mobile', 'Ứng dụng di động tối ưu cho máy tính bảng và điện thoại.')}
+          {t(
+            'about.roadmap.items.mobile',
+            'Ứng dụng di động tối ưu cho máy tính bảng và điện thoại.',
+          )}
         </li>
         <li>
           {t(
@@ -19,10 +27,7 @@ export function RoadmapSection() {
           )}
         </li>
         <li>
-          {t(
-            'about.roadmap.items.scoring',
-            'Theo dõi tiến trình học và chấm điểm bài luyện tập.',
-          )}
+          {t('about.roadmap.items.scoring', 'Theo dõi tiến trình học và chấm điểm bài luyện tập.')}
         </li>
         <li>
           {t(

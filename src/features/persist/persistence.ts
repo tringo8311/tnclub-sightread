@@ -54,12 +54,9 @@ export const favoritesAtom = atomWithStorage<Record<string, boolean>>(
 export const themeAtom = atomWithStorage<string>('sightread_theme', 'dark', undefined, {
   getOnInit: true,
 })
-export const fontSizeAtom = atomWithStorage<number>(
-  'sightread_font_size',
-  16,
-  undefined,
-  { getOnInit: true },
-)
+export const fontSizeAtom = atomWithStorage<number>('sightread_font_size', 16, undefined, {
+  getOnInit: true,
+})
 
 export type Playlist = {
   id: string

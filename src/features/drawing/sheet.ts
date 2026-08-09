@@ -117,11 +117,16 @@ export function drawTimeSignature(
   x: number,
   y: number,
   timeSignature: { numerator: number; denominator: number },
+  color?: string,
 ) {
   ctx.save()
+  if (color) {
+    ctx.fillStyle = color
+  }
   const { numerator, denominator } = timeSignature
   const numeratorGlyph = (glyphs as any)['timeSig' + numerator]
   const denominatorGlyph = (glyphs as any)['timeSig' + denominator]
+
   ctx.font = `${STAFF_FIVE_LINES_HEIGHT}px ${MUSIC_FONT}`
   ctx.fillText(numeratorGlyph, x, y + STAFF_SPACE)
   ctx.fillText(denominatorGlyph, x, y + STAFF_SPACE * 3)

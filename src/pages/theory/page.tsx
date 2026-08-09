@@ -1,11 +1,7 @@
 import { AppBar, MarketingFooter, Sizer } from '@/components'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  ChordScaleSection,
-  MusicFundamentalsSection,
-  TheoryHero,
-} from './components'
+import { ChordScaleSection, MusicFundamentalsSection, TheoryHero } from './components'
 
 export default function TheoryPage() {
   const { t } = useTranslation()
@@ -20,9 +16,9 @@ export default function TheoryPage() {
         <TheoryHero activeTab={activeTab} setActiveTab={setActiveTab} />
 
         <div className="mx-auto w-full max-w-6xl space-y-16 px-6 py-12">
-          {(activeTab === 'all' || activeTab === 'fundamentals' || activeTab === 'time-signatures') && (
-            <MusicFundamentalsSection />
-          )}
+          {(activeTab === 'all' ||
+            activeTab === 'fundamentals' ||
+            activeTab === 'time-signatures') && <MusicFundamentalsSection />}
           {(activeTab === 'all' || activeTab === 'chords') && <ChordScaleSection />}
         </div>
       </main>

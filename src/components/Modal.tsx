@@ -72,7 +72,7 @@ export default function Modal({
         isDismissable
       >
         <Dialog
-          className={twMerge('relative rounded-2xl bg-card text-card-foreground', className)}
+          className={twMerge('bg-card text-card-foreground relative rounded-2xl', className)}
           aria-label="Modal"
           data-description={resolvedDescription}
           data-action={resolvedAction}

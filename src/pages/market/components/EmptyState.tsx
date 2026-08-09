@@ -19,23 +19,28 @@ export function EmptyState({ searchQuery }: EmptyStateProps) {
 
   return (
     <div
-      className="glass-card flex flex-col items-center justify-center rounded-3xl p-12 text-center border border-dashed border-primary/30 my-6 space-y-4"
+      className="glass-card border-primary/30 my-6 flex flex-col items-center justify-center space-y-4 rounded-3xl border border-dashed p-12 text-center"
       data-ui="market-empty-state"
     >
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary border border-primary/20 shadow-md">
+      <div className="bg-primary/10 text-primary border-primary/20 flex h-16 w-16 items-center justify-center rounded-2xl border shadow-md">
         <Music className="h-8 w-8" />
       </div>
       <div>
-        <h3 className="text-xl font-bold text-foreground">
+        <h3 className="text-foreground text-xl font-bold">
           {t('market.empty.title', 'Chưa tìm thấy bài hát này trong thư viện có sẵn')}
         </h3>
-        <p className="text-muted-foreground text-xs md:text-sm mt-1 max-w-md mx-auto">
+        <p className="text-muted-foreground mx-auto mt-1 max-w-md text-xs md:text-sm">
           {searchQuery ? (
             <>
-              Không tìm thấy kết quả cho từ khóa "<span className="text-foreground font-semibold">{searchQuery}</span>". Bạn có thể tìm nhanh trên các kho MIDI mở bên dưới và dán liên kết vào app!
+              Không tìm thấy kết quả cho từ khóa "
+              <span className="text-foreground font-semibold">{searchQuery}</span>". Bạn có thể tìm
+              nhanh trên các kho MIDI mở bên dưới và dán liên kết vào app!
             </>
           ) : (
-            t('market.empty.description', 'Thử tìm kiếm với từ khóa khác hoặc dán URL file .mid vào ô tìm kiếm ở trên.')
+            t(
+              'market.empty.description',
+              'Thử tìm kiếm với từ khóa khác hoặc dán URL file .mid vào ô tìm kiếm ở trên.',
+            )
           )}
         </p>
       </div>
@@ -45,7 +50,7 @@ export function EmptyState({ searchQuery }: EmptyStateProps) {
           href={bitmidiSearchUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground font-bold px-4 py-2 text-xs shadow-md transition-transform hover:scale-105"
+          className="bg-primary text-primary-foreground inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold shadow-md transition-transform hover:scale-105"
         >
           <Search className="h-3.5 w-3.5" />
           <span>Tìm "{searchQuery || 'MIDI'}" trên BitMidi (110k+ bài)</span>
@@ -56,9 +61,9 @@ export function EmptyState({ searchQuery }: EmptyStateProps) {
           href={googleSearchUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 font-medium text-xs text-foreground hover:border-primary hover:text-primary transition-colors shadow-sm"
+          className="border-border bg-card text-foreground hover:border-primary hover:text-primary inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-xs font-medium shadow-sm transition-colors"
         >
-          <Globe className="h-3.5 w-3.5 text-primary" />
+          <Globe className="text-primary h-3.5 w-3.5" />
           <span>Tra cứu trên Google MIDI</span>
           <ExternalLink className="h-3.5 w-3.5 opacity-60" />
         </a>

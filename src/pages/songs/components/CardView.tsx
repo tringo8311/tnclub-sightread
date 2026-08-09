@@ -98,7 +98,7 @@ export default function CardView({
       <Modal
         show={!!playlistModalSong}
         onClose={() => setPlaylistModalSong(null)}
-        className="w-[min(96vw,440px)] overflow-hidden rounded-2xl bg-card text-card-foreground p-0 border-none shadow-2xl"
+        className="bg-card text-card-foreground w-[min(96vw,440px)] overflow-hidden rounded-2xl border-none p-0 shadow-2xl"
         modalClassName="max-w-[440px]"
       >
         {playlistModalSong && (
@@ -218,10 +218,16 @@ export default function CardView({
                             ? 'text-[var(--color-pink-neon)]'
                             : item.level === 'Intermediate'
                               ? 'text-amber-400'
-                              : 'text-[var(--color-green-neon)]',
+                              : item.level === 'Fresher'
+                                ? 'text-emerald-400'
+                                : 'text-[var(--color-green-neon)]',
                         )}
                       />
-                      <span>{item.level || 'Beginner'}</span>
+                      <span
+                        className={item.level === 'Fresher' ? 'font-bold text-emerald-400' : ''}
+                      >
+                        {item.level === 'Fresher' ? '🌱 Fresher' : item.level || 'Beginner'}
+                      </span>
                     </div>
                     <div className="ml-auto flex items-center gap-1.5" title="Duration">
                       <Clock size={14} className="text-foreground/40" />

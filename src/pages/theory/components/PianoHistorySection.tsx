@@ -1,3 +1,4 @@
+import { PreviewableImage } from '@/components'
 import { History, Sparkles } from 'lucide-react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -32,7 +33,10 @@ export function PianoHistorySection() {
     },
     {
       year: 'Modern',
-      title: t('theory.history.modern_title', 'Thế kỷ 20 - 21 – Thời đại Piano hiện đại & Kỹ thuật số'),
+      title: t(
+        'theory.history.modern_title',
+        'Thế kỷ 20 - 21 – Thời đại Piano hiện đại & Kỹ thuật số',
+      ),
       desc: t(
         'theory.history.modern_desc',
         'Sự ra đời của các dòng Concert Grand đỉnh cao kết hợp cùng Piano điện (Digital) và Piano lai (Hybrid), đưa âm nhạc Piano tiếp cận hàng triệu người trên toàn thế giới.',
@@ -51,28 +55,31 @@ export function PianoHistorySection() {
             {t('theory.history.title', 'Lịch Sử Ra Đời & Phát Triển Của Piano')}
           </h2>
           <p className="text-muted-foreground text-xs md:text-sm">
-            {t('theory.history.subtitle', 'Từ nhạc cụ gảy dây cổ điển đến Vua của các loại nhạc cụ')}
+            {t(
+              'theory.history.subtitle',
+              'Từ nhạc cụ gảy dây cổ điển đến Vua của các loại nhạc cụ',
+            )}
           </p>
         </div>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
         {/* History Illustration */}
-        <div className="overflow-hidden rounded-2xl border border-white/10 lg:col-span-5 shadow-2xl">
-          <div className="relative aspect-4/3 overflow-hidden">
-            <img
-              src={`${import.meta.env.BASE_URL}images/theory/history.png`}
-              alt="Vintage Fortepiano History"
-              className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-            />
+        <div className="overflow-hidden rounded-2xl border border-white/10 shadow-2xl lg:col-span-5">
+          <PreviewableImage
+            src={`${import.meta.env.BASE_URL}images/theory/history.png`}
+            alt="Vintage Fortepiano History"
+            title="Fortepiano thế kỷ 18 (Florence, Italia)"
+            className="relative aspect-4/3 overflow-hidden"
+          >
             <div className="from-background pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-60" />
-            <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-white/10 bg-black/60 p-3 backdrop-blur-md">
+            <div className="pointer-events-none absolute right-4 bottom-4 left-4 z-10 rounded-xl border border-white/10 bg-black/60 p-3 backdrop-blur-md">
               <div className="flex items-center gap-2 text-xs font-semibold text-amber-300">
                 <Sparkles className="h-3.5 w-3.5" />
                 <span>Fortepiano thế kỷ 18 (Florence, Italia)</span>
               </div>
             </div>
-          </div>
+          </PreviewableImage>
         </div>
 
         {/* Timeline Items */}

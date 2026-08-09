@@ -38,7 +38,7 @@ export function AttributionsSection() {
           'Chúng tôi trân trọng đóng góp của các tác giả và cộng đồng âm nhạc.',
         )}
       </p>
-      <ul className="list-disc pl-6 pt-2 text-sm">
+      <ul className="list-disc pt-2 pl-6 text-sm">
         {sortedSongs.map((song) => (
           <li key={song.id} className="mb-2">
             <div className="font-semibold">{song.title}:</div>
