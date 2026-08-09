@@ -249,40 +249,180 @@ export function MusicFundamentalsSection() {
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-2">
               <div className="border-border bg-foreground/5 flex flex-col items-center justify-center rounded-xl border p-4 text-center">
-                <div className="mb-2 h-8 w-8 rounded-full border-2 border-amber-400 flex items-center justify-center font-bold text-amber-400 text-sm">
-                  𝄽
+                <div className="mb-2.5 flex h-11 w-11 items-center justify-center rounded-full border border-amber-400/40 bg-amber-400/10">
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 text-amber-400 fill-none stroke-current stroke-[2.5]">
+                    <ellipse cx="12" cy="12" rx="6.5" ry="4" transform="rotate(-20 12 12)" />
+                  </svg>
                 </div>
                 <span className="text-xs font-bold text-foreground">Nốt Tròn (Whole Note)</span>
                 <span className="text-amber-400 text-xs font-semibold mt-1">4 Nhịp (Beats)</span>
+                <span className="text-[11px] text-muted-foreground mt-1">Đầu rỗng, không có đuôi</span>
               </div>
 
               <div className="border-border bg-foreground/5 flex flex-col items-center justify-center rounded-xl border p-4 text-center">
-                <div className="mb-2 h-8 w-8 rounded-full border-2 border-cyan-400 flex items-center justify-center font-bold text-cyan-400 text-sm">
-                  𝅗𝅥
+                <div className="mb-2.5 flex h-11 w-11 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-400/10">
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 text-cyan-400 fill-none stroke-current stroke-[2]">
+                    <ellipse cx="9" cy="15" rx="4.5" ry="3" transform="rotate(-20 9 15)" />
+                    <path d="M13 15 V4" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
                 </div>
                 <span className="text-xs font-bold text-foreground">Nốt Trắng (Half Note)</span>
                 <span className="text-cyan-400 text-xs font-semibold mt-1">2 Nhịp (Beats)</span>
+                <span className="text-[11px] text-muted-foreground mt-1">Đầu rỗng, có đuôi thẳng</span>
               </div>
 
               <div className="border-border bg-foreground/5 flex flex-col items-center justify-center rounded-xl border p-4 text-center">
-                <div className="mb-2 h-8 w-8 rounded-full bg-emerald-400 flex items-center justify-center font-bold text-black text-sm">
-                  ♩
+                <div className="mb-2.5 flex h-11 w-11 items-center justify-center rounded-full border border-emerald-400/40 bg-emerald-400/10">
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 text-emerald-400">
+                    <ellipse cx="9" cy="15" rx="4.5" ry="3" transform="rotate(-20 9 15)" className="fill-current" />
+                    <path d="M13 15 V4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
                 </div>
                 <span className="text-xs font-bold text-foreground">Nốt Đen (Quarter Note)</span>
                 <span className="text-emerald-400 text-xs font-semibold mt-1">1 Nhịp (Beat)</span>
+                <span className="text-[11px] text-muted-foreground mt-1">Đầu đặc, có đuôi thẳng</span>
               </div>
 
               <div className="border-border bg-foreground/5 flex flex-col items-center justify-center rounded-xl border p-4 text-center">
-                <div className="mb-2 h-8 w-8 rounded-full bg-fuchsia-400 flex items-center justify-center font-bold text-black text-sm">
-                  ♪
+                <div className="mb-2.5 flex h-11 w-11 items-center justify-center rounded-full border border-fuchsia-400/40 bg-fuchsia-400/10">
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 text-fuchsia-400">
+                    <ellipse cx="8.5" cy="15" rx="4.2" ry="3" transform="rotate(-20 8.5 15)" className="fill-current" />
+                    <path d="M12.5 15 V4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M12.5 4 Q 17 6 17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+                  </svg>
                 </div>
                 <span className="text-xs font-bold text-foreground">Nốt Móc Đơn (Eighth)</span>
                 <span className="text-fuchsia-400 text-xs font-semibold mt-1">1/2 Nhịp (Beat)</span>
+                <span className="text-[11px] text-muted-foreground mt-1">Đầu đặc, có đuôi & 1 lá móc</span>
+              </div>
+            </div>
+
+            {/* TIME SIGNATURES SECTION (GIẢI THÍCH CHỈ SỐ NHỊP) */}
+            <div id="time-signatures" className="border-border bg-foreground/5 mt-8 rounded-2xl border p-6 space-y-6">
+              <div className="flex items-center gap-3 border-b border-border/60 pb-3">
+                <div className="bg-amber-500/10 border-amber-500/30 rounded-xl border p-2 text-amber-400">
+                  <span className="text-xl font-black leading-none block font-mono">4/4</span>
+                </div>
+                <div>
+                  <h3 className="text-foreground text-xl font-bold">
+                    Giải Thích Dễ Hiểu Về Chỉ Số Nhịp (Time Signatures)
+                  </h3>
+                  <p className="text-muted-foreground text-xs font-medium">
+                    Ý nghĩa của 2 con số đứng đầu khuông nhạc (2/4, 3/4, 4/4, 6/8) và cách đếm phách chuẩn.
+                  </p>
+                </div>
+              </div>
+
+              {/* Anatomy of Time Signature */}
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="border-border bg-card/60 rounded-xl border p-4 flex items-center gap-4">
+                  <div className="flex flex-col items-center justify-center bg-amber-500/20 border border-amber-400 text-amber-300 font-mono font-black text-2xl h-16 w-14 rounded-xl shadow-md">
+                    <span>4</span>
+                    <div className="h-0.5 w-8 bg-amber-400/60 my-0.5" />
+                    <span>4</span>
+                  </div>
+                  <div className="space-y-1.5 text-xs">
+                    <p>
+                      <strong className="text-amber-400">Số Trên (Tử Số = 4):</strong> Số lượng phách nằm trong mỗi ô nhịp.
+                    </p>
+                    <p>
+                      <strong className="text-cyan-400">Số Dưới (Mẫu Số = 4):</strong> Giá trị độ dài của 1 phách (Số 4 = Nốt Đen).
+                    </p>
+                  </div>
+                </div>
+
+                <div className="border-border bg-card/60 rounded-xl border p-4 space-y-2 text-xs">
+                  <span className="font-bold text-amber-400 block uppercase tracking-wider">
+                    💡 Quy tắc nhớ nhanh:
+                  </span>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Mẫu số là <strong>4</strong> nghĩa là mỗi phách được tính bằng 1 nốt đen. Mẫu số là <strong>8</strong> nghĩa là mỗi phách tính bằng 1 nốt móc đơn.
+                  </p>
+                </div>
+              </div>
+
+              {/* Common Time Signatures Cards */}
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-2">
+                {/* 4/4 */}
+                <div className="border-border bg-card rounded-xl border p-4 flex flex-col justify-between space-y-3">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-2xl font-black text-amber-400">4 / 4</span>
+                      <span className="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/20">
+                        Phổ Biến Nhất
+                      </span>
+                    </div>
+                    <span className="text-xs font-bold text-foreground block mt-1">Nhịp 4 Phách (Common)</span>
+                    <p className="text-[11px] text-muted-foreground mt-1">
+                      Đếm: <strong className="text-amber-400">1</strong> - 2 - <strong className="text-amber-200">3</strong> - 4. (Phách 1 MẠNH, phách 3 Nhẹ-Vừa).
+                    </p>
+                  </div>
+                  <p className="text-[10px] text-foreground/70 italic bg-foreground/5 p-2 rounded-lg">
+                    Thường gặp: Nhạc Pop, Ballad, Rock, Disco.
+                  </p>
+                </div>
+
+                {/* 3/4 */}
+                <div className="border-border bg-card rounded-xl border p-4 flex flex-col justify-between space-y-3">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-2xl font-black text-cyan-400">3 / 4</span>
+                      <span className="bg-cyan-500/10 text-cyan-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-cyan-500/20">
+                        Nhạc Waltz
+                      </span>
+                    </div>
+                    <span className="text-xs font-bold text-foreground block mt-1">Nhịp 3 Phách (Valse)</span>
+                    <p className="text-[11px] text-muted-foreground mt-1">
+                      Đếm: <strong className="text-cyan-400">1</strong> - 2 - 3. "Bùm - chát - chát" (Phách 1 MẠNH, 2 & 3 Nhẹ).
+                    </p>
+                  </div>
+                  <p className="text-[10px] text-foreground/70 italic bg-foreground/5 p-2 rounded-lg">
+                    Thường gặp: Điệu Waltz, Dòng nhạc khiêu vũ cổ điển.
+                  </p>
+                </div>
+
+                {/* 2/4 */}
+                <div className="border-border bg-card rounded-xl border p-4 flex flex-col justify-between space-y-3">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-2xl font-black text-emerald-400">2 / 4</span>
+                      <span className="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/20">
+                        Hành Khúc
+                      </span>
+                    </div>
+                    <span className="text-xs font-bold text-foreground block mt-1">Nhịp 2 Phách (March)</span>
+                    <p className="text-[11px] text-muted-foreground mt-1">
+                      Đếm: <strong className="text-emerald-400">1</strong> - 2. "Một - hai, Một - hai" (Phách 1 MẠNH, phách 2 Nhẹ).
+                    </p>
+                  </div>
+                  <p className="text-[10px] text-foreground/70 italic bg-foreground/5 p-2 rounded-lg">
+                    Thường gặp: Nhạc Diễu Hành, Nhạc Thiếu Nhi.
+                  </p>
+                </div>
+
+                {/* 6/8 */}
+                <div className="border-border bg-card rounded-xl border p-4 flex flex-col justify-between space-y-3">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-2xl font-black text-fuchsia-400">6 / 8</span>
+                      <span className="bg-fuchsia-500/10 text-fuchsia-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-fuchsia-500/20">
+                        Trữ Tình
+                      </span>
+                    </div>
+                    <span className="text-xs font-bold text-foreground block mt-1">Nhịp Kép (Compound)</span>
+                    <p className="text-[11px] text-muted-foreground mt-1">
+                      Đếm: <strong className="text-fuchsia-400">1</strong>-2-3 - <strong className="text-fuchsia-200">4</strong>-5-6 (Phách 1 & 4 MẠNH).
+                    </p>
+                  </div>
+                  <p className="text-[10px] text-foreground/70 italic bg-foreground/5 p-2 rounded-lg">
+                    Thường gặp: Slow Rock, Nhạc trữ tình bồng bềnh.
+                  </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </section>
   )
 }

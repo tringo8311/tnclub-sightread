@@ -3,7 +3,7 @@ import { useEventListener, usePlayerState } from '@/hooks'
 import { SongMetadata } from '@/types'
 import clsx from 'clsx'
 import { useAtomValue } from 'jotai'
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Pause, Play, Printer } from 'lucide-react'
 import { useState } from 'react'
 import { Heading, Text } from 'react-aria-components'
 import { createSearchParams, useNavigate } from 'react-router'
@@ -233,17 +233,31 @@ export default function SongPreviewModal({
                   </kbd>{' '}
                   to start
                 </div>
-                <Button
-                  variant="primary"
-                  size="lg"
-                  elementId="preview-modal-play-now-btn"
-                  data-ui="midi-preview-modal"
-                  aria-label="Play Now"
-                  className="w-full"
-                  onPress={() => navigate({ pathname: '/play', search: `?${playSongSearch}` })}
-                >
-                  Play Now
-                </Button>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    elementId="preview-modal-play-now-btn"
+                    data-ui="midi-preview-modal"
+                    aria-label="Play Now"
+                    className="w-full"
+                    onPress={() => navigate({ pathname: '/play', search: `?${playSongSearch}` })}
+                  >
+                    Play Now
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    elementId="preview-modal-print-sheet-btn"
+                    data-ui="midi-preview-modal"
+                    aria-label="In / Xuất Sheet Nhạc"
+                    className="w-full flex items-center justify-center gap-2 border-gray-300 text-gray-700 hover:bg-gray-100 font-medium"
+                    onPress={() => window.print()}
+                  >
+                    <Printer className="h-4 w-4 text-gray-600" />
+                    <span>In / Xuất Sheet Nhạc (A4)</span>
+                  </Button>
+                </div>
               </div>
             </>
           )}

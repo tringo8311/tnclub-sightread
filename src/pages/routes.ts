@@ -8,8 +8,10 @@ export default [
   route('songs', './songs/page.tsx'),
   route('market', './market/page.tsx'),
   route('theory', './theory/page.tsx'),
+  route('piano-history', './piano-history/page.tsx'),
   ...prefix('training', [
     route('phrases', './training/phrases/page.tsx'),
-    route('phrases', './training/speed/page.tsx'),
+    route('speed', './training/speed/page.tsx'),
   ]),
+  route('*', './not-found/page.tsx'),
 ] satisfies RouteConfig

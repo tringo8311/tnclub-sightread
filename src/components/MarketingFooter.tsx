@@ -19,24 +19,29 @@ export function MarketingFooter() {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <MaxWidthWrapper className="mx-auto w-full py-6">
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="text-muted-foreground text-center text-xs sm:text-left">
-            Powered by Sightread Studio
+      <MaxWidthWrapper className="mx-auto w-full py-4">
+        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row text-xs text-muted-foreground">
+          <div className="flex items-center gap-4">
+            <span>Powered by Sightread Studio</span>
+            <span className="hidden sm:inline text-gray-400/50">•</span>
+            <Link to="/piano-history" className="hover:text-amber-400 transition-colors font-bold text-foreground">
+              🎹 Lịch Sử & Bách Khoa Piano
+            </Link>
           </div>
-          <div className="text-muted-foreground flex items-center gap-6">
-            <div className="flex cursor-default items-center gap-1.5 text-xs transition-colors hover:text-white">
+
+          <div className="flex items-center gap-5">
+            <div className="flex cursor-default items-center gap-1.5 transition-colors hover:text-foreground">
               <MapPin size={16} />
               <span>Ho Chi Minh City, Vietnam</span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <Link
                 to="https://www.youtube.com/channel/UCGf2AlCRD3ZCc8ahkqBMtqA"
                 target="_blank"
                 aria-label="YouTube"
                 className="transition-colors hover:text-violet-400"
               >
-                <Youtube size={20} />
+                <Youtube size={18} />
               </Link>
               <Link
                 to="#"
@@ -44,7 +49,7 @@ export function MarketingFooter() {
                 aria-label="TikTok"
                 className="transition-colors hover:text-violet-400"
               >
-                <Tiktok width={18} height={18} />
+                <Tiktok width={16} height={16} />
               </Link>
             </div>
           </div>
