@@ -2,11 +2,12 @@ import { Sizer } from '@/components'
 import { LucideGithub as GitHub, Logo, Menu, Youtube } from '@/icons'
 import clsx from 'clsx'
 import { BookOpen, Info, Music, Piano, Store } from 'lucide-react'
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useState } from 'react'
 import { Button, MenuItem, MenuTrigger, Menu as RacMenu, Separator } from 'react-aria-components'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation, useNavigate } from 'react-router'
 import styles from './AppBar.module.css'
+import { WingIconLeft, WingIconRight } from './AppBarWings'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { Popover } from './Popover'
 import { ProfileSwitcher } from './ProfileSwitcher'
@@ -71,18 +72,7 @@ export default function AppBar() {
           >
             {/* Brand Pill with Stylized SVG Wings */}
             <div className={styles.brandPill}>
-              {/* Left Wing SVG */}
-              <svg className={styles.wingIconLeft} viewBox="0 0 80 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M80 20C55 20 30 14 15 4C28 10 50 14 80 14V20Z" fill="url(#wingGradLeft)" />
-                <path d="M80 12C50 12 30 8 18 0C32 6 52 9 80 9V12Z" fill="url(#wingGradLeft)" opacity="0.75" />
-                <path d="M80 24C45 24 20 17 0 8C22 14 48 18 80 18V24Z" fill="url(#wingGradLeft)" opacity="0.4" />
-                <defs>
-                  <linearGradient id="wingGradLeft" x1="0" y1="0" x2="80" y2="24" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F59E0B" />
-                    <stop offset="1" stopColor="#FBBF24" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              <WingIconLeft className={styles.wingIconLeft} />
 
               <span className={styles.brandTextLeft}>
                 TNCLUB
@@ -92,18 +82,7 @@ export default function AppBar() {
                 SIGHTREAD
               </span>
 
-              {/* Right Wing SVG */}
-              <svg className={styles.wingIconRight} viewBox="0 0 80 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 20C25 20 50 14 65 4C52 10 30 14 0 14V20Z" fill="url(#wingGradRight)" />
-                <path d="M0 12C30 12 50 8 62 0C48 6 28 9 0 9V12Z" fill="url(#wingGradRight)" opacity="0.75" />
-                <path d="M0 24C35 24 60 17 80 8C58 14 32 18 0 18V24Z" fill="url(#wingGradRight)" opacity="0.4" />
-                <defs>
-                  <linearGradient id="wingGradRight" x1="80" y1="0" x2="0" y2="24" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F59E0B" />
-                    <stop offset="1" stopColor="#FBBF24" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              <WingIconRight className={styles.wingIconRight} />
             </div>
 
             {/* Overlapping Badge: 50% in main menu, 50% overlapping body below */}
@@ -138,9 +117,12 @@ export default function AppBar() {
           <ProfileSwitcher />
         </div>
 
-        {/* Mobile Navigation button */}
+        {/* Mobile Header Elements: Profile (Left) and Navigation Menu (Right) */}
+        <div className={styles.mobileLeftProfile}>
+          <ProfileSwitcher isCompact />
+        </div>
+
         <div className={styles.mobileNav}>
-          <ProfileSwitcher />
           <SmallWindowNav />
         </div>
       </div>
@@ -152,18 +134,16 @@ function SmallWindowNav() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const currentRoute = useLocation().pathname
+  const [isOpen, setIsOpen] = useState(false)
   const allNavItems = [...leftNavItems, ...rightNavItems]
 
   return (
-    <MenuTrigger>
-      <Button
-        aria-label="Open menu"
-        className="bg-primary-foreground/10 hover:bg-primary-foreground/20 inline-flex cursor-pointer rounded-xl p-2 transition-all active:scale-95"
-      >
-        <Menu height={22} width={22} className="text-primary-foreground block" />
+    <MenuTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
+      <Button aria-label="Open menu" className={styles.mobileTriggerBtn}>
+        <Menu height={22} width={22} className={styles.mobileMenuIcon} />
       </Button>
-      <Popover className="border-border bg-popover text-popover-foreground w-[min(90vw,360px)] rounded-2xl border p-2 shadow-xl backdrop-blur">
-        <RacMenu className="outline-none">
+      <Popover className={styles.mobilePopover}>
+        <RacMenu className={styles.mobileMenu}>
           {allNavItems.map((nav) => {
             const Icon = nav.icon
             const isActive = currentRoute === nav.route
@@ -171,22 +151,18 @@ function SmallWindowNav() {
               <MenuItem
                 key={nav.route}
                 onAction={() => navigate(nav.route)}
-                className={clsx(
-                  'text-popover-foreground/90 flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-base font-medium transition outline-none',
-                  'data-[focused]:bg-foreground/10 data-[pressed]:bg-foreground/5',
-                  isActive && 'bg-foreground/10 text-foreground font-semibold',
-                )}
+                className={clsx(styles.mobileMenuItem, isActive && styles.mobileMenuItemActive)}
               >
-                <Icon size={18} className="text-foreground/70" />
+                <Icon size={18} className={styles.mobileItemIcon} />
                 <span>{t(nav.labelKey)}</span>
               </MenuItem>
             )
           })}
-          <Separator className="border-border mx-2 my-1 border-t" />
+          <Separator className={styles.mobileSeparator} />
           <MenuItem
             href="https://github.com/sightread/sightread"
             target="_blank"
-            className="text-popover-foreground/80 data-[focused]:bg-foreground/10 data-[pressed]:bg-foreground/5 flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition outline-none"
+            className={styles.mobileMenuSubItem}
             aria-label="GitHub"
           >
             <GitHub size={18} />
@@ -195,7 +171,7 @@ function SmallWindowNav() {
           <MenuItem
             href="https://www.youtube.com/channel/UCGf2AlCRD3ZCc8ahkqBMtqA"
             target="_blank"
-            className="text-popover-foreground/80 data-[focused]:bg-foreground/10 data-[pressed]:bg-foreground/5 flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition outline-none"
+            className={styles.mobileMenuSubItem}
             aria-label="YouTube"
           >
             <Youtube size={18} />
