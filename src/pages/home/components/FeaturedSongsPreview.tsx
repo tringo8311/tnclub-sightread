@@ -1,3 +1,4 @@
+import { Select, SelectItem } from '@/components'
 import { usePlayer } from '@/features/player'
 import { SongPreview } from '@/features/SongPreview/SongPreview'
 import { useEventListener, useOnUnmount, usePlayerState } from '@/hooks'
@@ -5,7 +6,6 @@ import useDelayedFlag from '@/hooks/useDelayedFlag'
 import { Pause, Play } from '@/icons'
 import type { SongSource } from '@/types'
 import clsx from 'clsx'
-import { Select, SelectItem } from '@/components'
 import { useState } from 'react'
 
 const FEATURED_SONGS: { [id: string]: { source: SongSource; id: string } } = {

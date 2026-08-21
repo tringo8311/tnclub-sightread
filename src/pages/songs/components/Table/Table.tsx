@@ -142,11 +142,7 @@ export default function Table({
             }
           >
             <TableHeader className={styles.tableHeader}>
-              <Column
-                id="stt"
-                className={styles.tableHeaderCell}
-                style={{ width: '4rem' }}
-              >
+              <Column id="stt" className={styles.tableHeaderCell} style={{ width: '4rem' }}>
                 STT
               </Column>
               <Column
@@ -326,10 +322,16 @@ export default function Table({
                     className={styles.tableRow}
                     onAction={() => onSelectRow(item.id)}
                   >
-                    <Cell className={clsx(styles.tableCell, 'text-foreground/40')} style={{ width: '4rem' }}>
+                    <Cell
+                      className={clsx(styles.tableCell, 'text-foreground/40')}
+                      style={{ width: '4rem' }}
+                    >
                       {idx}
                     </Cell>
-                    <Cell className={styles.tableCell} style={{ width: '3rem', textAlign: 'center' }}>
+                    <Cell
+                      className={styles.tableCell}
+                      style={{ width: '3rem', textAlign: 'center' }}
+                    >
                       <button
                         data-element-id={`song-favorite-btn-${item.id}`}
                         data-ui="song-list-table"
@@ -347,7 +349,10 @@ export default function Table({
                         />
                       </button>
                     </Cell>
-                    <Cell className={styles.tableCell} style={{ width: '3rem', textAlign: 'center' }}>
+                    <Cell
+                      className={styles.tableCell}
+                      style={{ width: '3rem', textAlign: 'center' }}
+                    >
                       <button
                         data-element-id={`song-add-playlist-btn-${item.id}`}
                         data-ui="song-list-table"
@@ -362,7 +367,10 @@ export default function Table({
                         <ListPlus size={16} />
                       </button>
                     </Cell>
-                    <Cell className={clsx(styles.tableCell, 'font-medium')} style={{ width: '33.33%' }}>
+                    <Cell
+                      className={clsx(styles.tableCell, 'font-medium')}
+                      style={{ width: '33.33%' }}
+                    >
                       <span className="block truncate whitespace-nowrap">{item.title}</span>
                     </Cell>
                     <Cell className={styles.tableCell} style={{ width: '12rem' }}>
@@ -393,7 +401,11 @@ export default function Table({
                     </Cell>
                     <Cell
                       className={styles.tableCell}
-                      style={{ width: '7rem', textAlign: 'right', paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
+                      style={{
+                        width: '7rem',
+                        textAlign: 'right',
+                        paddingRight: 'calc(1rem + var(--sort-icon-gap))',
+                      }}
                     >
                       <span
                         className={clsx(
@@ -410,7 +422,11 @@ export default function Table({
                     </Cell>
                     <Cell
                       className={clsx(styles.tableCell, 'text-foreground/70')}
-                      style={{ width: '8rem', textAlign: 'right', paddingRight: 'calc(1rem + var(--sort-icon-gap))' }}
+                      style={{
+                        width: '8rem',
+                        textAlign: 'right',
+                        paddingRight: 'calc(1rem + var(--sort-icon-gap))',
+                      }}
                     >
                       {formatTime(Number(item.duration))}
                     </Cell>
@@ -435,28 +451,14 @@ export function TableSkeleton() {
       <div className="flex min-h-0 flex-1 flex-col">
         <div className={styles.tableHeader}>
           <div className="table-row">
-            <div className={clsx(styles.tableHeaderCell, 'w-16')}>
-              STT
-            </div>
+            <div className={clsx(styles.tableHeaderCell, 'w-16')}>STT</div>
             <div className={clsx(styles.tableHeaderCell, 'w-12')}></div>
-            <div className={clsx(styles.tableHeaderCell, 'w-1/3')}>
-              Title
-            </div>
-            <div className={clsx(styles.tableHeaderCell, 'w-48')}>
-              Author
-            </div>
-            <div className={clsx(styles.tableHeaderCell, 'w-32')}>
-              Category
-            </div>
-            <div className={clsx(styles.tableHeaderCell, 'w-32')}>
-              Level
-            </div>
-            <div className={clsx(styles.tableHeaderCell, 'w-28 text-right')}>
-              Progress
-            </div>
-            <div className={clsx(styles.tableHeaderCell, 'w-32 text-right')}>
-              Length
-            </div>
+            <div className={clsx(styles.tableHeaderCell, 'w-1/3')}>Title</div>
+            <div className={clsx(styles.tableHeaderCell, 'w-48')}>Author</div>
+            <div className={clsx(styles.tableHeaderCell, 'w-32')}>Category</div>
+            <div className={clsx(styles.tableHeaderCell, 'w-32')}>Level</div>
+            <div className={clsx(styles.tableHeaderCell, 'w-28 text-right')}>Progress</div>
+            <div className={clsx(styles.tableHeaderCell, 'w-32 text-right')}>Length</div>
           </div>
         </div>
         <div className={styles.tableBody}>

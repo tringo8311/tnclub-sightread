@@ -117,10 +117,7 @@ export default function CardView({
         className={styles.cardGridContainer}
       >
         {sorted.length === 0 ? (
-          <div
-            data-ui="song-card-empty"
-            className={styles.emptyState}
-          >
+          <div data-ui="song-card-empty" className={styles.emptyState}>
             <div className={styles.emptyIconWrapper}>
               <Music className="h-8 w-8" />
             </div>
@@ -188,7 +185,9 @@ export default function CardView({
                                   : 'text-[var(--color-green-neon)]',
                           )}
                         />
-                        <span className={item.level === 'Fresher' ? 'font-bold text-emerald-400' : ''}>
+                        <span
+                          className={item.level === 'Fresher' ? 'font-bold text-emerald-400' : ''}
+                        >
                           {item.level === 'Fresher' ? 'Fresher' : item.level || 'Beginner'}
                         </span>
                       </div>

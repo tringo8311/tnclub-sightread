@@ -30,11 +30,7 @@ export default function AppBar() {
   const currentRoute = useLocation().pathname
 
   return (
-    <header
-      data-ui="app-header"
-      data-component="AppBar"
-      className={styles.header}
-    >
+    <header data-ui="app-header" data-component="AppBar" className={styles.header}>
       {/* Subtle Diamond Pattern Background Overlay */}
       <div className={styles.bgOverlay} />
 
@@ -52,10 +48,7 @@ export default function AppBar() {
                 data-element-id={`nav-link-${navId}`}
                 className={clsx(styles.navLink, isActive && styles.navLinkActive)}
               >
-                <Icon
-                  size={17}
-                  className={clsx(styles.icon, isActive && styles.iconActive)}
-                />
+                <Icon size={17} className={clsx(styles.icon, isActive && styles.iconActive)} />
                 <span className="relative z-10">{t(nav.labelKey)}</span>
                 {isActive && <span className={styles.activeIndicator} />}
               </Link>
@@ -65,22 +58,14 @@ export default function AppBar() {
 
         {/* CENTER: Luxury Brand Name (Top) + Overlapping Emblem Logo (50% Menu, 50% Body) */}
         <div className={styles.centerBrand}>
-          <Link
-            to="/"
-            data-element-id="nav-logo"
-            className={styles.brandLink}
-          >
+          <Link to="/" data-element-id="nav-logo" className={styles.brandLink}>
             {/* Brand Pill with Stylized SVG Wings */}
             <div className={styles.brandPill}>
               <WingIconLeft className={styles.wingIconLeft} />
 
-              <span className={styles.brandTextLeft}>
-                TNCLUB
-              </span>
+              <span className={styles.brandTextLeft}>TNCLUB</span>
               <span className={styles.brandDot}>•</span>
-              <span className={styles.brandTextRight}>
-                SIGHTREAD
-              </span>
+              <span className={styles.brandTextRight}>SIGHTREAD</span>
 
               <WingIconRight className={styles.wingIconRight} />
             </div>
@@ -105,10 +90,7 @@ export default function AppBar() {
                 data-element-id={`nav-link-${navId}`}
                 className={clsx(styles.navLink, isActive && styles.navLinkActive)}
               >
-                <Icon
-                  size={17}
-                  className={clsx(styles.icon, isActive && styles.iconActive)}
-                />
+                <Icon size={17} className={clsx(styles.icon, isActive && styles.iconActive)} />
                 <span className="relative z-10">{t(nav.labelKey)}</span>
                 {isActive && <span className={styles.activeIndicator} />}
               </Link>

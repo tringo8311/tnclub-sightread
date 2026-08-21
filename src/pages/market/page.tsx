@@ -5,12 +5,13 @@ import {
   MarketMidiItem,
   saveMarketSongToIndexedDB,
 } from '@/features/market/marketStorage'
+import { TN_MIDI_STUDIO_SONGS } from '@/features/market/onlineMidiSearch'
 import { parseMidi } from '@/features/parsers'
 import { SongPreviewModal } from '@/features/SongPreview'
 import { SongMetadata } from '@/types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MarketCatalogControls } from './components/MarketCatalogControls'
+import { MarketCatalogControls, SourceFilterType } from './components/MarketCatalogControls'
 import { MarketHero } from './components/MarketHero'
 import { SongsGrid } from './components/SongsGrid'
 
@@ -18,7 +19,7 @@ export default function MidiMarketPage() {
   const { t } = useTranslation()
 
   const [search, setSearch] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState<string>('All')
+  const [sourceFilter, setSourceFilter] = useState<SourceFilterType>('All')
 
   // Direct URL Lookup states
   const [urlInput, setUrlInput] = useState('')
@@ -28,16 +29,33 @@ export default function MidiMarketPage() {
   const [previewSongMeta, setPreviewSongMeta] = useState<SongMetadata | undefined>(undefined)
   const [savedIds, setSavedIds] = useState<Record<string, boolean>>({})
 
-  // Filter curated collection
-  const filteredSongs = CURATED_MARKET_SONGS.filter((song) => {
+  // Combine local curated songs and TN Web MIDI Studio database
+  const allMarketSongs: MarketMidiItem[] = [
+    ...CURATED_MARKET_SONGS.map((song) => ({
+      ...song,
+      provider: song.provider || 'Thư viện ứng dụng',
+    })),
+    ...TN_MIDI_STUDIO_SONGS,
+  ]
+
+  // Filter collection based on search term and selected source
+  const filteredSongs = allMarketSongs.filter((song) => {
     const query = search.trim().toLowerCase()
     const matchSearch =
       !query ||
       song.title.toLowerCase().includes(query) ||
       song.author.toLowerCase().includes(query) ||
+      (song.description && song.description.toLowerCase().includes(query)) ||
       (song.tags && song.tags.some((t) => t.toLowerCase().includes(query)))
-    const matchCat = categoryFilter === 'All' || song.category === categoryFilter
-    return matchSearch && matchCat
+
+    let matchSource = true
+    if (sourceFilter === 'Local') {
+      matchSource = song.provider !== 'TN Web MIDI Studio'
+    } else if (sourceFilter === 'TN Studio') {
+      matchSource = song.provider === 'TN Web MIDI Studio'
+    }
+
+    return matchSearch && matchSource
   })
 
   // Handle previewing a market song
@@ -202,8 +220,8 @@ export default function MidiMarketPage() {
           <MarketCatalogControls
             search={search}
             setSearch={setSearch}
-            categoryFilter={categoryFilter}
-            setCategoryFilter={setCategoryFilter}
+            sourceFilter={sourceFilter}
+            setSourceFilter={setSourceFilter}
           />
 
           <SongsGrid

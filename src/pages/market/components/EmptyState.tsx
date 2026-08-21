@@ -11,11 +11,9 @@ export function EmptyState({ searchQuery }: EmptyStateProps) {
 
   const googleSearchUrl = searchQuery
     ? `https://www.google.com/search?q=${encodeURIComponent(searchQuery + ' piano midi file download')}`
-    : 'https://bitmidi.com'
+    : 'https://tnclubmanagement.github.io/tnclub-bitmidi/'
 
-  const bitmidiSearchUrl = searchQuery
-    ? `https://bitmidi.com/search?q=${encodeURIComponent(searchQuery)}`
-    : 'https://bitmidi.com'
+  const tnMidiStudioUrl = 'https://tnclubmanagement.github.io/tnclub-bitmidi/'
 
   return (
     <div
@@ -47,13 +45,13 @@ export function EmptyState({ searchQuery }: EmptyStateProps) {
 
       <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
         <a
-          href={bitmidiSearchUrl}
+          href={tnMidiStudioUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="bg-primary text-primary-foreground inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold shadow-md transition-transform hover:scale-105"
         >
           <Search className="h-3.5 w-3.5" />
-          <span>Tìm "{searchQuery || 'MIDI'}" trên BitMidi (110k+ bài)</span>
+          <span>Khám phá kho MIDI trên TN Web MIDI Studio</span>
           <ExternalLink className="h-3.5 w-3.5" />
         </a>
 

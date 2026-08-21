@@ -61,7 +61,10 @@ export function MidiModal(props: MidiModalProps) {
           }}
         />
         <div className={styles.body}>
-          <MidiSection label={t('play.midi.inputs')} icon={<KeyboardMusic className="h-4 w-4 text-white/40" />}>
+          <MidiSection
+            label={t('play.midi.inputs')}
+            icon={<KeyboardMusic className="h-4 w-4 text-white/40" />}
+          >
             <DeviceList
               emptyState={{
                 icon: <KeyboardMusic className="h-5 w-5 text-white/45" />,
@@ -73,7 +76,9 @@ export function MidiModal(props: MidiModalProps) {
                   ? Array.from(inputs.values()).map((device: MIDIInput) => ({
                       id: device.id,
                       name: device.name ?? t('play.midi.unknown_device'),
-                      sublabel: device.manufacturer ? device.manufacturer : t('play.midi.usb_connection'),
+                      sublabel: device.manufacturer
+                        ? device.manufacturer
+                        : t('play.midi.usb_connection'),
                       enabled: enabledInputIds.has(device.id),
                       onToggle: async () => {
                         if (enabledInputIds.has(device.id)) {
@@ -87,7 +92,10 @@ export function MidiModal(props: MidiModalProps) {
               }
             />
           </MidiSection>
-          <MidiSection label={t('play.midi.outputs')} icon={<Speaker className="h-4 w-4 text-white/40" />}>
+          <MidiSection
+            label={t('play.midi.outputs')}
+            icon={<Speaker className="h-4 w-4 text-white/40" />}
+          >
             <DeviceList
               emptyState={{
                 icon: <Speaker className="h-5 w-5 text-white/45" />,
@@ -113,7 +121,9 @@ export function MidiModal(props: MidiModalProps) {
                       ...Array.from(outputs.values()).map((device) => ({
                         id: device.id,
                         name: device.name ?? t('play.midi.unknown_device'),
-                        sublabel: device.manufacturer ? device.manufacturer : t('play.midi.hardware_port'),
+                        sublabel: device.manufacturer
+                          ? device.manufacturer
+                          : t('play.midi.hardware_port'),
                         enabled: enabledOutputIds.has(device.id),
                         onToggle: async () => {
                           if (enabledOutputIds.has(device.id)) {
@@ -215,14 +225,14 @@ function DeviceRow({ device }: { device: DeviceItem }) {
         <span className={styles.deviceName}>{device.name}</span>
         <span className={styles.deviceSublabel}>{device.sublabel}</span>
       </div>
-      <div className="flex items-center min-h-[40px] shrink-0">
+      <div className="flex min-h-[40px] shrink-0 items-center">
         <Switch
           isSelected={device.enabled}
           onChange={() => {
             device.onToggle()
           }}
           size="lg"
-          className="text-white/60 cursor-pointer"
+          className="cursor-pointer text-white/60"
         >
           <span className="sr-only">Toggle {device.name}</span>
         </Switch>

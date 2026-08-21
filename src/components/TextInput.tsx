@@ -34,11 +34,7 @@ export function TextInput({
       data-element-id={resolvedElementId}
       data-ui={dataUi}
       data-testid={dataTestId}
-      className={clsx(
-        styles.input,
-        error && styles.error,
-        className,
-      )}
+      className={clsx(styles.input, error && styles.error, className)}
     />
   )
 }

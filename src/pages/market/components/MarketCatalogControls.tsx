@@ -3,22 +3,30 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styles from '../market.module.css'
 
+export type SourceFilterType = 'All' | 'Local' | 'TN Studio'
+
 interface MarketCatalogControlsProps {
   search: string
   setSearch: (val: string) => void
-  categoryFilter: string
-  setCategoryFilter: (cat: string) => void
-  categories?: string[]
+  sourceFilter: SourceFilterType
+  setSourceFilter: (filter: SourceFilterType) => void
 }
 
-const DEFAULT_CATEGORIES = ['All', 'Classical', 'Game OST', 'Jazz']
+const SOURCE_FILTERS: { id: SourceFilterType; labelKey: string; defaultLabel: string }[] = [
+  { id: 'All', labelKey: 'market.controls.sources.all', defaultLabel: 'Tất cả kho nhạc' },
+  { id: 'Local', labelKey: 'market.controls.sources.local', defaultLabel: 'Bài hát có sẵn' },
+  {
+    id: 'TN Studio',
+    labelKey: 'market.controls.sources.tnStudio',
+    defaultLabel: 'Trên TN Web MIDI Studio',
+  },
+]
 
 export function MarketCatalogControls({
   search,
   setSearch,
-  categoryFilter,
-  setCategoryFilter,
-  categories = DEFAULT_CATEGORIES,
+  sourceFilter,
+  setSourceFilter,
 }: MarketCatalogControlsProps) {
   const { t } = useTranslation()
 
@@ -46,21 +54,20 @@ export function MarketCatalogControls({
         />
       </div>
 
-      {/* Category Filter Chips */}
-      <div className="flex flex-wrap items-center gap-1.5" data-ui="market-category-filters">
-        {categories.map((cat) => {
-          const isActive = categoryFilter === cat
-          const labelKey = `market.controls.categories.${cat}`
-          const label = t(labelKey, cat === 'All' ? 'Tất cả Thể loại' : cat)
+      {/* Source Filter Chips */}
+      <div className="flex flex-wrap items-center gap-1.5" data-ui="market-source-filters">
+        {SOURCE_FILTERS.map((filterItem) => {
+          const isActive = sourceFilter === filterItem.id
+          const label = t(filterItem.labelKey, filterItem.defaultLabel)
 
           return (
             <button
-              key={cat}
-              onClick={() => setCategoryFilter(cat)}
+              key={filterItem.id}
+              onClick={() => setSourceFilter(filterItem.id)}
               className={isActive ? styles.categoryPillActive : styles.categoryPillInactive}
-              data-element-id={`market-category-filter-${cat.toLowerCase().replace(/\s+/g, '-')}`}
-              data-action={`filter-category-${cat.toLowerCase()}`}
-              data-ui="market-category-filters"
+              data-element-id={`market-source-filter-${filterItem.id.toLowerCase().replace(/\s+/g, '-')}`}
+              data-action={`filter-source-${filterItem.id.toLowerCase()}`}
+              data-ui="market-source-filters"
             >
               {label}
             </button>

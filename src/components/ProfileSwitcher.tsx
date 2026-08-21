@@ -36,7 +36,7 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
           setIsOpen(true)
         }}
         className={clsx(
-          'group flex items-center justify-center cursor-pointer rounded-full text-xs font-semibold shadow-sm transition-all duration-300 outline-none',
+          'group flex cursor-pointer items-center justify-center rounded-full text-xs font-semibold shadow-sm transition-all duration-300 outline-none',
           'border-border bg-card/80 text-foreground border backdrop-blur-md',
           'hover:border-primary/50 hover:bg-muted hover:shadow-[0_0_15px_hsl(var(--primary)/0.25)]',
           'focus:ring-primary/40 focus:ring-2',
@@ -54,17 +54,11 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
         )}
       </button>
 
-      <Modal
-        show={isOpen}
-        onClose={() => setIsOpen(false)}
-        modalClassName="max-w-sm"
-      >
+      <Modal show={isOpen} onClose={() => setIsOpen(false)} modalClassName="max-w-sm">
         <div className="space-y-4">
-          <div className="flex items-center gap-2 border-b border-border pb-3">
+          <div className="border-border flex items-center gap-2 border-b pb-3">
             <User className="text-primary h-5 w-5" />
-            <h3 className="text-lg font-bold text-foreground">
-              {t('settings.profiles')}
-            </h3>
+            <h3 className="text-foreground text-lg font-bold">{t('settings.profiles')}</h3>
           </div>
 
           {/* PROFILES SECTION */}

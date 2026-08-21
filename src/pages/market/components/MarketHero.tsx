@@ -112,7 +112,10 @@ export function MarketHero({
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
             {[
-              { name: 'BitMidi (Kho 110k+ MIDI)', url: 'https://bitmidi.com' },
+              {
+                name: 'TN Web MIDI Studio',
+                url: 'https://tnclubmanagement.github.io/tnclub-bitmidi/',
+              },
               { name: 'Mutopia Classical', url: 'https://www.mutopiaproject.org' },
               { name: 'Ichigos Anime MIDI', url: 'https://ichigos.com' },
             ].map((portal) => (

@@ -24,10 +24,7 @@ export function SearchBox({ value, onSearch, placeholder, autoFocus }: SearchBox
         placeholder={placeholder}
         autoFocus={autoFocus}
       />
-      <Search
-        size={18}
-        className={styles.searchIcon}
-      />
+      <Search size={18} className={styles.searchIcon} />
     </div>
   )
 }

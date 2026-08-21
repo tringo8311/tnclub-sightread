@@ -104,20 +104,14 @@ export default function SelectSongPage() {
       >
         <ManageFoldersForm onClose={() => setIsFolderModalOpen(false)} />
       </Modal>
-      <div
-        data-ui="songs-page"
-        data-component="SelectSongPage"
-        className={styles.pageContainer}
-      >
+      <div data-ui="songs-page" data-component="SelectSongPage" className={styles.pageContainer}>
         <div className={styles.headerWrapper}>
           <AppBar />
         </div>
         <div className={styles.contentWrapper}>
           <div className={styles.headerSection}>
             <div>
-              <h2 className={styles.titleText}>
-                {t('home.learn_song')}
-              </h2>
+              <h2 className={styles.titleText}>{t('home.learn_song')}</h2>
               <Sizer height={4} />
               <h3 className={styles.subtitleText}>{t('songs.subtitle')}</h3>
             </div>

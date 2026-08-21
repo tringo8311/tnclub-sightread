@@ -2,11 +2,11 @@ import clsx from 'clsx'
 import { Check, ChevronDown, LoaderCircle } from 'lucide-react'
 import React from 'react'
 import {
+  ListBoxItem as AriaListBoxItem,
   Select as AriaSelect,
   SelectProps as AriaSelectProps,
   Button,
   ListBox,
-  ListBoxItem as AriaListBoxItem,
   ListBoxItemProps,
   SelectValue,
   ValidationResult,
