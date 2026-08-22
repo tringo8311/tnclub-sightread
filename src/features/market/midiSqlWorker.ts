@@ -42,6 +42,22 @@ export async function createMidiWorker(
     window.location.origin,
   ).toString()
 
+  // Tải metadata kích thước file từ master_index.json để tránh lỗi "Length of the file not known" do GitHub Pages bật Content-Encoding: gzip
+  let fileLength = 4681728
+  try {
+    const metaUrl = new URL(
+      `${base}/db/master_index.json`.replace(/^\/\//, '/'),
+      window.location.origin,
+    ).toString()
+    const res = await fetch(metaUrl)
+    if (res.ok) {
+      const data = await res.json()
+      if (data[0]?.size) fileLength = data[0].size
+    }
+  } catch (err) {
+    console.warn('Could not fetch master_index.json, using default size', err)
+  }
+
   const worker = await createDbWorker(
     [
       {
@@ -50,6 +66,7 @@ export async function createMidiWorker(
           serverMode: 'full',
           url: dbUrl,
           requestChunkSize: 4096,
+          fileLength,
         },
       },
     ],

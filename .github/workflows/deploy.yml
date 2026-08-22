@@ -34,8 +34,10 @@ jobs:
       - name: Build static site
         run: bun run build
 
-      - name: Copy index.html to 404.html for SPA fallback
-        run: cp build/client/index.html build/client/404.html
+      - name: Copy index.html to 404.html for SPA fallback & create .nojekyll
+        run: |
+          cp build/client/index.html build/client/404.html
+          touch build/client/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
