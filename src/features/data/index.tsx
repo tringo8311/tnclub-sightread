@@ -6,7 +6,11 @@ import useSWRImmutable from 'swr/immutable'
 import * as persistence from '../persist/persistence'
 
 async function handleSong(response: Response): Promise<Song> {
-  return response.arrayBuffer().then((buf) => parseMidi(new Uint8Array(buf)))
+  if (!response.ok) {
+    throw new Error(`Failed to load MIDI file: HTTP ${response.status} ${response.statusText}`)
+  }
+  const buf = await response.arrayBuffer()
+  return parseMidi(new Uint8Array(buf))
 }
 
 function getBuiltinSongUrl(id: string) {
@@ -32,7 +36,7 @@ async function fetchSong(id: string, source: SongSource): Promise<Song> {
   } else if (source === 'market') {
     // If it is a market song with direct URL or relative URL
     let url = id
-    if (!id.startsWith('http')) {
+    if (!id.startsWith('http://') && !id.startsWith('https://')) {
       const cleanPath = id.startsWith('/') ? id.slice(1) : id
       url = `${baseUrl}${cleanPath}`
     }

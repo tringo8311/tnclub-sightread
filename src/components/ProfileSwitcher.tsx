@@ -58,17 +58,17 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
         <div className="space-y-4">
           <div className="border-border flex items-center gap-2 border-b pb-3">
             <User className="text-primary h-5 w-5" />
-            <h3 className="text-foreground text-lg font-bold">{t('settings.profiles')}</h3>
+            <h3 className="text-foreground text-base font-semibold">{t('settings.profiles')}</h3>
           </div>
 
           {/* PROFILES SECTION */}
           <div className="border-border bg-muted/40 rounded-xl border p-3">
-            <div className="text-muted-foreground flex items-center justify-between px-1 py-0.5 text-[11px] font-bold tracking-wider uppercase">
+            <div className="text-muted-foreground flex items-center justify-between px-1 py-0.5 text-[11px] font-medium tracking-wider uppercase">
               <span className="text-foreground flex items-center gap-1.5">
                 <User size={13} className="text-primary" />
                 {t('settings.profiles')}
               </span>
-              <span className="bg-primary/15 text-primary rounded-full px-2 py-0.5 text-[10px] font-bold">
+              <span className="bg-primary/15 text-primary rounded-full px-2 py-0.5 text-[10px] font-medium">
                 {profiles.length}
               </span>
             </div>
@@ -83,14 +83,14 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
                     className={clsx(
                       'group flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all duration-200 outline-none',
                       isActive
-                        ? 'bg-primary text-primary-foreground font-bold shadow-sm'
+                        ? 'bg-primary text-primary-foreground font-medium shadow-sm'
                         : 'text-foreground/80 hover:bg-foreground/10 hover:text-foreground',
                     )}
                   >
                     <div className="flex min-w-0 items-center gap-2 pr-2">
                       <div
                         className={clsx(
-                          'flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-bold',
+                          'flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold',
                           isActive
                             ? 'bg-primary-foreground/20 text-primary-foreground'
                             : 'bg-foreground/10 text-foreground/70 group-hover:bg-foreground/20 group-hover:text-foreground',
@@ -116,7 +116,7 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
                     setActiveProfileId(id)
                   }
                 }}
-                className="border-primary/40 bg-primary/10 text-primary hover:border-primary hover:bg-primary/20 mt-2 flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-dashed px-3 py-1.5 text-xs font-semibold transition-all outline-none"
+                className="border-primary/40 bg-primary/10 text-primary hover:border-primary hover:bg-primary/20 mt-2 flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-dashed px-3 py-1.5 text-xs font-medium transition-all outline-none"
               >
                 <Plus size={13} />
                 {t('settings.add_new_profile')}
@@ -126,9 +126,9 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
 
           {/* FONT SIZE SETTING */}
           <div>
-            <div className="text-muted-foreground flex items-center justify-between px-1 py-1 text-xs font-semibold tracking-wider uppercase">
+            <div className="text-muted-foreground flex items-center justify-between px-1 py-1 text-xs font-medium tracking-wider uppercase">
               <span>{t('settings.font_size')}</span>
-              <span className="text-primary font-mono font-bold normal-case">
+              <span className="text-primary font-mono font-semibold normal-case">
                 {(fontSize / 16).toFixed(3).replace(/\.?0+$/, '')}rem
               </span>
             </div>
@@ -151,7 +151,7 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
                     className={clsx(
                       'cursor-pointer rounded px-2.5 py-1 text-xs font-medium transition',
                       fontSize === sizeVal
-                        ? 'bg-primary text-primary-foreground font-bold'
+                        ? 'bg-primary text-primary-foreground font-semibold'
                         : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10',
                     )}
                   >
@@ -190,7 +190,7 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
 
           {/* THEME SETTING */}
           <div>
-            <div className="text-muted-foreground px-1 py-1 text-xs font-semibold tracking-wider uppercase">
+            <div className="text-muted-foreground px-1 py-1 text-xs font-medium tracking-wider uppercase">
               {t('settings.theme')}
             </div>
             <div className="mt-1 grid grid-cols-2 gap-1.5">
@@ -202,7 +202,7 @@ export function ProfileSwitcher({ onOpen, isCompact = false }: ProfileSwitcherPr
                   className={clsx(
                     'flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition outline-none',
                     theme === tOpt
-                      ? 'bg-primary/20 text-foreground border-primary/30 border font-bold'
+                      ? 'bg-primary/20 text-foreground border-primary/30 border font-semibold'
                       : 'text-foreground/75 hover:bg-foreground/10 hover:text-foreground border border-transparent',
                   )}
                 >

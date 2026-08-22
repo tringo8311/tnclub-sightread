@@ -9,6 +9,7 @@ import {
 import { useAtomValue } from 'jotai'
 import { ListMusic, Music, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type PlaylistManagerModalProps = {
   onClose: () => void
@@ -19,6 +20,7 @@ export default function PlaylistManagerModal({
   onClose,
   songTitleMap = new Map(),
 }: PlaylistManagerModalProps) {
+  const { t } = useTranslation()
   const activeProfileId = useAtomValue(activeProfileIdAtom)
   const allPlaylistsMap = useAtomValue(playlistsAtom)
   const playlists = allPlaylistsMap[activeProfileId] || []
@@ -59,8 +61,12 @@ export default function PlaylistManagerModal({
             <ListMusic className="h-6 w-6" />
           </div>
           <div>
-            <h2 className="text-foreground text-xl font-bold">Quản Lý Danh Sách Phát</h2>
-            <p className="text-muted-foreground text-xs">Tạo và phân loại bài hát theo playlist</p>
+            <h2 className="text-foreground text-xl font-semibold">
+              {t('songs.playlistModal.title', 'Playlist Management')}
+            </h2>
+            <p className="text-muted-foreground text-xs">
+              {t('songs.playlistModal.subtitle', 'Create and organize songs by playlist')}
+            </p>
           </div>
         </div>
       </div>
@@ -69,8 +75,11 @@ export default function PlaylistManagerModal({
         {/* Playlist List Column */}
         <div className="space-y-3 md:col-span-5">
           <div className="flex items-center justify-between">
-            <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
-              Danh sách ({playlists.length})
+            <span className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
+              {t('songs.playlistModal.listTitle', {
+                count: playlists.length,
+                defaultValue: `Playlists (${playlists.length})`,
+              })}
             </span>
             <Button
               variant="outline"
@@ -82,7 +91,7 @@ export default function PlaylistManagerModal({
               className="border-primary/30 text-primary hover:bg-primary/10 text-xs"
             >
               <Plus className="mr-1 h-3.5 w-3.5" />
-              Tạo mới
+              {t('songs.playlistModal.createBtn', 'Create')}
             </Button>
           </div>
 
@@ -93,7 +102,7 @@ export default function PlaylistManagerModal({
               className="border-border bg-foreground/5 space-y-3 rounded-xl border p-3 shadow-inner"
             >
               <TextInput
-                placeholder="Tên danh sách phát..."
+                placeholder={t('songs.playlistModal.titlePlaceholder', 'Playlist name...')}
                 value={newTitle}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewTitle(e.target.value)}
                 elementId="playlist-new-title-input"
@@ -102,7 +111,10 @@ export default function PlaylistManagerModal({
                 className="w-full text-xs"
               />
               <TextInput
-                placeholder="Mô tả ngắn (tùy chọn)..."
+                placeholder={t(
+                  'songs.playlistModal.descPlaceholder',
+                  'Short description (optional)...',
+                )}
                 value={newDesc}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewDesc(e.target.value)}
                 elementId="playlist-new-desc-input"
@@ -119,7 +131,7 @@ export default function PlaylistManagerModal({
                   onClick={() => setIsCreating(false)}
                   className="text-xs"
                 >
-                  Hủy
+                  {t('songs.playlistModal.cancel', 'Cancel')}
                 </Button>
                 <Button
                   type="submit"
@@ -129,7 +141,7 @@ export default function PlaylistManagerModal({
                   data-ui="playlist-modal"
                   className="text-xs"
                 >
-                  Tạo Playlist
+                  {t('songs.playlistModal.confirmCreate', 'Create Playlist')}
                 </Button>
               </div>
             </form>
@@ -138,7 +150,7 @@ export default function PlaylistManagerModal({
           <div className="max-h-[320px] space-y-1.5 overflow-y-auto pr-1">
             {playlists.length === 0 ? (
               <div className="border-border/60 text-muted-foreground rounded-xl border border-dashed py-8 text-center text-xs">
-                Chưa có danh sách phát nào
+                {t('songs.playlistModal.empty', 'No playlists created yet')}
               </div>
             ) : (
               playlists.map((pl) => {
@@ -156,9 +168,12 @@ export default function PlaylistManagerModal({
                     }`}
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-semibold">{pl.name}</p>
+                      <p className="truncate font-medium">{pl.name}</p>
                       <p className="text-muted-foreground text-[10px]">
-                        {pl.songIds.length} bài hát
+                        {t('songs.playlistModal.songsCount', {
+                          count: pl.songIds.length,
+                          defaultValue: `${pl.songIds.length} ${pl.songIds.length === 1 ? 'song' : 'songs'}`,
+                        })}
                       </p>
                     </div>
                     <Button
@@ -187,7 +202,7 @@ export default function PlaylistManagerModal({
           {selectedPlaylist ? (
             <>
               <div>
-                <h3 className="text-foreground text-base font-bold">{selectedPlaylist.name}</h3>
+                <h3 className="text-foreground text-base font-semibold">{selectedPlaylist.name}</h3>
                 {selectedPlaylist.description && (
                   <p className="text-muted-foreground mt-0.5 text-xs">
                     {selectedPlaylist.description}
@@ -199,7 +214,7 @@ export default function PlaylistManagerModal({
                 {selectedPlaylist.songIds.length === 0 ? (
                   <div className="text-muted-foreground flex flex-col items-center justify-center py-12 text-center text-xs">
                     <Music className="text-primary mb-2 h-8 w-8 opacity-30" />
-                    Chưa có bài hát nào trong playlist này.
+                    {t('songs.playlistModal.emptyPlaylist', 'No songs in this playlist yet.')}
                   </div>
                 ) : (
                   selectedPlaylist.songIds.map((songId) => {
@@ -234,7 +249,7 @@ export default function PlaylistManagerModal({
             </>
           ) : (
             <div className="text-muted-foreground flex h-full flex-col items-center justify-center text-center text-xs">
-              Chọn hoặc tạo một playlist để xem các bài hát
+              {t('songs.playlistModal.selectPrompt', 'Select or create a playlist to view songs')}
             </div>
           )}
         </div>

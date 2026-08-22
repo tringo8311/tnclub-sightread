@@ -29,7 +29,7 @@ export function DirectUrlForm({
           onChange={(e) => setUrlInput(e.target.value)}
           placeholder={t(
             'market.directUrl.placeholder',
-            'Dán đường dẫn (.mid / .midi) công khai từ Internet...',
+            'Paste a public .mid / .midi link from the internet...',
           )}
           className={styles.directInput}
           aria-label={t('market.directUrl.ariaLabel', 'Direct MIDI URL input')}
@@ -45,9 +45,12 @@ export function DirectUrlForm({
           elementId="market-direct-url-submit"
           data-ui="market-direct-url-form"
           action="lookup-midi-url"
-          description={t('market.directUrl.submitDescription', 'Tải và xem thử file MIDI từ URL')}
+          description={t(
+            'market.directUrl.submitDescription',
+            'Download and preview MIDI file from URL',
+          )}
         >
-          {t('market.directUrl.submit', 'Tra cứu & Xem')}
+          {t('market.directUrl.submit', 'Lookup & Preview')}
         </Button>
       </form>
       {urlError && <p className="mt-2 text-left text-xs text-red-400">{urlError}</p>}

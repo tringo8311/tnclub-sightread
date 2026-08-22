@@ -1,13 +1,29 @@
 {
   "title": "Piano Encyclopedia & Music Theory Guide",
   "subtitle": "Discover the rich history, craftsmanship, legendary piano makers, and core music theory fundamentals.",
+  "history_page": {
+    "title": "Piano History & Encyclopedia",
+    "badge": "Piano Art, History & Craftsmanship",
+    "heroTitle": "Journey of ",
+    "heroTitleHighlight": "The Piano Through the Centuries",
+    "heroSubtitle": "Discover the evolutionary history from the Harpsichord to modern Grand Pianos, master craftsmanship, and legendary piano brands.",
+    "allTabs": "All Encyclopedia"
+  },
+  "hero": {
+    "badge": "Piano Music Theory & Encyclopedia",
+    "title": "Music Theory Foundations & ",
+    "titleHighlight": "Chord & Scale Lookup",
+    "subtitle": "Master clefs (Treble/Bass), note values, accidentals, time signatures (2/4, 3/4, 4/4, 6/8), and interactive chord/scale finder with standard fingerings."
+  },
   "tabs": {
-    "all": "All Overview",
+    "all": "All Theory",
+    "fundamentals": "Music Fundamentals",
+    "time_signatures": "Time Signatures (2/4, 3/4, 4/4)",
+    "chords": "Chords & Scales",
     "history": "History & Evolution",
     "types": "Piano Types",
     "craftsmanship": "Craftsmanship & Anatomy",
-    "brands": "Legendary Brands",
-    "fundamentals": "Music Fundamentals"
+    "brands": "Legendary Brands"
   },
   "history": {
     "title": "History & Evolution of the Piano",
@@ -111,6 +127,7 @@
     "half": "Half note: 2 beats",
     "quarter": "Quarter note: 1 beat",
     "eighth": "Eighth note: 1/2 beat",
+    "sixteenth": "Sixteenth note: 1/4 beat",
     "keyboard_title": "Standard 88-Key Layout",
     "keyboard_desc": "Comprises 52 white keys and 36 black keys arranged in groups of 2 and 3 black keys.",
     "middle_c_title": "Middle C (C4)",
@@ -127,6 +144,139 @@
     "accidentals_title": "Accidentals & Semitones",
     "sharp": "Sharp (#): Raises pitch by a semitone (half-step to adjacent right key).",
     "flat": "Flat (b): Lowers pitch by a semitone (half-step to adjacent left key).",
-    "natural": "Natural (♮): Cancels a sharp or flat, returning to natural pitch."
+    "natural": "Natural (♮): Cancels a sharp or flat, returning to natural pitch.",
+    "staff_visual_title": "Visual Note Position on Staff:",
+    "clefs_treble_desc": "Higher pitch range, played with the right hand.",
+    "clefs_bass_desc": "Lower pitch range, played with the left hand.",
+    "solfege": {
+      "0": "Do",
+      "1": "Do# / Reb",
+      "2": "Re",
+      "3": "Re# / Mib",
+      "4": "Mi",
+      "5": "Fa",
+      "6": "Fa# / Solb",
+      "7": "Sol",
+      "8": "Sol# / Lab",
+      "9": "La",
+      "10": "La# / Tib",
+      "11": "Ti"
+    },
+    "replay_sound": "Play sound for this note"
+  },
+  "time_signatures": {
+    "title": "Time Signatures & Rhythm Structure",
+    "subtitle": "Understanding measure pulses, accents, and beat values (2/4, 3/4, 4/4, 6/8)",
+    "top_num_title": "Top Number (Numerator)",
+    "top_num_desc": "Indicates the exact number of beats in each measure (bar).",
+    "bottom_num_title": "Bottom Number (Denominator)",
+    "bottom_num_desc": "Indicates which note value equals one beat (4 = Quarter note, 8 = Eighth note).",
+    "ts24_title": "2/4 Time Signature (March Rhythm)",
+    "ts24_desc": "2 quarter beats per measure. Strong - Weak pulse pattern.",
+    "ts34_title": "3/4 Time Signature (Waltz Rhythm)",
+    "ts34_desc": "3 quarter beats per measure. Strong - Weak - Weak pulse pattern.",
+    "ts44_title": "4/4 Time Signature (Common Time 'C')",
+    "ts44_desc": "4 quarter beats per measure. Strong - Weak - Medium - Weak pattern.",
+    "ts68_title": "6/8 Time Signature (Compound Meter)",
+    "ts68_desc": "6 eighth beats divided into 2 groups of 3 (1-2-3, 4-5-6). Flowing ballad rhythm."
+  },
+  "chords_scales": {
+    "title": "Piano Chords & Scales Finder",
+    "subtitle": "Look up chord notes, intervals, finger numbers, and hear live audio playback",
+    "root_select": "1. Select Root Note:",
+    "chord_select": "2. Select Chord Type:",
+    "scale_select": "2. Select Scale Type:",
+    "play_chord": "Play Chord",
+    "play_arpeggio": "Play Arpeggio",
+    "play_scale": "Play Scale",
+    "play_all": "Play All",
+    "formula_label": "Formula:",
+    "rh_fingering": "RH Fingering (Right Hand):",
+    "lh_fingering": "LH Fingering (Left Hand):",
+    "notes_in_chord": "Notes in Chord:",
+    "tab_chords": "Chords",
+    "tab_scales": "Scales",
+    "fingering_title": "3. Keyboard Diagram & Fingering:",
+    "hand_lh": "Left Hand (LH)",
+    "hand_rh": "Right Hand (RH)",
+    "hand_both": "Both Hands (RH + LH)",
+    "fingering_legend": "Fingering notation:",
+    "finger_thumb": "1: Thumb",
+    "finger_index": "2: Index",
+    "finger_middle": "3: Middle",
+    "finger_ring": "4: Ring",
+    "finger_pinky": "5: Pinky",
+    "items": {
+      "major": {
+        "name": "Major",
+        "fullName": "Major Triad",
+        "desc": "Bright and uplifting triad chord, the foundation of classical and modern music."
+      },
+      "minor": {
+        "name": "Minor",
+        "fullName": "Minor Triad",
+        "desc": "Melancholic and smooth triad chord featuring a mellow minor third."
+      },
+      "dom7": {
+        "name": "Dominant 7th",
+        "fullName": "Dominant Seventh Chord",
+        "desc": "Tense bluesy seventh chord that resolves naturally to the tonic."
+      },
+      "maj7": {
+        "name": "Major 7th",
+        "fullName": "Major Seventh Chord",
+        "desc": "Lush and dreamy jazz harmony with an elegant major seventh interval."
+      },
+      "min7": {
+        "name": "Minor 7th",
+        "fullName": "Minor Seventh Chord",
+        "desc": "Warm, emotional, and versatile chord widely used in Jazz, R&B, and Pop."
+      },
+      "dim": {
+        "name": "Diminished",
+        "fullName": "Diminished Triad",
+        "desc": "High tension and suspenseful diminished chord composed of minor thirds."
+      },
+      "aug": {
+        "name": "Augmented",
+        "fullName": "Augmented Triad",
+        "desc": "Dreamlike, floating, and expansive augmented harmony."
+      },
+      "sus4": {
+        "name": "Suspended 4th (Sus4)",
+        "fullName": "Suspended Fourth Chord",
+        "desc": "Open and suspenseful harmony that replaces the third with a perfect fourth."
+      },
+      "major_scale": {
+        "name": "Major Scale",
+        "fullName": "Natural Major Scale",
+        "desc": "Bright, uplifting, and fundamental scale of Western music theory."
+      },
+      "natural_minor": {
+        "name": "Natural Minor",
+        "fullName": "Natural Minor Scale",
+        "desc": "Classical minor scale with a somber, emotional tonal color."
+      },
+      "harmonic_minor": {
+        "name": "Harmonic Minor",
+        "fullName": "Harmonic Minor Scale",
+        "desc": "Raised 7th degree creating an exotic, dramatic Middle Eastern flavor."
+      },
+      "melodic_minor": {
+        "name": "Melodic Minor",
+        "fullName": "Melodic Minor Scale",
+        "desc": "Raised 6th and 7th degrees ascending, widely used in Jazz improvisation."
+      },
+      "major_pentatonic": {
+        "name": "Major Pentatonic",
+        "fullName": "Major Pentatonic Scale (5 Notes)",
+        "desc": "Traditional Asian folk scale, sweet and very easy to improvise."
+      },
+      "minor_pentatonic": {
+        "name": "Minor Pentatonic",
+        "fullName": "Minor Pentatonic Scale (5 Notes)",
+        "desc": "The quintessential foundation for Rock, Blues, and Jazz solos."
+      }
+    }
   }
 }

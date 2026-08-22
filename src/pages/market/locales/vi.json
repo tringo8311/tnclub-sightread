@@ -1,8 +1,12 @@
 {
   "hero": {
     "badge": "MIDI Hub & Nhập nhạc trực tiếp",
-    "title": "Thư Viện Nhạc MIDI Thực Hành Piano",
-    "description": "Khám phá bộ sưu tập bản nhạc MIDI Piano tuyển chọn hoặc dán trực tiếp đường dẫn file .mid công khai để thực hành đọc nốt ngay lập tức."
+    "title": "Thư Viện & Trung Tâm Tải Nhạc MIDI Piano",
+    "description": "Tải file `.mid` từ máy tính, kéo thả bài hát của bạn hoặc dán đường dẫn công khai để xem và thực hành luyện đọc nốt nhạc ngay lập tức.",
+    "dropTitle": "Kéo & Thả File MIDI (.mid / .midi) vào đây",
+    "dropOr": "hoặc ",
+    "dropBrowse": "bấm để chọn file từ máy tính của bạn",
+    "portalsHeading": "🌐 Kho Nguồn Tải File MIDI Miễn Phí Uy Tín"
   },
   "directUrl": {
     "placeholder": "Dán đường dẫn (.mid / .midi) công khai từ Internet...",
@@ -14,22 +18,27 @@
   "controls": {
     "searchPlaceholder": "Tìm kiếm tác phẩm, tác giả hoặc thẻ...",
     "searchAriaLabel": "Tìm kiếm các bản nhạc tuyển chọn",
-    "categories": {
-      "All": "Tất cả Thể loại",
-      "Classical": "Cổ điển",
-      "Game OST": "Game OST",
-      "Jazz": "Jazz"
+    "favorites": "Yêu thích",
+    "favoritesOnly": "Chỉ bài yêu thích",
+    "favoritesOnlyActive": "Đang hiển thị bài yêu thích",
+    "sources": {
+      "local": "Bài hát có sẵn",
+      "tnStudio": "Trên TN Web MIDI Studio"
     }
   },
   "empty": {
     "title": "Không tìm thấy bài hát MIDI nào",
-    "description": "Thử tìm kiếm với từ khóa khác hoặc lọc lại thể loại."
+    "description": "Thử tìm kiếm với từ khóa khác hoặc dán URL file .mid vào ô tìm kiếm ở trên.",
+    "searchNotFound": "Không tìm thấy kết quả cho từ khóa \"{{query}}\". Bạn có thể tìm nhanh trên các kho MIDI mở bên dưới và dán liên kết vào app!",
+    "portalCta": "Khám phá kho MIDI trên TN Web MIDI Studio",
+    "googleCta": "Tra cứu trên Google MIDI"
   },
   "songCard": {
     "preview": "Xem thử",
+    "playNow": "Luyện tập",
     "downloadTooltip": "Tải file .mid về máy",
-    "saved": "Đã lưu",
-    "saveToApp": "Thêm vào App",
+    "favoriteAdd": "Thêm vào yêu thích",
+    "favoriteRemove": "Bỏ yêu thích",
     "previewDescription": "Xem thử bản nhạc {{title}}"
   }
 }

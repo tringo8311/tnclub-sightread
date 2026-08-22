@@ -16,8 +16,8 @@ import {
 export default function AboutPage() {
   const { t } = useTranslation()
   return (
-    <div className="bg-background text-foreground relative min-h-screen">
-      <title>{t('about.title', 'Giới thiệu')} | TNClub Sightread</title>
+    <div className="flex min-h-screen flex-col">
+      <title>{t('about.title', 'About')} | TNClub Sightread</title>
       <AppBar />
       <div className="w-full">
         <div className="mx-auto flex max-w-(--breakpoint-lg)">

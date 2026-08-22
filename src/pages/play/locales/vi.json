@@ -14,5 +14,19 @@
     "hardware_port": "Cổng phần cứng",
     "unknown_device": "Thiết bị không xác định",
     "close": "Đóng"
+  },
+  "micTest": {
+    "title": "Kiểm Tra Nhận Diện Microphone",
+    "statusListening": "Đang lắng nghe...",
+    "statusWaiting": "Sẵn sàng nhận diện cao độ nốt",
+    "threshold": "Ngưỡng âm lượng lọc nhiễu (Gate)",
+    "volume": "Âm lượng",
+    "turnOff": "Tắt Microphone",
+    "turnOn": "Bật Microphone",
+    "recording": "Đang ghi âm 3s...",
+    "debug": "Ghi âm & Nghe thử (Debug)",
+    "tipTitle": "💡 Khuyên dùng cho Người mới bắt đầu (Beginner)",
+    "tipBody": "Nhận diện Microphone chỉ là giải pháp tạm thời dành cho Đàn Piano cơ (Acoustic) hoặc khi chưa có dây nối. Để đạt độ chính xác 100% không độ trễ, hãy kết nối đàn qua USB MIDI hoặc Bluetooth MIDI!",
+    "close": "Đóng"
   }
 }

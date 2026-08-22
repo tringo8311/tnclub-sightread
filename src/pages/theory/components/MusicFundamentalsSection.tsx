@@ -1,7 +1,8 @@
+import { InteractivePianoKeyboard, type PianoKeyInfo } from '@/components'
+import { getPianoKeyInfo } from '@/components/InteractivePianoKeyboard'
 import { BookOpen, Clock, Music, Sliders, Sparkles, Volume2 } from 'lucide-react'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { KeyData, PIANO_STRUCTURE } from './pianoData'
 
 function playPianoTone(freq: number) {
   try {
@@ -29,21 +30,12 @@ function playPianoTone(freq: number) {
 
 export function MusicFundamentalsSection() {
   const { t } = useTranslation()
-  const [selectedKey, setSelectedKey] = useState<KeyData>(PIANO_STRUCTURE[7]) // Default C4 (Middle C)
+  const [selectedKey, setSelectedKey] = useState<PianoKeyInfo>(() => getPianoKeyInfo(60)) // Default C4 (Middle C)
   const [highlightMode, setHighlightMode] = useState<string>('all')
 
-  const handleKeyClick = (key: KeyData) => {
+  const handleKeyClick = (key: PianoKeyInfo) => {
     setSelectedKey(key)
     playPianoTone(key.freq)
-  }
-
-  // Filter keys based on highlight mode
-  const isKeyHighlighted = (key: KeyData) => {
-    if (highlightMode === 'middle_c') return key.name === 'C4'
-    if (highlightMode === 'treble') return key.clef === 'treble'
-    if (highlightMode === 'bass') return key.clef === 'bass'
-    if (highlightMode === 'black_keys') return key.isBlack
-    return true
   }
 
   return (
@@ -54,13 +46,13 @@ export function MusicFundamentalsSection() {
           <BookOpen className="h-6 w-6" />
         </div>
         <div>
-          <h2 className="text-foreground text-2xl font-bold tracking-tight md:text-3xl">
-            {t('theory.fundamentals.title', 'Căn Bản Nhạc Lý & Bàn Phím Piano')}
+          <h2 className="text-foreground text-2xl font-semibold tracking-tight md:text-3xl">
+            {t('theory.fundamentals.title', 'Music Theory Fundamentals & Keyboard')}
           </h2>
           <p className="text-muted-foreground text-xs md:text-sm">
             {t(
               'theory.fundamentals.subtitle',
-              'Nền tảng giúp bạn tự tin đọc bản nhạc và làm chủ bàn phím',
+              'Essential building blocks for reading sheet music and mastering the keyboard',
             )}
           </p>
         </div>
@@ -70,35 +62,48 @@ export function MusicFundamentalsSection() {
       <div className="glass-card space-y-6 overflow-hidden rounded-3xl border border-white/10 p-6 shadow-xl md:p-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1.5 text-xs font-semibold text-amber-400">
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1.5 text-xs font-medium text-amber-400">
               <Volume2 className="h-4 w-4" />
-              <span>Bàn Phím Piano Tương Tác & Âm Thanh Thật</span>
+              <span>
+                {t(
+                  'theory.fundamentals.interactive_keyboard_title',
+                  'Interactive Sound-Playing Piano Keyboard',
+                )}
+              </span>
             </div>
             <p className="text-muted-foreground mt-1 text-xs md:text-sm">
-              Click phím đàn bên dưới để nghe cao độ thực tế và xem vị trí hiển thị trên khuông
-              nhạc.
+              {t(
+                'theory.fundamentals.interactive_keyboard_subtitle',
+                'Click on keys below to listen to pitch sounds, view Hz frequencies, and see note placement on the musical staff.',
+              )}
             </p>
           </div>
 
           {/* Mode Selector Chips */}
           <div className="flex flex-wrap gap-1.5">
             {[
-              { id: 'all', label: t('theory.fundamentals.modes.all', 'Tất cả phím') },
+              { id: 'all', label: t('theory.fundamentals.modes.all', 'All Keys') },
               {
                 id: 'middle_c',
-                label: t('theory.fundamentals.modes.middle_c', 'Nốt Đô Giữa (C4)'),
+                label: t('theory.fundamentals.modes.middle_c', 'Middle C (C4)'),
               },
-              { id: 'treble', label: t('theory.fundamentals.modes.treble', 'Khóa Sol (Tay phải)') },
-              { id: 'bass', label: t('theory.fundamentals.modes.bass', 'Khóa Fa (Tay trái)') },
+              {
+                id: 'treble',
+                label: t('theory.fundamentals.modes.treble', 'Treble Clef (Right Hand)'),
+              },
+              {
+                id: 'bass',
+                label: t('theory.fundamentals.modes.bass', 'Bass Clef (Left Hand)'),
+              },
               {
                 id: 'black_keys',
-                label: t('theory.fundamentals.modes.black_keys', 'Cụm Phím Đen (2 & 3)'),
+                label: t('theory.fundamentals.modes.black_keys', 'Black Key Clusters (2 & 3)'),
               },
             ].map((m) => (
               <button
                 key={m.id}
                 onClick={() => setHighlightMode(m.id)}
-                className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
+                className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
                   highlightMode === m.id
                     ? 'bg-amber-400 text-black shadow-md'
                     : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10 hover:text-foreground'
@@ -111,15 +116,16 @@ export function MusicFundamentalsSection() {
         </div>
 
         {/* 2-Octave Glassmorphic Piano Keyboard */}
-        <div className="custom-scrollbar overflow-x-auto py-2 select-none">
-          <div className="relative mx-auto flex h-40 max-w-4xl min-w-[640px] justify-center rounded-2xl border border-white/10 bg-neutral-950 p-2.5 shadow-2xl">
-            <Interactive2DPianoKeyboard
-              selectedKey={selectedKey}
-              onKeyClick={handleKeyClick}
-              isKeyHighlighted={isKeyHighlighted}
-            />
-          </div>
-        </div>
+        <InteractivePianoKeyboard
+          startPitch={48}
+          endPitch={72}
+          selectedPitch={selectedKey.pitch}
+          onKeyClick={handleKeyClick}
+          highlightMode={highlightMode as any}
+          whiteKeyWidth={44}
+          heightClass="h-44"
+          className="mx-auto max-w-4xl shadow-2xl"
+        />
 
         {/* Dynamic Note Analysis HUD Grid */}
         <div className="grid gap-4 md:grid-cols-12">
@@ -127,21 +133,27 @@ export function MusicFundamentalsSection() {
           <div className="border-border bg-card/40 flex flex-col justify-between space-y-3 rounded-2xl border p-5 shadow-sm md:col-span-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/20 text-lg font-extrabold text-amber-400 shadow-sm">
+                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/20 text-lg font-semibold text-amber-400 shadow-sm">
                   {selectedKey.name}
                 </span>
                 <div>
-                  <h4 className="text-foreground font-bold">{selectedKey.labelVi}</h4>
+                  <h4 className="text-foreground font-semibold">
+                    {selectedKey.name} -{' '}
+                    {t(
+                      `theory.fundamentals.solfege.${selectedKey.pitch % 12}`,
+                      selectedKey.solfegeEn,
+                    )}
+                  </h4>
                   <span className="text-muted-foreground font-mono text-xs">
-                    MIDI Note: {selectedKey.midi} | {selectedKey.freq} Hz
+                    MIDI Note: {selectedKey.pitch} | {selectedKey.freq.toFixed(1)} Hz
                   </span>
                 </div>
               </div>
 
               <button
                 onClick={() => playPianoTone(selectedKey.freq)}
-                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-amber-500 font-bold text-black shadow-md transition hover:scale-105 active:scale-95"
-                title="Phát lại âm thanh nốt này"
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-amber-500 font-medium text-black shadow-md transition hover:scale-105 active:scale-95"
+                title={t('theory.fundamentals.replay_sound', 'Play sound for this note')}
               >
                 <Volume2 className="h-5 w-5" />
               </button>
@@ -150,20 +162,30 @@ export function MusicFundamentalsSection() {
             <div className="text-foreground/80 border-border/50 border-t pt-2 text-xs leading-relaxed">
               {selectedKey.name === 'C4' && (
                 <p className="font-medium text-amber-300">
-                  🌟 <strong>Nốt Đô Giữa (Middle C4):</strong> Mốc ranh giới quan trọng nằm giữa
-                  Khóa Sol và Khóa Fa.
+                  🌟 <strong>{t('theory.fundamentals.middle_c_title', 'Middle C (C4)')}:</strong>{' '}
+                  {t(
+                    'theory.fundamentals.middle_c_desc',
+                    'Key benchmark dividing Treble and Bass clefs.',
+                  )}
                 </p>
               )}
               {selectedKey.clef === 'treble' && selectedKey.name !== 'C4' && (
                 <p>
-                  🎼 <strong>Khóa Sol (Treble Clef):</strong> Thuộc quãng nốt cao, trình diễn bằng
-                  tay phải.
+                  🎼{' '}
+                  <strong>{t('theory.fundamentals.clefs_treble', 'Treble Clef (Treble):')}</strong>{' '}
+                  {t(
+                    'theory.fundamentals.clefs_treble_desc',
+                    'Higher pitch range, played with the right hand.',
+                  )}
                 </p>
               )}
               {selectedKey.clef === 'bass' && (
                 <p>
-                  🎶 <strong>Khóa Fa (Bass Clef):</strong> Thuộc quãng nốt trầm, trình diễn bằng tay
-                  trái.
+                  🎶 <strong>{t('theory.fundamentals.clefs_bass', 'Bass Clef (Bass):')}</strong>{' '}
+                  {t(
+                    'theory.fundamentals.clefs_bass_desc',
+                    'Lower pitch range, played with the left hand.',
+                  )}
                 </p>
               )}
             </div>
@@ -171,11 +193,11 @@ export function MusicFundamentalsSection() {
 
           {/* Interactive Staff SVG */}
           <div className="border-border bg-card/40 flex flex-col items-center justify-center rounded-2xl border p-4 shadow-sm md:col-span-7">
-            <div className="text-muted-foreground mb-1 flex items-center gap-1.5 text-xs font-semibold">
+            <div className="text-muted-foreground mb-1 flex items-center gap-1.5 text-xs font-medium">
               <Sparkles className="h-3.5 w-3.5 text-amber-400" />
               <span>
-                Vị Trí Nốt Trực Quan Trên Khuông Nhạc:{' '}
-                <strong className="text-amber-400">{selectedKey.name}</strong>
+                {t('theory.fundamentals.staff_visual_title', 'Visual Note Position on Staff:')}{' '}
+                <strong className="font-semibold text-amber-400">{selectedKey.name}</strong>
               </span>
             </div>
             <InteractiveStaffSvg keyData={selectedKey} />
@@ -192,26 +214,32 @@ export function MusicFundamentalsSection() {
               <div className="bg-foreground/5 border-border rounded-xl border p-2">
                 <Music className="text-primary h-5 w-5" />
               </div>
-              <h3 className="text-foreground text-xl font-bold">
-                {t('theory.fundamentals.clefs_title', 'Khóa Sol & Khóa Fa')}
+              <h3 className="text-foreground text-lg font-semibold">
+                {t('theory.fundamentals.clefs_title', 'Treble & Bass Clefs')}
               </h3>
             </div>
             <p className="text-muted-foreground text-xs leading-relaxed md:text-sm">
-              Khóa nhạc là ký hiệu đầu khuông nhạc để xác định cao độ cố định của các nốt:
+              Clefs indicate the pitch of written notes:
             </p>
             <div className="space-y-2 pt-2">
               <div className="border-border bg-foreground/5 rounded-xl border p-3">
-                <span className="text-xs font-bold text-amber-400">🎼 Khóa Sol (Treble Clef)</span>
+                <span className="text-xs font-semibold text-amber-400">
+                  🎼 Treble Clef (G Clef)
+                </span>
                 <p className="text-muted-foreground mt-1 text-xs">
-                  {t('theory.fundamentals.clefs_treble', 'Dùng cho nốt cao, chơi bằng tay phải.')}{' '}
-                  Dòng kẻ thứ 2 từ dưới lên chính là nốt Sol4.
+                  {t(
+                    'theory.fundamentals.clefs_treble',
+                    'Used for higher notes, played with the right hand.',
+                  )}
                 </p>
               </div>
               <div className="border-border bg-foreground/5 rounded-xl border p-3">
-                <span className="text-xs font-bold text-cyan-400">🎶 Khóa Fa (Bass Clef)</span>
+                <span className="text-xs font-semibold text-cyan-400">🎶 Bass Clef (F Clef)</span>
                 <p className="text-muted-foreground mt-1 text-xs">
-                  {t('theory.fundamentals.clefs_bass', 'Dùng cho nốt trầm, chơi bằng tay trái.')}{' '}
-                  Dòng kẻ thứ 4 từ dưới lên chính là nốt Fa3.
+                  {t(
+                    'theory.fundamentals.clefs_bass',
+                    'Used for lower notes, played with the left hand.',
+                  )}
                 </p>
               </div>
             </div>
@@ -225,30 +253,36 @@ export function MusicFundamentalsSection() {
               <div className="bg-foreground/5 border-border rounded-xl border p-2">
                 <Sliders className="text-primary h-5 w-5" />
               </div>
-              <h3 className="text-foreground text-xl font-bold">
-                {t('theory.fundamentals.accidentals_title', 'Dấu Hóa & Cung - Nửa Cung')}
+              <h3 className="text-foreground text-lg font-semibold">
+                {t('theory.fundamentals.accidentals_title', 'Accidentals & Semitones')}
               </h3>
             </div>
 
             <div className="text-muted-foreground space-y-2.5 text-xs">
               <div className="border-border bg-foreground/5 rounded-xl border p-3">
-                <span className="text-xs font-bold text-amber-400">♯ Dấu Thăng (Sharp)</span>
+                <span className="text-xs font-semibold text-amber-400">♯ Sharp</span>
                 <p className="mt-0.5">
-                  {t('theory.fundamentals.sharp', 'Nâng cao độ lên 1/2 cung (phím kề bên phải).')}
+                  {t(
+                    'theory.fundamentals.sharp',
+                    'Raises pitch by a semitone (half-step to adjacent right key).',
+                  )}
                 </p>
               </div>
               <div className="border-border bg-foreground/5 rounded-xl border p-3">
-                <span className="text-xs font-bold text-cyan-400">♭ Dấu Giáng (Flat)</span>
+                <span className="text-xs font-semibold text-cyan-400">♭ Flat</span>
                 <p className="mt-0.5">
-                  {t('theory.fundamentals.flat', 'Hạ cao độ xuống 1/2 cung (phím kề bên trái).')}
+                  {t(
+                    'theory.fundamentals.flat',
+                    'Lowers pitch by a semitone (half-step to adjacent left key).',
+                  )}
                 </p>
               </div>
               <div className="border-border bg-foreground/5 rounded-xl border p-3">
-                <span className="text-xs font-bold text-emerald-400">♮ Dấu Bình (Natural)</span>
+                <span className="text-xs font-semibold text-emerald-400">♮ Natural</span>
                 <p className="mt-0.5">
                   {t(
                     'theory.fundamentals.natural',
-                    'Hủy bỏ hiệu lực của dấu thăng hoặc giáng, trở về nốt tự nhiên.',
+                    'Cancels a sharp or flat, returning to natural pitch.',
                   )}
                 </p>
               </div>
@@ -263,8 +297,8 @@ export function MusicFundamentalsSection() {
               <div className="bg-foreground/5 border-border rounded-xl border p-2">
                 <Clock className="text-primary h-5 w-5" />
               </div>
-              <h3 className="text-foreground text-xl font-bold">
-                {t('theory.fundamentals.durations_title', 'Trường Độ Nốt Nhạc & Nhịp Điệu')}
+              <h3 className="text-foreground text-lg font-semibold">
+                {t('theory.fundamentals.durations_title', 'Note Values & Durations')}
               </h3>
             </div>
 
@@ -278,7 +312,7 @@ export function MusicFundamentalsSection() {
                     <ellipse cx="12" cy="12" rx="6.5" ry="4" transform="rotate(-20 12 12)" />
                   </svg>
                 </div>
-                <span className="text-foreground text-xs font-bold">Nốt Tròn (Whole Note)</span>
+                <span className="text-foreground text-xs font-medium">Nốt Tròn (Whole Note)</span>
                 <span className="mt-1 text-xs font-semibold text-amber-400">4 Nhịp (Beats)</span>
                 <span className="text-muted-foreground mt-1 text-[11px]">
                   Đầu rỗng, không có đuôi
@@ -295,7 +329,7 @@ export function MusicFundamentalsSection() {
                     <path d="M13 15 V4" strokeWidth="2" strokeLinecap="round" />
                   </svg>
                 </div>
-                <span className="text-foreground text-xs font-bold">Nốt Trắng (Half Note)</span>
+                <span className="text-foreground text-xs font-medium">Nốt Trắng (Half Note)</span>
                 <span className="mt-1 text-xs font-semibold text-cyan-400">2 Nhịp (Beats)</span>
                 <span className="text-muted-foreground mt-1 text-[11px]">
                   Đầu rỗng, có đuôi thẳng
@@ -321,7 +355,7 @@ export function MusicFundamentalsSection() {
                     />
                   </svg>
                 </div>
-                <span className="text-foreground text-xs font-bold">Nốt Đen (Quarter Note)</span>
+                <span className="text-foreground text-xs font-medium">Nốt Đen (Quarter Note)</span>
                 <span className="mt-1 text-xs font-semibold text-emerald-400">1 Nhịp (Beat)</span>
                 <span className="text-muted-foreground mt-1 text-[11px]">
                   Đầu đặc, có đuôi thẳng
@@ -354,7 +388,7 @@ export function MusicFundamentalsSection() {
                     />
                   </svg>
                 </div>
-                <span className="text-foreground text-xs font-bold">Nốt Móc Đơn (Eighth)</span>
+                <span className="text-foreground text-xs font-medium">Nốt Móc Đơn (Eighth)</span>
                 <span className="mt-1 text-xs font-semibold text-fuchsia-400">1/2 Nhịp (Beat)</span>
                 <span className="text-muted-foreground mt-1 text-[11px]">
                   Đầu đặc, có đuôi & 1 lá móc
@@ -369,13 +403,13 @@ export function MusicFundamentalsSection() {
             >
               <div className="border-border/60 flex items-center gap-3 border-b pb-3">
                 <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2 text-amber-400">
-                  <span className="block font-mono text-xl leading-none font-black">4/4</span>
+                  <span className="block font-mono text-xl leading-none font-bold">4/4</span>
                 </div>
                 <div>
-                  <h3 className="text-foreground text-xl font-bold">
+                  <h3 className="text-foreground text-lg font-semibold">
                     Giải Thích Dễ Hiểu Về Chỉ Số Nhịp (Time Signatures)
                   </h3>
-                  <p className="text-muted-foreground text-xs font-medium">
+                  <p className="text-muted-foreground text-xs font-normal">
                     Ý nghĩa của 2 con số đứng đầu khuông nhạc (2/4, 3/4, 4/4, 6/8) và cách đếm phách
                     chuẩn.
                   </p>
@@ -385,30 +419,32 @@ export function MusicFundamentalsSection() {
               {/* Anatomy of Time Signature */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="border-border bg-card/60 flex items-center gap-4 rounded-xl border p-4">
-                  <div className="flex h-16 w-14 flex-col items-center justify-center rounded-xl border border-amber-400 bg-amber-500/20 font-mono text-2xl font-black text-amber-300 shadow-md">
+                  <div className="flex h-16 w-14 flex-col items-center justify-center rounded-xl border border-amber-400 bg-amber-500/20 font-mono text-2xl font-bold text-amber-300 shadow-md">
                     <span>4</span>
                     <div className="my-0.5 h-0.5 w-8 bg-amber-400/60" />
                     <span>4</span>
                   </div>
                   <div className="space-y-1.5 text-xs">
                     <p>
-                      <strong className="text-amber-400">Số Trên (Tử Số = 4):</strong> Số lượng
-                      phách nằm trong mỗi ô nhịp.
+                      <strong className="font-semibold text-amber-400">Số Trên (Tử Số = 4):</strong>{' '}
+                      Số lượng phách nằm trong mỗi ô nhịp.
                     </p>
                     <p>
-                      <strong className="text-cyan-400">Số Dưới (Mẫu Số = 4):</strong> Giá trị độ
-                      dài của 1 phách (Số 4 = Nốt Đen).
+                      <strong className="font-semibold text-cyan-400">Số Dưới (Mẫu Số = 4):</strong>{' '}
+                      Giá trị độ dài của 1 phách (Số 4 = Nốt Đen).
                     </p>
                   </div>
                 </div>
 
                 <div className="border-border bg-card/60 space-y-2 rounded-xl border p-4 text-xs">
-                  <span className="block font-bold tracking-wider text-amber-400 uppercase">
+                  <span className="block font-semibold tracking-wider text-amber-400 uppercase">
                     💡 Quy tắc nhớ nhanh:
                   </span>
                   <p className="text-muted-foreground leading-relaxed">
-                    Mẫu số là <strong>4</strong> nghĩa là mỗi phách được tính bằng 1 nốt đen. Mẫu số
-                    là <strong>8</strong> nghĩa là mỗi phách tính bằng 1 nốt móc đơn.
+                    Mẫu số là <strong className="text-foreground font-semibold">4</strong> nghĩa là
+                    mỗi phách được tính bằng 1 nốt đen. Mẫu số là{' '}
+                    <strong className="text-foreground font-semibold">8</strong> nghĩa là mỗi phách
+                    tính bằng 1 nốt móc đơn.
                   </p>
                 </div>
               </div>
@@ -419,18 +455,18 @@ export function MusicFundamentalsSection() {
                 <div className="border-border bg-card flex flex-col justify-between space-y-3 rounded-xl border p-4">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-2xl font-black text-amber-400">4 / 4</span>
-                      <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-2 py-0.5 text-[10px] font-bold text-amber-400">
+                      <span className="font-mono text-2xl font-bold text-amber-400">4 / 4</span>
+                      <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-400">
                         Phổ Biến Nhất
                       </span>
                     </div>
-                    <span className="text-foreground mt-1 block text-xs font-bold">
+                    <span className="text-foreground mt-1 block text-xs font-semibold">
                       Nhịp 4 Phách (Common)
                     </span>
                     <p className="text-muted-foreground mt-1 text-[11px]">
-                      Đếm: <strong className="text-amber-400">1</strong> - 2 -{' '}
-                      <strong className="text-amber-200">3</strong> - 4. (Phách 1 MẠNH, phách 3
-                      Nhẹ-Vừa).
+                      Đếm: <strong className="font-semibold text-amber-400">1</strong> - 2 -{' '}
+                      <strong className="font-semibold text-amber-200">3</strong> - 4. (Phách 1
+                      MẠNH, phách 3 Nhẹ-Vừa).
                     </p>
                   </div>
                   <p className="text-foreground/70 bg-foreground/5 rounded-lg p-2 text-[10px] italic">
@@ -442,17 +478,17 @@ export function MusicFundamentalsSection() {
                 <div className="border-border bg-card flex flex-col justify-between space-y-3 rounded-xl border p-4">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-2xl font-black text-cyan-400">3 / 4</span>
-                      <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-bold text-cyan-400">
+                      <span className="font-mono text-2xl font-bold text-cyan-400">3 / 4</span>
+                      <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-medium text-cyan-400">
                         Nhạc Waltz
                       </span>
                     </div>
-                    <span className="text-foreground mt-1 block text-xs font-bold">
+                    <span className="text-foreground mt-1 block text-xs font-semibold">
                       Nhịp 3 Phách (Valse)
                     </span>
                     <p className="text-muted-foreground mt-1 text-[11px]">
-                      Đếm: <strong className="text-cyan-400">1</strong> - 2 - 3. "Bùm - chát - chát"
-                      (Phách 1 MẠNH, 2 & 3 Nhẹ).
+                      Đếm: <strong className="font-semibold text-cyan-400">1</strong> - 2 - 3. "Bùm
+                      - chát - chát" (Phách 1 MẠNH, 2 & 3 Nhẹ).
                     </p>
                   </div>
                   <p className="text-foreground/70 bg-foreground/5 rounded-lg p-2 text-[10px] italic">
@@ -464,17 +500,17 @@ export function MusicFundamentalsSection() {
                 <div className="border-border bg-card flex flex-col justify-between space-y-3 rounded-xl border p-4">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-2xl font-black text-emerald-400">2 / 4</span>
-                      <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-400">
+                      <span className="font-mono text-2xl font-bold text-emerald-400">2 / 4</span>
+                      <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
                         Hành Khúc
                       </span>
                     </div>
-                    <span className="text-foreground mt-1 block text-xs font-bold">
+                    <span className="text-foreground mt-1 block text-xs font-semibold">
                       Nhịp 2 Phách (March)
                     </span>
                     <p className="text-muted-foreground mt-1 text-[11px]">
-                      Đếm: <strong className="text-emerald-400">1</strong> - 2. "Một - hai, Một -
-                      hai" (Phách 1 MẠNH, phách 2 Nhẹ).
+                      Đếm: <strong className="font-semibold text-emerald-400">1</strong> - 2. "Một -
+                      hai, Một - hai" (Phách 1 MẠNH, phách 2 Nhẹ).
                     </p>
                   </div>
                   <p className="text-foreground/70 bg-foreground/5 rounded-lg p-2 text-[10px] italic">
@@ -486,17 +522,18 @@ export function MusicFundamentalsSection() {
                 <div className="border-border bg-card flex flex-col justify-between space-y-3 rounded-xl border p-4">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-2xl font-black text-fuchsia-400">6 / 8</span>
-                      <span className="rounded-full border border-fuchsia-500/20 bg-fuchsia-500/10 px-2 py-0.5 text-[10px] font-bold text-fuchsia-400">
+                      <span className="font-mono text-2xl font-bold text-fuchsia-400">6 / 8</span>
+                      <span className="rounded-full border border-fuchsia-500/20 bg-fuchsia-500/10 px-2 py-0.5 text-[10px] font-medium text-fuchsia-400">
                         Trữ Tình
                       </span>
                     </div>
-                    <span className="text-foreground mt-1 block text-xs font-bold">
+                    <span className="text-foreground mt-1 block text-xs font-semibold">
                       Nhịp Kép (Compound)
                     </span>
                     <p className="text-muted-foreground mt-1 text-[11px]">
-                      Đếm: <strong className="text-fuchsia-400">1</strong>-2-3 -{' '}
-                      <strong className="text-fuchsia-200">4</strong>-5-6 (Phách 1 & 4 MẠNH).
+                      Đếm: <strong className="font-semibold text-fuchsia-400">1</strong>-2-3 -{' '}
+                      <strong className="font-semibold text-fuchsia-200">4</strong>-5-6 (Phách 1 & 4
+                      MẠNH).
                     </p>
                   </div>
                   <p className="text-foreground/70 bg-foreground/5 rounded-lg p-2 text-[10px] italic">
@@ -512,95 +549,65 @@ export function MusicFundamentalsSection() {
   )
 }
 
-// 2-Octave Glassmorphic 2D Interactive Piano Keyboard
-function Interactive2DPianoKeyboard({
-  selectedKey,
-  onKeyClick,
-  isKeyHighlighted,
-}: {
-  selectedKey: KeyData
-  onKeyClick: (key: KeyData) => void
-  isKeyHighlighted: (key: KeyData) => boolean
-}) {
-  return (
-    <div className="relative flex h-full w-full justify-center overflow-hidden rounded-xl border border-white/20 bg-white shadow-2xl select-none">
-      {PIANO_STRUCTURE.map((wKey) => {
-        const isSelected = selectedKey.name === wKey.name
-        const highlighted = isKeyHighlighted(wKey)
-        const isMiddleC = wKey.name === 'C4'
-        const bk = wKey.blackKey
-
-        return (
-          <div
-            key={wKey.name}
-            className="relative h-full flex-1 border-r border-black/20 last:border-0"
-          >
-            {/* White Key Button */}
-            <button
-              onClick={() => onKeyClick(wKey)}
-              className={`relative h-full w-full cursor-pointer rounded-b-sm transition-all duration-150 hover:bg-amber-100 ${
-                isSelected
-                  ? 'translate-y-0.5 bg-amber-400 shadow-[inset_0_0_20px_rgba(245,158,11,0.9)]'
-                  : isMiddleC
-                    ? 'bg-amber-200/90'
-                    : highlighted
-                      ? 'bg-white'
-                      : 'bg-gray-200 opacity-60'
-              }`}
-            >
-              <div className="pointer-events-none absolute right-0 bottom-2 left-0 text-center text-[10px] font-bold text-black/80">
-                {wKey.name}
-              </div>
-            </button>
-
-            {/* Attached Black Key (if present) */}
-            {bk && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onKeyClick(bk)
-                }}
-                className={`absolute top-0 right-0 z-20 h-[64%] w-[60%] translate-x-1/2 cursor-pointer rounded-b-md border border-white/30 shadow-xl transition-all duration-150 active:scale-y-[0.96] ${
-                  selectedKey.name === bk.name
-                    ? 'translate-y-0.5 bg-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.9)]'
-                    : isKeyHighlighted(bk)
-                      ? 'bg-gradient-to-b from-[#2d2d2d] via-[#1a1a1a] to-[#0a0a0a] hover:from-[#3d3d3d]'
-                      : 'bg-gray-800 opacity-50'
-                }`}
-              />
-            )}
-          </div>
-        )
-      })}
-    </div>
-  )
+// Helper to calculate exact diatonic step (C=0, D=1, E=2, F=3, G=4, A=5, B=6)
+function getDiatonicIndex(name: string, octave: number): number {
+  const step = name.charAt(0).toUpperCase()
+  const stepMap: Record<string, number> = {
+    C: 0,
+    D: 1,
+    E: 2,
+    F: 3,
+    G: 4,
+    A: 5,
+    B: 6,
+  }
+  const stepIndex = stepMap[step] ?? 0
+  return octave * 7 + stepIndex
 }
 
-// Interactive SVG Musical Staff showing note position
-function InteractiveStaffSvg({ keyData }: { keyData: KeyData }) {
+// Interactive SVG Musical Staff showing exact note position on staff
+function InteractiveStaffSvg({ keyData }: { keyData: PianoKeyInfo }) {
+  const { t } = useTranslation()
   const isTreble = keyData.clef === 'treble'
+  const diatonic = getDiatonicIndex(keyData.name, keyData.octave)
 
-  const getNoteY = (midi: number) => {
-    if (midi >= 60) {
-      const semitoneOffset = midi - 60
-      return 80 - semitoneOffset * 4.5
-    } else {
-      const semitoneOffset = 60 - midi
-      return 8 + semitoneOffset * 4.5
+  // Reference lines (5 lines at y = [20, 32, 44, 56, 68]):
+  // Treble Clef: Line 1 (bottom line, y=68) is E4 (diatonic 30)
+  // Bass Clef: Line 1 (bottom line, y=68) is G2 (diatonic 18)
+  const refIndex = isTreble ? 30 : 18
+  const noteY = 68 - (diatonic - refIndex) * 6
+
+  // Dynamic ledger lines needed for notes outside the 5 staff lines
+  const ledgerLines: number[] = []
+  if (noteY >= 80) {
+    // Below staff (e.g. C4 at y=80 on Treble, or A3 at y=92)
+    for (let ly = 80; ly <= noteY + 1; ly += 12) {
+      ledgerLines.push(ly)
+    }
+  } else if (noteY <= 8) {
+    // Above staff (e.g. C4 at y=8 on Bass, or A5 at y=8 on Treble)
+    for (let ly = 8; ly >= noteY - 1; ly -= 12) {
+      ledgerLines.push(ly)
     }
   }
 
-  const noteY = getNoteY(keyData.midi)
+  // Standard notation stem direction:
+  // Notes below middle line (Line 3 at y=44) have stems pointing UP on the right side.
+  // Notes on or above middle line have stems pointing DOWN on the left side.
+  const stemUp = noteY > 44
 
   return (
-    <svg className="h-28 w-full max-w-[280px]" viewBox="0 0 280 100">
-      {/* 5 Staff lines */}
+    <svg className="h-32 w-full max-w-[360px]" viewBox="0 0 340 108">
+      {/* Background container */}
+      <rect x="6" y="4" width="328" height="100" rx="12" fill="none" />
+
+      {/* 5 Staff lines (E4, G4, B4, D5, F5 for Treble; G2, B2, D3, F3, A3 for Bass) */}
       {[20, 32, 44, 56, 68].map((y) => (
         <line
           key={y}
-          x1="20"
+          x1="18"
           y1={y}
-          x2="260"
+          x2="220"
           y2={y}
           stroke="currentColor"
           strokeWidth="1.2"
@@ -608,41 +615,86 @@ function InteractiveStaffSvg({ keyData }: { keyData: KeyData }) {
         />
       ))}
 
-      {/* Clef Label */}
-      <text x="30" y="52" fill="currentColor" fontSize="24" fontWeight="bold" opacity="0.8">
+      {/* Clef Symbol */}
+      <text
+        x="24"
+        y={isTreble ? 66 : 48}
+        fill="currentColor"
+        fontSize={isTreble ? '46' : '38'}
+        fontWeight="bold"
+        opacity="0.9"
+        className="select-none"
+      >
         {isTreble ? '𝄞' : '𝄢'}
       </text>
 
-      {/* Ledger Line for C4 (Middle C) */}
-      {keyData.name === 'C4' && (
-        <line x1="130" y1="80" x2="160" y2="80" stroke="currentColor" strokeWidth="1.5" />
-      )}
+      {/* Dynamic Ledger Lines */}
+      {ledgerLines.map((ly) => (
+        <line
+          key={ly}
+          x1="108"
+          y1={ly}
+          x2="152"
+          y2={ly}
+          stroke="currentColor"
+          strokeWidth="1.5"
+          opacity="0.85"
+        />
+      ))}
 
-      {/* Active Note Head */}
-      <ellipse
-        cx="145"
-        cy={noteY}
-        rx="7"
-        ry="5"
-        transform={`rotate(-20 145 ${noteY})`}
-        fill="#f59e0b"
-        className="animate-pulse"
-      />
-
-      {/* Note Stem */}
-      <line x1="151" y1={noteY} x2="151" y2={noteY - 24} stroke="#f59e0b" strokeWidth="2" />
-
-      {/* Accidental Sharp # symbol if black key */}
+      {/* Accidental Sharp ♯ symbol if black key */}
       {keyData.isBlack && (
-        <text x="126" y={noteY + 5} fill="#f59e0b" fontSize="16" fontWeight="bold">
+        <text
+          x="108"
+          y={noteY + 6}
+          fill="#f59e0b"
+          fontSize="18"
+          fontWeight="bold"
+          className="select-none"
+        >
           ♯
         </text>
       )}
 
-      {/* Pitch Label */}
-      <text x="170" y={noteY + 4} fill="#f59e0b" fontSize="12" fontWeight="bold">
-        {keyData.name}
-      </text>
+      {/* Active Note Head */}
+      <ellipse
+        cx="130"
+        cy={noteY}
+        rx="7.5"
+        ry="5.2"
+        transform={`rotate(-20 130 ${noteY})`}
+        fill="#f59e0b"
+        className="transition-all duration-200"
+      />
+
+      {/* Note Stem */}
+      <line
+        x1={stemUp ? 136.5 : 123.5}
+        y1={noteY}
+        x2={stemUp ? 136.5 : 123.5}
+        y2={stemUp ? noteY - 28 : noteY + 28}
+        stroke="#f59e0b"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+
+      {/* Note Pitch & Solfège Label Badge */}
+      <g transform={`translate(160, ${Math.max(16, Math.min(88, noteY + 4))})`}>
+        <rect
+          x="0"
+          y="-13"
+          width="165"
+          height="26"
+          rx="8"
+          fill="rgba(245, 158, 11, 0.15)"
+          stroke="rgba(245, 158, 11, 0.5)"
+          strokeWidth="1"
+        />
+        <text x="8" y="4" fill="#f59e0b" fontSize="11" fontWeight="bold">
+          {keyData.name} -{' '}
+          {t(`theory.fundamentals.solfege.${keyData.pitch % 12}`, keyData.solfegeEn)}
+        </text>
+      </g>
     </svg>
   )
 }

@@ -115,15 +115,16 @@ export default function PlaySongPage() {
   const [searchParams, _setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const activeProfileId = useAtomValue(activeProfileIdAtom)
-  let { source, id, recording }: { source: SongSource; id: string; recording?: string } =
-    Object.fromEntries(searchParams) as any
+  const source = searchParams.get('source') as SongSource
+  const rawId = searchParams.get('id')
+  const recording = searchParams.get('recording') || undefined
 
   // If source or id is messed up, redirect to the homepage
-  if (!source || !id) {
+  if (!source || !rawId) {
     navigate('/', { replace: true })
     return null
   }
-  id = decodeURIComponent(id)
+  const id = rawId
 
   const player = usePlayer()
   const [isMidiModalOpen, setMidiModal] = useState(false)
@@ -142,6 +143,16 @@ export default function PlaySongPage() {
   const synth = useLazyStableRef(() => getSynthStub('acoustic_grand_piano'))
   let { data: song, error, isLoading, mutate } = useSong(id, source)
   let songMeta = useSongMetadata(id, source)
+  const displayTitle =
+    songMeta?.title ||
+    (source === 'market'
+      ? decodeURIComponent(
+          id
+            .split('/')
+            .pop()
+            ?.replace(/\.(mid|midi)$/i, '') || '',
+        )
+      : undefined)
 
   const accuracy = useAtomValue(player.score.accuracy)
   const [songProgress, setSongProgress] = useAtom(songProgressAtom)
@@ -435,7 +446,7 @@ export default function PlaySongPage() {
   if (error || (source === 'local' && !song && !isLoading)) {
     return (
       <SongNotFound
-        songTitle={songMeta?.title}
+        songTitle={displayTitle}
         onGoBack={() => {
           player.stop()
           navigate('/songs')
@@ -454,7 +465,7 @@ export default function PlaySongPage() {
       >
         {!isRecording && (
           <TopBar
-            title={songMeta?.title}
+            title={displayTitle}
             onClickBack={() => {
               saveProgress()
               player.stop()

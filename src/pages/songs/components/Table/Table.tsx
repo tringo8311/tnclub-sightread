@@ -14,6 +14,7 @@ import * as React from 'react'
 import { useMemo, useState } from 'react'
 import { useCollator, useFilter } from 'react-aria'
 import { Cell, Column, Table as RacTable, Row, TableBody, TableHeader } from 'react-aria-components'
+import { useTranslation } from 'react-i18next'
 import AddToPlaylistModal from '../AddToPlaylistModal'
 import styles from '../components.module.css'
 
@@ -37,6 +38,7 @@ export default function Table({
   favoritesOnly,
   onSelectRow,
 }: SongsTableProps) {
+  const { t } = useTranslation()
   const { contains } = useFilter({ sensitivity: 'base' })
   const collator = useCollator({ numeric: true, sensitivity: 'base' })
   const activeProfileId = useAtomValue(activeProfileIdAtom)
@@ -168,7 +170,9 @@ export default function Table({
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
-                    <span className="truncate pr-[var(--sort-icon-gap)]">Title</span>
+                    <span className="truncate pr-[var(--sort-icon-gap)]">
+                      {t('songs.table.title', 'Title')}
+                    </span>
                     <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
                       {sortDirection && (
                         <ChevronDown
@@ -190,7 +194,9 @@ export default function Table({
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
-                    <span className="truncate pr-[var(--sort-icon-gap)]">Author</span>
+                    <span className="truncate pr-[var(--sort-icon-gap)]">
+                      {t('songs.table.author', 'Author')}
+                    </span>
                     <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
                       {sortDirection && (
                         <ChevronDown
@@ -212,7 +218,9 @@ export default function Table({
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
-                    <span className="truncate pr-[var(--sort-icon-gap)]">Category</span>
+                    <span className="truncate pr-[var(--sort-icon-gap)]">
+                      {t('songs.table.category', 'Category')}
+                    </span>
                     <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
                       {sortDirection && (
                         <ChevronDown
@@ -234,7 +242,9 @@ export default function Table({
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center">
-                    <span className="truncate pr-[var(--sort-icon-gap)]">Level</span>
+                    <span className="truncate pr-[var(--sort-icon-gap)]">
+                      {t('songs.table.level', 'Level')}
+                    </span>
                     <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
                       {sortDirection && (
                         <ChevronDown
@@ -256,7 +266,9 @@ export default function Table({
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center justify-end">
-                    <span className="truncate pr-[var(--sort-icon-gap)] text-right">Progress</span>
+                    <span className="truncate pr-[var(--sort-icon-gap)] text-right">
+                      {t('songs.table.progress', 'Progress')}
+                    </span>
                     <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
                       {sortDirection && (
                         <ChevronDown
@@ -278,7 +290,9 @@ export default function Table({
               >
                 {({ sortDirection }) => (
                   <div className="relative flex items-center justify-end">
-                    <span className="truncate pr-[var(--sort-icon-gap)] text-right">Length</span>
+                    <span className="truncate pr-[var(--sort-icon-gap)] text-right">
+                      {t('songs.table.duration', 'Length')}
+                    </span>
                     <span className="absolute right-0 flex h-4 w-4 items-center justify-center">
                       {sortDirection && (
                         <ChevronDown
@@ -294,21 +308,19 @@ export default function Table({
               </Column>
             </TableHeader>
             <TableBody
-              className={clsx(
-                styles.tableBody,
-                sorted.length === 0 && 'flex h-full flex-col items-center justify-center',
-              )}
+              className={clsx(styles.tableBody, sorted.length === 0 && styles.tableBodyEmpty)}
               items={sorted}
               renderEmptyState={() => (
-                <div className="animate-in fade-in flex h-full w-full flex-col items-center justify-center py-12 text-center duration-300">
-                  <div className="bg-foreground/5 text-foreground/40 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                <div data-element-id="songs-table-empty" className={styles.emptyState}>
+                  <div className={styles.emptyIconWrapper}>
                     <Star className="h-8 w-8" />
                   </div>
-                  <h3 className="text-foreground mb-1 text-lg font-medium">
-                    Không tìm thấy bài hát nào
-                  </h3>
-                  <p className="text-foreground/50 max-w-sm text-sm leading-relaxed">
-                    Thử thay đổi từ khóa tìm kiếm hoặc chọn bộ lọc khác.
+                  <h3 className={styles.emptyTitle}>{t('songs.empty.title', 'No songs found')}</h3>
+                  <p className={styles.emptySubtitle}>
+                    {t(
+                      'songs.empty.subtitle',
+                      'Try adjusting your search keywords or choosing different filters.',
+                    )}
                   </p>
                 </div>
               )}
@@ -362,7 +374,7 @@ export default function Table({
                           setPlaylistModalSong({ id: item.id, title: item.title })
                         }}
                         className="hover:bg-foreground/10 text-foreground/40 rounded-full p-1 transition-colors hover:text-violet-400"
-                        title="Thêm vào Playlist"
+                        title={t('songs.addToPlaylist', 'Add to Playlist')}
                       >
                         <ListPlus size={16} />
                       </button>
@@ -386,7 +398,7 @@ export default function Table({
                     <Cell className={styles.tableCell} style={{ width: '8rem' }}>
                       <span
                         className={clsx(
-                          'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold',
+                          'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium',
                           item.level === 'Fresher'
                             ? 'border border-emerald-500/40 bg-emerald-500/20 text-emerald-300'
                             : item.level === 'Beginner'
@@ -409,7 +421,7 @@ export default function Table({
                     >
                       <span
                         className={clsx(
-                          'font-semibold',
+                          'font-medium',
                           progress === 100
                             ? 'glow-text-green text-[var(--color-green-neon)]'
                             : progress > 0

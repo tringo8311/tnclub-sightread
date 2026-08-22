@@ -36,7 +36,72 @@
       "page_title": "Select a song",
       "subtitle": "Select a song, choose your settings, and begin learning",
       "search_placeholder": "Search Titles",
-      "folders": "Folders"
+      "folders": "Folders",
+      "playlists": "Playlists",
+      "all_levels": "All Levels",
+      "all_songs": "All Songs",
+      "favorites": "Favorites",
+      "addToPlaylist": "Add to Playlist",
+      "playlist": "Playlist",
+      "empty": {
+        "title": "No songs found",
+        "subtitle": "Try adjusting your search keywords or choosing different filters."
+      },
+      "table": {
+        "title": "Title",
+        "author": "Author",
+        "category": "Category",
+        "level": "Level",
+        "progress": "Progress",
+        "duration": "Length"
+      },
+      "playlistModal": {
+        "title": "Playlist Management",
+        "subtitle": "Create and organize songs by playlist",
+        "listTitle": "Playlists ({{count}})",
+        "createBtn": "Create",
+        "titlePlaceholder": "Playlist name...",
+        "descPlaceholder": "Short description (optional)...",
+        "cancel": "Cancel",
+        "confirmCreate": "Create Playlist",
+        "empty": "No playlists created yet",
+        "songsCount": "{{count}} song",
+        "songsCount_other": "{{count}} songs",
+        "emptyPlaylist": "No songs in this playlist yet.",
+        "selectPrompt": "Select or create a playlist to view songs"
+      },
+      "addToPlaylistModal": {
+        "title": "Add to Playlist",
+        "song": "Song: ",
+        "empty": "No playlists available. Create one below!",
+        "newTitlePlaceholder": "New playlist name...",
+        "create": "Create",
+        "cancel": "Cancel",
+        "createNew": "Create New Playlist"
+      },
+      "folderModal": {
+        "title": "Folder Management",
+        "subtitle": "Organize your music collection",
+        "listTitle": "Folders ({{count}})",
+        "scan": "Scan Folders",
+        "add": "Add Folder",
+        "permissionWarning": "Please rescan folders to grant access to your music files.",
+        "empty": "No folders added yet",
+        "emptyDesc": "Add a folder to get started",
+        "unsupportedTitle": "Browser Not Supported",
+        "unsupportedDesc": "Syncing folders is only supported in Chromium-based browsers like Chrome and Edge due to lack of support for the File System Access API. Please switch to a supported browser.",
+        "close": "Close"
+      }
+    },
+    "not_found": {
+      "title": "404 - Page Not Found",
+      "badge": "404 Error - Page Not Found",
+      "heading": "Oops! This Melody Does Not Exist",
+      "description": "The link you followed may be broken, removed, or mistyped. Explore our exciting piano learning sections below!",
+      "home": "Back to Home",
+      "songs": "Song Library",
+      "theory": "Music Theory & Chords",
+      "history": "Piano History & Encyclopedia"
     },
     "freeplay": {
       "stop_recording": "Stop recording",

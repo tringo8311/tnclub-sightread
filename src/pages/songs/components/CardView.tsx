@@ -12,6 +12,7 @@ import { BarChart, Clock, ListPlus, Music, Star } from 'lucide-react'
 import * as React from 'react'
 import { useMemo, useState } from 'react'
 import { useCollator, useFilter } from 'react-aria'
+import { useTranslation } from 'react-i18next'
 import AddToPlaylistModal from './AddToPlaylistModal'
 import styles from './components.module.css'
 
@@ -30,6 +31,7 @@ export default function CardView({
   favoritesOnly,
   onSelectRow,
 }: CardViewProps) {
+  const { t } = useTranslation()
   const { contains } = useFilter({ sensitivity: 'base' })
   const collator = useCollator({ numeric: true, sensitivity: 'base' })
   const activeProfileId = useAtomValue(activeProfileIdAtom)
@@ -121,9 +123,12 @@ export default function CardView({
             <div className={styles.emptyIconWrapper}>
               <Music className="h-8 w-8" />
             </div>
-            <h3 className={styles.emptyTitle}>Không tìm thấy bài hát nào</h3>
+            <h3 className={styles.emptyTitle}>{t('songs.empty.title', 'No songs found')}</h3>
             <p className={styles.emptySubtitle}>
-              Thử thay đổi từ khóa tìm kiếm hoặc chọn bộ lọc khác.
+              {t(
+                'songs.empty.subtitle',
+                'Try adjusting your search keywords or choosing different filters.',
+              )}
             </p>
           </div>
         ) : (
@@ -186,7 +191,7 @@ export default function CardView({
                           )}
                         />
                         <span
-                          className={item.level === 'Fresher' ? 'font-bold text-emerald-400' : ''}
+                          className={item.level === 'Fresher' ? 'font-medium text-emerald-400' : ''}
                         >
                           {item.level === 'Fresher' ? 'Fresher' : item.level || 'Beginner'}
                         </span>
@@ -207,7 +212,7 @@ export default function CardView({
                             setPlaylistModalSong({ id: item.id, title: item.title })
                           }}
                           className={styles.actionIconBtn}
-                          title="Thêm vào Playlist"
+                          title={t('songs.addToPlaylist', 'Add to Playlist')}
                         >
                           <ListPlus size={16} />
                         </button>

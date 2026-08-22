@@ -9,6 +9,7 @@ import {
 import { useAtomValue } from 'jotai'
 import { Check, ListPlus, Plus } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type AddToPlaylistModalProps = {
   songId: string
@@ -21,6 +22,7 @@ export default function AddToPlaylistModal({
   songTitle,
   onClose,
 }: AddToPlaylistModalProps) {
+  const { t } = useTranslation()
   const activeProfileId = useAtomValue(activeProfileIdAtom)
   const allPlaylistsMap = useAtomValue(playlistsAtom)
   const playlists = allPlaylistsMap[activeProfileId] || []
@@ -54,20 +56,23 @@ export default function AddToPlaylistModal({
       <div className="border-border mb-4 flex items-center justify-between border-b pb-3">
         <div className="flex items-center gap-2.5">
           <ListPlus className="text-primary h-5 w-5" />
-          <h3 className="text-foreground text-base font-bold">Thêm Vào Playlist</h3>
+          <h3 className="text-foreground text-base font-semibold">
+            {t('songs.addToPlaylistModal.title', 'Add to Playlist')}
+          </h3>
         </div>
       </div>
 
       {songTitle && (
-        <p className="text-muted-foreground mb-4 truncate text-xs font-medium">
-          Bài hát: <span className="text-foreground font-semibold">{songTitle}</span>
+        <p className="text-muted-foreground mb-4 truncate text-xs font-normal">
+          {t('songs.addToPlaylistModal.song', 'Song: ')}
+          <span className="text-foreground font-medium">{songTitle}</span>
         </p>
       )}
 
       <div className="custom-scrollbar max-h-[260px] space-y-2 overflow-y-auto pr-1">
         {playlists.length === 0 ? (
           <div className="border-border/60 text-muted-foreground rounded-xl border border-dashed py-6 text-center text-xs">
-            Chưa có playlist nào. Hãy tạo mới bên dưới!
+            {t('songs.addToPlaylistModal.empty', 'No playlists available. Create one below!')}
           </div>
         ) : (
           playlists.map((pl) => {
@@ -106,14 +111,17 @@ export default function AddToPlaylistModal({
           <form onSubmit={handleCreate} className="flex gap-2">
             <input
               type="text"
-              placeholder="Tên playlist mới..."
+              placeholder={t(
+                'songs.addToPlaylistModal.newTitlePlaceholder',
+                'New playlist name...',
+              )}
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               className="border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-primary flex-1 rounded-xl border px-3 py-1.5 text-xs focus:ring-1 focus:outline-none"
               autoFocus
             />
             <Button type="submit" variant="primary" size="sm" className="text-xs">
-              Tạo
+              {t('songs.addToPlaylistModal.create', 'Create')}
             </Button>
             <Button
               type="button"
@@ -122,7 +130,7 @@ export default function AddToPlaylistModal({
               onClick={() => setIsCreating(false)}
               className="text-xs"
             >
-              Hủy
+              {t('songs.addToPlaylistModal.cancel', 'Cancel')}
             </Button>
           </form>
         ) : (
@@ -135,7 +143,7 @@ export default function AddToPlaylistModal({
             className="border-primary/30 text-primary hover:bg-primary/10 w-full text-xs"
           >
             <Plus className="mr-1.5 h-3.5 w-3.5" />
-            Tạo Playlist mới
+            {t('songs.addToPlaylistModal.createNew', 'Create New Playlist')}
           </Button>
         )}
       </div>

@@ -1,13 +1,29 @@
 {
   "title": "Bách Khoa Toàn Thư Piano & Nhạc Lý",
   "subtitle": "Khám phá lịch sử, nghệ thuật chế tác thủ công, các loại đàn Piano huyền thoại và nền tảng nhạc lý căn bản.",
+  "history_page": {
+    "title": "Lịch Sử & Bách Khoa Piano",
+    "badge": "Nghệ Thuật, Lịch Sử & Chế Tác Piano",
+    "heroTitle": "Hành Trình ",
+    "heroTitleHighlight": "Đàn Piano Qua Các Thế Kỷ",
+    "heroSubtitle": "Khám phá lịch sử tiến hóa từ Harpsichord đến Grand Piano hiện đại, nghệ thuật chế tác thủ công đỉnh cao và các thương hiệu piano huyền thoại thế giới.",
+    "allTabs": "Tất cả Bách Khoa"
+  },
+  "hero": {
+    "badge": "Căn Bản Nhạc Lý & Bách Khoa Piano",
+    "title": "Nền Tảng Nhạc Lý & ",
+    "titleHighlight": "Tra Cứu Hợp Âm",
+    "subtitle": "Nắm vững khóa nhạc (Sol/Fa), trường độ nốt, dấu hóa, giải thích chỉ số nhịp (2/4, 3/4, 4/4, 6/8) và tra cứu hợp âm, âm giai kèm thế bấm ngón tay chuẩn."
+  },
   "tabs": {
-    "all": "Tất cả",
+    "all": "Tất cả Nhạc Lý",
+    "fundamentals": "Căn Bản Nhạc Lý",
+    "time_signatures": "Chỉ Số Nhịp (2/4, 3/4, 4/4)",
+    "chords": "Hợp Âm & Âm Giai",
     "history": "Lịch Sử & Tiến Hóa",
     "types": "Các Dòng Đàn Piano",
     "craftsmanship": "Cấu Tạo & Chế Tác",
-    "brands": "Thương Hiệu Huyền Thoại",
-    "fundamentals": "Căn Bản Nhạc Lý"
+    "brands": "Thương Hiệu Huyền Thoại"
   },
   "history": {
     "title": "Lịch Sử Ra Đời & Phát Triển Của Piano",
@@ -111,6 +127,7 @@
     "half": "Nốt trắng (Half note): 2 nhịp",
     "quarter": "Nốt đen (Quarter note): 1 nhịp",
     "eighth": "Nốt móc đơn (Eighth note): 1/2 nhịp",
+    "sixteenth": "Nốt móc kép (Sixteenth note): 1/4 nhịp",
     "keyboard_title": "Bàn Phím 88 Phím Standard",
     "keyboard_desc": "Gồm 52 phím trắng và 36 phím đen xếp theo cụm 2 và cụm 3 phím đen xen kẽ.",
     "middle_c_title": "Nốt Đô Giữa (Middle C4)",
@@ -127,6 +144,139 @@
     "accidentals_title": "Dấu Hóa & Cung - Nửa Cung",
     "sharp": "Dấu Thăng (#): Nâng cao độ lên 1/2 cung (phím kề bên phải).",
     "flat": "Dấu Giáng (b): Hạ cao độ xuống 1/2 cung (phím kề bên trái).",
-    "natural": "Dấu Bình (♮): Hủy bỏ hiệu lực của dấu thăng hoặc giáng, trở về nốt tự nhiên."
+    "natural": "Dấu Bình (♮): Hủy bỏ hiệu lực của dấu thăng hoặc giáng, trở về nốt tự nhiên.",
+    "staff_visual_title": "Vị Trí Nốt Trực Quan Trên Khuông Nhạc:",
+    "clefs_treble_desc": "Thuộc quãng nốt cao, trình diễn bằng tay phải.",
+    "clefs_bass_desc": "Thuộc quãng nốt trầm, trình diễn bằng tay trái.",
+    "solfege": {
+      "0": "Đô",
+      "1": "Đô# / Rê♭",
+      "2": "Rê",
+      "3": "Rê# / Mi♭",
+      "4": "Mi",
+      "5": "Fa",
+      "6": "Fa# / Sol♭",
+      "7": "Sol",
+      "8": "Sol# / La♭",
+      "9": "La",
+      "10": "La# / Si♭",
+      "11": "Si"
+    },
+    "replay_sound": "Phát lại âm thanh nốt này"
+  },
+  "time_signatures": {
+    "title": "Chỉ Số Nhịp & Tiết Tấu (Time Signatures)",
+    "subtitle": "Giải thích ý nghĩa phách mạnh, phách nhẹ và cách đếm nhịp chuẩn xác (2/4, 3/4, 4/4, 6/8)",
+    "top_num_title": "Số Ở Trên (Tử Số)",
+    "top_num_desc": "Chỉ số lượng phách (đập nhịp) có trong một ô nhịp (Measure/Bar).",
+    "bottom_num_title": "Số Ở Dưới (Mẫu Số)",
+    "bottom_num_desc": "Chỉ hình nốt có giá trị bằng 1 phách (Số 4 = Nốt Đen, Số 8 = Nốt Móc Đơn).",
+    "ts24_title": "Nhịp 2/4 (Nhịp Hành Khúc - March)",
+    "ts24_desc": "Gồm 2 phách đen mỗi ô nhịp. Tính chất: Phách 1 Mạnh - Phách 2 Nhẹ (Mạnh - Nhẹ).",
+    "ts34_title": "Nhịp 3/4 (Nhịp Vũ Điệu Valse / Waltz)",
+    "ts34_desc": "Gồm 3 phách đen mỗi ô nhịp. Tính chất: Phách 1 Mạnh - Phách 2 Nhẹ - Phách 3 Nhẹ (Bùm - Chát - Chát).",
+    "ts44_title": "Nhịp 4/4 (Nhịp Phổ Biến Nhất - Common Time 'C')",
+    "ts44_desc": "Gồm 4 phách đen mỗi ô nhịp. Tính chất: Phách 1 Mạnh - Phách 2 Nhẹ - Phách 3 Vừa - Phách 4 Nhẹ.",
+    "ts68_title": "Nhịp 6/8 (Nhịp Kép Trữ Tình - Compound Meter)",
+    "ts68_desc": "Gồm 6 phách móc đơn chia thành 2 nhóm 3 (1-2-3, 4-5-6). Rất du dương, êm ái."
+  },
+  "chords_scales": {
+    "title": "Tra Cứu Hợp Âm & Âm Giai Piano",
+    "subtitle": "Tra cứu các nốt cấu thành hợp âm, quãng, thế ngón tay và bấm nghe âm thanh mô phỏng trực tiếp",
+    "root_select": "1. Chọn Nốt Gốc (Root Note):",
+    "chord_select": "2. Chọn Loại Hợp Âm:",
+    "scale_select": "2. Chọn Loại Âm Giai:",
+    "play_chord": "Phát Hợp Âm",
+    "play_arpeggio": "Phát Rải (Arpeggio)",
+    "play_scale": "Phát Âm Giai",
+    "play_all": "Phát Tất Cả",
+    "formula_label": "Công thức phách:",
+    "rh_fingering": "Thế ngón tay phải (RH):",
+    "lh_fingering": "Thế ngón tay trái (LH):",
+    "notes_in_chord": "Các nốt cấu thành:",
+    "tab_chords": "Hợp Âm (Chords)",
+    "tab_scales": "Âm Giai (Scales)",
+    "fingering_title": "3. Sơ Đồ Phím Đàn & Thế Bấm Ngón (Fingering):",
+    "hand_lh": "🤚 Tay Trái (LH)",
+    "hand_rh": "✋ Tay Phải (RH)",
+    "hand_both": "🙌 Cả Hai Tay (RH + LH)",
+    "fingering_legend": "Ký hiệu ngón tay (Fingering):",
+    "finger_thumb": "1: Ngón Cái (Thumb)",
+    "finger_index": "2: Ngón Trỏ (Index)",
+    "finger_middle": "3: Ngón Giữa (Middle)",
+    "finger_ring": "4: Ngón Áp Út (Ring)",
+    "finger_pinky": "5: Ngón Út (Pinky)",
+    "items": {
+      "major": {
+        "name": "Major (Trưởng)",
+        "fullName": "Hợp âm Trưởng",
+        "desc": "Hợp âm tươi sáng, vui tươi, là nền tảng của âm nhạc cổ điển & hiện đại."
+      },
+      "minor": {
+        "name": "Minor (Thứ)",
+        "fullName": "Hợp âm Thứ",
+        "desc": "Hợp âm u trầm, u buồn, chứa quãng 3 thứ mượt mà."
+      },
+      "dom7": {
+        "name": "Dominant 7th (Ám 7)",
+        "fullName": "Hợp âm Bảy Ám",
+        "desc": "Hợp âm 7 mang tính thúc giục và giải quyết mạnh mẽ về nốt chủ âm."
+      },
+      "maj7": {
+        "name": "Major 7th (Trưởng 7)",
+        "fullName": "Hợp âm Bảy Trưởng",
+        "desc": "Hợp âm Jazz sang trọng, bay bổng và đầy chất thơ."
+      },
+      "min7": {
+        "name": "Minor 7th (Thứ 7)",
+        "fullName": "Hợp âm Bảy Thứ",
+        "desc": "Hợp âm u buồn nhưng rất êm dịu, sử dụng nhiều trong Jazz, Pop & R&B."
+      },
+      "dim": {
+        "name": "Diminished (Giảm)",
+        "fullName": "Hợp âm Giảm (Dim)",
+        "desc": "Hợp âm kịch tính, căng thẳng cao độ, gồm toàn các quãng 3 thứ chồng lên nhau."
+      },
+      "aug": {
+        "name": "Augmented (Tăng)",
+        "fullName": "Hợp âm Tăng (Aug)",
+        "desc": "Hợp âm huyền bí, bay bổng và tạo cảm giác không gian rộng lớn."
+      },
+      "sus4": {
+        "name": "Suspended 4th (Treo 4)",
+        "fullName": "Hợp âm Treo 4 (Sus4)",
+        "desc": "Hợp âm lơ lửng, thay nốt bậc 3 bằng nốt bậc 4 đúng."
+      },
+      "major_scale": {
+        "name": "Major Scale (Trưởng)",
+        "fullName": "Âm Giai Trưởng Tự Nhiên",
+        "desc": "Âm giai tươi sáng, cơ bản nhất của mọi lý thuyết âm nhạc tây phương."
+      },
+      "natural_minor": {
+        "name": "Natural Minor (Thứ Tự Nhiên)",
+        "fullName": "Âm Giai Thứ Tự Nhiên",
+        "desc": "Âm giai thứ cơ bản mang màu sắc u buồn, cổ điển."
+      },
+      "harmonic_minor": {
+        "name": "Harmonic Minor (Thứ Hòa Âm)",
+        "fullName": "Âm Giai Thứ Hòa Âm",
+        "desc": "Tăng bậc 7 lên nửa cung, mang màu sắc Ả Rập & kịch tính Trung Đông."
+      },
+      "melodic_minor": {
+        "name": "Melodic Minor (Thứ Giai Điệu)",
+        "fullName": "Âm Giai Thứ Giai Điệu",
+        "desc": "Biến tấu nâng cả bậc 6 & 7 lên khi đi lên, rất được yêu thích trong nhạc Jazz."
+      },
+      "major_pentatonic": {
+        "name": "Major Pentatonic (Ngũ Âm Trưởng)",
+        "fullName": "Âm Giai Ngũ Âm Trưởng (5 Nốt)",
+        "desc": "Ngũ âm dân gian truyền thống Á Đông, ngọt ngào và rất dễ ứng tấu ngẫu hứng."
+      },
+      "minor_pentatonic": {
+        "name": "Minor Pentatonic (Ngũ Âm Thứ)",
+        "fullName": "Âm Giai Ngũ Âm Thứ (5 Nốt)",
+        "desc": "Nền tảng của nhạc Rock, Blues, Solo Guitar & Piano Jazz."
+      }
+    }
   }
 }

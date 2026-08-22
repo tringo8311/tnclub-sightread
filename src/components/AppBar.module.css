@@ -93,7 +93,6 @@
 }
 
 .navLinkActive {
-  font-weight: 900;
   color: #ffffff;
 }
 
@@ -277,20 +276,18 @@
   align-items: center;
   justify-content: center;
   /* Regular Dodecagon Shape (Thập Nhị Giác - 12 cạnh) */
-  clip-path: polygon(
-    50% 0%,
-    75% 6.7%,
-    93.3% 25%,
-    100% 50%,
-    93.3% 75%,
-    75% 93.3%,
-    50% 100%,
-    25% 93.3%,
-    6.7% 75%,
-    0% 50%,
-    6.7% 25%,
-    25% 6.7%
-  );
+  clip-path: polygon(50% 0%,
+      75% 6.7%,
+      93.3% 25%,
+      100% 50%,
+      93.3% 75%,
+      75% 93.3%,
+      50% 100%,
+      25% 93.3%,
+      6.7% 75%,
+      0% 50%,
+      6.7% 25%,
+      25% 6.7%);
   background: rgba(2, 6, 23, 0.4);
   color: #fbbf24;
   backdrop-filter: blur(16px);
@@ -304,20 +301,18 @@
   content: '';
   position: absolute;
   inset: 1.5px;
-  clip-path: polygon(
-    50% 0%,
-    75% 6.7%,
-    93.3% 25%,
-    100% 50%,
-    93.3% 75%,
-    75% 93.3%,
-    50% 100%,
-    25% 93.3%,
-    6.7% 75%,
-    0% 50%,
-    6.7% 25%,
-    25% 6.7%
-  );
+  clip-path: polygon(50% 0%,
+      75% 6.7%,
+      93.3% 25%,
+      100% 50%,
+      93.3% 75%,
+      75% 93.3%,
+      50% 100%,
+      25% 93.3%,
+      6.7% 75%,
+      0% 50%,
+      6.7% 25%,
+      25% 6.7%);
   background: linear-gradient(135deg, rgba(251, 191, 36, 0.6), rgba(245, 158, 11, 0.2) 50%, rgba(251, 191, 36, 0.6));
   z-index: -1;
 }

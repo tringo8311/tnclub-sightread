@@ -217,7 +217,7 @@ export default function TransportBar({
           </TooltipTrigger>
           {isMicActive && (
             <span
-              className="min-w-6 px-1 text-center font-mono text-xs font-bold text-amber-300"
+              className="min-w-6 px-1 text-center font-mono text-xs font-semibold text-amber-300"
               data-element-id="transport-mic-pitch-display"
             >
               {detectedMidi !== null ? getNoteName(detectedMidi) : '--'}

@@ -6,39 +6,26 @@ export function RoadmapSection() {
   const { t } = useTranslation()
 
   return (
-    <Article header={t('about.sections.roadmap', 'Lộ trình phát triển')}>
-      <p>
-        {t(
-          'about.roadmap.intro',
-          'Các tính năng và cải tiến đang được phát triển trong tương lai:',
-        )}
-      </p>
+    <Article header={t('about.sections.roadmap', 'Roadmap')}>
+      <p>{t('about.roadmap.intro', 'Exciting features currently planned for future updates:')}</p>
       <ul className="list-disc space-y-1.5 px-6 pt-2 text-sm leading-relaxed">
+        <li>{t('about.roadmap.items.mobile', 'Mobile tablet and phone optimized layout.')}</li>
         <li>
-          {t(
-            'about.roadmap.items.mobile',
-            'Ứng dụng di động tối ưu cho máy tính bảng và điện thoại.',
-          )}
+          {t('about.roadmap.items.musicxml', 'MusicXML file import and full sheet music renderer.')}
         </li>
         <li>
-          {t(
-            'about.roadmap.items.musicxml',
-            'Hỗ trợ định dạng MusicXML và hiển thị bản nhạc đầy đủ.',
-          )}
-        </li>
-        <li>
-          {t('about.roadmap.items.scoring', 'Theo dõi tiến trình học và chấm điểm bài luyện tập.')}
+          {t('about.roadmap.items.scoring', 'Practice scoring and performance progress tracking.')}
         </li>
         <li>
           {t(
             'about.roadmap.items.freeplay_record',
-            'Ghi âm phần biểu diễn ở chế độ Chơi tự do và chia sẻ liên kết.',
+            'Record performances in Free Play mode and share links.',
           )}
         </li>
         <li>
           {t(
             'about.roadmap.items.training_games',
-            'Các bài tập nhỏ và trò chơi luyện phản xạ nhận biết nốt.',
+            'Interactive note recognition games and sight-reading drills.',
           )}
         </li>
       </ul>

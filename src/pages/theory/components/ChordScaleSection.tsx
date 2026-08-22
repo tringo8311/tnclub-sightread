@@ -1,5 +1,7 @@
+import { InteractivePianoKeyboard } from '@/components'
 import { Volume2 } from 'lucide-react'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 // Root Notes (MIDI 60 = C4)
 const ROOT_NOTES = [
@@ -33,91 +35,91 @@ interface ChordDef {
 const CHORDS: ChordDef[] = [
   {
     id: 'major',
-    name: 'Major (Trưởng)',
-    fullName: 'Hợp âm Trưởng',
+    name: 'Major',
+    fullName: 'Major Triad',
     intervals: [0, 4, 7],
     symbol: '',
     rhFingering: [1, 3, 5],
     lhFingering: [5, 3, 1],
     formula: '1 - 3 - 5',
-    desc: 'Hợp âm tươi sáng, vui tươi, là nền tảng của âm nhạc cổ điển & hiện đại.',
+    desc: 'Bright and uplifting triad chord, the foundation of classical and modern music.',
   },
   {
     id: 'minor',
-    name: 'Minor (Thứ)',
-    fullName: 'Hợp âm Thứ',
+    name: 'Minor',
+    fullName: 'Minor Triad',
     intervals: [0, 3, 7],
     symbol: 'm',
     rhFingering: [1, 3, 5],
     lhFingering: [5, 3, 1],
     formula: '1 - ♭3 - 5',
-    desc: 'Hợp âm u trầm, u buồn, chứa quãng 3 thứ mượt mà.',
+    desc: 'Melancholic and smooth triad chord featuring a mellow minor third.',
   },
   {
     id: 'dom7',
-    name: 'Dominant 7th (Ám 7)',
-    fullName: 'Hợp âm Bảy Ám',
+    name: 'Dominant 7th',
+    fullName: 'Dominant Seventh Chord',
     intervals: [0, 4, 7, 10],
     symbol: '7',
     rhFingering: [1, 2, 3, 5],
     lhFingering: [5, 3, 2, 1],
     formula: '1 - 3 - 5 - ♭7',
-    desc: 'Tạo cảm giác căng thẳng thúc giục giải quyết về hợp âm chủ, rất phổ biến trong Blues & Jazz.',
+    desc: 'Tense bluesy seventh chord that resolves naturally to the tonic.',
   },
   {
     id: 'maj7',
-    name: 'Major 7th (Trưởng 7)',
-    fullName: 'Hợp âm Trưởng 7',
+    name: 'Major 7th',
+    fullName: 'Major Seventh Chord',
     intervals: [0, 4, 7, 11],
     symbol: 'Maj7',
     rhFingering: [1, 2, 3, 5],
     lhFingering: [5, 3, 2, 1],
     formula: '1 - 3 - 5 - 7',
-    desc: 'Âm thanh sang trọng, mộng mơ, êm dịu thường thấy trong Pop & Ballad hiện đại.',
+    desc: 'Lush and dreamy jazz harmony with an elegant major seventh interval.',
   },
   {
     id: 'min7',
-    name: 'Minor 7th (Thứ 7)',
-    fullName: 'Hợp âm Thứ 7',
+    name: 'Minor 7th',
+    fullName: 'Minor Seventh Chord',
     intervals: [0, 3, 7, 10],
     symbol: 'm7',
     rhFingering: [1, 2, 3, 5],
     lhFingering: [5, 3, 2, 1],
     formula: '1 - ♭3 - 5 - ♭7',
-    desc: 'Âm sắc ấm áp, thư thái, hoàn hảo cho giai điệu R&B và Chillout.',
+    desc: 'Warm, emotional, and versatile chord widely used in Jazz, R&B, and Pop.',
   },
   {
     id: 'dim',
-    name: 'Diminished (Giảm)',
-    fullName: 'Hợp âm Giảm (Dim)',
+    name: 'Diminished',
+    fullName: 'Diminished Triad',
     intervals: [0, 3, 6],
     symbol: 'dim',
     rhFingering: [1, 3, 5],
     lhFingering: [5, 3, 1],
     formula: '1 - ♭3 - ♭5',
-    desc: 'Tạo sự huyền bí, hồi hộp kịch tính cao độ.',
+    desc: 'High tension and suspenseful diminished chord composed of minor thirds.',
   },
   {
     id: 'aug',
-    name: 'Augmented (Tăng)',
-    fullName: 'Hợp âm Tăng (Aug)',
+    name: 'Augmented',
+    fullName: 'Augmented Triad',
     intervals: [0, 4, 8],
     symbol: 'aug',
     rhFingering: [1, 3, 5],
     lhFingering: [5, 3, 1],
     formula: '1 - 3 - ♯5',
-    desc: 'Hợp âm kỳ lạ, lơ lửng, tạo sự bối rối tò mò.',
+    desc: 'Dreamlike, floating, and expansive augmented harmony.',
   },
   {
     id: 'sus4',
-    name: 'Suspended 4 (Sus4)',
-    fullName: 'Hợp âm Treo Sus4',
+    name: 'Suspended 4th (Sus4)',
+    fullName: 'Suspended Fourth Chord',
     intervals: [0, 5, 7],
     symbol: 'sus4',
     rhFingering: [1, 3, 5],
     lhFingering: [5, 3, 1],
     formula: '1 - 4 - 5',
-    desc: 'Thay bậc 3 bằng bậc 4, tạo sự chờ đợi bay bổng trước khi chuyển về hợp âm Trưởng.',
+    desc: 'Open and suspenseful harmony that replaces the third with a perfect fourth.',
   },
 ]
 
@@ -136,68 +138,83 @@ interface ScaleDef {
 const SCALES: ScaleDef[] = [
   {
     id: 'major_scale',
-    name: 'Major Scale (Trưởng)',
-    fullName: 'Âm Giai Trưởng Tự Nhiên',
+    name: 'Major Scale',
+    fullName: 'Natural Major Scale',
     intervals: [0, 2, 4, 5, 7, 9, 11, 12],
     rhFingering: [1, 2, 3, 1, 2, 3, 4, 5],
     lhFingering: [5, 4, 3, 2, 1, 3, 2, 1],
-    formula: 'C - D - E - F - G - A - B - C',
-    desc: 'Âm giai tươi sáng, cơ bản nhất của mọi lý thuyết âm nhạc tây phương.',
+    formula: '1 - 2 - 3 - 4 - 5 - 6 - 7 - 8',
+    desc: 'Bright, uplifting, and fundamental scale of Western music theory.',
   },
   {
     id: 'natural_minor',
-    name: 'Natural Minor (Thứ Tự Nhiên)',
-    fullName: 'Âm Giai Thứ Tự Nhiên',
+    name: 'Natural Minor',
+    fullName: 'Natural Minor Scale',
     intervals: [0, 2, 3, 5, 7, 8, 10, 12],
     rhFingering: [1, 2, 3, 1, 2, 3, 4, 5],
     lhFingering: [5, 4, 3, 2, 1, 3, 2, 1],
     formula: '1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7 - 8',
-    desc: 'Âm giai thứ cơ bản mang màu sắc u buồn, cổ điển.',
+    desc: 'Classical minor scale with a somber, emotional tonal color.',
   },
   {
     id: 'harmonic_minor',
-    name: 'Harmonic Minor (Thứ Hòa Âm)',
-    fullName: 'Âm Giai Thứ Hòa Âm',
+    name: 'Harmonic Minor',
+    fullName: 'Harmonic Minor Scale',
     intervals: [0, 2, 3, 5, 7, 8, 11, 12],
     rhFingering: [1, 2, 3, 1, 2, 3, 4, 5],
     lhFingering: [5, 4, 3, 2, 1, 3, 2, 1],
     formula: '1 - 2 - ♭3 - 4 - 5 - ♭6 - 7 - 8',
-    desc: 'Tăng bậc 7 lên nửa cung, mang màu sắc Ả Rập & nhạc Kịch tính Trung Đông.',
+    desc: 'Raised 7th degree creating an exotic, dramatic Middle Eastern flavor.',
   },
   {
     id: 'melodic_minor',
-    name: 'Melodic Minor (Thứ Giai Điệu)',
-    fullName: 'Âm Giai Thứ Giai Điệu',
+    name: 'Melodic Minor',
+    fullName: 'Melodic Minor Scale',
     intervals: [0, 2, 3, 5, 7, 9, 11, 12],
     rhFingering: [1, 2, 3, 1, 2, 3, 4, 5],
     lhFingering: [5, 4, 3, 2, 1, 3, 2, 1],
     formula: '1 - 2 - ♭3 - 4 - 5 - 6 - 7 - 8',
-    desc: 'Biến tấu nâng cả bậc 6 & 7 lên khi đi lên, rất được yêu thích trong nhạc Jazz.',
+    desc: 'Raised 6th and 7th degrees ascending, widely used in Jazz improvisation.',
   },
   {
     id: 'major_pentatonic',
-    name: 'Major Pentatonic (Ngũ Âm Trưởng)',
-    fullName: 'Âm Giai Ngũ Âm Trưởng (5 Nốt)',
+    name: 'Major Pentatonic',
+    fullName: 'Major Pentatonic Scale (5 Notes)',
     intervals: [0, 2, 4, 7, 9, 12],
     rhFingering: [1, 2, 3, 1, 2, 3],
     lhFingering: [5, 4, 3, 2, 1, 1],
     formula: '1 - 2 - 3 - 5 - 6 - 8',
-    desc: 'Ngũ âm dân gian truyền thống Á Đông, ngọt ngào và rất dễ ứng tấu ngẫu hứng.',
+    desc: 'Traditional Asian folk scale, sweet and very easy to improvise.',
   },
   {
     id: 'minor_pentatonic',
-    name: 'Minor Pentatonic (Ngũ Âm Thứ)',
-    fullName: 'Âm Giai Ngũ Âm Thứ (5 Nốt)',
+    name: 'Minor Pentatonic',
+    fullName: 'Minor Pentatonic Scale (5 Notes)',
     intervals: [0, 3, 5, 7, 10, 12],
     rhFingering: [1, 2, 3, 1, 2, 3],
     lhFingering: [5, 4, 3, 2, 1, 1],
     formula: '1 - ♭3 - 4 - 5 - ♭7 - 8',
-    desc: 'Nền tảng của nhạc Rock, Blues, Solo Guitar & Piano Jazz.',
+    desc: 'The quintessential foundation for Rock, Blues, and Jazz solos.',
   },
 ]
 
 // Pitch to Note Name Helper
 const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+const NOTE_SOLFEGE_EN = [
+  'Do',
+  'Do# / Reb',
+  'Re',
+  'Re# / Mib',
+  'Mi',
+  'Fa',
+  'Fa# / Solb',
+  'Sol',
+  'Sol# / Lab',
+  'La',
+  'La# / Tib',
+  'Ti',
+]
+
 function getNoteName(pitch: number): string {
   const name = NOTE_NAMES[pitch % 12]
   const octave = Math.floor(pitch / 12) - 1
@@ -205,6 +222,7 @@ function getNoteName(pitch: number): string {
 }
 
 export function ChordScaleSection() {
+  const { t } = useTranslation()
   const [mode, setMode] = useState<'chord' | 'scale'>('chord')
   const [selectedRootIndex, setSelectedRootIndex] = useState(0)
   const [selectedChordId, setSelectedChordId] = useState('major')
@@ -264,24 +282,19 @@ export function ChordScaleSection() {
     }
   }
 
-  // Generate 3-Octave Keyboard keys (C3 to C6 -> 48 to 84)
-  const keys: { pitch: number; isBlack: boolean; name: string }[] = []
-  for (let p = 48; p <= 84; p++) {
-    const isBlack = [1, 3, 6, 8, 10].includes(p % 12)
-    keys.push({ pitch: p, isBlack, name: getNoteName(p) })
-  }
-
   return (
     <section className="mx-auto max-w-5xl space-y-8">
       <div className="border-border bg-card/60 space-y-6 rounded-2xl border p-6 shadow-xl backdrop-blur-md">
         <div className="border-border/60 flex flex-wrap items-center justify-between gap-4 border-b pb-4">
           <div>
-            <h2 className="bg-gradient-to-r from-amber-400 via-amber-200 to-white bg-clip-text text-2xl font-black text-transparent">
-              Tra Cứu Hợp Âm & Âm Giai Piano (Chord & Scale Explorer)
+            <h2 className="bg-gradient-to-r from-amber-400 via-amber-200 to-white bg-clip-text text-2xl font-bold text-transparent">
+              {t('theory.chords_scales.title', 'Piano Chords & Scales Finder')}
             </h2>
             <p className="text-muted-foreground mt-1 text-xs font-medium">
-              Xem vị trí nốt, cấu trúc quãng và thế bấm ngón tay chuẩn (Fingering 1-2-3-4-5) cho cả
-              hai tay.
+              {t(
+                'theory.chords_scales.subtitle',
+                'Look up chord notes, intervals, finger numbers, and hear live audio playback',
+              )}
             </p>
           </div>
 
@@ -290,32 +303,32 @@ export function ChordScaleSection() {
             <button
               type="button"
               onClick={() => setMode('chord')}
-              className={`cursor-pointer rounded-lg px-4 py-1.5 text-xs font-bold transition-all ${
+              className={`cursor-pointer rounded-lg px-4 py-1.5 text-xs font-semibold transition-all ${
                 mode === 'chord'
-                  ? 'bg-amber-500 font-extrabold text-slate-950 shadow-md'
+                  ? 'bg-amber-500 font-bold text-slate-950 shadow-md'
                   : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
               }`}
             >
-              Hợp Âm (Chords)
+              {t('theory.chords_scales.tab_chords', 'Chords')}
             </button>
             <button
               type="button"
               onClick={() => setMode('scale')}
-              className={`cursor-pointer rounded-lg px-4 py-1.5 text-xs font-bold transition-all ${
+              className={`cursor-pointer rounded-lg px-4 py-1.5 text-xs font-semibold transition-all ${
                 mode === 'scale'
-                  ? 'bg-cyan-500 font-extrabold text-slate-950 shadow-md'
+                  ? 'bg-cyan-500 font-bold text-slate-950 shadow-md'
                   : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
               }`}
             >
-              Âm Giai (Scales)
+              {t('theory.chords_scales.tab_scales', 'Scales')}
             </button>
           </div>
         </div>
 
         {/* Root Note Picker */}
         <div>
-          <label className="text-muted-foreground mb-2 block text-xs font-bold tracking-wider uppercase">
-            1. Chọn Nốt Gốc (Root Note):
+          <label className="text-muted-foreground mb-2 block text-xs font-semibold tracking-wider uppercase">
+            {t('theory.chords_scales.root_select', '1. Select Root Note:')}
           </label>
           <div className="flex flex-wrap items-center gap-1.5">
             {ROOT_NOTES.map((r, idx) => (
@@ -323,9 +336,9 @@ export function ChordScaleSection() {
                 key={r.name}
                 type="button"
                 onClick={() => setSelectedRootIndex(idx)}
-                className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
                   selectedRootIndex === idx
-                    ? 'bg-primary text-primary-foreground ring-primary/50 scale-105 font-black ring-2'
+                    ? 'bg-primary text-primary-foreground ring-primary/50 scale-105 font-bold ring-2'
                     : 'bg-foreground/5 text-foreground/80 hover:bg-foreground/15 border-border/50 border'
                 }`}
               >
@@ -337,8 +350,10 @@ export function ChordScaleSection() {
 
         {/* Type Selection (Chords or Scales) */}
         <div>
-          <label className="text-muted-foreground mb-2 block text-xs font-bold tracking-wider uppercase">
-            2. Chọn Loại {mode === 'chord' ? 'Hợp Âm' : 'Âm Giai'}:
+          <label className="text-muted-foreground mb-2 block text-xs font-semibold tracking-wider uppercase">
+            {mode === 'chord'
+              ? t('theory.chords_scales.chord_select', '2. Select Chord Type:')
+              : t('theory.chords_scales.scale_select', '2. Select Scale Type:')}
           </label>
           <div className="flex flex-wrap items-center gap-2">
             {mode === 'chord'
@@ -347,14 +362,14 @@ export function ChordScaleSection() {
                     key={c.id}
                     type="button"
                     onClick={() => setSelectedChordId(c.id)}
-                    className={`cursor-pointer rounded-xl px-3.5 py-2 text-xs font-semibold transition-all ${
+                    className={`cursor-pointer rounded-xl px-3.5 py-2 text-xs font-medium transition-all ${
                       selectedChordId === c.id
-                        ? 'border-2 border-amber-400 bg-amber-500/20 font-bold text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
+                        ? 'border-2 border-amber-400 bg-amber-500/20 font-semibold text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
                         : 'bg-foreground/5 border-border/50 text-foreground/70 hover:bg-foreground/10 hover:text-foreground border'
                     }`}
                   >
                     {root.name.split(' / ')[0]}
-                    {c.symbol} ({c.name})
+                    {c.symbol} ({t(`theory.chords_scales.items.${c.id}.name`, c.name)})
                   </button>
                 ))
               : SCALES.map((s) => (
@@ -362,13 +377,14 @@ export function ChordScaleSection() {
                     key={s.id}
                     type="button"
                     onClick={() => setSelectedScaleId(s.id)}
-                    className={`cursor-pointer rounded-xl px-3.5 py-2 text-xs font-semibold transition-all ${
+                    className={`cursor-pointer rounded-xl px-3.5 py-2 text-xs font-medium transition-all ${
                       selectedScaleId === s.id
-                        ? 'border-2 border-cyan-400 bg-cyan-500/20 font-bold text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.2)]'
+                        ? 'border-2 border-cyan-400 bg-cyan-500/20 font-semibold text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.2)]'
                         : 'bg-foreground/5 border-border/50 text-foreground/70 hover:bg-foreground/10 hover:text-foreground border'
                     }`}
                   >
-                    {root.name.split(' / ')[0]} {s.name}
+                    {root.name.split(' / ')[0]}{' '}
+                    {t(`theory.chords_scales.items.${s.id}.name`, s.name)}
                   </button>
                 ))}
           </div>
@@ -378,23 +394,57 @@ export function ChordScaleSection() {
         <div className="border-border bg-foreground/5 flex flex-wrap items-center justify-between gap-4 rounded-2xl border p-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-lg font-black text-amber-400">
+              <span className="text-lg font-bold text-amber-400">
                 {root.name.split(' / ')[0]}
                 {mode === 'chord' ? activeChord.symbol : ''}
               </span>
-              <span className="text-foreground text-sm font-bold">
-                - {mode === 'chord' ? activeChord.fullName : activeScale.fullName}
+              <span className="text-foreground text-sm font-semibold">
+                -{' '}
+                {mode === 'chord'
+                  ? t(`theory.chords_scales.items.${activeChord.id}.fullName`, activeChord.fullName)
+                  : t(
+                      `theory.chords_scales.items.${activeScale.id}.fullName`,
+                      activeScale.fullName,
+                    )}
               </span>
             </div>
             <p className="text-muted-foreground text-xs">
-              Công thức phách:{' '}
+              {t('theory.chords_scales.formula_label', 'Formula:')}{' '}
               <strong className="text-foreground">
                 {mode === 'chord' ? activeChord.formula : activeScale.formula}
               </strong>
             </p>
-            <p className="text-foreground/80 text-xs font-medium">
-              {mode === 'chord' ? activeChord.desc : activeScale.desc}
+            <p className="text-foreground/80 text-xs font-normal">
+              {mode === 'chord'
+                ? t(`theory.chords_scales.items.${activeChord.id}.desc`, activeChord.desc)
+                : t(`theory.chords_scales.items.${activeScale.id}.desc`, activeScale.desc)}
             </p>
+
+            {/* Spelled-out Notes in Chord / Scale */}
+            <div className="flex flex-wrap items-center gap-2 pt-2">
+              <span className="text-xs font-semibold text-amber-400">
+                {t('theory.chords_scales.notes_in_chord', 'Notes:')}
+              </span>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {activePitches.map((p, idx) => (
+                  <span
+                    key={p}
+                    className="inline-flex items-center gap-1 rounded-lg border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-300 shadow-sm"
+                  >
+                    <span>
+                      {NOTE_NAMES[p % 12]}
+                      {Math.floor(p / 12) - 1}
+                    </span>
+                    <span className="text-muted-foreground text-[10px]">
+                      ({t(`theory.fundamentals.solfege.${p % 12}`, NOTE_SOLFEGE_EN[p % 12])})
+                    </span>
+                    {idx < activePitches.length - 1 && (
+                      <span className="text-muted-foreground/50 ml-0.5 text-[10px]">•</span>
+                    )}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Audio Action Buttons */}
@@ -402,18 +452,22 @@ export function ChordScaleSection() {
             <button
               type="button"
               onClick={() => playSound(activePitches, false)}
-              className="flex cursor-pointer items-center gap-1.5 rounded-xl bg-amber-500 px-3.5 py-2 text-xs font-bold text-slate-950 shadow-md transition hover:bg-amber-400"
+              className="flex cursor-pointer items-center gap-1.5 rounded-xl bg-amber-500 px-3.5 py-2 text-xs font-semibold text-slate-950 shadow-md transition hover:bg-amber-400"
             >
               <Volume2 size={16} />
-              <span>{mode === 'chord' ? 'Phát Hợp Âm' : 'Phát Tất Cả'}</span>
+              <span>
+                {mode === 'chord'
+                  ? t('theory.chords_scales.play_chord', 'Play Chord')
+                  : t('theory.chords_scales.play_all', 'Play All')}
+              </span>
             </button>
             {mode === 'chord' && (
               <button
                 type="button"
                 onClick={() => playSound(activePitches, true)}
-                className="bg-foreground/10 border-border text-foreground hover:bg-foreground/20 flex cursor-pointer items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-semibold transition"
+                className="bg-foreground/10 border-border text-foreground hover:bg-foreground/20 flex cursor-pointer items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-medium transition"
               >
-                <span>Phát Rải (Arpeggio)</span>
+                <span>{t('theory.chords_scales.play_arpeggio', 'Play Arpeggio')}</span>
               </button>
             )}
           </div>
@@ -421,161 +475,71 @@ export function ChordScaleSection() {
 
         {/* Hand Fingering View Switcher */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-          <label className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
-            3. Sơ Đồ Phím Đàn & Thế Bấm Ngón (Fingering):
+          <label className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+            {t('theory.chords_scales.fingering_title', '3. Keyboard Diagram & Fingering:')}
           </label>
           <div className="bg-foreground/5 border-border/60 flex flex-wrap items-center gap-1.5 rounded-xl border p-1">
             <button
               type="button"
               onClick={() => setHandView('lh')}
-              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
+              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 handView === 'lh'
-                  ? 'bg-cyan-500 font-extrabold text-slate-950 shadow-md'
+                  ? 'bg-cyan-500 font-bold text-slate-950 shadow-md'
                   : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
               }`}
             >
-              <span>🤚 Tay Trái (LH)</span>
+              <span>{t('theory.chords_scales.hand_lh', 'Left Hand (LH)')}</span>
             </button>
             <button
               type="button"
               onClick={() => setHandView('rh')}
-              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
+              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 handView === 'rh'
-                  ? 'bg-amber-500 font-extrabold text-slate-950 shadow-md'
+                  ? 'bg-amber-500 font-bold text-slate-950 shadow-md'
                   : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
               }`}
             >
-              <span>✋ Tay Phải (RH)</span>
+              <span>{t('theory.chords_scales.hand_rh', 'Right Hand (RH)')}</span>
             </button>
             <button
               type="button"
               onClick={() => setHandView('both')}
-              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
+              className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 handView === 'both'
-                  ? 'bg-emerald-500 font-extrabold text-slate-950 shadow-md'
+                  ? 'bg-emerald-500 font-bold text-slate-950 shadow-md'
                   : 'text-foreground/70 hover:text-foreground hover:bg-foreground/10'
               }`}
             >
-              <span>🙌 Cả Hai Tay (RH + LH)</span>
+              <span>{t('theory.chords_scales.hand_both', 'Both Hands (RH + LH)')}</span>
             </button>
           </div>
         </div>
 
         {/* Visual Interactive Piano Keyboard with Fingering Badges */}
-        <div className="border-border custom-scrollbar flex justify-center overflow-x-auto rounded-2xl border bg-slate-950 p-6 shadow-inner">
-          <div className="relative flex h-44 w-max select-none">
-            {/* Render White Keys */}
-            {keys
-              .filter((k) => !k.isBlack)
-              .map((wKey) => {
-                const isActive = activePitches.includes(wKey.pitch)
-                const rhFingerNum = pitchRhFingeringMap[wKey.pitch]
-                const lhFingerNum = pitchLhFingeringMap[wKey.pitch]
-
-                return (
-                  <div
-                    key={wKey.pitch}
-                    onClick={() => playSound([wKey.pitch], false)}
-                    className={`relative flex w-10 cursor-pointer flex-col items-center justify-end rounded-b-md border-r border-slate-300 pb-2 transition-colors ${
-                      isActive
-                        ? 'bg-amber-200 shadow-[inset_0_-8px_16px_rgba(245,158,11,0.5)]'
-                        : 'bg-white hover:bg-slate-100'
-                    }`}
-                  >
-                    {isActive && (
-                      <div className="absolute top-2.5 flex flex-col items-center gap-1">
-                        {(handView === 'rh' || handView === 'both') && rhFingerNum && (
-                          <div
-                            title="Tay Phải (RH)"
-                            className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-[10px] font-black text-slate-950 shadow-md ring-1 ring-amber-300"
-                          >
-                            {rhFingerNum}
-                          </div>
-                        )}
-                        {(handView === 'lh' || handView === 'both') && lhFingerNum && (
-                          <div
-                            title="Tay Trái (LH)"
-                            className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500 text-[10px] font-black text-slate-950 shadow-md ring-1 ring-cyan-300"
-                          >
-                            {lhFingerNum}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    <span
-                      className={`text-[10px] font-bold ${isActive ? 'font-extrabold text-amber-900' : 'text-slate-500'}`}
-                    >
-                      {wKey.name}
-                    </span>
-                  </div>
-                )
-              })}
-
-            {/* Render Black Keys accurately aligned on top of white keys */}
-            {keys.map((k, i) => {
-              if (k.isBlack) {
-                const isActive = activePitches.includes(k.pitch)
-                const rhFingerNum = pitchRhFingeringMap[k.pitch]
-                const lhFingerNum = pitchLhFingeringMap[k.pitch]
-                const whiteKeyOffset = keys.slice(0, i).filter((x) => !x.isBlack).length
-                const leftPos = whiteKeyOffset * 40 - 12
-
-                return (
-                  <div
-                    key={k.pitch}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      playSound([k.pitch], false)
-                    }}
-                    style={{ left: `${leftPos}px` }}
-                    className={`absolute top-0 z-20 flex h-28 w-6 cursor-pointer flex-col items-center justify-end rounded-b-md pb-2 shadow-md transition-colors ${
-                      isActive
-                        ? 'border border-amber-300 bg-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.8)]'
-                        : 'border border-slate-700 bg-slate-900 hover:bg-slate-800'
-                    }`}
-                  >
-                    {isActive && (
-                      <div className="absolute top-2 flex flex-col items-center gap-1">
-                        {(handView === 'rh' || handView === 'both') && rhFingerNum && (
-                          <div
-                            title="Tay Phải (RH)"
-                            className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-300 text-[9px] font-black text-slate-950 shadow ring-1 ring-amber-500"
-                          >
-                            {rhFingerNum}
-                          </div>
-                        )}
-                        {(handView === 'lh' || handView === 'both') && lhFingerNum && (
-                          <div
-                            title="Tay Trái (LH)"
-                            className="flex h-4 w-4 items-center justify-center rounded-full bg-cyan-300 text-[9px] font-black text-slate-950 shadow ring-1 ring-cyan-500"
-                          >
-                            {lhFingerNum}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    <span
-                      className={`text-[9px] font-bold ${isActive ? 'text-slate-950' : 'text-slate-400'}`}
-                    >
-                      {k.name.split('/')[0]}
-                    </span>
-                  </div>
-                )
-              }
-              return null
-            })}
-          </div>
-        </div>
+        <InteractivePianoKeyboard
+          startPitch={48}
+          endPitch={96}
+          activePitches={activePitches}
+          rhFingeringMap={pitchRhFingeringMap}
+          lhFingeringMap={pitchLhFingeringMap}
+          handView={handView}
+          onKeyClick={(key) => playSound([key.pitch], false)}
+          whiteKeyWidth={40}
+          heightClass="h-44"
+          className="p-6"
+        />
 
         {/* Fingering Reference Note */}
         <div className="border-border bg-foreground/5 text-muted-foreground flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 text-xs">
-          <div className="flex items-center gap-3">
-            <span className="text-foreground font-bold">Ký hiệu ngón tay (Fingering):</span>
-            <span>1: Ngón Cái (Thumb)</span>
-            <span>2: Ngón Trỏ (Index)</span>
-            <span>3: Ngón Giữa (Middle)</span>
-            <span>4: Ngón Áp Út (Ring)</span>
-            <span>5: Ngón Út (Pinky)</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-foreground font-semibold">
+              {t('theory.chords_scales.fingering_legend', 'Fingering notation:')}
+            </span>
+            <span>{t('theory.chords_scales.finger_thumb', '1: Thumb')}</span>
+            <span>{t('theory.chords_scales.finger_index', '2: Index')}</span>
+            <span>{t('theory.chords_scales.finger_middle', '3: Middle')}</span>
+            <span>{t('theory.chords_scales.finger_ring', '4: Ring')}</span>
+            <span>{t('theory.chords_scales.finger_pinky', '5: Pinky')}</span>
           </div>
         </div>
       </div>

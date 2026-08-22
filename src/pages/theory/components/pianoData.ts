@@ -153,7 +153,7 @@ export const PIANO_STRUCTURE: WhiteKeyData[] = [
       midi: 63,
       freq: 311.13,
       isBlack: true,
-      labelVi: 'D# 4',
+      labelVi: 'Rê# 4',
       clef: 'treble',
     },
   },

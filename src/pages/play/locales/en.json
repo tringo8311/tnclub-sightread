@@ -14,5 +14,19 @@
     "hardware_port": "Hardware Port",
     "unknown_device": "Unknown Device",
     "close": "Close"
+  },
+  "micTest": {
+    "title": "Microphone Pitch Test",
+    "statusListening": "Listening...",
+    "statusWaiting": "Ready to detect piano pitch",
+    "threshold": "Noise Gate Threshold",
+    "volume": "Volume",
+    "turnOff": "Turn Off Microphone",
+    "turnOn": "Turn On Microphone",
+    "recording": "Recording 3s...",
+    "debug": "Debug: Record & Listen",
+    "tipTitle": "💡 Recommended for Beginners",
+    "tipBody": "Microphone pitch detection is an interim option for Acoustic Pianos or when cables are unavailable. For 100% latency-free accuracy, please connect your piano via USB MIDI or Bluetooth MIDI!",
+    "close": "Close"
   }
 }

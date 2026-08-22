@@ -9,37 +9,37 @@ export function PianoHistorySection() {
   const timelineItems = [
     {
       year: '1700',
-      title: t('theory.history.cristofori_title', '1700 – Phát minh bởi Bartolomeo Cristofori'),
+      title: t('theory.history.cristofori_title', '1700 – Invented by Bartolomeo Cristofori'),
       desc: t(
         'theory.history.cristofori_desc',
-        'Tại Florence (Ý), nghệ nhân Cristofori sáng chế ra cây đàn "Un cimbalo di cipresso di piano e forte" - cho phép người chơi tạo ra âm thanh êm dịu (piano) hay mạnh mẽ (forte) bằng lực nhấn của ngón tay.',
+        'In Florence, Italy, master craftsman Cristofori invented "Un cimbalo di cipresso di piano e forte" - allowing performers to play soft (piano) or loud (forte) dynamics via touch sensitivity.',
       ),
     },
     {
       year: '1780s',
-      title: t('theory.history.fortepiano_title', 'Thế kỷ 18 – Thời đại Fortepiano cổ điển'),
+      title: t('theory.history.fortepiano_title', '18th Century – The Classical Fortepiano Era'),
       desc: t(
         'theory.history.fortepiano_desc',
-        'Các thiên tài như Mozart, Haydn và Beethoven đã sáng tác những kiệt tác đỉnh cao cho Fortepiano, thúc đẩy việc mở rộng quãng âm và cải tiến bộ cơ nảy búa.',
+        'Masters such as Mozart, Haydn, and Beethoven composed masterpieces for the fortepiano, pushing the evolution of hammer action and expanded keyboard register.',
       ),
     },
     {
       year: '1850s',
-      title: t('theory.history.industrial_title', 'Thế kỷ 19 – Cuộc cách mạng đúc khung gang'),
+      title: t(
+        'theory.history.industrial_title',
+        '19th Century – Cast-Iron Plate & Industrial Revolution',
+      ),
       desc: t(
         'theory.history.industrial_desc',
-        'Khung gang đúc liền khối (Iron Frame) và búa bọc dạ nén ra đời, giúp đàn chịu được lực căng cực lớn từ dây thép, tạo nên âm thanh uy lực vang dội trong các đại hòa nhạc.',
+        'Single-piece cast-iron plates and felt-covered hammers allowed immense string tension, creating the powerful concert grand projection needed for large concert halls.',
       ),
     },
     {
       year: 'Modern',
-      title: t(
-        'theory.history.modern_title',
-        'Thế kỷ 20 - 21 – Thời đại Piano hiện đại & Kỹ thuật số',
-      ),
+      title: t('theory.history.modern_title', '20th - 21st Century – The Modern & Digital Era'),
       desc: t(
         'theory.history.modern_desc',
-        'Sự ra đời của các dòng Concert Grand đỉnh cao kết hợp cùng Piano điện (Digital) và Piano lai (Hybrid), đưa âm nhạc Piano tiếp cận hàng triệu người trên toàn thế giới.',
+        'Refinement of the modern concert grand alongside the invention of digital pianos and hybrid acoustic-digital instruments, making piano music accessible worldwide.',
       ),
     },
   ]
@@ -52,12 +52,12 @@ export function PianoHistorySection() {
         </div>
         <div>
           <h2 className="text-foreground text-2xl font-bold tracking-tight md:text-3xl">
-            {t('theory.history.title', 'Lịch Sử Ra Đời & Phát Triển Của Piano')}
+            {t('theory.history.title', 'Origins & Evolution of the Piano')}
           </h2>
           <p className="text-muted-foreground text-xs md:text-sm">
             {t(
               'theory.history.subtitle',
-              'Từ nhạc cụ gảy dây cổ điển đến Vua của các loại nhạc cụ',
+              'From early keyboard instruments to the King of Instruments',
             )}
           </p>
         </div>

@@ -43,7 +43,10 @@
     }
   },
   "feedback": {
-    "text": "Bạn phát hiện lỗi hoặc có góp ý tính năng mới? Hãy gửi đóng góp cho cộng đồng phát triển TNClub Sightread."
+    "text": "Bạn phát hiện lỗi hoặc có góp ý tính năng mới? Hãy gửi đóng góp cho cộng đồng phát triển TNClub Sightread.",
+    "emailContact": "Địa chỉ Email liên hệ trực tiếp:",
+    "copyEmail": "Sao chép Email",
+    "sendEmail": "Gửi Email Phản Hồi"
   },
   "recommendations": {
     "intro": "Tìm kiếm Đàn Piano điện / Keyboard phù hợp để luyện tập?",

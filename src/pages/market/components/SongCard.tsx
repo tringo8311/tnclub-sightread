@@ -1,19 +1,27 @@
 import { Button } from '@/components'
 import { MarketMidiItem } from '@/features/market/marketStorage'
-import { Check, Download, Play, Store } from 'lucide-react'
+import { Download, Eye, Play, Star } from 'lucide-react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styles from '../market.module.css'
 
 interface SongCardProps {
   item: MarketMidiItem
-  isSaved: boolean
+  isFavorite: boolean
+  onToggleFavorite: (item: MarketMidiItem) => void
   onPreview: (item: MarketMidiItem) => void
   onDownload: (item: MarketMidiItem) => void
-  onSave: (item: MarketMidiItem) => void
+  onPlayNow: (item: MarketMidiItem) => void
 }
 
-export function SongCard({ item, isSaved, onPreview, onDownload, onSave }: SongCardProps) {
+export function SongCard({
+  item,
+  isFavorite,
+  onToggleFavorite,
+  onPreview,
+  onDownload,
+  onPlayNow,
+}: SongCardProps) {
   const { t } = useTranslation()
 
   return (
@@ -24,12 +32,33 @@ export function SongCard({ item, isSaved, onPreview, onDownload, onSave }: SongC
     >
       <div className="space-y-3">
         <div className="flex items-start justify-between gap-2">
-          <span className={styles.cardCategoryBadge}>{item.category}</span>
-          <span className="text-muted-foreground text-xs font-medium">{item.level}</span>
+          <div className="flex items-center gap-2">
+            <span className={styles.cardCategoryBadge}>{item.category}</span>
+            <span className="text-muted-foreground text-xs font-medium">{item.level}</span>
+          </div>
+
+          {/* Favorite Toggle Button */}
+          <button
+            type="button"
+            onClick={() => onToggleFavorite(item)}
+            title={
+              isFavorite
+                ? t('market.songCard.favoriteRemove', 'Remove from favorites')
+                : t('market.songCard.favoriteAdd', 'Add to favorites')
+            }
+            className="text-muted-foreground/60 p-1 transition-colors hover:text-amber-400"
+            data-action="toggle-favorite"
+          >
+            <Star
+              className={`h-4 w-4 transition-transform hover:scale-110 ${
+                isFavorite ? 'fill-amber-400 text-amber-400' : ''
+              }`}
+            />
+          </button>
         </div>
 
         <div>
-          <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-lg font-bold transition-colors">
+          <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-base font-semibold transition-colors">
             {item.title}
           </h3>
           <p className="text-muted-foreground mt-0.5 line-clamp-1 text-xs font-medium">
@@ -65,18 +94,18 @@ export function SongCard({ item, isSaved, onPreview, onDownload, onSave }: SongC
           onClick={() => onPreview(item)}
           action="preview-song"
           description={t('market.songCard.previewDescription', {
-            defaultValue: `Xem thử bản nhạc ${item.title}`,
+            defaultValue: `Preview sheet music for ${item.title}`,
             title: item.title,
           })}
         >
-          <Play className="text-primary h-3.5 w-3.5" />
-          <span>{t('market.songCard.preview', 'Xem thử')}</span>
+          <Eye className="text-primary h-3.5 w-3.5" />
+          <span>{t('market.songCard.preview', 'Preview')}</span>
         </Button>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => onDownload(item)}
-            title={t('market.songCard.downloadTooltip', 'Tải file .mid về máy')}
+            title={t('market.songCard.downloadTooltip', 'Download .mid file')}
             className="bg-foreground/5 text-muted-foreground hover:text-foreground hover:bg-foreground/15 flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl transition-all"
             data-action="download-midi"
           >
@@ -85,22 +114,13 @@ export function SongCard({ item, isSaved, onPreview, onDownload, onSave }: SongC
 
           <Button
             size="sm"
-            variant={isSaved ? 'secondary' : 'primary'}
-            onClick={() => !isSaved && onSave(item)}
-            className={isSaved ? 'bg-emerald-600 text-white hover:bg-emerald-500' : ''}
-            data-action="save-to-app"
+            variant="primary"
+            onClick={() => onPlayNow(item)}
+            data-action="play-now"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-sm"
           >
-            {isSaved ? (
-              <>
-                <Check className="h-3.5 w-3.5" />
-                <span>{t('market.songCard.saved', 'Đã lưu')}</span>
-              </>
-            ) : (
-              <>
-                <Store className="h-3.5 w-3.5" />
-                <span>{t('market.songCard.saveToApp', 'Thêm vào App')}</span>
-              </>
-            )}
+            <Play className="h-3.5 w-3.5 fill-current" />
+            <span>{t('market.songCard.playNow', 'Play Now')}</span>
           </Button>
         </div>
       </div>

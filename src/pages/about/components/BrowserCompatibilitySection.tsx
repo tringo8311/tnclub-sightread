@@ -7,16 +7,16 @@ export function BrowserCompatibilitySection() {
 
   return (
     <Article
-      header={t('about.sections.browser_compatibility', 'Tương thích trình duyệt')}
+      header={t('about.sections.browser_compatibility', 'Browser Compatibility')}
       first={t(
         'about.browserCompatibility.intro',
-        'TNClub Sightread tương thích tốt nhất trên các trình duyệt hiện đại như Google Chrome, Microsoft Edge và Mozilla Firefox.',
+        'TNClub Sightread is fully compatible with modern browsers like Google Chrome, Microsoft Edge, and Mozilla Firefox.',
       )}
     >
       <p>
         {t(
           'about.browserCompatibility.midi_note',
-          'Để kết nối Đàn Piano điện qua cổng USB MIDI, khuyến nghị sử dụng trình duyệt hỗ trợ chuẩn WebMIDI (như Chrome, Edge, Brave).',
+          'For connecting a MIDI keyboard via USB, a WebMIDI capable browser (such as Chrome, Edge, or Brave) is recommended.',
         )}
       </p>
     </Article>

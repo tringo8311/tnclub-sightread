@@ -25,18 +25,15 @@ export function AttributionsSection() {
     .sort((a, b) => a.title.localeCompare(b.title))
 
   return (
-    <Article header={t('about.sections.attributions', 'Ghi nhận tác quyền')}>
+    <Article header={t('about.sections.attributions', 'Attributions')}>
       <p>
         {t(
           'about.attributions.intro',
-          'Một số bản nhạc và bản phối trong ứng dụng được tham khảo từ cộng đồng mở.',
+          'Some music arrangements featured are shared by the community under open licenses.',
         )}
       </p>
       <p>
-        {t(
-          'about.attributions.thanks',
-          'Chúng tôi trân trọng đóng góp của các tác giả và cộng đồng âm nhạc.',
-        )}
+        {t('about.attributions.thanks', 'Grateful to all contributors and original arrangers.')}
       </p>
       <ul className="list-disc pt-2 pl-6 text-sm">
         {sortedSongs.map((song) => (

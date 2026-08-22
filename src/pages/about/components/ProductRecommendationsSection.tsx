@@ -7,32 +7,29 @@ export function ProductRecommendationsSection() {
 
   return (
     <Article
-      header={t('about.sections.product_recommendations', 'Gợi ý thiết bị')}
-      first={t(
-        'about.recommendations.intro',
-        'Tìm kiếm Đàn Piano điện / Keyboard phù hợp để luyện tập?',
-      )}
+      header={t('about.sections.product_recommendations', 'Hardware Recommendations')}
+      first={t('about.recommendations.intro', 'Looking for a compatible keyboard?')}
     >
       <p>
         {t(
           'about.recommendations.usb_advice',
-          'TNClub Sightread cần kết nối MIDI-out (thường qua cổng USB B hoặc Bluetooth MIDI). Bạn nên ưu tiên kết nối cáp USB trực tiếp để đảm bảo độ độ trễ thấp nhất.',
+          'TNClub Sightread works best with keyboards supporting USB MIDI output for minimal latency.',
         )}
       </p>
 
       <ul className="ml-6 list-disc space-y-2 pt-2 text-sm leading-relaxed">
         <li>
-          <b>{t('about.recommendations.beginner_title', 'Người mới bắt đầu:')}</b>{' '}
+          <b>{t('about.recommendations.beginner_title', 'Beginner:')}</b>{' '}
           {t(
             'about.recommendations.beginner_desc',
-            'Các dòng đàn Piano điện / Organ 61 phím có hỗ trợ USB MIDI.',
+            'Portable 61-key or 88-key electronic keyboards with USB MIDI.',
           )}
         </li>
         <li>
-          <b>{t('about.recommendations.intermediate_title', 'Nâng cao:')}</b>{' '}
+          <b>{t('about.recommendations.intermediate_title', 'Intermediate & Advanced:')}</b>{' '}
           {t(
             'about.recommendations.intermediate_desc',
-            'Đàn Piano điện 88 phím có phím nặng (Weighted Keys) giúp cảm giác phím chân thực.',
+            'Full 88-key weighted digital pianos for authentic key action.',
           )}
         </li>
       </ul>

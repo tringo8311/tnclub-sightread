@@ -50,13 +50,13 @@ export function MarketHero({
         </div>
 
         <h1 className={`text-3xl font-bold tracking-tight sm:text-4xl ${styles.heroTitle}`}>
-          {t('market.hero.title', 'Thư Viện & Trung Tâm Tải Nhạc MIDI Piano')}
+          {t('market.hero.title', 'Piano MIDI Sight-reading Library & Hub')}
         </h1>
 
         <p className="text-muted-foreground mx-auto max-w-2xl text-sm leading-relaxed sm:text-base">
           {t(
             'market.hero.description',
-            'Tải file `.mid` từ máy tính, kéo thả bài hát của bạn hoặc dán đường dẫn công khai để xem và thực hành luyện đọc nốt nhạc ngay lập tức.',
+            'Upload `.mid` files from your computer, drag & drop your tracks, or paste a public URL to practice sight-reading immediately.',
           )}
         </p>
 
@@ -85,13 +85,13 @@ export function MarketHero({
           <div className="border-primary/30 bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border shadow-md transition-transform group-hover:scale-110">
             <Upload className="h-6 w-6" />
           </div>
-          <h3 className="text-foreground text-sm font-bold">
-            Kéo & Thả File MIDI (.mid / .midi) vào đây
+          <h3 className="text-foreground text-sm font-semibold">
+            {t('market.hero.dropTitle', 'Drag & Drop MIDI Files (.mid / .midi) here')}
           </h3>
           <p className="text-muted-foreground mt-1 text-xs">
-            hoặc{' '}
-            <span className="text-primary font-semibold underline">
-              bấm để chọn file từ máy tính của bạn
+            {t('market.hero.dropOr', 'or ')}
+            <span className="text-primary font-medium underline">
+              {t('market.hero.dropBrowse', 'click to browse files from your computer')}
             </span>
           </p>
         </div>
@@ -107,8 +107,8 @@ export function MarketHero({
 
         {/* Trusted Free External MIDI Search Portals */}
         <div className="border-border/50 border-t pt-4">
-          <span className="text-muted-foreground mb-3 block text-xs font-semibold tracking-wider uppercase">
-            🌐 Kho Nguồn Tải File MIDI Miễn Phí Uy Tín
+          <span className="text-muted-foreground mb-3 block text-xs font-medium tracking-wider uppercase">
+            {t('market.hero.portalsHeading', '🌐 Trusted Free External MIDI Search Portals')}
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
             {[

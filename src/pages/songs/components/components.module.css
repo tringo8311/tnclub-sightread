@@ -9,11 +9,14 @@
 .emptyState {
   display: flex;
   flex: 1 1 0%;
+  width: 100%;
+  min-height: 280px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 64px;
-  padding-bottom: 64px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 48px 16px;
   text-align: center;
   animation: fadeIn 0.3s ease-out;
 }
@@ -125,7 +128,7 @@
   align-items: center;
   gap: 4px;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 500;
   padding: 3px 10px;
   border-radius: 9999px;
   background: hsl(var(--foreground) / 0.06);
@@ -239,7 +242,7 @@
   padding: 12px 16px;
   text-align: left;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: hsl(var(--foreground) / 0.6);
@@ -249,6 +252,24 @@
   display: block;
   flex: 1 1 0%;
   overflow-y: auto;
+}
+
+.tableBodyEmpty {
+  display: flex !important;
+  flex: 1 1 0% !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 280px;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.tableBodyEmpty > * {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tableRow {

@@ -9,25 +9,22 @@ export function WhatSection() {
 
   return (
     <Article
-      header={t('about.sections.what', 'TNClub Sightread là gì?')}
+      header={t('about.sections.what', 'What is TNClub Sightread?')}
       first={t(
         'about.what.intro',
-        'TNClub Sightread là ứng dụng web miễn phí giúp học và thực hành chơi đàn Piano trực quan.',
+        'TNClub Sightread is a free web app for learning and practicing piano interactive sight-reading.',
       )}
     >
       <p>
         {t(
           'about.what.falling_notes_desc',
-          'TNClub Sightread phù hợp cho người mới bắt đầu – bạn có thể chơi các bản nhạc mà không bắt buộc phải đọc thạo nốt nhạc ngay. Ứng dụng tạo ra giao diện nốt rơi (Falling Notes) trực quan, tương tự như các trò chơi âm nhạc.',
+          'TNClub Sightread is great for beginners – you can play songs without needing to learn complex sheet music right away. TNClub Sightread creates an intuitive Falling Notes visualization, similar to popular rhythm games.',
         )}
       </p>
       <Sizer height={8} />
       <CaptionedImage
         src={`${import.meta.env.BASE_URL}images/mode_falling_notes_screenshot.png`}
-        caption={t(
-          'about.what.caption_falling_notes',
-          'Giao diện Nốt rơi (Falling Notes) kèm nhãn nốt',
-        )}
+        caption={t('about.what.caption_falling_notes', 'Falling Notes mode with note labels')}
         height={1628}
         width={1636}
         fetchPriority="high"
@@ -36,7 +33,7 @@ export function WhatSection() {
       <p>
         {t(
           'about.what.sheet_hero_desc',
-          'Dành cho những ai muốn học đọc bản nhạc (Sheet Music), TNClub Sightread cung cấp chế độ Sheet Hero. Chế độ này là cầu nối giữa sự đơn giản của nốt rơi và độ phức tạp của bản nhạc tiêu chuẩn. Các nốt được sắp xếp trên khuông nhạc, nhưng thời lượng được tối giản bằng đuôi nốt trực quan.',
+          'For those who want to learn sheet music, TNClub Sightread offers Sheet Hero (beta) mode. Sheet Hero acts as a bridge between falling notes and full sheet music. Notes are laid out on a musical staff with simplified timing.',
         )}
       </p>
       <Sizer height={8} />
@@ -44,7 +41,7 @@ export function WhatSection() {
         src={`${import.meta.env.BASE_URL}images/mode_sheet_hero_screenshot.png`}
         width={1980}
         height={1148}
-        caption={t('about.what.caption_sheet_hero', 'Giao diện Sheet Hero (beta) hỗ trợ luyện nốt')}
+        caption={t('about.what.caption_sheet_hero', 'Sheet Hero (beta) mode with note labels')}
       />
     </Article>
   )

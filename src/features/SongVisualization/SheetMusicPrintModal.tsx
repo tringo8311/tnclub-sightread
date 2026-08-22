@@ -58,7 +58,7 @@ export function SheetMusicPrintModal({ show, onClose, songMeta, song }: SheetMus
       ctx.fillStyle = COLOR_HEADER
       ctx.font = 'bold 42px "Playfair Display", "Georgia", "Times New Roman", serif'
       ctx.textAlign = 'center'
-      ctx.fillText(songMeta?.title || 'Sheet Nhạc Piano', PAGE_WIDTH / 2, 85)
+      ctx.fillText(songMeta?.title || 'Piano Sheet Music', PAGE_WIDTH / 2, 85)
 
       ctx.font = 'italic 500 16px "Georgia", "Times New Roman", serif'
       ctx.textAlign = 'right'
@@ -67,7 +67,7 @@ export function SheetMusicPrintModal({ show, onClose, songMeta, song }: SheetMus
       ctx.font = '500 13px sans-serif'
       ctx.fillStyle = COLOR_SUBTEXT
       ctx.textAlign = 'left'
-      ctx.fillText('BẢN PHỔ NHẠC PIANO (A4 FORMAT)', 80, 128)
+      ctx.fillText('PIANO SHEET MUSIC (A4 FORMAT)', 80, 128)
 
       // Decorative double divider line
       ctx.strokeStyle = '#94a3b8' // slate-400
@@ -119,7 +119,11 @@ export function SheetMusicPrintModal({ show, onClose, songMeta, song }: SheetMus
         // System Measure Number (Thin font)
         ctx.font = '300 11px sans-serif'
         ctx.fillStyle = COLOR_SUBTEXT
-        ctx.fillText(`[Nhịp ${sysIdx * measuresPerSystem + 1}]`, MARGIN_LEFT - 35, trebleTopY - 8)
+        ctx.fillText(
+          `[Measure ${sysIdx * measuresPerSystem + 1}]`,
+          MARGIN_LEFT - 35,
+          trebleTopY - 8,
+        )
 
         // Soft color for Leland font time signature to avoid harsh black appearance
         const COLOR_TIMESIG = '#475569' // slate-600

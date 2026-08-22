@@ -125,7 +125,7 @@ export default function SelectSongPage() {
                 onClick={() => setIsPlaylistModalOpen(true)}
               >
                 <ListMusic width={16} height={16} className="text-[var(--color-cyan-neon)]" />
-                <span>Danh sách phát</span>
+                <span>{t('songs.playlists', 'Playlists')}</span>
               </button>
 
               <button
@@ -136,7 +136,7 @@ export default function SelectSongPage() {
                 onClick={() => setIsFolderModalOpen(true)}
               >
                 <Folder width={16} height={16} className="text-[var(--color-cyan-neon)]" />
-                <span>Thư mục</span>
+                <span>{t('songs.folders', 'Folders')}</span>
               </button>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function SelectSongPage() {
               selectedKey={levelFilter}
               onSelectionChange={(key) => setLevelFilter(String(key))}
             >
-              <SelectItem id="All">Tất cả Trình độ</SelectItem>
+              <SelectItem id="All">{t('songs.all_levels', 'All Levels')}</SelectItem>
               <SelectItem id="Fresher">Fresher</SelectItem>
               <SelectItem id="Beginner">Beginner</SelectItem>
               <SelectItem id="Intermediate">Intermediate</SelectItem>
@@ -179,10 +179,10 @@ export default function SelectSongPage() {
               selectedKey={playlistFilter}
               onSelectionChange={(key) => setPlaylistFilter(String(key))}
             >
-              <SelectItem id="All">Tất cả Bài hát</SelectItem>
+              <SelectItem id="All">{t('songs.all_songs', 'All Songs')}</SelectItem>
               {playlists.map((pl) => (
                 <SelectItem key={pl.id} id={pl.id}>
-                  Playlist: {pl.name} ({pl.songIds.length})
+                  {t('songs.playlist', 'Playlist')}: {pl.name} ({pl.songIds.length})
                 </SelectItem>
               ))}
             </Select>
@@ -204,7 +204,9 @@ export default function SelectSongPage() {
                       : ''
                   }
                 />
-                <span className="hidden pr-1 text-sm font-medium lg:inline">Yêu thích</span>
+                <span className="hidden pr-1 text-sm font-medium lg:inline">
+                  {t('songs.favorites', 'Favorites')}
+                </span>
               </button>
               <div className={styles.layoutDivider}></div>
               <button

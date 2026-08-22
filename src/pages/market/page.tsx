@@ -3,23 +3,44 @@ import {
   CURATED_MARKET_SONGS,
   downloadMidiFileToDisk,
   MarketMidiItem,
-  saveMarketSongToIndexedDB,
 } from '@/features/market/marketStorage'
-import { TN_MIDI_STUDIO_SONGS } from '@/features/market/onlineMidiSearch'
+import { createMidiWorker, searchTracks } from '@/features/market/midiSqlWorker'
+import { getMidiUrl } from '@/features/market/midiUtils'
 import { parseMidi } from '@/features/parsers'
+import { usePersistedState } from '@/features/persist'
+import { activeProfileIdAtom, favoritesAtom } from '@/features/persist/persistence'
 import { SongPreviewModal } from '@/features/SongPreview'
 import { SongMetadata } from '@/types'
-import { useState } from 'react'
+import { useAtom, useAtomValue } from 'jotai'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { createSearchParams, useNavigate } from 'react-router'
+import type { WorkerHttpvfs } from 'sql.js-httpvfs'
 import { MarketCatalogControls, SourceFilterType } from './components/MarketCatalogControls'
 import { MarketHero } from './components/MarketHero'
 import { SongsGrid } from './components/SongsGrid'
 
 export default function MidiMarketPage() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
-  const [search, setSearch] = useState('')
-  const [sourceFilter, setSourceFilter] = useState<SourceFilterType>('All')
+  const activeProfileId = useAtomValue(activeProfileIdAtom)
+  const [favorites, setFavorites] = useAtom(favoritesAtom)
+
+  const [search, setSearch] = usePersistedState<string>(
+    `sightread_${activeProfileId}_market_search`,
+    '',
+  )
+  const [sourceFilter, setSourceFilter] = usePersistedState<SourceFilterType>(
+    `sightread_${activeProfileId}_market_source_filter`,
+    'Local',
+  )
+  const [favoritesOnly, setFavoritesOnly] = usePersistedState<boolean>(
+    `sightread_${activeProfileId}_market_favorites_only`,
+    false,
+  )
+  const [sqliteSongs, setSqliteSongs] = useState<MarketMidiItem[]>([])
+  const workerRef = useRef<WorkerHttpvfs | null>(null)
 
   // Direct URL Lookup states
   const [urlInput, setUrlInput] = useState('')
@@ -29,33 +50,103 @@ export default function MidiMarketPage() {
   const [previewSongMeta, setPreviewSongMeta] = useState<SongMetadata | undefined>(undefined)
   const [savedIds, setSavedIds] = useState<Record<string, boolean>>({})
 
-  // Combine local curated songs and TN Web MIDI Studio database
-  const allMarketSongs: MarketMidiItem[] = [
-    ...CURATED_MARKET_SONGS.map((song) => ({
-      ...song,
-      provider: song.provider || 'Thư viện ứng dụng',
-    })),
-    ...TN_MIDI_STUDIO_SONGS,
-  ]
+  // Initialize SQLite Web Worker on mount
+  useEffect(() => {
+    let isMounted = true
 
-  // Filter collection based on search term and selected source
-  const filteredSongs = allMarketSongs.filter((song) => {
+    async function initWorker() {
+      try {
+        const worker = await createMidiWorker()
+        if (!isMounted || !worker) return
+        workerRef.current = worker
+
+        // Fetch tracks with persisted search keyword
+        const initialTracks = await searchTracks(worker, search, 60)
+        if (!isMounted) return
+
+        const formatted = initialTracks.map((tr) => ({
+          id: `sqlite-${tr.id}`,
+          title: tr.title,
+          author: tr.artist,
+          category: 'Pop' as const,
+          level: 'Intermediate' as const,
+          duration: 180,
+          provider: 'TN Web MIDI Studio',
+          midiUrl: getMidiUrl(tr.file_path),
+          description: `${tr.artist} - ${tr.title} (Kho SQLite 17,256 bài).`,
+          tags: ['TN Studio', 'SQLite', tr.artist],
+        }))
+        setSqliteSongs(formatted)
+      } catch (err) {
+        console.warn('SQLite worker initialization fallback:', err)
+      }
+    }
+
+    initWorker()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  // Query SQLite Web Worker on search change
+  useEffect(() => {
+    let isCancelled = false
+    const worker = workerRef.current
+    if (!worker) return
+
+    const timer = setTimeout(async () => {
+      try {
+        const tracks = await searchTracks(worker, search, 60)
+        if (isCancelled) return
+
+        const formatted = tracks.map((tr) => ({
+          id: `sqlite-${tr.id}`,
+          title: tr.title,
+          author: tr.artist,
+          category: 'Pop' as const,
+          level: 'Intermediate' as const,
+          duration: 180,
+          provider: 'TN Web MIDI Studio',
+          midiUrl: getMidiUrl(tr.file_path),
+          description: `${tr.artist} - ${tr.title} (Kho SQLite 17,256 bài).`,
+          tags: ['TN Studio', 'SQLite', tr.artist],
+        }))
+        setSqliteSongs(formatted)
+      } catch (e) {
+        console.error('Error querying SQLite worker:', e)
+      }
+    }, 150)
+
+    return () => {
+      isCancelled = true
+      clearTimeout(timer)
+    }
+  }, [search])
+
+  // Active songs based on selected source filter
+  const activeSongs: MarketMidiItem[] =
+    sourceFilter === 'Local'
+      ? CURATED_MARKET_SONGS.map((song) => ({
+          ...song,
+          provider: song.provider || 'App Library',
+        }))
+      : sqliteSongs
+
+  // Filter collection based on search term and favorites toggle
+  const filteredSongs = activeSongs.filter((song) => {
+    const favKey = `${activeProfileId}_${song.id}`
+    const isFavorite = !!favorites[favKey]
+    if (favoritesOnly && !isFavorite) return false
+
     const query = search.trim().toLowerCase()
-    const matchSearch =
+    return (
       !query ||
       song.title.toLowerCase().includes(query) ||
       song.author.toLowerCase().includes(query) ||
       (song.description && song.description.toLowerCase().includes(query)) ||
       (song.tags && song.tags.some((t) => t.toLowerCase().includes(query)))
-
-    let matchSource = true
-    if (sourceFilter === 'Local') {
-      matchSource = song.provider !== 'TN Web MIDI Studio'
-    } else if (sourceFilter === 'TN Studio') {
-      matchSource = song.provider === 'TN Web MIDI Studio'
-    }
-
-    return matchSearch && matchSource
+    )
   })
 
   // Handle previewing a market song
@@ -82,27 +173,19 @@ export default function MidiMarketPage() {
     return `${baseUrl}${cleanPath}`
   }
 
-  // Handle adding song to App IndexedDB library
-  const handleSaveToApp = async (item: MarketMidiItem) => {
-    try {
-      const res = await fetch(getMidiFetchUrl(item.midiUrl))
-      const buffer = await res.arrayBuffer()
-      const songMeta: SongMetadata = {
-        id: item.id,
-        title: item.title,
-        source: 'downloaded',
-        author: item.author,
-        category: item.category,
-        level: item.level,
-        duration: item.duration,
-        difficulty: 0,
-        file: item.id,
-      }
-      await saveMarketSongToIndexedDB(songMeta, buffer)
-      setSavedIds((prev) => ({ ...prev, [item.id]: true }))
-    } catch (e) {
-      console.error(e)
-    }
+  // Handle direct Play Now navigation
+  const handlePlayNow = (item: MarketMidiItem) => {
+    const playSongSearch = createSearchParams({
+      id: item.midiUrl,
+      source: 'market',
+    }).toString()
+    navigate({ pathname: '/play', search: `?${playSongSearch}` })
+  }
+
+  // Handle toggling favorite status
+  const handleToggleFavorite = (item: MarketMidiItem) => {
+    const favKey = `${activeProfileId}_${item.id}`
+    setFavorites((prev) => ({ ...prev, [favKey]: !prev[favKey] }))
   }
 
   // Handle downloading .mid file to device disk
@@ -136,11 +219,9 @@ export default function MidiMarketPage() {
         file: fileId,
       }
 
-      await saveMarketSongToIndexedDB(uploadedMeta, buffer)
-      setSavedIds((prev) => ({ ...prev, [fileId]: true }))
       setPreviewSongMeta(uploadedMeta)
     } catch (e) {
-      console.error('Lỗi đọc file MIDI:', e)
+      console.error('Error reading MIDI file:', e)
     }
   }
 
@@ -158,7 +239,7 @@ export default function MidiMarketPage() {
         throw new Error(
           t(
             'market.directUrl.fetchError',
-            'Không thể tải file từ URL này. Hãy kiểm tra lại liên kết.',
+            'Could not fetch file from this URL. Please verify the link.',
           ),
         )
       }
@@ -184,7 +265,8 @@ export default function MidiMarketPage() {
       setPreviewSongMeta(urlSongMeta)
     } catch (err: any) {
       setUrlError(
-        err.message || t('market.directUrl.defaultError', 'Lỗi khi tải file MIDI từ đường dẫn.'),
+        err.message ||
+          t('market.directUrl.defaultError', 'Error fetching MIDI file from specified URL.'),
       )
     } finally {
       setUrlLoading(false)
@@ -222,15 +304,19 @@ export default function MidiMarketPage() {
             setSearch={setSearch}
             sourceFilter={sourceFilter}
             setSourceFilter={setSourceFilter}
+            favoritesOnly={favoritesOnly}
+            setFavoritesOnly={setFavoritesOnly}
           />
 
           <SongsGrid
             songs={filteredSongs}
-            savedIds={savedIds}
+            favorites={favorites}
+            activeProfileId={activeProfileId}
             searchQuery={search}
+            onToggleFavorite={handleToggleFavorite}
             onPreview={handlePreview}
             onDownload={handleDownloadFile}
-            onSave={handleSaveToApp}
+            onPlayNow={handlePlayNow}
           />
         </div>
 

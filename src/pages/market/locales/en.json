@@ -1,8 +1,12 @@
 {
   "hero": {
     "badge": "MIDI Music Hub & Direct Import",
-    "title": "Piano MIDI Sight-reading Library",
-    "description": "Explore our curated collection of Piano MIDI pieces or paste a public .mid file URL to practice sight-reading right away."
+    "title": "Piano MIDI Sight-reading Library & Hub",
+    "description": "Upload `.mid` files from your computer, drag & drop your tracks, or paste a public URL to practice sight-reading immediately.",
+    "dropTitle": "Drag & Drop MIDI Files (.mid / .midi) here",
+    "dropOr": "or ",
+    "dropBrowse": "click to browse files from your computer",
+    "portalsHeading": "🌐 Trusted Free External MIDI Search Portals"
   },
   "directUrl": {
     "placeholder": "Paste a public .mid / .midi link from the internet...",
@@ -14,22 +18,27 @@
   "controls": {
     "searchPlaceholder": "Search pieces, composers, or tags...",
     "searchAriaLabel": "Search curated songs",
-    "categories": {
-      "All": "All Categories",
-      "Classical": "Classical",
-      "Game OST": "Game OST",
-      "Jazz": "Jazz"
+    "favorites": "Favorites",
+    "favoritesOnly": "Show favorites only",
+    "favoritesOnlyActive": "Showing favorites only",
+    "sources": {
+      "local": "Curated Songs",
+      "tnStudio": "On TN Web MIDI Studio"
     }
   },
   "empty": {
     "title": "No MIDI songs found",
-    "description": "Try searching with a different keyword or filter category."
+    "description": "Try adjusting your search keywords or paste a .mid file URL in the search box above.",
+    "searchNotFound": "No results found for \"{{query}}\". You can quickly search on open MIDI portals below and paste the link into the app!",
+    "portalCta": "Explore MIDI tracks on TN Web MIDI Studio",
+    "googleCta": "Search on Google MIDI"
   },
   "songCard": {
     "preview": "Preview",
+    "playNow": "Play Now",
     "downloadTooltip": "Download .mid file to device",
-    "saved": "Saved",
-    "saveToApp": "Add to App",
+    "favoriteAdd": "Add to favorites",
+    "favoriteRemove": "Remove from favorites",
     "previewDescription": "Preview song {{title}}"
   }
 }

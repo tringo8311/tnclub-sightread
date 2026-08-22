@@ -12,8 +12,10 @@ import {
 import { useAtomValue } from 'jotai'
 import { AlertCircle, Folder, Music, Plus, RefreshCw, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function ManageFoldersForm({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation()
   const isScanning = useAtomValue<boolean | Promise<void>>(isScanningAtom)
   const folders = useAtomValue(localDirsAtom)
   const localSongs = useAtomValue(localSongsAtom)
@@ -64,17 +66,22 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
   if (!isFileSystemAccessSupported()) {
     return (
       <div className="relative flex flex-col gap-5 px-6 pt-6 pb-6 text-base">
-        <h1 className="text-2xl font-semibold text-gray-900">Add Music Folder</h1>
+        <h1 className="text-2xl font-semibold text-gray-900">
+          {t('songs.folderModal.title', 'Folder Management')}
+        </h1>
         <Sizer height={0} />
 
         <div className="flex items-center gap-3 rounded-md border border-red-300 bg-red-50 p-4 text-red-700">
           <AlertCircle size={20} />
           <div>
-            <p className="font-medium">Browser Not Supported</p>
+            <p className="font-medium">
+              {t('songs.folderModal.unsupportedTitle', 'Browser Not Supported')}
+            </p>
             <p className="text-sm">
-              Syncing folders is only supported in Chromium-based browsers like Chrome and Edge due
-              to lack of support for the File System Access API. Please switch to a supported
-              browser.
+              {t(
+                'songs.folderModal.unsupportedDesc',
+                'Syncing folders is only supported in Chromium-based browsers like Chrome and Edge due to lack of support for the File System Access API. Please switch to a supported browser.',
+              )}
             </p>
           </div>
         </div>
@@ -83,7 +90,7 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
           onClick={onClose}
           className="w-full cursor-pointer rounded-md bg-violet-600 py-2 text-white transition hover:bg-violet-700"
         >
-          Close
+          {t('songs.folderModal.close', 'Close')}
         </button>
       </div>
     )
@@ -92,13 +99,20 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
   return (
     <div className="bg-card text-card-foreground border-border mx-auto rounded-xl border px-6 pt-6 pb-6 shadow-lg">
       <div className="border-border mb-6 border-b pb-4">
-        <h2 className="text-foreground mb-1 text-xl font-semibold">Folder Management</h2>
-        <p className="text-muted-foreground text-sm">Organize your music collection</p>
+        <h2 className="text-foreground mb-1 text-xl font-semibold">
+          {t('songs.folderModal.title', 'Folder Management')}
+        </h2>
+        <p className="text-muted-foreground text-sm">
+          {t('songs.folderModal.subtitle', 'Organize your music collection')}
+        </p>
       </div>
 
       <div className="flex items-center justify-between gap-4">
-        <div className="text-muted-foreground text-[11px] font-semibold tracking-wider uppercase">
-          Folders ({folders.length})
+        <div className="text-muted-foreground text-[11px] font-medium tracking-wider uppercase">
+          {t('songs.folderModal.listTitle', {
+            count: folders.length,
+            defaultValue: `Folders (${folders.length})`,
+          })}
         </div>
         <div className="flex gap-3">
           <button
@@ -107,14 +121,14 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
             className="text-foreground/80 bg-foreground/5 hover:bg-foreground/10 active:bg-foreground/15 flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${showSpinner ? 'animate-spin' : ''}`} />
-            Scan Folders
+            {t('songs.folderModal.scan', 'Scan Folders')}
           </button>
           <button
             onClick={addFolder}
             className="bg-primary text-primary-foreground flex cursor-pointer items-center justify-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium transition-colors hover:opacity-90"
           >
             <Plus className="h-4 w-4" />
-            Add Folder
+            {t('songs.folderModal.add', 'Add Folder')}
           </button>
         </div>
       </div>
@@ -125,15 +139,22 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
       <div className="space-y-2">
         {needsPermission && (
           <p className="text-destructive text-xs">
-            Please rescan folders to grant access to your music files.
+            {t(
+              'songs.folderModal.permissionWarning',
+              'Please rescan folders to grant access to your music files.',
+            )}
           </p>
         )}
 
         {folders.length === 0 ? (
           <div className="py-8 text-center">
             <Folder className="text-muted-foreground/40 mx-auto mb-3 h-12 w-12" />
-            <p className="text-muted-foreground text-sm">No folders added yet</p>
-            <p className="text-muted-foreground/70 mt-1 text-xs">Add a folder to get started</p>
+            <p className="text-muted-foreground text-sm">
+              {t('songs.folderModal.empty', 'No folders added yet')}
+            </p>
+            <p className="text-muted-foreground/70 mt-1 text-xs">
+              {t('songs.folderModal.emptyDesc', 'Add a folder to get started')}
+            </p>
           </div>
         ) : (
           <div className="space-y-1">
@@ -153,7 +174,10 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
                       <div className="mt-1 flex items-center gap-1">
                         <Music className="text-muted-foreground h-3 w-3" />
                         <span className="text-muted-foreground text-xs">
-                          {songCount} {songCount === 1 ? 'song' : 'songs'}
+                          {t('songs.playlistModal.songsCount', {
+                            count: songCount,
+                            defaultValue: `${songCount} ${songCount === 1 ? 'song' : 'songs'}`,
+                          })}
                         </span>
                       </div>
                     </div>
@@ -178,9 +202,19 @@ export default function ManageFoldersForm({ onClose }: { onClose: () => void }) 
       {folders.length > 0 && (
         <div className="border-border mt-6 border-t pt-4">
           <p className="text-muted-foreground text-center text-xs">
-            Total:{' '}
             {folders.reduce((sum, folder) => sum + (localSongs.get(folder.id)?.length ?? 0), 0)}{' '}
-            songs across {folders.length} folders
+            {t('songs.playlistModal.songsCount', {
+              count: folders.reduce(
+                (sum, folder) => sum + (localSongs.get(folder.id)?.length ?? 0),
+                0,
+              ),
+              defaultValue: 'songs',
+            })}{' '}
+            / {folders.length}{' '}
+            {t('songs.folderModal.listTitle', {
+              count: folders.length,
+              defaultValue: 'folders',
+            })}
           </p>
         </div>
       )}

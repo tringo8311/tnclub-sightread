@@ -14,16 +14,38 @@ export default function PianoHistoryPage() {
   const [activeTab, setActiveTab] = useState<string>('all')
 
   const tabs = [
-    { id: 'all', label: 'Tất cả Bách Khoa', icon: <BookOpen className="h-4 w-4" /> },
-    { id: 'history', label: 'Lịch Sử & Tiến Hóa', icon: <History className="h-4 w-4" /> },
-    { id: 'types', label: 'Các Dòng Đàn Piano', icon: <Piano className="h-4 w-4" /> },
-    { id: 'craftsmanship', label: 'Cấu Tạo & Chế Tác', icon: <Hammer className="h-4 w-4" /> },
-    { id: 'brands', label: 'Thương Hiệu Huyền Thoại', icon: <Crown className="h-4 w-4" /> },
+    {
+      id: 'all',
+      label: t('theory.history_page.allTabs', 'All Encyclopedia'),
+      icon: <BookOpen className="h-4 w-4" />,
+    },
+    {
+      id: 'history',
+      label: t('theory.tabs.history', 'History & Evolution'),
+      icon: <History className="h-4 w-4" />,
+    },
+    {
+      id: 'types',
+      label: t('theory.tabs.types', 'Piano Types'),
+      icon: <Piano className="h-4 w-4" />,
+    },
+    {
+      id: 'craftsmanship',
+      label: t('theory.tabs.craftsmanship', 'Craftsmanship & Anatomy'),
+      icon: <Hammer className="h-4 w-4" />,
+    },
+    {
+      id: 'brands',
+      label: t('theory.tabs.brands', 'Legendary Brands'),
+      icon: <Crown className="h-4 w-4" />,
+    },
   ]
 
   return (
     <div className="bg-background text-foreground flex min-h-screen w-full flex-col">
-      <title>Lịch Sử & Bách Khoa Piano | TNClub Sightread</title>
+      <title>
+        {t('theory.history_page.title', 'Piano History & Encyclopedia')} | TNClub Sightread
+      </title>
       <AppBar />
 
       <main className="w-full flex-1">
@@ -43,18 +65,23 @@ export default function PianoHistoryPage() {
           </div>
 
           <div className="relative z-10 mx-auto max-w-5xl space-y-5 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/50 bg-amber-950/80 px-4 py-1.5 text-xs font-bold text-amber-300 shadow-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/50 bg-amber-950/80 px-4 py-1.5 text-xs font-medium text-amber-300 shadow-md">
               <Piano className="h-4 w-4 text-amber-400" />
-              <span>Nghệ Thuật, Lịch Sử & Chế Tác Piano</span>
+              <span>{t('theory.history_page.badge', 'Piano Art, History & Craftsmanship')}</span>
             </div>
 
-            <h1 className="text-3xl font-extrabold tracking-tight text-white drop-shadow-md sm:text-5xl">
-              Hành Trình <span className="text-amber-400">Đàn Piano Qua Các Thế Kỷ</span>
+            <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-md sm:text-5xl">
+              {t('theory.history_page.heroTitle', 'Journey of ')}
+              <span className="text-amber-400">
+                {t('theory.history_page.heroTitleHighlight', 'The Piano Through the Centuries')}
+              </span>
             </h1>
 
-            <p className="mx-auto max-w-3xl text-sm leading-relaxed font-medium text-zinc-200 drop-shadow sm:text-base">
-              Khám phá lịch sử tiến hóa từ Harpsichord đến Grand Piano hiện đại, nghệ thuật chế tác
-              thủ công đỉnh cao và các thương hiệu piano huyền thoại thế giới.
+            <p className="mx-auto max-w-3xl text-sm leading-relaxed font-normal text-zinc-200 drop-shadow sm:text-base">
+              {t(
+                'theory.history_page.heroSubtitle',
+                'Discover the evolutionary history from the Harpsichord to modern Grand Pianos, master craftsmanship, and legendary piano brands.',
+              )}
             </p>
 
             {/* Category Tabs */}
@@ -65,7 +92,7 @@ export default function PianoHistoryPage() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all duration-200 ${
+                    className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-medium transition-all duration-200 ${
                       isActive
                         ? 'scale-105 bg-amber-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.5)]'
                         : 'border border-slate-700/80 bg-slate-900/80 text-zinc-200 hover:border-amber-400/50 hover:bg-slate-800 hover:text-white'

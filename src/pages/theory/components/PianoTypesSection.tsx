@@ -9,64 +9,67 @@ export function PianoTypesSection() {
   const types = [
     {
       id: 'grand',
-      name: t('theory.types.grand.name', 'Grand Piano (Piano Đại / Nằm Ngang)'),
-      badge: t('theory.types.grand.badge', 'Âm thanh Concert đỉnh phong'),
+      name: t('theory.types.grand.name', 'Grand Piano (Horizontal Acoustic)'),
+      badge: t('theory.types.grand.badge', 'Pinnacle Concert Sound'),
       image: `${import.meta.env.BASE_URL}images/theory/grand_piano.png`,
       desc: t(
         'theory.types.grand.desc',
-        'Dây đàn và bảng cộng hưởng nằm ngang. Cơ chế búa nảy hoạt động dựa vào trọng lực tự nhiên, cho phép lặp nốt cực nhanh và sắc thái biểu cảm đỉnh cao nhất.',
+        'Strings and soundboard are positioned horizontally. The gravity-assisted action allows lightning-fast repetition and ultimate dynamic expression.',
       ),
       features: [
-        t('theory.types.grand.feature1', 'Chiều dài: 1.5m (Baby Grand) đến 2.7m+ (Concert Grand).'),
-        t('theory.types.grand.feature2', 'Nắp đàn mở tối ưu hóa độ vang âm học không gian lớn.'),
+        t('theory.types.grand.feature1', 'Length: 1.5m (Baby Grand) to 2.7m+ (Concert Grand).'),
+        t(
+          'theory.types.grand.feature2',
+          'Open lid design maximizes acoustic projection in large halls.',
+        ),
       ],
     },
     {
       id: 'upright',
-      name: t('theory.types.upright.name', 'Upright Piano (Piano Đứng / Dựng Đứng)'),
-      badge: t('theory.types.upright.badge', 'Lựa chọn tiêu chuẩn gia đình'),
+      name: t('theory.types.upright.name', 'Upright Piano (Vertical Acoustic)'),
+      badge: t('theory.types.upright.badge', 'Standard Home Choice'),
       image: `${import.meta.env.BASE_URL}images/theory/upright_piano.png`,
       desc: t(
         'theory.types.upright.desc',
-        'Dây đàn và bảng cộng hưởng dựng đứng vuông góc với sàn nhà. Thiết kế nhỏ gọn, sang trọng, là lựa chọn hoàn hảo cho không gian gia đình và lớp học nhạc.',
+        'Strings and soundboard run vertically perpendicular to the floor. Compact footprint, making it ideal for homes and music classrooms.',
       ),
       features: [
-        t('theory.types.upright.feature1', 'Cơ chế lò xo phản hồi búa nảy linh hoạt.'),
+        t('theory.types.upright.feature1', 'Spring-assisted hammer return mechanism.'),
         t(
           'theory.types.upright.feature2',
-          'Tiết kiệm diện tích mà vẫn giữ nguyên âm thanh cơ học.',
+          'Space-saving cabinet while preserving genuine acoustic sound.',
         ),
       ],
     },
     {
       id: 'digital',
-      name: t('theory.types.digital.name', 'Digital Piano (Piano Điện)'),
-      badge: t('theory.types.digital.badge', 'Hiện đại & Đa năng'),
+      name: t('theory.types.digital.name', 'Digital Piano'),
+      badge: t('theory.types.digital.badge', 'Modern & Versatile'),
       image: `${import.meta.env.BASE_URL}images/theory/digital_piano.png`,
       desc: t(
         'theory.types.digital.desc',
-        'Sử dụng công nghệ lấy mẫu âm thanh (Sampling) hoặc mô phỏng vật lý (Physical Modeling) từ các cây Concert Grand danh tiếng. Tích hợp tai nghe, USB MIDI và kết nối máy tính.',
+        'Employs high-resolution sampling or physical modeling from world-class concert grand pianos. Features headphone outputs, USB MIDI, and computer connectivity.',
       ),
       features: [
-        t('theory.types.digital.feature1', 'Phím nặng mô phỏng (Weighted Action) cảm giác thật.'),
+        t('theory.types.digital.feature1', 'Weighted action keybed simulates authentic feel.'),
         t(
           'theory.types.digital.feature2',
-          'Không cần lên dây định kỳ, dễ dàng thu âm và luyện tập ban đêm.',
+          'No tuning required, easy recording and silent night practice.',
         ),
       ],
     },
     {
       id: 'hybrid',
-      name: t('theory.types.hybrid.name', 'Hybrid Piano (Piano Lai Cơ - Điện)'),
-      badge: t('theory.types.hybrid.badge', 'Đỉnh cao công nghệ'),
+      name: t('theory.types.hybrid.name', 'Hybrid Piano (Acoustic-Digital)'),
+      badge: t('theory.types.hybrid.badge', 'Pinnacle Technology'),
       image: `${import.meta.env.BASE_URL}images/theory/hybrid_piano.png`,
       desc: t(
         'theory.types.hybrid.desc',
-        'Sự kết hợp hoàn hảo giữa bộ cơ gỗ thật 100% của Piano cơ acoustic và cảm biến quang học điện tử cao cấp.',
+        'Combines a real 100% wooden acoustic action with high-precision optical electronic sensors.',
       ),
       features: [
-        t('theory.types.hybrid.feature1', 'Cảm giác phím cơ thật 100% không sự khác biệt.'),
-        t('theory.types.hybrid.feature2', 'Tùy chỉnh âm lượng hoặc chơi im lặng qua tai nghe.'),
+        t('theory.types.hybrid.feature1', '100% real acoustic key action touch.'),
+        t('theory.types.hybrid.feature2', 'Adjustable volume or silent headphone playing.'),
       ],
     },
   ]
@@ -79,12 +82,12 @@ export function PianoTypesSection() {
         </div>
         <div>
           <h2 className="text-foreground text-2xl font-bold tracking-tight md:text-3xl">
-            {t('theory.types.title', 'Các Dòng Đàn Piano & Đặc Điểm')}
+            {t('theory.types.title', 'Piano Types & Characteristics')}
           </h2>
           <p className="text-muted-foreground text-xs md:text-sm">
             {t(
               'theory.types.subtitle',
-              'Khám phá sự đa dạng trong thiết kế và cơ chế tạo âm thanh',
+              'Explore diversity in cabinet design and acoustic mechanisms',
             )}
           </p>
         </div>

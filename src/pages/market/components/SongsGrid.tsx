@@ -5,20 +5,24 @@ import { SongCard } from './SongCard'
 
 interface SongsGridProps {
   songs: MarketMidiItem[]
-  savedIds: Record<string, boolean>
+  favorites: Record<string, boolean>
+  activeProfileId: string
   searchQuery?: string
+  onToggleFavorite: (item: MarketMidiItem) => void
   onPreview: (item: MarketMidiItem) => void
   onDownload: (item: MarketMidiItem) => void
-  onSave: (item: MarketMidiItem) => void
+  onPlayNow: (item: MarketMidiItem) => void
 }
 
 export function SongsGrid({
   songs,
-  savedIds,
+  favorites,
+  activeProfileId,
   searchQuery,
+  onToggleFavorite,
   onPreview,
   onDownload,
-  onSave,
+  onPlayNow,
 }: SongsGridProps) {
   if (songs.length === 0) {
     return <EmptyState searchQuery={searchQuery} />
@@ -29,16 +33,20 @@ export function SongsGrid({
       className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
       data-ui="market-songs-grid"
     >
-      {songs.map((item) => (
-        <SongCard
-          key={item.id}
-          item={item}
-          isSaved={!!savedIds[item.id]}
-          onPreview={onPreview}
-          onDownload={onDownload}
-          onSave={onSave}
-        />
-      ))}
+      {songs.map((item) => {
+        const favKey = `${activeProfileId}_${item.id}`
+        return (
+          <SongCard
+            key={item.id}
+            item={item}
+            isFavorite={!!favorites[favKey]}
+            onToggleFavorite={onToggleFavorite}
+            onPreview={onPreview}
+            onDownload={onDownload}
+            onPlayNow={onPlayNow}
+          />
+        )
+      })}
     </div>
   )
 }

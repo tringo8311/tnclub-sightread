@@ -7,22 +7,22 @@ export function MusicSelectionSection() {
 
   return (
     <Article
-      header={t('about.sections.music_selection', 'Thư viện bài hát')}
+      header={t('about.sections.music_selection', 'Music Catalog')}
       first={t(
         'about.musicSelection.intro',
-        'Thư viện nhạc của TNClub Sightread gồm hai phần chính: Bài hát có sẵn và Nhập file MIDI cá nhân.',
+        'The catalog consists of two components: built-in pieces and local MIDI file imports.',
       )}
     >
       <p>
         {t(
           'about.musicSelection.builtin',
-          'Ứng dụng tích hợp bộ sưu tập các bản nhạc Piano phổ biến và nhạc cổ điển công cộng.',
+          'Includes curated public domain classical and practice pieces.',
         )}
       </p>
       <p>
         {t(
           'about.musicSelection.upload',
-          'Bạn có thể tải trực tiếp file MIDI (.mid) của riêng mình lên ứng dụng để thực hành, dữ liệu được lưu an toàn ngay trên trình duyệt của bạn.',
+          'Upload your own .mid files directly to practice; files remain stored safely in your browser.',
         )}
       </p>
     </Article>

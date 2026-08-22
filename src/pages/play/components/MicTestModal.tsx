@@ -7,8 +7,9 @@ import {
 } from '@/features/audio/useMicrophonePitch'
 import { getNoteName } from '@/features/theory'
 import { useAtomValue } from 'jotai'
-import { AlertCircle, Loader2, Mic, MicOff, Play, Square } from 'lucide-react'
+import { AlertCircle, Loader2, Mic, MicOff, Square } from 'lucide-react'
 import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface MicTestModalProps {
   isOpen: boolean
@@ -18,6 +19,7 @@ interface MicTestModalProps {
 }
 
 export function MicTestModal(props: MicTestModalProps) {
+  const { t } = useTranslation()
   const { isOpen, onClose, isMicActive, onToggleMic } = props
   const detectedMidi = useAtomValue(detectedMicNoteAtom)
   const micVolume = useAtomValue(micVolumeAtom)
@@ -26,27 +28,41 @@ export function MicTestModal(props: MicTestModalProps) {
 
   const [isRecording, setIsRecording] = useState(false)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
+  const audioChunksRef = useRef<Blob[]>([])
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const handleRecord = () => {
     if (!stream) return
     setIsRecording(true)
-    setAudioUrl(null)
-    const recorder = new MediaRecorder(stream)
-    const chunks: Blob[] = []
-    recorder.ondataavailable = (e) => chunks.push(e.data)
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, { type: 'audio/webm' })
-      setAudioUrl(URL.createObjectURL(blob))
+    audioChunksRef.current = []
+
+    const mediaRecorder = new MediaRecorder(stream)
+    mediaRecorderRef.current = mediaRecorder
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) {
+        audioChunksRef.current.push(e.data)
+      }
+    }
+
+    mediaRecorder.onstop = () => {
+      const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' })
+      const url = URL.createObjectURL(audioBlob)
+      setAudioUrl(url)
       setIsRecording(false)
     }
-    recorder.start()
-    setTimeout(() => recorder.stop(), 3000)
+
+    mediaRecorder.start()
+
+    setTimeout(() => {
+      if (mediaRecorder.state === 'recording') {
+        mediaRecorder.stop()
+      }
+    }, 3000)
   }
 
-  // Volume bar is usually from 0 to 1, but typical voice/instrument is much lower
-  // Let's amplify it slightly for visual feedback. Max visual is clamped at 1.
-  const visualVolume = Math.min(100, Math.round(micVolume * 400))
+  const visualVolume = Math.min(100, Math.round(micVolume * 100))
 
   return (
     <Modal
@@ -58,7 +74,9 @@ export function MicTestModal(props: MicTestModalProps) {
     >
       <div className="relative flex flex-col text-base">
         <div className="flex items-center justify-between border-b border-white/5 px-6 py-5">
-          <h1 className="text-xl font-semibold text-white">Microphone Test</h1>
+          <h1 className="text-xl font-semibold text-white">
+            {t('play.micTest.title', 'Microphone Pitch Test')}
+          </h1>
         </div>
 
         <div className="flex flex-col gap-6 px-6 pt-5 pb-6">
@@ -82,7 +100,7 @@ export function MicTestModal(props: MicTestModalProps) {
             {/* Volume Meter */}
             <div className="w-full space-y-2">
               <div className="flex justify-between text-xs font-medium text-white/50 uppercase">
-                <span>Volume</span>
+                <span>{t('play.micTest.volume', 'Volume')}</span>
                 <span>{visualVolume}%</span>
               </div>
               <div className="h-2 w-full overflow-hidden rounded-full bg-black/40">
@@ -103,7 +121,9 @@ export function MicTestModal(props: MicTestModalProps) {
               }`}
             >
               <Mic className="size-4" />
-              {isMicActive ? 'Turn Off Microphone' : 'Turn On Microphone'}
+              {isMicActive
+                ? t('play.micTest.turnOff', 'Turn Off Microphone')
+                : t('play.micTest.turnOn', 'Turn On Microphone')}
             </button>
 
             {/* Debug Recording Section */}
@@ -117,12 +137,14 @@ export function MicTestModal(props: MicTestModalProps) {
                   {isRecording ? (
                     <>
                       <Loader2 className="size-3.5 animate-spin text-red-400" />
-                      <span className="text-red-400">Recording 3s...</span>
+                      <span className="text-red-400">
+                        {t('play.micTest.recording', 'Recording 3s...')}
+                      </span>
                     </>
                   ) : (
                     <>
                       <Square className="size-3.5" />
-                      Debug: Record & Listen
+                      {t('play.micTest.debug', 'Debug: Record & Listen')}
                     </>
                   )}
                 </button>
@@ -143,12 +165,13 @@ export function MicTestModal(props: MicTestModalProps) {
             <AlertCircle className="mt-0.5 size-4 shrink-0 text-amber-400" />
             <div className="space-y-1">
               <p className="font-semibold text-amber-300">
-                💡 Khuyên dùng cho Người mới bắt đầu (Beginner)
+                {t('play.micTest.tipTitle', '💡 Recommended for Beginners')}
               </p>
               <p className="leading-relaxed">
-                Nhận diện Microphone chỉ là giải pháp tạm thời dành cho Đàn Piano cơ (Acoustic) hoặc
-                khi chưa có dây nối. Để đạt độ chính xác 100% không độ trễ, hãy kết nối đàn qua{' '}
-                <strong>USB MIDI</strong> hoặc <strong>Bluetooth MIDI</strong>!
+                {t(
+                  'play.micTest.tipBody',
+                  'Microphone pitch detection is an interim option for Acoustic Pianos or when cables are unavailable. For 100% latency-free accuracy, please connect your piano via USB MIDI or Bluetooth MIDI!',
+                )}
               </p>
             </div>
           </div>
@@ -160,7 +183,7 @@ export function MicTestModal(props: MicTestModalProps) {
               onClick={onClose}
               className="rounded-lg bg-white/10 px-4 py-2 text-sm font-medium text-white/80 transition hover:bg-white/20"
             >
-              Close
+              {t('play.micTest.close', 'Close')}
             </button>
           </div>
         </div>

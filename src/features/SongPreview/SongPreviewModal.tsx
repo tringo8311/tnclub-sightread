@@ -44,6 +44,7 @@ export default function SongPreviewModal({
     if (event.key === 'Enter') {
       event.preventDefault()
       if (playSongSearch) {
+        player.stop()
         navigate({ pathname: '/play', search: `?${playSongSearch}` })
       }
     }
@@ -163,7 +164,10 @@ export default function SongPreviewModal({
                 data-ui="midi-preview-modal"
                 aria-label="Play Now"
                 className="h-10 w-10 p-0"
-                onPress={() => navigate({ pathname: '/play', search: `?${playSongSearch}` })}
+                onPress={() => {
+                  player.stop()
+                  navigate({ pathname: '/play', search: `?${playSongSearch}` })
+                }}
                 title="Play Now"
               >
                 <Play className="ml-0.5 h-5 w-5" />
@@ -255,7 +259,10 @@ export default function SongPreviewModal({
                     data-ui="midi-preview-modal"
                     aria-label="Play Now"
                     className="w-full"
-                    onPress={() => navigate({ pathname: '/play', search: `?${playSongSearch}` })}
+                    onPress={() => {
+                      player.stop()
+                      navigate({ pathname: '/play', search: `?${playSongSearch}` })
+                    }}
                   >
                     Play Now
                   </Button>

@@ -36,7 +36,71 @@
       "page_title": "Chọn bài hát",
       "subtitle": "Chọn một bài hát, tùy chỉnh thiết lập, và bắt đầu luyện tập",
       "search_placeholder": "Tìm kiếm tên bài",
-      "folders": "Thư mục"
+      "folders": "Thư mục",
+      "playlists": "Danh sách phát",
+      "all_levels": "Tất cả Trình độ",
+      "all_songs": "Tất cả Bài hát",
+      "favorites": "Yêu thích",
+      "addToPlaylist": "Thêm vào Playlist",
+      "playlist": "Playlist",
+      "empty": {
+        "title": "Không tìm thấy bài hát nào",
+        "subtitle": "Thử thay đổi từ khóa tìm kiếm hoặc chọn bộ lọc khác."
+      },
+      "table": {
+        "title": "Tên bài hát",
+        "author": "Tác giả",
+        "category": "Thể loại",
+        "level": "Cấp độ",
+        "progress": "Tiến độ",
+        "duration": "Thời lượng"
+      },
+      "playlistModal": {
+        "title": "Quản Lý Danh Sách Phát",
+        "subtitle": "Tạo và phân loại bài hát theo playlist",
+        "listTitle": "Danh sách ({{count}})",
+        "createBtn": "Tạo mới",
+        "titlePlaceholder": "Tên danh sách phát...",
+        "descPlaceholder": "Mô tả ngắn (tùy chọn)...",
+        "cancel": "Hủy",
+        "confirmCreate": "Tạo Playlist",
+        "empty": "Chưa có danh sách phát nào",
+        "songsCount": "{{count}} bài hát",
+        "emptyPlaylist": "Chưa có bài hát nào trong playlist này.",
+        "selectPrompt": "Chọn hoặc tạo một playlist để xem các bài hát"
+      },
+      "addToPlaylistModal": {
+        "title": "Thêm Vào Playlist",
+        "song": "Bài hát: ",
+        "empty": "Chưa có playlist nào. Hãy tạo mới bên dưới!",
+        "newTitlePlaceholder": "Tên playlist mới...",
+        "create": "Tạo",
+        "cancel": "Hủy",
+        "createNew": "Tạo Playlist mới"
+      },
+      "folderModal": {
+        "title": "Quản Lý Thư Mục",
+        "subtitle": "Tổ chức và quản lý kho nhạc cá nhân của bạn",
+        "listTitle": "Thư mục ({{count}})",
+        "scan": "Quét lại",
+        "add": "Thêm Thư mục",
+        "permissionWarning": "Vui lòng quét lại để cấp quyền truy cập file nhạc của bạn.",
+        "empty": "Chưa có thư mục nào",
+        "emptyDesc": "Thêm thư mục từ máy tính để bắt đầu",
+        "unsupportedTitle": "Trình duyệt không hỗ trợ",
+        "unsupportedDesc": "Đồng bộ thư mục chỉ được hỗ trợ trên các trình duyệt Chromium (như Chrome, Edge) do yêu cầu File System Access API. Vui lòng chuyển sang trình duyệt được hỗ trợ.",
+        "close": "Đóng"
+      }
+    },
+    "not_found": {
+      "title": "404 - Trang Không Tồn Tại",
+      "badge": "Lỗi 404 - Trang Không Tồn Tại",
+      "heading": "Rất tiếc! Giai Điệu Này Không Tồn Tại",
+      "description": "Đường dẫn bạn truy cập có thể đã bị thay đổi, xóa bỏ hoặc không đúng chính tả. Hãy khám phá các trang học piano hấp dẫn bên dưới!",
+      "home": "Về Trang Chủ",
+      "songs": "Thư Viện Bài Hát",
+      "theory": "Căn Bản Nhạc Lý & Hợp Âm",
+      "history": "Lịch Sử & Bách Khoa Piano"
     },
     "freeplay": {
       "stop_recording": "Dừng thu âm",

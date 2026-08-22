@@ -8,9 +8,9 @@ export function FeedbackSection() {
   const [copied, setCopied] = useState(false)
   const email = 'tnclubmanagement@gmail.com'
 
-  const mailtoSubject = encodeURIComponent('[TNClub Sightread] Phản hồi & Đóng góp ý kiến')
+  const mailtoSubject = encodeURIComponent('[TNClub Sightread] Feedback & Suggestions')
   const mailtoBody = encodeURIComponent(
-    'Xin chào TNClub Sightread Studio,\n\nTôi muốn gửi phản hồi / góp ý tính năng mới cho ứng dụng TNClub Sightread:\n\n- Nội dung góp ý / Báo lỗi:\n- Thiết bị / Trình duyệt đang dùng:\n\nXin cảm ơn!',
+    'Hi TNClub Sightread Studio,\n\nI would like to share feedback / feature suggestions for TNClub Sightread:\n\n- Feedback / Bug description:\n- Device / Browser:\n\nThank you!',
   )
   const mailtoUrl = `mailto:${email}?subject=${mailtoSubject}&body=${mailtoBody}`
 
@@ -21,19 +21,19 @@ export function FeedbackSection() {
   }
 
   return (
-    <Article header={t('about.sections.feedback', 'Phản hồi & Đóng góp')}>
+    <Article header={t('about.sections.feedback', 'Feedback & Community')}>
       <div className="space-y-4">
         <p className="text-muted-foreground leading-relaxed">
           {t(
             'about.feedback.text',
-            'Bạn phát hiện lỗi hoặc có góp ý tính năng mới? Chúng tôi luôn sẵn sàng lắng nghe mọi đóng góp từ bạn để hoàn thiện TNClub Sightread tốt hơn.',
+            'Found a bug or have a feature suggestion? Contributions and community feedback are welcome!',
           )}
         </p>
 
         <div className="border-border bg-foreground/5 space-y-3 rounded-2xl border p-4 sm:p-5">
           <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-amber-400 uppercase">
             <Mail className="h-4 w-4 text-amber-400" />
-            <span>Địa chỉ Email liên hệ trực tiếp:</span>
+            <span>{t('about.feedback.emailContact', 'Direct contact email address:')}</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -42,8 +42,8 @@ export function FeedbackSection() {
               <button
                 type="button"
                 onClick={handleCopy}
-                title="Sao chép Email"
-                aria-label="Sao chép Email"
+                title={t('about.feedback.copyEmail', 'Copy Email')}
+                aria-label={t('about.feedback.copyEmail', 'Copy Email')}
                 className="text-muted-foreground hover:bg-foreground/10 hover:text-foreground ml-2 cursor-pointer rounded-lg p-1 transition"
               >
                 {copied ? (
@@ -61,7 +61,7 @@ export function FeedbackSection() {
               className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-xs font-bold text-slate-950 shadow-md transition hover:bg-amber-400"
             >
               <Mail className="h-4 w-4" />
-              <span>Gửi Email Phản Hồi</span>
+              <span>{t('about.feedback.sendEmail', 'Send Feedback Email')}</span>
             </a>
           </div>
         </div>

@@ -43,7 +43,10 @@
     }
   },
   "feedback": {
-    "text": "Found a bug or have a feature suggestion? Contributions and community feedback are welcome!"
+    "text": "Found a bug or have a feature suggestion? Contributions and community feedback are welcome!",
+    "emailContact": "Direct contact email address:",
+    "copyEmail": "Copy Email",
+    "sendEmail": "Send Feedback Email"
   },
   "recommendations": {
     "intro": "Looking for a compatible keyboard?",
